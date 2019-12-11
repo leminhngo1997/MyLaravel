@@ -82,31 +82,33 @@
                         <div class="card-body">
                             <!-- Core sheet type -->
                             <!-- collapse 1 content -->
-                            <div class="card-body col-12 mb-4">
-                                <div class="mb-4">Chọn loại bảng điểm</div>
-                                <select id="dropdown-loai-bang-diem-quanlihoatdong" class="card border-secondary shadow h-100 py-2 col-6 mb-4">
-                                    @foreach($loaibangdiem as $key=>$value)
-                                    <option value="{{$value->id}}">{{$value->name}}</option>
-                                    @endforeach
-                                </select>
-                                <div class="mb-4">Chọn bảng điểm</div>
-                                <select id="dropdown-bang-diem-quanlihoatdong" class="card border-secondary shadow h-100 py-2 col-6 mb-4">
+                            <div class="">
+                                <div class="card-body col-12 mb-4">
+                                    <div class="mb-4">Chọn loại bảng điểm</div>
+                                    <select id="dropdown-loai-bang-diem-quanlihoatdong" class="card border-secondary shadow h-100 py-2 col-6 mb-4">
+                                        @foreach($loaibangdiem as $key=>$value)
+                                        <option value="{{$value->id}}">{{$value->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="mb-4">Chọn bảng điểm</div>
+                                    <select id="dropdown-bang-diem-quanlihoatdong" class="card border-secondary shadow h-100 py-2 col-6 mb-4">
+                                        {{--  --}}
+                                    </select>
+                                    <div class="mb-4">Chọn tiêu chí</div>
+                                    <select id="dropdown-tieu-chi-quanlihoatdong" class="card border-secondary shadow h-100 py-2 col-6 mb-4">
                                     {{--  --}}
-                                </select>
-                                <div class="mb-4">Chọn tiêu chí</div>
-                                <select id="dropdown-tieu-chi-quanlihoatdong" class="card border-secondary shadow h-100 py-2 col-6 mb-4">
-                                   {{--  --}}
-                                </select>
-                                <div class="mb-4">Chọn phong trào</div>
-                                <select id="dropdown-phong-trao-quanlihoatdong" class="card border-secondary shadow h-100 py-2 col-6 mb-4">
-                                    {{-- <option value="1">hoạt động 1</option>
-                                    <option value="2">hoạt động 2</option> --}}
-                                </select>
-                                <div class="mb-4">Nhập tên hoạt động</div>
-                                <input type="text" class="card border-secondary shadow h-100 py-2 col-6 mb-4" />
-                                <div class="mb-4">Nhập điểm hoạt động</div>
-                                <input type="text" class="card border-secondary shadow h-100 py-2 col-6 mb-4" />
-                                <input type="submit" value="Thêm" class="btn btn-outline-secondary py-2 shadow" />
+                                    </select>
+                                    <div class="mb-4">Chọn phong trào</div>
+                                    <select id="dropdown-phong-trao-quanlihoatdong" class="card border-secondary shadow h-100 py-2 col-6 mb-4">
+                                        {{-- <option value="1">hoạt động 1</option>
+                                        <option value="2">hoạt động 2</option> --}}
+                                    </select>
+                                    <div class="mb-4">Nhập tên hoạt động</div>
+                                    <input type="text" class="card border-secondary shadow h-100 py-2 col-6 mb-4" />
+                                    <div class="mb-4">Nhập điểm hoạt động</div>
+                                    <input type="text" class="card border-secondary shadow h-100 py-2 col-6 mb-4" />
+                                    <input type="submit" value="Thêm" class="btn btn-outline-secondary py-2 shadow" />
+                                </div>
                             </div>
 
                             <table class="border table table-striped">
@@ -137,7 +139,6 @@
                                         <td>Ý thức tham gia học tập</td>
                                         <td>20</td>
                                     </tr> --}}
-
                                 </tbody>
                             </table>
                             <div class="mb-4">
@@ -149,17 +150,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Earnings (Monthly) Card Example -->
-    <div class="col-xl-4 col-md-12 col-sm-12 mb-4 ">
-        <div class="col-12">
-
-        </div>
-        <div class="col-12 mt-3">
-
-        </div>
-    </div>
-
 </div>
 <!-- /.container-fluid -->
 <script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
