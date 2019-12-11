@@ -102,6 +102,10 @@
                                     {{-- <option value="1">hoạt động 1</option>
                                     <option value="2">hoạt động 2</option> --}}
                                 </select>
+                                <div>Chọn đối tượng</div>
+                                <div style="color: red">( Mặc định là TẤT CẢ )
+                                        VD: Nếu nhiều lớp thì HTTT2010-MTT2010-CNPM2010...</div>
+                                <input value="Tất cả" type="text" class="card border-secondary shadow h-100 py-2 col-6 mb-4" />
                                 <div class="mb-4">Nhập tên hoạt động</div>
                                 <input type="text" class="card border-secondary shadow h-100 py-2 col-6 mb-4" />
                                 <div class="mb-4">Nhập điểm hoạt động</div>
@@ -125,19 +129,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="show-hoat-dong">
-                                    {{-- <tr>
-                                        <td>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" class="check">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>2019-2020-1</td>
-                                        <td>Ý thức tham gia học tập</td>
-                                        <td>20</td>
-                                    </tr> --}}
-
+                                        {{--  --}}
                                 </tbody>
                             </table>
                             <div class="mb-4">
