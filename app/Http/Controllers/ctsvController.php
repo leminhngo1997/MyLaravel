@@ -77,6 +77,7 @@ class ctsvController extends Controller
         //insert table bangdiem_doituong
         $current_bangdiem = DB::table('bangdiem')->orderBy('id','DESC')->first()->id;
         $doituong = $request->doituong;
+        dd($doituong);
         foreach($doituong as $key=>$value){
             DB::table('bangdiem_doituong')->insert(array(
                 //insert nhiều dòng 
@@ -126,5 +127,40 @@ class ctsvController extends Controller
         Session::put('message','Xóa phong trào thành công.');
         return Redirect::to('quanliphongtrao');
     }
+    //--Thêm hoạt động
+    public function insert_hoat_dong_quanlihoatdong(Request $request){
+        //insert table hoatdong
+        $data_hoatdong = array();
+        $nguoi_tao_duyet = Auth::user()->name;
+        $data_hoatdong['name'] = $request->input_name_hoatdong;
+        $data_hoatdong['diem'] = $request->input_diem_hoatdong;
+        $data_hoatdong['doituong'] = $request->input_doituong_hoatdong;
+        $data_hoatdong['ngaybatdau'] = $request->input_ngaybatdau_hoatdong;
+        $data_hoatdong['ngayketthuc'] = $request->input_ngayketthuc_hoatdong;
+        $data_hoatdong['nguoitao'] = $nguoi_tao_duyet;
+        $data_hoatdong['nguoiduyet'] = $nguoi_tao_duyet;
+        $data_hoatdong['status_clone'] = 1;
+        DB::table('hoatdong')->insert($data_hoatdong);
+        //insert table phongtrao_hoatdong
+        $data_phongtrao_hoatdong = array();
+        $current_hoat_dong_id = DB::table('hoatdong')->orderBy('id','DESC')->first()->id;
+        $data_phongtrao_hoatdong['phongtrao_id'] = $request->input_phongtrao_id_hoatdong;
+        $data_phongtrao_hoatdong['hoatdong_id'] = $current_hoat_dong_id;
+        $data_phongtrao_hoatdong['status'] = 1;
+        $data_phongtrao_hoatdong['nguoiduyet'] = $nguoi_tao_duyet;
+        DB::table('phongtrao_hoatdong')->insert($data_phongtrao_hoatdong);
+        Session::put('message','Thêm hoạt động thành công.');
+        return Redirect::to('quanlihoatdong');
+    }
+    //--Xóa hoạt động
+    public function delete_hoat_dong_quanlihoatdong(Request $request){
+        //delete 2 table phongtrao_hoatdong & hoatdong
+        $check = $request->check;
+        dd($check);
+        DB::table('phongtrao_hoatdong')->where('hoatdong_id',$check)->delete();
+        DB::table('hoatdong')->where('id',$check)->delete();
+        Session::put('message','Xóa hoạt động thành công.');
+        return Redirect::to('quanlihoatdong');
+    }    
 
 }

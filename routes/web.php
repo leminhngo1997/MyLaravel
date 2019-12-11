@@ -60,6 +60,13 @@ Route::post('/them-phong-trao-quanliphongtrao','ctsvController@insert_phong_trao
 //-- -- --Xóa phong trào
 Route::get('/delete-phong-trao-quanliphongtrao/{id}','ctsvController@delete_phong_trao_quanliphongtrao' );
 
+//-- --Quản lý hoạt động
+//-- -- --Thêm hoạt động
+Route::post('/them-hoat-dong-quanlihoatdong','ctsvController@insert_hoat_dong_quanlihoatdong');
+//-- -- --Xóa hoạt động
+Route::post('/xoa-hoat-dong-quanlihoatdong','ctsvController@delete_hoat_dong_quanlihoatdong');
+
+
 //-- --Quản lý tiêu chí
 Route::get('quanlitieuchi',['as'=>'quanlitieuchi','uses'=>'ctsvController@get_value_quanlitieuchi']);
 //-- --Quản lý phong trào
