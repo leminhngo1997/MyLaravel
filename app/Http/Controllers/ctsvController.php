@@ -156,9 +156,12 @@ class ctsvController extends Controller
     public function delete_hoat_dong_quanlihoatdong(Request $request){
         //delete 2 table phongtrao_hoatdong & hoatdong
         $check = $request->check;
-        dd($check);
-        DB::table('phongtrao_hoatdong')->where('hoatdong_id',$check)->delete();
-        DB::table('hoatdong')->where('id',$check)->delete();
+        //dd($check);
+        foreach($check as $key => $value){
+            //dd($value);
+            DB::table('phongtrao_hoatdong')->where('hoatdong_id',$value)->delete();
+            DB::table('hoatdong')->where('id',$value)->delete();
+        }
         Session::put('message','Xóa hoạt động thành công.');
         return Redirect::to('quanlihoatdong');
     }    

@@ -82,6 +82,10 @@
                         <div class="card-body">
                             <!-- Core sheet type -->
                             <!-- collapse 1 content -->
+                            <div class="row ">
+
+                            <!-- tim kiem hoat dong -->
+                            <div class="card-body col-6 mb-4">
                             <form method="POST" role="form" action="{{URL::to('/them-hoat-dong-quanlihoatdong')}}">
                                 <?php
                                     $message = Session::get('message');
@@ -94,24 +98,24 @@
                                 <div class="card-body col-12 mb-4">
                                     <div class="mb-4">Chọn loại bảng điểm</div>
                                     <select id="dropdown-loai-bang-diem-quanlihoatdong"
-                                        class="card border-secondary shadow h-100 py-2 col-6 mb-4">
+                                        class="card border-secondary shadow py-2 col-8 mb-4">
                                         @foreach($loaibangdiem as $key=>$value)
                                         <option value="{{$value->id}}">{{$value->name}}</option>
                                         @endforeach
                                     </select>
                                     <div class="mb-4">Chọn bảng điểm</div>
                                     <select id="dropdown-bang-diem-quanlihoatdong"
-                                        class="card border-secondary shadow h-100 py-2 col-6 mb-4">
+                                        class="card border-secondary shadow py-2 col-8 mb-4">
                                         {{--  --}}
                                     </select>
                                     <div class="mb-4">Chọn tiêu chí</div>
                                     <select id="dropdown-tieu-chi-quanlihoatdong"
-                                        class="card border-secondary shadow h-100 py-2 col-6 mb-4">
+                                        class="card border-secondary shadow py-2 col-8 mb-4">
                                         {{--  --}}
                                     </select>
                                     <div class="mb-4">Chọn phong trào</div>
                                     <select name="input_phongtrao_id_hoatdong" id="dropdown-phong-trao-quanlihoatdong"
-                                        class="card border-secondary shadow h-100 py-2 col-6 mb-4">
+                                        class="card border-secondary shadow py-2 col-8 mb-4">
                                         {{-- <option value="1">hoạt động 1</option>
                                         <option value="2">hoạt động 2</option> --}}
                                     </select>
@@ -119,54 +123,24 @@
                                     <div style="color: red">( Mặc định là TẤT CẢ )
                                         VD: Nếu nhiều lớp thì HTTT2010-MTT2010-CNPM2010...</div>
                                     <input name="input_doituong_hoatdong" value="Tất cả" type="text"
-                                        class="card border-secondary shadow h-100 py-2 col-6 mb-4" />
+                                        class="card border-secondary shadow py-2 col-8 mb-4" />
                                     <div class="mb-4">Nhập tên hoạt động</div>
                                     <input name="input_name_hoatdong" type="text"
-                                        class="card border-secondary shadow h-100 py-2 col-6 mb-4" />
+                                        class="card border-secondary shadow py-2 col-8 mb-4" />
                                     <div class="mb-4">Nhập điểm hoạt động</div>
                                     <input name="input_diem_hoatdong" type="text"
-                                        class="card border-secondary shadow h-100 py-2 col-6 mb-4" />
+                                        class="card border-secondary shadow py-2 col-8 mb-4" />
                                     <div class="mb-4">Ngày bắt đầu</div>
                                     <input name="input_ngaybatdau_hoatdong" type="date" placeholder="yyyy-mm-dd"
-                                        class="form-custom border-secondary h-100 py-2 col-6 mb-4">
+                                        class="form-custom border-secondary py-2 col-8 mb-4">
                                     <div class="mb-4">Ngày kết thúc</div>
                                     <input name="input_ngayketthuc_hoatdong" type="date" placeholder="yyyy-mm-dd"
-                                        class="form-custom border-secondary h-100 py-2 col-6 mb-4">
-                                    <input type="submit" value="Thêm" class="btn btn-outline-secondary py-2 shadow" />
+                                        class="form-custom border-secondary py-2 col-8 mb-4"><br>
+                                    <input type="submit" value="Thêm" class="btn btn-outline-secondary py-2 shadow mb-4" />
                                 </div>
                             </form>
-                            <div class="row">
-                            <div class="card-body col-6 mb-4">
-                                <div class="mb-4">Chọn loại bảng điểm</div>
-                                <select id="dropdown-loai-bang-diem-quanlihoatdong" class="card border-secondary shadow py-2 col-12 mb-4">
-                                    @foreach($loaibangdiem as $key=>$value)
-                                    <option value="{{$value->id}}">{{$value->name}}</option>
-                                    @endforeach
-                                </select>
-                                <div class="mb-4">Chọn bảng điểm</div>
-                                <select id="dropdown-bang-diem-quanlihoatdong" class="card border-secondary shadow py-2 col-12 mb-4">
-                                    {{--  --}}
-                                </select>
-                                <div class="mb-4">Chọn tiêu chí</div>
-                                <select id="dropdown-tieu-chi-quanlihoatdong" class="card border-secondary shadow py-2 col-12 mb-4">
-                                   {{--  --}}
-                                </select>
-                                <div class="mb-4">Chọn phong trào</div>
-                                <select id="dropdown-phong-trao-quanlihoatdong" class="card border-secondary shadow py-2 col-12 mb-4">
-                                    {{-- <option value="1">hoạt động 1</option>
-                                    <option value="2">hoạt động 2</option> --}}
-                                </select>
-                                <div>Chọn đối tượng</div>
-                                <div style="color: red">( Mặc định là TẤT CẢ )
-                                        VD: Nếu nhiều lớp thì HTTT2010-MTT2010-CNPM2010...</div>
-                                <input value="Tất cả" type="text" class="card border-secondary shadow py-2 col-12 mb-4" />
-                                <div class="mb-4">Nhập tên hoạt động</div>
-                                <input type="text" class="card border-secondary shadow py-2 col-12 mb-4" />
-                                <div class="mb-4">Nhập điểm hoạt động</div>
-                                <input type="text" class="card border-secondary shadow py-2 col-12 mb-4" />
-                                <input type="submit" value="Thêm" class="btn btn-outline-secondary py-2 shadow" />
-                            </div>
-
+                                </div>
+                            
                             <!-- import excel (hoat dong) -->
                             <div class="card-body col-6 mb-4 border-left">
                                 <div class="mb-4">Thêm hoạt động bằng Excel</div>                           
@@ -197,9 +171,10 @@
                             </div>
 
                             <!-- bảng hiển thị danh sách hoạt động -->
-                            <table class="border table table-striped">
+                            
                                 <form method="POST" role="form"
                                     action="{{URL::to('/xoa-hoat-dong-quanlihoatdong')}}">
+                                    <table class="border table table-striped">
                                     <?php
                                             $message = Session::get('message');
                                             if($message){
@@ -225,10 +200,10 @@
                                     <tbody id="show-hoat-dong">
                                         {{--  --}}
                                     </tbody>
+                                </table>
                                     <input type="submit" value="Xóa" class="btn btn-outline-secondary py-2 shadow">
                                 </form>
-
-                            </table>
+                            
 
 
 
@@ -363,7 +338,7 @@
                                     <td>
                                         <div class="checkbox">
                                             <label>
-                                                <input value="{{` + element.id + `}}" name="check[]" type="checkbox" class="check">
+                                                <input value="` + element.id + `" name="check[]" type="checkbox" class="check">
                                             </label>
                                         </div>
                                     </td>
