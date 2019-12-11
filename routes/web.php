@@ -57,7 +57,8 @@ Route::get('/delete-tieu-chi-quanlitieuchi/{id}','ctsvController@delete_tieu_chi
 //-- --Quản lý phong trào
 //-- -- --Thêm phong trào
 Route::post('/them-phong-trao-quanliphongtrao','ctsvController@insert_phong_trao_quanliphongtrao');
-
+//-- -- --Xóa phong trào
+Route::get('/delete-phong-trao-quanliphongtrao/{id}','ctsvController@delete_phong_trao_quanliphongtrao' );
 
 //-- --Quản lý tiêu chí
 Route::get('quanlitieuchi',['as'=>'quanlitieuchi','uses'=>'ctsvController@get_value_quanlitieuchi']);
@@ -99,7 +100,5 @@ Route::post('get-bang-diem-quanliphongtrao','APIController@GetBangDiem_quanlipho
 Route::post('get-tieu-chi-quanlitieuchi','APIController@GetTieuChi_quanlitieuchi');
 Route::post('get-tieu-chi-quanliphongtrao','APIController@GetTieuChi_quanliphongtrao');
 //-- -- --Get phong trào
-// import excel
-Route::get('/import_excel', 'ImportExcelController@index');
-Route::post('/import_excel/import', 'ImportExcelController@import');
+Route::post('get-phong-trao-quanliphongtrao','APIController@GetPhongTrao_quanliphongtrao');
 

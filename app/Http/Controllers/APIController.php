@@ -58,4 +58,10 @@ class APIController extends Controller
         $tieu_chi = DB::table('tieuchi')->where('bangdiem_id', $bang_diem_id)->get();
         return $tieu_chi;
     }
+    function GetPhongTrao_quanliphongtrao(Request $request){
+        $tieu_chi_id = $request->tieu_chi_id;
+        $phong_trao = DB::table('phongtrao')->join('tieuchi_phongtrao', 'phongtrao.id', '=', 'tieuchi_phongtrao.phongtrao_id')
+        ->where('tieuchi_phongtrao.tieuchi_id', $tieu_chi_id)->get();
+        return $phong_trao;
+    }
 }

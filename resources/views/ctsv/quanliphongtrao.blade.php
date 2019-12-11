@@ -78,7 +78,7 @@
                             </button>
                         </h5>
                     </div>
-                    <form method="POST" role="form" action="{{URL::to('/them-tieu-chi-quanlitieuchi')}}">
+                    <form method="POST" role="form" action="{{URL::to('/them-phong-trao-quanliphongtrao')}}">
                         <?php
                             $message = Session::get('message');
                             if($message){
@@ -108,13 +108,16 @@
                                         @endforeach --}}
                                     </select>
                                     <div class="mb-4">Chọn tiêu chí</div>
-                                    <select id="dropdown-tieu-chi-quanliphongtrao" class="card border-secondary shadow h-100 py-2 col-6 mb-4">
+                                    <select name="input_tieuchi_id" id="dropdown-tieu-chi-quanliphongtrao"
+                                        class="card border-secondary shadow h-100 py-2 col-6 mb-4">
                                         {{-- <option value="1">Ý thức học tập</option> --}}
                                     </select>
                                     <div class="mb-4">Nhập tên phong trào</div>
-                                    <input name="input_name_phongtrao" type="text" class="card border-secondary shadow h-100 py-2 col-6 mb-4" />
+                                    <input name="input_name_phongtrao" type="text"
+                                        class="card border-secondary shadow h-100 py-2 col-6 mb-4" />
                                     <div class="mb-4">Nhập điểm phong trào tối đa</div>
-                                    <input name="input_maxphongtrao_phongtrao" type="text" class="card border-secondary shadow h-100 py-2 col-6 mb-4" />
+                                    <input name="input_maxphongtrao_phongtrao" type="text"
+                                        class="card border-secondary shadow h-100 py-2 col-6 mb-4" />
 
                                     <input type="submit" value="Thêm" class="btn btn-outline-secondary py-2 shadow">
 
@@ -128,12 +131,12 @@
                                             <th scope="col">Điểm tối đa</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
+                                    <tbody id="show-phong-trao">
+                                        {{-- <tr>
                                             <td>2019-2020-1</td>
                                             <td>phong trào đoàn hội</td>
                                             <td>20</td>
-                                        </tr>
+                                        </tr> --}}
 
                                     </tbody>
                                 </table>
@@ -250,6 +253,47 @@
         });
     });
 
+    // get API phong trào -- quản lí phong trào
+
+
+    $('#dropdown-tieu-chi-quanliphongtrao').change(function (e) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        e.preventDefault();
+        var getSelected = $(this).children("option:selected").val();
+        $.ajax({
+            type: 'POST',
+
+            url: "{{url('get-phong-trao-quanliphongtrao')}}",
+
+            data: {
+                tieu_chi_id: getSelected
+            },
+
+            success: function (data) {
+                $('.delete-row-phongtrao').remove();
+                data.forEach(element => {
+                    html = `<tr class = "delete-row-phongtrao">
+                                    <td>` + element.id + `</td>    
+                                    <td class="return-data"><a href = "#">` + element.name + `</a></td>
+                                    <td class="return-data">` + element.maxphongtrao + `</td>
+                                    <td > 
+                                        <a onclick="return confirm('Bạn chắn chắc muốn xóa không ?')"
+                                            href="{{URL::to('/delete-phong-trao-quanliphongtrao/` + element.id + `')}}}" class="active"
+                                            ui-toggle-class="">
+                                            <i class="fa fa-times text-danger text"></i>
+                                        </a>
+                                    </td>
+                                </tr>`;
+                    $('#show-phong-trao').append(html);
+                });
+            }
+
+        });
+    });
 </script>
 
 @endsection

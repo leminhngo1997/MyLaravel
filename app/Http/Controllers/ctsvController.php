@@ -66,7 +66,7 @@ class ctsvController extends Controller
     }
     //--Thêm bảng điểm
     public function insert_bang_diem(Request $request){
-        //insert bảng điểm
+        //insert table bangdiem
         $data_bangdiem = array();
         $data_bangdiem['name'] = $request->input_name_bangdiem;
         $data_bangdiem['loaibangdiem_id'] = $request->input_loaibangdiem_id_bangdiem;
@@ -74,7 +74,7 @@ class ctsvController extends Controller
         $data_bangdiem['ngaybatdau'] = $request->input_ngaybatdau_bangdiem;
         $data_bangdiem['ngayketthuc'] = $request->input_ngayketthuc_bangdiem;
         DB::table('bangdiem')->insert($data_bangdiem);
-        //insert bangdiem_doituong
+        //insert table bangdiem_doituong
         $current_bangdiem = DB::table('bangdiem')->orderBy('id','DESC')->first()->id;
         $doituong = $request->doituong;
         foreach($doituong as $key=>$value){
@@ -88,6 +88,7 @@ class ctsvController extends Controller
     }    
     //--Thêm tiêu chí
     public function insert_tieu_chi_quanlitieuchi(Request $request){
+        //insert table tieuchi
         $data = array();
         $data['name'] = $request->input_name_tieuchi;
         $data['bangdiem_id'] = $request->input_bangdiem_id_tieuchi;
@@ -104,11 +105,25 @@ class ctsvController extends Controller
     }
     //--Thêm phong trào
     public function insert_phong_trao_quanliphongtrao(Request $request){
+        //insert table phongtrao
         $data = array();
         $data['name'] = $request->input_name_phongtrao;
         $data['maxphongtrao'] = $request->input_maxphongtrao_phongtrao;
         DB::table('phongtrao')->insert($data);
+        //insert table tieuchi_phongtrao
+        $data_tieuchi_phongtrao = array();
+        $current_phongtrao_id = DB::table('phongtrao')->orderBy('id','DESC')->first()->id;
+        $data_tieuchi_phongtrao['phongtrao_id'] = $current_phongtrao_id;
+        $data_tieuchi_phongtrao['tieuchi_id'] = $request->input_tieuchi_id;
+        DB::table('tieuchi_phongtrao')->insert($data_tieuchi_phongtrao);
         Session::put('message','Thêm phong trào thành công.');
+        return Redirect::to('quanliphongtrao');
+    }
+    //--Xóa phong trào
+    public function delete_phong_trao_quanliphongtrao($id){
+        DB::table('tieuchi_phongtrao')->where('phongtrao_id',$id)->delete();
+        DB::table('phongtrao')->where('id',$id)->delete();
+        Session::put('message','Xóa phong trào thành công.');
         return Redirect::to('quanliphongtrao');
     }
 

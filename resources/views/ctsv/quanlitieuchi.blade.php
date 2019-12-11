@@ -214,45 +214,45 @@
         });
     });
     // get API tiêu chí -- quản lí tiêu chí
-    
+
 
     $('#dropdown-bang-diem-quanlitieuchi').change(function (e) {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        e.preventDefault();
-        var getSelected = $(this).children("option:selected").val();
-        $.ajax({
-            type: 'POST',
+    $.ajaxSetup({
+    headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+    });
+    e.preventDefault();
+    var getSelected = $(this).children("option:selected").val();
+    $.ajax({
+    type: 'POST',
 
-            url: "{{url('get-tieu-chi-quanlitieuchi')}}",
+    url: "{{url('get-tieu-chi-quanlitieuchi')}}",
 
-            data: {
-                bang_diem_id: getSelected
-            },
+    data: {
+    bang_diem_id: getSelected
+    },
 
-            success: function (data) {
-                $('.delete-row').remove();
-                data.forEach(element => {
-                    html = `<tr class = "delete-row" >
-                                    <td>` + element.id + `</td>    
-                                    <td class="return-data"><a href = "#">` + element.name + `</a></td>
-                                    <td class="return-data">` + element.maxtieuchi + `</td>
-                                    <td > 
-                                            <a onclick="return confirm('Bạn chắn chắc muốn xóa không ?')"
-                                                href="{{URL::to('/delete-tieu-chi-quanlitieuchi/` + element.id + `')}}}" class="active"
-                                                ui-toggle-class="">
-                                                <i class="fa fa-times text-danger text"></i>
-                                            </a>
-                                    </td>
-                                </tr>`;
-                    $('#show-tieu-chi').append(html);
-                });
-            }
+    success: function (data) {
+    $('.delete-row').remove();
+    data.forEach(element => {
+    html = `<tr class="delete-row">
+        <td>` + element.id + `</td>
+        <td class="return-data"><a href="#">` + element.name + `</a></td>
+        <td class="return-data">` + element.maxtieuchi + `</td>
+        <td>
+            <a onclick="return confirm('Bạn chắn chắc muốn xóa không ?')"
+                href="{{URL::to('/delete-tieu-chi-quanlitieuchi/` + element.id + `')}}}" class="active"
+                ui-toggle-class="">
+                <i class="fa fa-times text-danger text"></i>
+            </a>
+        </td>
+    </tr>`;
+    $('#show-tieu-chi').append(html);
+    });
+    }
 
-        });
+    });
     });
 </script>
 
