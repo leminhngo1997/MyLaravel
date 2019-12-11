@@ -102,3 +102,7 @@ Route::post('get-tieu-chi-quanliphongtrao','APIController@GetTieuChi_quanliphong
 //-- -- --Get phong trào
 Route::post('get-phong-trao-quanliphongtrao','APIController@GetPhongTrao_quanliphongtrao');
 
+Route::post('get-bang-diem-quanlihoatdong','APIController@GetBangDiem_quanlihoatdong');
+Route::post('get-tieu-chi-quanlihoatdong','APIController@GetTieuChi_quanlihoatdong');
+Route::post('get-phong-trao-quanlihoatdong','APIController@GetPhongTrao_quanlihoatdong');
+Route::post('get-hoat-dong-quanlihoatdong','APIController@GetHoatDong_quanlihoatdong');

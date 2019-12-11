@@ -64,4 +64,27 @@ class APIController extends Controller
         ->where('tieuchi_phongtrao.tieuchi_id', $tieu_chi_id)->get();
         return $phong_trao;
     }
+
+    function GetBangDiem_quanlihoatdong(Request $request){
+        $loai_bang_diem_id = $request->loai_bang_diem_id;
+        $bang_diem = DB::table('bangdiem')->where('loaibangdiem_id', $loai_bang_diem_id)->get();
+        return $bang_diem;
+    }
+    function GetTieuChi_quanlihoatdong(Request $request){
+        $bang_diem_id = $request->bang_diem_id;
+        $tieu_chi = DB::table('tieuchi')->where('bangdiem_id', $bang_diem_id)->get();
+        return $tieu_chi;
+    }
+    function GetPhongTrao_quanlihoatdong(Request $request){
+        $tieu_chi_id = $request->tieu_chi_id;
+        $phong_trao = DB::table('phongtrao')->join('tieuchi_phongtrao', 'phongtrao.id', '=', 'tieuchi_phongtrao.phongtrao_id')
+        ->where('tieuchi_phongtrao.tieuchi_id', $tieu_chi_id)->get();
+        return $phong_trao;
+    }
+    function GetHoatDong_quanlihoatdong(Request $request){
+        $phong_trao_id = $request->phong_trao_id;
+        $hoat_dong = DB::table('hoatdong')->join('phongtrao_hoatdong', 'hoatdong.id', '=', 'phongtrao_hoatdong.hoatdong_id')
+        ->where('phongtrao_hoatdong.phongtrao_id', $phong_trao_id)->get();
+        return $hoat_dong;
+    }
 }
