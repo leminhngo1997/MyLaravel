@@ -138,19 +138,8 @@
         </div>
     </div>
 
-    <!-- Earnings (Monthly) Card Example -->
-    <div class="col-xl-4 col-md-12 col-sm-12 mb-4 ">
-        <div class="col-12">
-
-        </div>
-        <div class="col-12 mt-3">
-
-        </div>
-    </div>
-
 </div>
 <!-- /.container-fluid -->
-</div>
 
 <script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
 
