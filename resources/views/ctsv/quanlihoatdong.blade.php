@@ -135,6 +135,68 @@
                                     <input type="submit" value="Thêm" class="btn btn-outline-secondary py-2 shadow" />
                                 </div>
                             </form>
+                            <div class="row">
+                            <div class="card-body col-6 mb-4">
+                                <div class="mb-4">Chọn loại bảng điểm</div>
+                                <select id="dropdown-loai-bang-diem-quanlihoatdong" class="card border-secondary shadow py-2 col-12 mb-4">
+                                    @foreach($loaibangdiem as $key=>$value)
+                                    <option value="{{$value->id}}">{{$value->name}}</option>
+                                    @endforeach
+                                </select>
+                                <div class="mb-4">Chọn bảng điểm</div>
+                                <select id="dropdown-bang-diem-quanlihoatdong" class="card border-secondary shadow py-2 col-12 mb-4">
+                                    {{--  --}}
+                                </select>
+                                <div class="mb-4">Chọn tiêu chí</div>
+                                <select id="dropdown-tieu-chi-quanlihoatdong" class="card border-secondary shadow py-2 col-12 mb-4">
+                                   {{--  --}}
+                                </select>
+                                <div class="mb-4">Chọn phong trào</div>
+                                <select id="dropdown-phong-trao-quanlihoatdong" class="card border-secondary shadow py-2 col-12 mb-4">
+                                    {{-- <option value="1">hoạt động 1</option>
+                                    <option value="2">hoạt động 2</option> --}}
+                                </select>
+                                <div>Chọn đối tượng</div>
+                                <div style="color: red">( Mặc định là TẤT CẢ )
+                                        VD: Nếu nhiều lớp thì HTTT2010-MTT2010-CNPM2010...</div>
+                                <input value="Tất cả" type="text" class="card border-secondary shadow py-2 col-12 mb-4" />
+                                <div class="mb-4">Nhập tên hoạt động</div>
+                                <input type="text" class="card border-secondary shadow py-2 col-12 mb-4" />
+                                <div class="mb-4">Nhập điểm hoạt động</div>
+                                <input type="text" class="card border-secondary shadow py-2 col-12 mb-4" />
+                                <input type="submit" value="Thêm" class="btn btn-outline-secondary py-2 shadow" />
+                            </div>
+
+                            <!-- import excel (hoat dong) -->
+                            <div class="card-body col-6 mb-4 border-left">
+                                <div class="mb-4">Thêm hoạt động bằng Excel</div>                           
+                                    <form method="post" enctype="multipart/form-data" action="{{ url('/quanlihoatdong/import') }}">
+                                        {{ csrf_field() }}
+                                
+                                        <input type="file" name="select_file" class="btn btn-outline-secondary py-2 shadow"/>
+                                        <input type="submit" name="upload" value="Upload" class="btn btn-outline-secondary py-2 shadow"/>
+                                    </form>
+                                    @if(count($errors) > 0)
+                                        <div class="alert alert-danger">
+                                            Upload validation errors<br><br>
+                                            <ul>
+                                                @foreach ($errors -> all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+                            
+                                    @if($message = Session::get('success'))
+                                        <div class="alert alert-success alert-block">
+                                            <button type="button" class="close" data-dismiss="alert">X</button>
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <!-- bảng hiển thị danh sách hoạt động -->
                             <table class="border table table-striped">
                                 <form method="POST" role="form"
                                     action="{{URL::to('/xoa-hoat-dong-quanlihoatdong')}}">
@@ -176,17 +238,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Earnings (Monthly) Card Example -->
-    <div class="col-xl-4 col-md-12 col-sm-12 mb-4 ">
-        <div class="col-12">
-
-        </div>
-        <div class="col-12 mt-3">
-
-        </div>
-    </div>
-
 </div>
 <!-- /.container-fluid -->
 <script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
@@ -200,16 +251,12 @@
             }
         });
         var getSelected = $("#dropdown-loai-bang-diem-quanlihoatdong").children("option:selected").val();
-
         $.ajax({
             type: 'POST',
-
             url: "{{url('get-bang-diem-quanlihoatdong')}}",
-
             data: {
                 loai_bang_diem_id: getSelected
             },
-
             success: function (data) {
                 $('.delete-option-bang-diem').remove();
                 data.forEach(element => {
@@ -218,10 +265,8 @@
                     $('#dropdown-bang-diem-quanlihoatdong').append(option);
                 });
             }
-
         });
     });
-
     $('#dropdown-loai-bang-diem-quanlihoatdong').change(function (e) {
         $.ajaxSetup({
             headers: {
@@ -232,13 +277,10 @@
         var getSelected = $(this).children("option:selected").val();
         $.ajax({
             type: 'POST',
-
             url: "{{url('get-bang-diem-quanlihoatdong')}}",
-
             data: {
                 loai_bang_diem_id: getSelected
             },
-
             success: function (data) {
                 $('.delete-option-bang-diem').remove();
                 data.forEach(element => {
@@ -247,7 +289,6 @@
                     $('#dropdown-bang-diem-quanlihoatdong').append(option);
                 });
             }
-
         });
     });
     // get API tiêu chí -- quản lí hoạt động
@@ -261,13 +302,10 @@
         var getSelected = $(this).children("option:selected").val();
         $.ajax({
             type: 'POST',
-
             url: "{{url('get-tieu-chi-quanlihoatdong')}}",
-
             data: {
                 bang_diem_id: getSelected
             },
-
             success: function (data) {
                 $('.delete-row').remove();
                 data.forEach(element => {
@@ -276,7 +314,6 @@
                     $('#dropdown-tieu-chi-quanlihoatdong').append(option);
                 });
             }
-
         });
     });
     // get API phong trào -- quản lí hoạt động
@@ -290,13 +327,10 @@
         var getSelected = $(this).children("option:selected").val();
         $.ajax({
             type: 'POST',
-
             url: "{{url('get-phong-trao-quanlihoatdong')}}",
-
             data: {
                 tieu_chi_id: getSelected
             },
-
             success: function (data) {
                 $('.delete-row-phong-trao').remove();
                 data.forEach(element => {
@@ -305,10 +339,8 @@
                     $('#dropdown-phong-trao-quanlihoatdong').append(option);
                 });
             }
-
         });
     });
-
     //get API hoạt động - quản lí hoạt động
     $('#dropdown-phong-trao-quanlihoatdong').change(function (e) {
         $.ajaxSetup({
@@ -320,13 +352,10 @@
         var getSelected = $(this).children("option:selected").val();
         $.ajax({
             type: 'POST',
-
             url: "{{url('get-hoat-dong-quanlihoatdong')}}",
-
             data: {
                 phong_trao_id: getSelected
             },
-
             success: function (data) {
                 $('.delete-row-hoat-dong').remove();
                 data.forEach(element => {
@@ -346,7 +375,6 @@
                     $('#show-hoat-dong').append(html);
                 });
             }
-
         });
     });
 </script>

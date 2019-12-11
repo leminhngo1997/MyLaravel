@@ -113,3 +113,6 @@ Route::post('get-bang-diem-quanlihoatdong','APIController@GetBangDiem_quanlihoat
 Route::post('get-tieu-chi-quanlihoatdong','APIController@GetTieuChi_quanlihoatdong');
 Route::post('get-phong-trao-quanlihoatdong','APIController@GetPhongTrao_quanlihoatdong');
 Route::post('get-hoat-dong-quanlihoatdong','APIController@GetHoatDong_quanlihoatdong');
+
+//-- -- --import hoat dong
+Route::post('/quanlihoatdong/import', 'ImportExcelHoatdongController@import');
