@@ -156,7 +156,7 @@
                                                                             <th scope="col">
                                                                                 <div class="checkbox">
                                                                                     <label>
-                                                                                    <input type="checkbox" class="check" id="checkAll">
+                                                                                    <input type="checkbox" class="check" id="checkAllBangdiem">
                                                                                     </label>
                                                                                 </div>
                                                                             </th>
@@ -173,7 +173,7 @@
                                                                             <td>
                                                                                 <div class="checkbox">
                                                                                     <label>
-                                                                                    <input type="checkbox" class="checkKH">
+                                                                                    <input type="checkbox" class="checkBangdiem">
                                                                                     </label>
                                                                                 </div>
                                                                             </td>
@@ -218,7 +218,7 @@
                                                                             <th scope="col">
                                                                                 <div class="checkbox">
                                                                                     <label>
-                                                                                    <input type="checkbox" class="check" id="checkAllKH">
+                                                                                    <input type="checkbox" class="check" id="checkAllKhoahoc">
                                                                                     </label>
                                                                                 </div>
                                                                             </th>
@@ -232,7 +232,7 @@
                                                                                     <td>
                                                                                         <div class="checkbox">
                                                                                             <label>
-                                                                                            <input type="checkbox" class="checkKH">
+                                                                                            <input type="checkbox" class="checkKhoahoc">
                                                                                             </label>
                                                                                         </div>
                                                                                     </td>
@@ -295,7 +295,7 @@
                                                                     <th scope="col">
                                                                         <div class="checkbox">
                                                                             <label>
-                                                                            <input  type="checkbox" class="check" id="checkAllTM">
+                                                                            <input  type="checkbox" class="check" id="checkAllKhoahoc2">
                                                                             </label>
                                                                         </div>
                                                                     </th>
@@ -309,7 +309,7 @@
                                                                         <td>
                                                                             <div class="checkbox">
                                                                                 <label>
-                                                                                <input name="doituong[]" value="{{$value->id}}" type="checkbox" class="checkTM">
+                                                                                <input name="doituong[]" value="{{$value->id}}" type="checkbox" class="checkKhoahoc2">
                                                                                 </label>
                                                                             </div>
                                                                         </td>
@@ -343,24 +343,24 @@
 
         </div>
         <!-- /.container-fluid -->
-    </div>
 
       <!-- check all -->
+      <script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
       <script>
-        $("#checkAll").click(function () {
-            $(".check").prop('checked', $(this).prop('checked'))
+        $("#checkAllBangdiem").click(function () {
+            $(".checkBangdiem").prop('checked', $(this).prop('checked'))
         });
     </script>
 
     <script>
-        $("#checkAllKH").click(function () {
-            $(".checkKH").prop('checked', $(this).prop('checked'))
+        $("#checkAllKhoahoc").click(function () {
+            $(".checkKhoahoc").prop('checked', $(this).prop('checked'))
         });
     </script>
 
     <script>
-        $("#checkAllTM").click(function () {
-            $(".checkTM").prop('checked', $(this).prop('checked'))
+        $("#checkAllKhoahoc2").click(function () {
+            $(".checkKhoahoc2").prop('checked', $(this).prop('checked'))
         });
     </script>
 

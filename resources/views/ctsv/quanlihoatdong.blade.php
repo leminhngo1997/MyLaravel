@@ -154,7 +154,6 @@
 
 </div>
 <!-- /.container-fluid -->
-</div>
 <script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
 
 <script>
