@@ -104,7 +104,7 @@
                                         @endforeach
                                     </select>
                                     <div class="mb-4">Chọn bảng điểm</div>
-                                    <select id="dropdown-bang-diem-quanlihoatdong"
+                                    <select id="dropdown-bang-diem-quanlihoatdong" name="current_id_bangdiem"
                                         class="card border-secondary shadow py-2 col-8 mb-4">
                                         {{--  --}}
                                     </select>
@@ -122,7 +122,7 @@
                                     <div>Chọn đối tượng</div>
                                     <div style="color: red">( Mặc định là TẤT CẢ )
                                         VD: Nếu nhiều lớp thì HTTT2010-MTT2010-CNPM2010...</div>
-                                    <input name="input_doituong_hoatdong" value="Tất cả" type="text"
+                                    <input name="input_doituong_hoatdong" value="TẤT CẢ" type="text"
                                         class="card border-secondary shadow py-2 col-8 mb-4" />
                                     <div class="mb-4">Nhập tên hoạt động</div>
                                     <input name="input_name_hoatdong" type="text"
