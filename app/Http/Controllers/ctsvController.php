@@ -135,6 +135,10 @@ class ctsvController extends Controller
         $data_hoatdong['name'] = $request->input_name_hoatdong;
         $data_hoatdong['diem'] = $request->input_diem_hoatdong;
         $data_hoatdong['doituong'] = $request->input_doituong_hoatdong;
+        // tách chuỗi
+        $data_hoatdong_doituong = explode("-",$data_hoatdong['doituong']);
+         
+        dd($data_hoatdong_doituong);
         $data_hoatdong['ngaybatdau'] = $request->input_ngaybatdau_hoatdong;
         $data_hoatdong['ngayketthuc'] = $request->input_ngayketthuc_hoatdong;
         $data_hoatdong['nguoitao'] = $nguoi_tao_duyet;

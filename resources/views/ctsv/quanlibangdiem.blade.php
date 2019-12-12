@@ -81,11 +81,12 @@
                         <!-- Core sheet type -->
                         <!-- collapse 1 content -->
                         <form>
-                            <table class="border table table-striped">
+                            <table class="border table table-striped col-10">
                                 <thead>
                                     <tr>
                                         <th scope="col">Mã loại bảng điểm</th>
                                         <th scope="col">Tên loại bảng điểm</th>
+                                        <th>Xoá</th>
                                     </tr>
                                 </thead>
                                 <tbody>         
@@ -93,7 +94,7 @@
                                     <tr>
                                         <td>{{$value->id}}</td>
                                         <td>{{$value->name}}</td>
-                                        <td > 
+                                        <td> 
                                             <a onclick="return confirm('Bạn chắn chắc muốn xóa không ?')"
                                                 href="{{URL::to('/delete-loai-bang-diem/'.$value->id)}}}" class="active"
                                                 ui-toggle-class="">
