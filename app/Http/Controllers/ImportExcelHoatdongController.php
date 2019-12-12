@@ -40,11 +40,12 @@ class ImportExcelHoatdongController extends Controller
             if(!empty($insert_hoatdong))
             {
                 DB::table('hoatdong')->insert($insert_hoatdong);
+                $data = DB::table('hoatdong')->orderBy('id','DESC')->limit(5)->get();
             }
             
 
         }
-        return back()->with('success', 'Excel Data Imported successfully.');
+        return view('ctsv.quanlihoatdong',['data'=>$data])->with('success', 'Excel Data Imported successfully.');
     }
 
 
@@ -75,8 +76,9 @@ class ImportExcelHoatdongController extends Controller
             if(!empty($insert_sinhvien))
             {
                 DB::table('users')->insert($insert_sinhvien);
+                $data = DB::table('users')->orderBy('id','DESC')->limit(5)->get();
             }
         }
-        return back()->with('success', 'Excel Data Imported successfully.');
+        return view('ctsv.quanlisinhvien',['data'=>$data])->with('success', 'Excel Data Imported successfully.');
     }
 }

@@ -172,6 +172,22 @@
                                             <strong>{{ $message }}</strong>
                                         </div>
                                     @endif
+
+                                    <br><br>
+                                    <table class="border table table-striped col-12">
+                                            <tr>
+                                                <th>Tên hoạt động</th>
+                                                <th>Đối tượng tham gia</th>
+                                                <th>Điểm</th>                                              
+                                            </tr>
+                                            @foreach ($data as $row)
+                                                <tr>
+                                                    <td>{{ $row->name }}</td>
+                                                    <td>{{ $row->doituong }}</td>
+                                                    <td>{{ $row->diem }}</td>
+                                                </tr>
+                                            @endforeach
+                                    </table>
                                 </div>
                             </div>
 
