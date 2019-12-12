@@ -41,7 +41,7 @@ class ctsvController extends Controller
     public function get_value_quanlihoatdong(){
         $loaibangdiem = DB::table('loaibangdiem')->get();
         $bangdiem = DB::table('bangdiem')->get();
-        $data = array();
+        $data = DB::table('hoatdong')->orderBy('id','DESC')->limit(5)->get();
         return view('ctsv.quanlihoatdong',[
             'loaibangdiem'=>$loaibangdiem,
             'bangdiem'=>$bangdiem,
@@ -61,7 +61,7 @@ class ctsvController extends Controller
         $user = DB::table('users')->get();
         $doituong = DB::table('doituong')->get();
         $coso = DB::table('coso')->get();
-        $data = array();
+        $data = DB::table('users')->orderBy('id','DESC')->limit(5)->get();
         return view('ctsv.quanlisinhvien',[
             'doituong'=>$doituong,
             'user'=>$user,

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class ImportExcelHoatdongController extends Controller
 {
@@ -23,7 +24,7 @@ class ImportExcelHoatdongController extends Controller
             foreach($data->toArray() as $key => $value)
             {
                 //dd($value);
-                
+
                     $insert_hoatdong[] = array(
                         'name' => $value['name'],
                         'diem' => $value['diem'],
@@ -40,12 +41,11 @@ class ImportExcelHoatdongController extends Controller
             if(!empty($insert_hoatdong))
             {
                 DB::table('hoatdong')->insert($insert_hoatdong);
-                $data = DB::table('hoatdong')->orderBy('id','DESC')->limit(5)->get();
             }
             
 
         }
-        return view('ctsv.quanlihoatdong',['data'=>$data])->with('success', 'Excel Data Imported successfully.');
+        return back()->with('success', 'Excel Data Imported successfully.');
     }
 
 
@@ -64,21 +64,20 @@ class ImportExcelHoatdongController extends Controller
             foreach($data->toArray() as $key => $value)
             {
                 //dd($value);
-                
+                    if($value['email']!==null){
                     $insert_sinhvien[] = array(
                         'name' => $value['name'],
                         'email' => $value['email'],
-                        'password' => $value['password'],
+                        'password' => bcrypt($value['password']),
                     );
+                }
                
             }
-
             if(!empty($insert_sinhvien))
             {
-                DB::table('users')->insert($insert_sinhvien);
-                $data = DB::table('users')->orderBy('id','DESC')->limit(5)->get();
+                DB::table('users')->insert($insert_sinhvien);   
             }
         }
-        return view('ctsv.quanlisinhvien',['data'=>$data])->with('success', 'Excel Data Imported successfully.');
+        return back()->with('success', 'Excel Data Imported successfully.');
     }
 }

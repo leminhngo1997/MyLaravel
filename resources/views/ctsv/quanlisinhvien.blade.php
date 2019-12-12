@@ -148,6 +148,7 @@
                                                 </div>
                                             @endif
                                             <br><br>
+                                            <div class="mb-4">Danh sách thêm vào gần đây</div> 
                                             <table class="border table table-striped col-12">
                                                     <tr>
                                                         <th>id</th>
