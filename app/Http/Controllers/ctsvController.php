@@ -315,6 +315,23 @@ class ctsvController extends Controller
         Session::put('message','Xóa cơ sở thành công.');
         return Redirect::to('quanlicoso');
     }
+    //--users
+    public function insert_users_quanlisinhvien(Request $request){
+        //insert table users
+        $data_users = array();
+        $data_users['name'] = $request->input_name_users;
+        $data_users['email'] = $request->input_email_users;
+        $data_users['password'] = bcrypt('{{$request->input_password_users}}');
+        DB::table('users')->insert($data_users);
+        //insert table sv_coso
+        $current_user_id = DB::table('users')->orderBy('id','DESC')->first()->id;
+        $data_sv_coso = array();
+        $data_sv_coso['sv_id'] = $current_user_id;
+        $data_sv_coso['coso_id'] = $request->input_name_co_so;
+        DB::table('sv_coso')->insert($data_sv_coso);
+        Session::put('message','Thêm sinh viên thành công.');
+        return Redirect::to('quanlisinhvien');
+    }
     //--Xóa users
     public function delete_users_quanlisinhvien($id){
         DB::table('sv_coso')->where('sv_id',$id)->delete();

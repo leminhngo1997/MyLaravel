@@ -91,7 +91,7 @@
                             <div class="row">
                                 <div class="card-body col-6 mb-4">
                                     <form method="POST" role="form"
-                                        action="{{URL::to('/them-tieu-chi-quanlitieuchi')}}">
+                                        action="{{URL::to('/them-users-quanlisinhvien')}}">
                                         <?php
                                     $message = Session::get('message');
                                     if($message){
@@ -110,21 +110,21 @@
                                             </select>
 
                                             <div class="mb-4">Chọn cơ sở</div>
-                                            <select id="dropdown-co-so-quanlisinhvien"
+                                            <select id="dropdown-co-so-quanlisinhvien" name="input_name_co_so"
                                                 class="card border-secondary shadow h-100 py-2 col-12 mb-4">
                                                 {{--  --}}
                                             </select>
 
                                             <div class="mb-4">Nhập tên sinh viên</div>
-                                            <input name="input_name_coso" type="text"
+                                            <input name="input_name_users" type="text"
                                                 class="card border-secondary shadow h-100 py-2 col-12 mb-4" />
 
                                             <div class="mb-4">Nhập email</div>
-                                            <input name="input_name_coso" type="text"
+                                            <input name="input_email_users" type="text"
                                                 class="card border-secondary shadow h-100 py-2 col-12 mb-4" />
 
                                             <div class="mb-4">Nhập password</div>
-                                            <input name="input_name_coso" type="text"
+                                            <input name="input_password_users" type="text"
                                                 class="card border-secondary shadow h-100 py-2 col-12 mb-4" />
 
                                             <input type="submit" value="Thêm"
