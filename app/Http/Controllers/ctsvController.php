@@ -265,6 +265,11 @@ class ctsvController extends Controller
     }
 //--Xóa hoạt động
     public function delete_hoat_dong_quanlihoatdong(Request $request){
+        if($request->check == null)
+        {
+            Session::put('message','Lỗi: Check hoạt động cần xóa');
+            return Redirect::to('quanlihoatdong');
+        }
         //delete 2 table phongtrao_hoatdong & hoatdong
         $check = $request->check;
         //dd($check);
