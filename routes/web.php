@@ -115,4 +115,6 @@ Route::post('get-phong-trao-quanlihoatdong','APIController@GetPhongTrao_quanliho
 Route::post('get-hoat-dong-quanlihoatdong','APIController@GetHoatDong_quanlihoatdong');
 
 //-- -- --import hoat dong
-Route::post('/quanlihoatdong/import', 'ImportExcelHoatdongController@import');
+
+// -- -- -- Quản lí cơ sở
+Route::get('quanlicoso',['as'=>'quanlicoso','uses'=>'ctsvController@get_value_quanlicoso']);
