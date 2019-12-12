@@ -215,8 +215,6 @@ class ctsvController extends Controller
         $data_coso_hoatdong = array();
         $current_id_bangdiem = $request->current_id_bangdiem;
         // dd($current_id_bangdiem);
-        // $current_id_bangdiem= DB::table('bangdiem')->where('name',$current_name_bangdiem);
-        // dd($current_id_bangdiem);
         $current_doituong_id = DB::table('bangdiem_doituong')->where('bangdiem_id',$current_id_bangdiem)->get('doituong_id');
         // dd($current_doituong_id);
        
@@ -225,41 +223,39 @@ class ctsvController extends Controller
         }
         // dd($doi_tuong_id);
         foreach($doi_tuong_id as $item){
-            $current_coso_id = DB::table('coso')->where('doituong_id',$item)->get();
+            $current_coso_id[] = DB::table('coso')->where('doituong_id',$item)->get();
         }
-        
-        // dd($current_coso_id);
         foreach($data_hoatdong_coso as $key=>$value){
             if($value==='TẤT CẢ'){
                 foreach($current_coso_id as $item){
-                    $data_coso_hoatdong['coso_id'] = $item->id;
-                    $data_coso_hoatdong['hoatdong_id'] = $current_hoat_dong_id;
+                    foreach($item as $key=>$value){
+                        $data_coso_hoatdong['coso_id'] = $value->id;
+                        $data_coso_hoatdong['hoatdong_id'] = $current_hoat_dong_id;
+                        DB::table('coso_hoatdong')->insert($data_coso_hoatdong);
+                    }
+                    
                 }
-               
+                Session::put('message','Thêm hoạt động thành công.');
+                return Redirect::to('quanlihoatdong');
             }
-           else{
-                $coso_id = DB::table('coso')->where('name',$value)->get('id');
-                $data_coso_hoatdong['coso_id'] = $coso_id;
-                $data_coso_hoatdong['hoatdong_id'] = $current_hoat_dong_id;
-           }
         }
-        DB::table('coso_hoatdong')->insert($data_coso_hoatdong);
-      
-        // $i = 0;
-        // foreach($data_hoatdong_coso as $key=>$value){
-        //     if($value==='TẤT CẢ')
-        //     {
-        //         $i = 1;
-        //     }
-        // }
-
-        // if($i==0){
-
-        // }
-        // else
-        // {
-
-        // }
+        // lay co so
+        $coso_id = array();
+        foreach($data_hoatdong_coso as $key=>$value){
+                $coso[] = DB::table('coso')->where('name',$value)->get('id');
+           }
+        //tim id co so
+        foreach($coso as $row){
+            foreach($row as $item){
+                $coso_id[] = $item->id;
+            }
+        }
+        // insert coso_hoatdong
+        foreach($coso_id as $key){
+            $data_coso_hoatdong['coso_id'] = $key;
+            $data_coso_hoatdong['hoatdong_id'] = $current_hoat_dong_id;
+            DB::table('coso_hoatdong')->insert($data_coso_hoatdong);
+        }
         Session::put('message','Thêm hoạt động thành công.');
         return Redirect::to('quanlihoatdong');
     }
