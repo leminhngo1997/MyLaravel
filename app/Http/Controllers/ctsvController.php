@@ -13,7 +13,7 @@ use DB;
 
 class ctsvController extends Controller
 {	
-    //GET
+//GET
     public function get_value_quanlibangdiem(){
         $loaibangdiem = DB::table('loaibangdiem')->get();
         $doituong = DB::table('doituong')->get();
@@ -50,7 +50,7 @@ class ctsvController extends Controller
     
     
     //POST
-    //--Thêm loại bảng điểm
+//--Thêm loại bảng điểm
     public function insert_loai_bang_diem(Request $request){
         $data = array();
         $data['name'] = $request->input_loaibangdiem;
@@ -58,13 +58,13 @@ class ctsvController extends Controller
         Session::put('message','Thêm loại bảng điểm thành công.');
         return Redirect::to('quanlibangdiem');
     }
-    //--Xóa loại bảng điểm
+//--Xóa loại bảng điểm
     public function delete_loai_bang_diem($id){
         DB::table('loaibangdiem')->where('id',$id)->delete();
         Session::put('message','Xóa loại bảng điểm thành công.');
         return Redirect::to('quanlibangdiem');
     }
-    //--Thêm bảng điểm
+//--Thêm bảng điểm
     public function insert_bang_diem(Request $request){
         //insert table bangdiem
         $data_bangdiem = array();
@@ -77,7 +77,7 @@ class ctsvController extends Controller
         //insert table bangdiem_doituong
         $current_bangdiem = DB::table('bangdiem')->orderBy('id','DESC')->first()->id;
         $doituong = $request->doituong;
-        dd($doituong);
+        //dd($doituong);
         foreach($doituong as $key=>$value){
             DB::table('bangdiem_doituong')->insert(array(
                 //insert nhiều dòng 
@@ -87,7 +87,7 @@ class ctsvController extends Controller
         Session::put('message','Thêm bảng điểm thành công.');
         return Redirect::to('quanlibangdiem');
     }    
-    //--Thêm tiêu chí
+//--Thêm tiêu chí
     public function insert_tieu_chi_quanlitieuchi(Request $request){
         //insert table tieuchi
         $data = array();
@@ -98,13 +98,53 @@ class ctsvController extends Controller
         Session::put('message','Thêm tiêu chí thành công.');
         return Redirect::to('quanlitieuchi');
     }
-    //--Xóa tiêu chí
+//--Xóa tiêu chí
     public function delete_tieu_chi_quanlitieuchi($id){
+        //lấy phongtrao_id từ tieuchi_id
+        $tieuchi_phongtrao = DB::table('tieuchi_phongtrao')->where('tieuchi_id',$id)->get();
+        $phongtrao_hoatdong = array();
+        $phongtrao_id = array();
+        $hoatdong_id = array();
+
+        //tìm phongtrao_id từ tieuchi_hoatdong
+        foreach($tieuchi_phongtrao as $key => $value){
+            $phongtrao_id[] = $value->phongtrao_id;
+            //xóa tieuchi_phongtrao có phongtrao_id vừa tìm được
+            DB::table('tieuchi_phongtrao')->where('phongtrao_id',$value->phongtrao_id)->delete();
+        }
+
+        //lấy hoatdong_id từ phongtrao_id
+        foreach($phongtrao_id as $key => $value){
+
+            $phongtrao_hoatdong = DB::table('phongtrao_hoatdong')->where('phongtrao_id',$value)->get();
+
+            //tìm hoatdong_id
+            foreach($phongtrao_hoatdong as $row => $item)
+            {               
+                //lấy hoatdong_id
+                $hoatdong_id[] = $item->hoatdong_id;
+                //xóa phongtrao_hoatdong có hoatdong_id vừa tìm thấy
+                DB::table('phongtrao_hoatdong')->where('hoatdong_id',$item->hoatdong_id)->delete();
+            }
+        }
+
+        //xóa hoạt động
+        foreach($hoatdong_id as $key => $value)
+        {
+            DB::table('hoatdong')->where('id',$value)->delete();
+        }
+        
+        //xóa phong trào
+        foreach($phongtrao_id as $key => $value)
+        {
+            DB::table('phongtrao')->where('id',$value)->delete();
+        } 
+        //xóa tiêu chí
         DB::table('tieuchi')->where('id',$id)->delete();
         Session::put('message','Xóa tiêu chí thành công.');
         return Redirect::to('quanlitieuchi');
     }
-    //--Thêm phong trào
+//--Thêm phong trào
     public function insert_phong_trao_quanliphongtrao(Request $request){
         //insert table phongtrao
         $data = array();
@@ -120,14 +160,33 @@ class ctsvController extends Controller
         Session::put('message','Thêm phong trào thành công.');
         return Redirect::to('quanliphongtrao');
     }
-    //--Xóa phong trào
+//--Xóa phong trào
     public function delete_phong_trao_quanliphongtrao($id){
+        
+        // lấy hoatdong_id từ mã phong trào $id
+        $hoatdong_id = array();
+        $phongtrao_hoatdong = DB::table('phongtrao_hoatdong')->where('phongtrao_id',$id)->get('hoatdong_id');
+        foreach($phongtrao_hoatdong as $key => $row)
+        {
+            // lấy hoatdong_id
+            $hoatdong_id[] = $row->hoatdong_id;
+            // xóa phongtrao_hoatdong có hoatdong_id vừa lấy
+            DB::table('phongtrao_hoatdong')->where('hoatdong_id',$row->hoatdong_id)->delete();
+        }
+        
+        // xóa hoạt động
+        foreach($hoatdong_id as $key => $value)
+        {
+            DB::table('hoatdong')->where('id',$value)->delete();
+        } 
+        // xóa tieuchi_phongtrao
         DB::table('tieuchi_phongtrao')->where('phongtrao_id',$id)->delete();
+        // xóa phong trào
         DB::table('phongtrao')->where('id',$id)->delete();
         Session::put('message','Xóa phong trào thành công.');
         return Redirect::to('quanliphongtrao');
     }
-    //--Thêm hoạt động
+//--Thêm hoạt động
     public function insert_hoat_dong_quanlihoatdong(Request $request){
         //insert table hoatdong
         $data_hoatdong = array();
@@ -156,7 +215,7 @@ class ctsvController extends Controller
         Session::put('message','Thêm hoạt động thành công.');
         return Redirect::to('quanlihoatdong');
     }
-    //--Xóa hoạt động
+//--Xóa hoạt động
     public function delete_hoat_dong_quanlihoatdong(Request $request){
         //delete 2 table phongtrao_hoatdong & hoatdong
         $check = $request->check;
