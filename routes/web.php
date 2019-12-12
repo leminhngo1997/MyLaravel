@@ -127,10 +127,4 @@ Route::post('quanlisinhvien/import','ImportExcelHoatdongController@importSinhvie
 
 // -- -- -- Quản lí cơ sở
 Route::get('quanlicoso',['as'=>'quanlicoso','uses'=>'ctsvController@get_value_quanlicoso']);
-<<<<<<< HEAD
 Route::post('get-co-so-quanlicoso','APIController@GetCoSo_quanlicoso');
-=======
-
-// -- -- -- Quản lí sinh viên
-Route::get('quanlisinhvien',['as'=>'quanlisinhvien','uses'=>'ctsvController@get_value_quanlisinhvien']);
->>>>>>> 64298357ab8d4268ae4baf0382003abcae1a5d90
