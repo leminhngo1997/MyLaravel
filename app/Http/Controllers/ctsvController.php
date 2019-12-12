@@ -48,9 +48,10 @@ class ctsvController extends Controller
     }
 
     public function get_value_quanlicoso(){
-        $coso = DB::table('coso')->get();
+        $doituong = DB::table('doituong')->get();
+        // dd($coso);
         return view('ctsv.quanlicoso',[
-            'coso'=>$coso,
+            'doituong'=>$doituong,
         ]);
     }
 
@@ -284,5 +285,21 @@ class ctsvController extends Controller
         Session::put('message','Xóa hoạt động thành công.');
         return Redirect::to('quanlihoatdong');
     }    
-
+//--Thêm cơ sở
+    public function insert_co_so_quanlicoso(Request $request){
+        //insert table coso
+        $data = array();
+        $data['name'] = $request->input_name_coso;
+        $data['doituong_id'] = $request->input_doituong_id;
+        $data['siso'] = $request->input_siso_coso;
+        DB::table('coso')->insert($data);
+        Session::put('message','Thêm cơ sở thành công.');
+        return Redirect::to('quanlicoso');
+    }
+//--Xóa cơ sở
+    public function delete_co_so_quanlicoso($id){
+        DB::table('coso')->where('id',$id)->delete();
+        Session::put('message','Xóa cơ sở thành công.');
+        return Redirect::to('quanlicoso');
+    }
 }

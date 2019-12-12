@@ -65,7 +65,11 @@ Route::get('/delete-phong-trao-quanliphongtrao/{id}','ctsvController@delete_phon
 Route::post('/them-hoat-dong-quanlihoatdong','ctsvController@insert_hoat_dong_quanlihoatdong');
 //-- -- --Xóa hoạt động
 Route::post('/xoa-hoat-dong-quanlihoatdong','ctsvController@delete_hoat_dong_quanlihoatdong');
-
+//-- --Quản lý cơ sở
+//-- -- --Thêm cơ sở
+Route::post('/them-co-so-quanlicoso','ctsvController@insert_co_so_quanlicoso');
+//-- -- --Xóa cơ sở
+Route::get('/delete-co-so-quanlicoso/{id}','ctsvController@delete_co_so_quanlicoso' );
 
 //-- --Quản lý tiêu chí
 Route::get('quanlitieuchi',['as'=>'quanlitieuchi','uses'=>'ctsvController@get_value_quanlitieuchi']);
@@ -118,3 +122,4 @@ Route::post('get-hoat-dong-quanlihoatdong','APIController@GetHoatDong_quanlihoat
 
 // -- -- -- Quản lí cơ sở
 Route::get('quanlicoso',['as'=>'quanlicoso','uses'=>'ctsvController@get_value_quanlicoso']);
+Route::post('get-co-so-quanlicoso','APIController@GetCoSo_quanlicoso');

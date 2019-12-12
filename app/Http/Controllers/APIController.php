@@ -87,4 +87,10 @@ class APIController extends Controller
         ->where('phongtrao_hoatdong.phongtrao_id', $phong_trao_id)->get();
         return $hoat_dong;
     }
+     //--Quản lý cơ sở
+     function GetCoSo_quanlicoso(Request $request){
+        $doi_tuong_id = $request->doi_tuong_id;
+        $co_so = DB::table('coso')->where('doituong_id', $doi_tuong_id)->get();
+        return $co_so;
+    }
 }

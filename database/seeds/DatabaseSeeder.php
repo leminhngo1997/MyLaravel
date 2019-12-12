@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TieuchiSeeder::class);   
         $this->call(PhongtraoSeeder::class);  
         $this->call(Tieuchi_PhongtraoSeeder::class);  
-        $this->call(Sinhvien_DoituongSeeder::class);  
+        // $this->call(Sinhvien_DoituongSeeder::class);  
         // $this->call(LuutruSeeder::class);  
         $this->call(HoatdongSeeder::class);  
         $this->call(Phongtrao_HoatdongSeeder::class);  
@@ -95,29 +95,29 @@ class User_RoleSeeder extends Seeder
     }
 }
 
-class KhoaSeeder extends Seeder
-{
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
-    public function run()
-    {
-        DB::table('khoa')->insert([
-            ['name' => 'Công Nghệ Phần Mềm'],
-            ['name' => 'Hệ Thống Thông Tin'],
-            ['name' => 'Khoa Học Máy Tính '],
-            ['name' => 'Kĩ Thuật Máy Tính'],
-            ['name' => 'Khoa học và Kỹ thuật Thông tin'],
-            ['name' => 'Mạng Máy Tính & Truyền Thông'],
-            //id = 7
-            ['name' => 'Toàn trường'],
+// class KhoaSeeder extends Seeder
+// {
+//     /**
+//      * Seed the application's database.
+//      *
+//      * @return void
+//      */
+//     public function run()
+//     {
+//         DB::table('khoa')->insert([
+//             ['name' => 'Công Nghệ Phần Mềm'],
+//             ['name' => 'Hệ Thống Thông Tin'],
+//             ['name' => 'Khoa Học Máy Tính '],
+//             ['name' => 'Kĩ Thuật Máy Tính'],
+//             ['name' => 'Khoa học và Kỹ thuật Thông tin'],
+//             ['name' => 'Mạng Máy Tính & Truyền Thông'],
+//             //id = 7
+//             ['name' => 'Toàn trường'],
 
-        ]);
+//         ]);
         
-    }
-}
+//     }
+// }
 
 class CosoSeeder extends Seeder
 {
@@ -129,18 +129,18 @@ class CosoSeeder extends Seeder
     public function run()
     {
         DB::table('coso')->insert([
-            ['name' => 'HTCL2015','doituong_id'=> 6,'khoa_id' =>2,'siso'=>43],
-            ['name' => 'HTCL2016','doituong_id'=> 7,'khoa_id'=>2,'siso'=>44],
-            ['name' => 'HTCL2017','doituong_id'=> 8,'khoa_id'=>2,'siso'=>50],
-            ['name' => 'HTCL2018','doituong_id'=> 9,'khoa_id'=>2,'siso'=>39],
-            ['name' => 'PMCL2016','doituong_id'=> 7,'khoa_id'=>4,'siso'=>51],
-            ['name' => 'KHMT2015','doituong_id'=> 6,'khoa_id'=>5,'siso'=>38],
-            ['name' => 'PMCL2015','doituong_id'=> 6,'khoa_id'=>4,'siso'=>45],
-            ['name' => 'HTTT2018','doituong_id'=> 9,'khoa_id'=>2,'siso'=>42],
-            ['name' => 'MMT&TT2015','doituong_id'=> 6,'khoa_id'=>6,'siso'=>41],
-            ['name' => 'KHMT2017','doituong_id'=> 8,'khoa_id'=>5,'siso'=>46],
-            ['name' => 'PMCL2015','doituong_id'=> 6,'khoa_id' =>1,'siso'=>53],
-            ['name' => 'TMĐT2015','doituong_id'=> 6,'khoa_id' =>2,'siso'=>33],
+            ['name' => 'HTCL2015','doituong_id'=> 6,'siso'=>43],
+            ['name' => 'HTCL2016','doituong_id'=> 7,'siso'=>44],
+            ['name' => 'HTCL2017','doituong_id'=> 8,'siso'=>50],
+            ['name' => 'HTCL2018','doituong_id'=> 9,'siso'=>39],
+            ['name' => 'PMCL2016','doituong_id'=> 7,'siso'=>51],
+            ['name' => 'KHMT2015','doituong_id'=> 6,'siso'=>38],
+            ['name' => 'PMCL2015','doituong_id'=> 6,'siso'=>45],
+            ['name' => 'HTTT2018','doituong_id'=> 9,'siso'=>42],
+            ['name' => 'MMT&TT2015','doituong_id'=> 6,'siso'=>41],
+            ['name' => 'KHMT2017','doituong_id'=> 8,'siso'=>46],
+            ['name' => 'PMCL2015','doituong_id'=> 6,'siso'=>53],
+            ['name' => 'TMĐT2015','doituong_id'=> 6,'siso'=>33],
         ]);
         
     }
@@ -414,24 +414,24 @@ class Tieuchi_PhongtraoSeeder extends Seeder
     }
 }
 
-class Sinhvien_DoituongSeeder extends Seeder
-{
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
-    public function run()
-    {
-        DB::table('sinhvien_doituong')->insert([
-            ['sv_id' => 1,'doituong_id' => 6],
-            ['sv_id' => 3,'doituong_id' => 6],
-            ['sv_id' => 4,'doituong_id' => 6],
-            ['sv_id' => 5,'doituong_id' => 6],        
-        ]);
+// class Sinhvien_DoituongSeeder extends Seeder
+// {
+//     /**
+//      * Seed the application's database.
+//      *
+//      * @return void
+//      */
+//     public function run()
+//     {
+//         DB::table('sinhvien_doituong')->insert([
+//             ['sv_id' => 1,'doituong_id' => 6],
+//             ['sv_id' => 3,'doituong_id' => 6],
+//             ['sv_id' => 4,'doituong_id' => 6],
+//             ['sv_id' => 5,'doituong_id' => 6],        
+//         ]);
         
-    }
-}
+//     }
+// }
 
 // class LuutruSeeder extends Seeder
 // {
