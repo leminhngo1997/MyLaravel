@@ -47,6 +47,13 @@ class ctsvController extends Controller
         ]);
     }
 
+    public function get_value_quanlicoso(){
+        $coso = DB::table('coso')->get();
+        return view('ctsv.quanlicoso',[
+            'coso'=>$coso,
+        ]);
+    }
+
     
     
     //POST
