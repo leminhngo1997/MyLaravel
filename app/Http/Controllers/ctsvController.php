@@ -54,7 +54,14 @@ class ctsvController extends Controller
         ]);
     }
 
-    
+    public function get_value_quanlisinhvien(){
+        $user = DB::table('users')->get();
+        $doituong = DB::table('doituong')->get();
+        return view('ctsv.quanlisinhvien',[
+            'user'=>$user,
+            'doituong'=>$doituong
+        ]);
+    }
     
     //POST
 //--Thêm loại bảng điểm

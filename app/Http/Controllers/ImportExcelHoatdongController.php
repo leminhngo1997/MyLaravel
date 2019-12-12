@@ -46,4 +46,40 @@ class ImportExcelHoatdongController extends Controller
         }
         return back()->with('success', 'Excel Data Imported successfully.');
     }
+
+
+    function importSinhvien(Request $request)
+    {
+        $this->validate($request, [
+            'select_file' => 'required|mimes:xls,xlsx'
+        ]);
+        
+        $path = $request->file('select_file')->getRealPath();
+        
+        $data = Excel::load($path)->get();
+
+        if($data->count() > 0)
+        {
+            foreach($data->toArray() as $key => $value)
+            {
+                //dd($value);
+                
+                    $insert_sinhvien[] = array(
+                        'id' => $value['id'],
+                        'name' => $value['name'],
+                        'email' => $value['email'],
+                        'password' => $value['password'],
+                    );
+               
+            }
+
+            if(!empty($insert_sinhvien))
+            {
+                DB::table('users')->insert($insert_sinhvien);
+            }
+            
+
+        }
+        return back()->with('success', 'Excel Data Imported successfully.');
+    }
 }

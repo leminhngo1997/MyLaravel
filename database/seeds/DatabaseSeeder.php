@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TieuchiSeeder::class);   
         $this->call(PhongtraoSeeder::class);  
         $this->call(Tieuchi_PhongtraoSeeder::class);  
-        $this->call(Sinhvien_DoituongSeeder::class);  
+        //$this->call(Sinhvien_DoituongSeeder::class);  
         // $this->call(LuutruSeeder::class);  
         $this->call(HoatdongSeeder::class);  
         $this->call(Phongtrao_HoatdongSeeder::class);  
@@ -414,24 +414,24 @@ class Tieuchi_PhongtraoSeeder extends Seeder
     }
 }
 
-class Sinhvien_DoituongSeeder extends Seeder
-{
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
-    public function run()
-    {
-        DB::table('sinhvien_doituong')->insert([
-            ['sv_id' => 1,'doituong_id' => 6],
-            ['sv_id' => 3,'doituong_id' => 6],
-            ['sv_id' => 4,'doituong_id' => 6],
-            ['sv_id' => 5,'doituong_id' => 6],        
-        ]);
+// class Sinhvien_DoituongSeeder extends Seeder
+// {
+//     /**
+//      * Seed the application's database.
+//      *
+//      * @return void
+//      */
+//     public function run()
+//     {
+//         DB::table('sinhvien_doituong')->insert([
+//             ['sv_id' => 1,'doituong_id' => 6],
+//             ['sv_id' => 3,'doituong_id' => 6],
+//             ['sv_id' => 4,'doituong_id' => 6],
+//             ['sv_id' => 5,'doituong_id' => 6],        
+//         ]);
         
-    }
-}
+//     }
+// }
 
 // class LuutruSeeder extends Seeder
 // {
