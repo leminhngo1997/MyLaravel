@@ -270,7 +270,7 @@
                                     <td class="return-data">` + element.maxphongtrao + `</td>
                                     <td > 
                                         <a onclick="return confirm('Bạn chắn chắc muốn xóa không ?')"
-                                            href="{{URL::to('/delete-phong-trao-quanliphongtrao/` + element.id + `')}}}" class="active"
+                                            href="{{URL::to('/delete-phong-trao-quanliphongtrao/` + element.id + `')}}" class="active"
                                             ui-toggle-class="">
                                             <i class="fa fa-times text-danger text"></i>
                                         </a>
