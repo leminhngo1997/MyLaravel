@@ -147,6 +147,21 @@
                                                     <strong>{{ $message }}</strong>
                                                 </div>
                                             @endif
+                                            <br><br>
+                                            <table class="border table table-striped col-12">
+                                                    <tr>
+                                                        <th>id</th>
+                                                        <th>name</th>
+                                                        <th>email</th>
+                                                    </tr>
+                                                    @foreach ($data as $row)
+                                                        <tr>
+                                                            <td>{{ $row->id }}</td>
+                                                            <td>{{ $row->name }}</td>
+                                                            <td>{{ $row->email }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                            </table>
                                         </div>
                             </div>
                             <table class="border table table-striped">

@@ -41,9 +41,11 @@ class ctsvController extends Controller
     public function get_value_quanlihoatdong(){
         $loaibangdiem = DB::table('loaibangdiem')->get();
         $bangdiem = DB::table('bangdiem')->get();
+        $data = array();
         return view('ctsv.quanlihoatdong',[
             'loaibangdiem'=>$loaibangdiem,
             'bangdiem'=>$bangdiem,
+            'data' => $data
         ]);
     }
 
@@ -59,10 +61,12 @@ class ctsvController extends Controller
         $user = DB::table('users')->get();
         $doituong = DB::table('doituong')->get();
         $coso = DB::table('coso')->get();
+        $data = array();
         return view('ctsv.quanlisinhvien',[
             'doituong'=>$doituong,
             'user'=>$user,
-            'coso'=>$coso
+            'coso'=>$coso,
+            'data'=>$data
         ]);
     }
     
