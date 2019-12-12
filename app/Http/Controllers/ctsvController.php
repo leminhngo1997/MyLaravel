@@ -58,9 +58,11 @@ class ctsvController extends Controller
     public function get_value_quanlisinhvien(){
         $user = DB::table('users')->get();
         $doituong = DB::table('doituong')->get();
+        $coso = DB::table('coso')->get();
         return view('ctsv.quanlisinhvien',[
+            'doituong'=>$doituong,
             'user'=>$user,
-            'doituong'=>$doituong
+            'coso'=>$coso
         ]);
     }
     

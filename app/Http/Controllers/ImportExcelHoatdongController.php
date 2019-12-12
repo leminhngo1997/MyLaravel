@@ -65,7 +65,6 @@ class ImportExcelHoatdongController extends Controller
                 //dd($value);
                 
                     $insert_sinhvien[] = array(
-                        'id' => $value['id'],
                         'name' => $value['name'],
                         'email' => $value['email'],
                         'password' => $value['password'],
@@ -77,8 +76,6 @@ class ImportExcelHoatdongController extends Controller
             {
                 DB::table('users')->insert($insert_sinhvien);
             }
-            
-
         }
         return back()->with('success', 'Excel Data Imported successfully.');
     }

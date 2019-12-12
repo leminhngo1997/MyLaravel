@@ -124,7 +124,7 @@
                                 </div>
                                 <div class="card-body col-6 mb-4 border-left">
                                         <div class="mb-4">Thêm tài khoản bằng Excel</div>                           
-                                            <form method="post" enctype="multipart/form-data" action="{{ url('/quanlisinhvien/importSinhvien') }}">
+                                            <form method="post" enctype="multipart/form-data" action="{{ url('/quanlisinhvien/import') }}">
                                                 {{ csrf_field() }}
                                         
                                                 <input type="file" name="select_file" class="btn btn-outline-secondary py-2 shadow"/>
