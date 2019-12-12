@@ -311,4 +311,12 @@ class ctsvController extends Controller
         Session::put('message','Xóa cơ sở thành công.');
         return Redirect::to('quanlicoso');
     }
+    //--Xóa users
+    public function delete_users_quanlisinhvien($id){
+        DB::table('sv_coso')->where('sv_id',$id)->delete();
+        DB::table('user_role')->where('sv_id',$id)->delete();
+        DB::table('users')->where('id',$id)->delete();
+        Session::put('message','Xóa users thành công.');
+        return Redirect::to('quanlisinhvien');
+    }
 }

@@ -18,18 +18,18 @@
 
 
 
-     <!-- Nav Item - Dashboard -->
-     <li class="nav-item dropdown">
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item dropdown">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <a class="nav-link dropdown-toggle" href="{{route('quanlibangdiem')}}" id="navbardrop" data-toggle="dropdown">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Bảng điểm</span>
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Bảng điểm</span>
         </a>
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="{{route('quanlibangdiem')}}">Quản lí bảng điểm</a>
-          <a class="dropdown-item" href="{{route('quanlitieuchi')}}">Quản lí tiêu chí</a>
-          <a class="dropdown-item" href="{{route('quanliphongtrao')}}">Quản lí phong trào</a>
-          <a class="dropdown-item" href="{{route('quanlihoatdong')}}">Quản lí hoạt động</a>
+            <a class="dropdown-item" href="{{route('quanlibangdiem')}}">Quản lí bảng điểm</a>
+            <a class="dropdown-item" href="{{route('quanlitieuchi')}}">Quản lí tiêu chí</a>
+            <a class="dropdown-item" href="{{route('quanliphongtrao')}}">Quản lí phong trào</a>
+            <a class="dropdown-item" href="{{route('quanlihoatdong')}}">Quản lí hoạt động</a>
         </div>
     </li>
     <!-- Nav Item - Dashboard -->
@@ -43,10 +43,10 @@
         <a class="nav-link dropdown-toggle" href="{{route('quanlicoso')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Cơ sở-Sinh viên</span>
-    </a>
+        </a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Quản lí cơ sở</a>
-            <a class="dropdown-item" href="#">Quản lí sinh viên</a>
+            <a class="dropdown-item" href="{{route('quanlicoso')}}">Quản lí cơ sở</a>
+            <a class="dropdown-item" href="{{route('quanlisinhvien')}}">Quản lí sinh viên</a>
         </div>
     </li>
     <!-- Nav Item - Dashboard -->
@@ -61,7 +61,7 @@
 @endsection
 
 @section('main_content')
-    <!-- Begin Page Content -->
+<!-- Begin Page Content -->
 <div class="container-fluid">
 
     <!-- Page Heading -->
@@ -105,11 +105,13 @@
                                         <option value="{{$value->id}}">{{$value->name}}</option>
                                         @endforeach
                                     </select>
-                                    
+
                                     <div class="mb-4">Nhập tên cơ sở</div>
-                                    <input name="input_name_coso" type="text" class="card border-secondary shadow h-100 py-2 col-6 mb-4" />
+                                    <input name="input_name_coso" type="text"
+                                        class="card border-secondary shadow h-100 py-2 col-6 mb-4" />
                                     <div class="mb-4">Nhập sĩ số</div>
-                                    <input name="input_siso_coso" type="text" class="card border-secondary shadow h-100 py-2 col-6 mb-4" />
+                                    <input name="input_siso_coso" type="text"
+                                        class="card border-secondary shadow h-100 py-2 col-6 mb-4" />
                                     <input type="submit" value="Thêm" class="btn btn-outline-secondary py-2 shadow">
                                 </div>
                             </form>
@@ -137,8 +139,8 @@
 
 <script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
 <script>
-     // get API cơ sở -- quản lí cơ sở
-     $(document).ready(function () {
+    // get API cơ sở -- quản lí cơ sở
+    $(document).ready(function () {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -147,18 +149,18 @@
         var getSelected = $("#dropdown-doi-tuong-quanlicoso").children("option:selected").val();
 
         $.ajax({
-    type: 'POST',
+            type: 'POST',
 
-    url: "{{url('get-co-so-quanlicoso')}}",
+            url: "{{url('get-co-so-quanlicoso')}}",
 
-    data: {
-        doi_tuong_id: getSelected
-    },
+            data: {
+                doi_tuong_id: getSelected
+            },
 
-    success: function (data) {
-    $('.delete-co-so').remove();
-    data.forEach(element => {
-    html = `<tr class="delete-co-so">
+            success: function (data) {
+                $('.delete-co-so').remove();
+                data.forEach(element => {
+                    html = `<tr class="delete-co-so">
         <td>` + element.id + `</td>
         <td class="return-data"><a href="#">` + element.name + `</a></td>
         <td class="return-data">` + element.siso + `</td>
@@ -170,34 +172,34 @@
             </a>
         </td>
     </tr>`;
-    $('#show-co-so').append(html);
-    });
-    }
+                    $('#show-co-so').append(html);
+                });
+            }
 
-    });
+        });
     });
     //
     $('#dropdown-doi-tuong-quanlicoso').change(function (e) {
-    $.ajaxSetup({
-    headers: {
-    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-    });
-    e.preventDefault();
-    var getSelected = $(this).children("option:selected").val();
-    $.ajax({
-    type: 'POST',
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        e.preventDefault();
+        var getSelected = $(this).children("option:selected").val();
+        $.ajax({
+            type: 'POST',
 
-    url: "{{url('get-co-so-quanlicoso')}}",
+            url: "{{url('get-co-so-quanlicoso')}}",
 
-    data: {
-        doi_tuong_id: getSelected
-    },
+            data: {
+                doi_tuong_id: getSelected
+            },
 
-    success: function (data) {
-    $('.delete-co-so').remove();
-    data.forEach(element => {
-    html = `<tr class="delete-co-so">
+            success: function (data) {
+                $('.delete-co-so').remove();
+                data.forEach(element => {
+                    html = `<tr class="delete-co-so">
         <td>` + element.id + `</td>
         <td class="return-data"><a href="#">` + element.name + `</a></td>
         <td class="return-data">` + element.siso + `</td>
@@ -209,11 +211,11 @@
             </a>
         </td>
     </tr>`;
-    $('#show-co-so').append(html);
-    });
-    }
+                    $('#show-co-so').append(html);
+                });
+            }
 
-    });
+        });
     });
 </script>
 @endsection
