@@ -88,7 +88,7 @@
                         <div class="card-body">
                             <!-- Core sheet type -->
                             <!-- collapse 1 content -->
-                            <form method="POST" role="form" action="{{URL::to('/them-tieu-chi-quanlitieuchi')}}">
+                            <form method="POST" role="form" action="{{URL::to('/them-co-so-quanlicoso')}}">
                                 <?php
                                     $message = Session::get('message');
                                     if($message){
