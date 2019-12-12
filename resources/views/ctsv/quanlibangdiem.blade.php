@@ -46,7 +46,7 @@
         </a>
         <div class="dropdown-menu">
             <a class="dropdown-item" href="{{route('quanlicoso')}}">Quản lí cơ sở</a>
-            <a class="dropdown-item" href="#">Quản lí sinh viên</a>
+            <a class="dropdown-item" href="{{route('quanlisinhvien')}}">Quản lí sinh viên</a>
         </div>
     </li>
     <!-- Nav Item - Dashboard -->

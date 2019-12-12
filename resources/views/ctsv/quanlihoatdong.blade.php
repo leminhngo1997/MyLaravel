@@ -40,15 +40,15 @@
     </li>
     <!-- Nav Item - Cơ sở-Sinh viên -->
     <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="{{route('quanlicoso')}}" id="navbardrop" data-toggle="dropdown">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Cơ sở-Sinh viên</span>
-        </a>
-        <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{route('quanlicoso')}}">Quản lí cơ sở</a>
-            <a class="dropdown-item" href="#">Quản lí sinh viên</a>
-        </div>
-    </li>
+            <a class="nav-link dropdown-toggle" href="{{route('quanlicoso')}}" id="navbardrop" data-toggle="dropdown">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Cơ sở-Sinh viên</span>
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{{route('quanlicoso')}}">Quản lí cơ sở</a>
+                <a class="dropdown-item" href="{{route('quanlisinhvien')}}">Quản lí sinh viên</a>
+            </div>
+        </li>
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
         <a class="nav-link" href="#">

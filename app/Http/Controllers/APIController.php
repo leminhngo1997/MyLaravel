@@ -93,4 +93,17 @@ class APIController extends Controller
         $co_so = DB::table('coso')->where('doituong_id', $doi_tuong_id)->get();
         return $co_so;
     }
+    //--Quản lý sinhvien
+    function GetCoSo_quanlisinhvien(Request $request){
+        $doituong_id = $request->doituong_id;
+        $co_so = DB::table('coso')->where('doituong_id', $doituong_id)->get();
+        return $co_so;
+    }
+    function GetUsers_quanlisinhvien(Request $request){
+        $coso_id = $request->coso_id;
+        $users = DB::table('users')->join('sv_coso', 'users.id', '=', 'sv_coso.sv_id')
+        ->where('sv_coso.coso_id', $coso_id)->get();
+        return $users;
+    }
+    
 }
