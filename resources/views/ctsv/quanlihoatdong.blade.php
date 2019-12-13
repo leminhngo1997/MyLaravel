@@ -132,6 +132,8 @@
                                     <div class="mb-4">Nhập tên hoạt động</div>
                                     <input name="input_name_hoatdong" type="text"
                                         class="card border-secondary shadow py-2 col-8 mb-4" />
+                                    <div class="mb-4">Mô tả</div>
+                                    <textarea name="input_mota_hoatdong" class="col-12 mb-4" rows="4"></textarea>
                                     <div class="mb-4">Nhập điểm hoạt động</div>
                                     <input name="input_diem_hoatdong" type="text"
                                         class="card border-secondary shadow py-2 col-8 mb-4" />

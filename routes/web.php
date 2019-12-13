@@ -29,6 +29,8 @@ Route::get('logout', 'Auth\LoginController@logout');
 Route::get('dashboard',['as'=>'dashboard','uses'=>'sinhvienController@get_value_dashboard']);
 //--tham gia hoat dong
 Route::get('thamgiahoatdong',['as'=>'thamgiahoatdong','uses'=>'sinhvienController@get_value_hoatdong']);
+//-- -- --Thêm hoạt động
+Route::post('/them-hoat-dong-thamgiahoatdong','sinhvienController@insert_hoat_dong_thamgiahoatdong');
 //--feedback
 Route::get('feedback',['as'=>'feedback','uses'=>'sinhvienController@get_value_feedback']);
 //--vote

@@ -225,6 +225,7 @@ class ctsvController extends Controller
         $data_hoatdong = array();
         $nguoi_tao_duyet = Auth::user()->name;
         $data_hoatdong['name'] = $request->input_name_hoatdong;
+        $data_hoatdong['mota'] = $request->input_mota_hoatdong;
         $data_hoatdong['diem'] = $request->input_diem_hoatdong;
         $data_hoatdong['doituong'] = $request->input_doituong_hoatdong;
         // tách chuỗi
