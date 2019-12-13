@@ -138,3 +138,6 @@ Route::post('get-co-so-quanlicoso','APIController@GetCoSo_quanlicoso');
 Route::get('quanlisinhvien',['as'=>'quanlisinhvien','uses'=>'ctsvController@get_value_quanlisinhvien']);
 Route::post('get-co-so-quanlisinhvien','APIController@GetCoSo_quanlisinhvien');
 Route::post('get-users-quanlisinhvien','APIController@GetUsers_quanlisinhvien');
+
+// -- -- -- Duyệt hoạt động
+Route::get('duyethoatdong',['as'=>'duyethoatdong','uses'=>'ctsvController@get_value_duyethoatdong']);

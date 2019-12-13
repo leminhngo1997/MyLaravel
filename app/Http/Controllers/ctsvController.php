@@ -69,6 +69,17 @@ class ctsvController extends Controller
             'data'=>$data
         ]);
     }
+
+    public function get_value_duyethoatdong(){
+        $hoatdong = DB::table('hoatdong')->get();
+        $bangdiem = DB::table('bangdiem')->get();
+        $user = DB::table('users')->get();
+        return view('ctsv.duyethoatdong',[
+            'hoatdong'=>$hoatdong,
+            'user'=>$user,
+            'bangdiem'=>$bangdiem,
+        ]);
+    }
     
     //POST
 //--Thêm loại bảng điểm

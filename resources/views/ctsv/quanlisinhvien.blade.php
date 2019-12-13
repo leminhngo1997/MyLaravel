@@ -34,7 +34,7 @@
     </li>
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{route('duyethoatdong')}}">
             <i class="fas fa-fw fa-skating"></i>
             <span>Hoạt động</span></a>
     </li>
@@ -178,6 +178,13 @@
                             <table class="border table table-striped">
                                 <thead>
                                     <tr>
+                                        <th scope="col">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" class="check" id="checkAll">
+                                                </label>
+                                            </div>
+                                        </th>            
                                         <th scope="col">Mã tài khoản</th>
                                         <th scope="col">Tên sinh viên</th>
                                         <th scope="col">Email</th>
@@ -294,5 +301,12 @@
 
         });
     });
+</script>
+
+<!-- check all -->
+<script>
+        $("#checkAll").click(function () {
+            $(".check").prop('checked', $(this).prop('checked'))
+        });
 </script>
 @endsection
