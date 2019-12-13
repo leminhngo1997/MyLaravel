@@ -133,7 +133,6 @@
         </div>
     </div>
 </div>
-</div>
 
 
 <script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
@@ -190,6 +189,7 @@
             },
 
             success: function (data) {
+                console.log(data);
                 $('.delete-row-hoatdong-chuaduyet').remove();
                 data.forEach(element => {
                     html = `<tr class="delete-row-hoatdong-chuaduyet">

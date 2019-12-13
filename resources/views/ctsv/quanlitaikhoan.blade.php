@@ -99,9 +99,9 @@
                                             </thead>
                                             <tbody>
                                                     @foreach ($user_role as $row)
-                                                    <tr class="clickable-row">
-                                                        <td>{{ $row->id }}</a></td>
-                                                        <td><a role="button" tabindex="0" onclick="">{{ $row->name }}</a></td>
+                                                    <tr class="clickable-row" onclick="setRole()">
+                                                        <td>{{ $row->id }}</td>
+                                                        <td><a role="button" tabindex="0">{{ $row->name }}</a></td>
                                                         <td>{{ $row->email }}</td>
                                                         <td>{{ $row->role }}</td>
                                                     </tr>
@@ -118,8 +118,8 @@
                                 ?>
                                 {{csrf_field()}}
                                 <div class="card-body col-12 mb-4">
-                                        <form method="POST" role="form"
-                                        action="{{URL::to('/xoa-hoat-dong-quanlihoatdong')}}">
+                                        <form method="POST" role="form" action="{{URL::to('/quanlitaikhoan/phanquyen')}}">
+                                        <div class="mb-4" style="color: red">*Nhấn vào hàng trên bảng dữ liệu để lấy thông tin</div>
                                         <table class="col-8 mb-4">
                                             <tr>
                                                 <td>
@@ -134,19 +134,18 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <input name="input_name_user" type="text"
-                                                    class="card border-secondary shadow h-100 py-2 col-8" />
+                                                    <input name="input_user_id" type="text"
+                                                    class="card border-secondary shadow h-100 py-2 col-8" id="user_id"/>
                                                 </td>
                                                 <td>
                                                     <input name="input_email_user" type="text"
-                                                    class="card border-secondary shadow h-100 py-2 col-8" 
-                                                    onfocus="this.blur()" readonly="readonly"/>
+                                                    class="card border-secondary shadow h-100 py-2 col-8" id="user_email"/>
                                                 </td>
                                                 <td>
-                                                    <select id="dropdown-doi-tuong-quanlicoso" name="input_doituong_id"
+                                                    <select id="dropdown-role" name="select_role_name"
                                                     class="card border-secondary shadow h-100 py-2 col-12">
                                                     @foreach($role as $key=>$value)
-                                                    <option value="{{$value->id}}">{{$value->name}}</option>
+                                                    <option name="role_id" value="{{$value->id}}">{{$value->name}}</option>
                                                     @endforeach
                                                     </select>
                                                 </td>
@@ -174,5 +173,24 @@
 </div>
 
 <script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
-
+<script>
+function setRole() {
+    var table = document.getElementById("userTable");
+    var rows = table.getElementsByTagName("tr");
+    for (i = 0; i < rows.length; i++) {
+      var currentRow = table.rows[i];
+      var createClickHandler = function(row) {
+        return function() {
+            var cell_id = row.getElementsByTagName("td")[0];   
+            var id = cell_id.innerHTML;
+            var cell_email = row.getElementsByTagName("td")[2];
+            var email = cell_email.innerHTML;
+            $("#user_id").val(id);
+            $("#user_email").val(email);
+        };
+      };
+      currentRow.onclick = createClickHandler(currentRow);
+    }
+  }
+</script>
 @endsection

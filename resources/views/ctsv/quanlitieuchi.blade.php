@@ -117,9 +117,6 @@
                                     <input type="submit" value="Thêm" class="btn btn-outline-secondary py-2 shadow">
                                 </div>
                             </form>
-
-
-
                             <table class="border table table-striped">
                                 <thead>
                                     <tr>
@@ -132,9 +129,6 @@
                                     {{--  --}}
                                 </tbody>
                             </table>
-
-
-
                         </div>
                     </div>
                 </div>

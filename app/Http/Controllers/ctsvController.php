@@ -74,9 +74,10 @@ class ctsvController extends Controller
         $user = DB::table('users')->get();
         $role = DB::table('roles')->get();
         $user_role = DB::table('users')
-            ->join('user_role','users.id','=','user_role.sv_id')
-            ->join('roles','user_role.role_id','=','roles.id')
+            ->leftJoin('user_role','users.id','=','user_role.sv_id')
+            ->leftJoin('roles','user_role.role_id','=','roles.id')
             ->select('users.id','users.name','users.email','user_role.role_id','roles.name as role')
+            ->orderBy('users.id','DESC')
             ->get();
         return view('ctsv.quanlitaikhoan',[
             'role'=>$role,
@@ -310,6 +311,7 @@ class ctsvController extends Controller
         $data_phongtrao_hoatdong['hoatdong_id'] = $current_hoat_dong_id;
         $data_phongtrao_hoatdong['status'] = 1;
         $data_phongtrao_hoatdong['nguoiduyet'] = $nguoi_tao_duyet;
+        //dd($data_phongtrao_hoatdong);
         DB::table('phongtrao_hoatdong')->insert($data_phongtrao_hoatdong);
         //insert table coso_hoatdong
         $data_coso_hoatdong = array();
@@ -423,6 +425,13 @@ class ctsvController extends Controller
 // -- Tài khoản
     // phân quyền
     public function update_quanlitaikhoan(Request $request){
-        
+        $user_id = $request->input_user_id;
+        $role_id = $request->select_role_name;
+
+        DB::table('user_role')->updateOrInsert([
+            'sv_id' => $user_id,
+            'role_id' => $role_id
+        ]);
+        return back();
     }
 }
