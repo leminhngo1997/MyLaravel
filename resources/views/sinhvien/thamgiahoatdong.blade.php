@@ -115,7 +115,7 @@
                                 </div>
                                 <div class="col-12 mb-4">
                                     <div class="mb-4">Phong trào</div>
-                                    <select class="card border-secondary shadow h-100 py-2 col-12 mb-4"
+                                    <select name="input_id_phongtrao" class="card border-secondary shadow h-100 py-2 col-12 mb-4"
                                         id='dropdown-phong-trao-thamgiahoatdong'>
                                         {{-- option phong trào --}}
                                     </select>

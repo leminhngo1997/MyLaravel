@@ -27,12 +27,16 @@ Route::get('logout', 'Auth\LoginController@logout');
 //Sinhvien
 //--dashboard
 Route::get('dashboard',['as'=>'dashboard','uses'=>'sinhvienController@get_value_dashboard']);
+
 //--tham gia hoat dong
 Route::get('thamgiahoatdong',['as'=>'thamgiahoatdong','uses'=>'sinhvienController@get_value_hoatdong']);
 //-- -- --Thêm hoạt động
 Route::post('/them-hoat-dong-thamgiahoatdong','sinhvienController@insert_hoat_dong_thamgiahoatdong');
+
+
 //--feedback
 Route::get('feedback',['as'=>'feedback','uses'=>'sinhvienController@get_value_feedback']);
+
 //--vote
 Route::get('vote',['as'=>'vote',function(){
     return view('sinhvien.vote');
@@ -126,11 +130,17 @@ Route::post('get-tieu-chi-quanlihoatdong','APIController@GetTieuChi_quanlihoatdo
 Route::post('get-phong-trao-quanlihoatdong','APIController@GetPhongTrao_quanlihoatdong');
 Route::post('get-hoat-dong-quanlihoatdong','APIController@GetHoatDong_quanlihoatdong');
 
+//-- --Xét duyệt hoạt động
+//-- -- --load hoạt động/hủy hoạt động
+Route::post('get-hoat-dong-duyethoatdong','APIController@GetHoatDong_duyethoatdong');
+
 //-- -- --import
     //import hoạt động
 Route::post('quanlihoatdong/import','ImportExcelHoatdongController@import');
     //import sinh viên
 Route::post('quanlisinhvien/import','ImportExcelHoatdongController@importSinhvien');
+
+
 
 
 // -- -- -- Quản lí cơ sở

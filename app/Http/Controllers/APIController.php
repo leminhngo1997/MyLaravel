@@ -105,5 +105,55 @@ class APIController extends Controller
         ->where('sv_coso.coso_id', $coso_id)->get();
         return $users;
     }
-    
+    //--Xét duyệt hoạt động
+    function GetHoatDong_duyethoatdong(Request $request){
+        $bangdiem_id = $request->bangdiem_id;
+        $tieuchi_id = DB::table('tieuchi')->where('bangdiem_id',$bangdiem_id)->get();
+        foreach($tieuchi_id as $item)
+        {
+            $phongtrao_id[] = DB::table('tieuchi_phongtrao')->where('tieuchi_id',$item->id)->get('phongtrao_id');
+        }
+        foreach($phongtrao_id as $item)
+        {
+            foreach($item as $key=>$value)
+            {
+                $hoatdong_id[] = DB::table('phongtrao_hoatdong')->where('phongtrao_id',$value->phongtrao_id)->get('hoatdong_id');                   
+            }
+            
+        }
+       
+        foreach($hoatdong_id as $item){
+            foreach($item as $key=>$value)
+            {
+                $hoat_dong_id_chua_duyet[] = $value->hoatdong_id;
+            
+            }
+            
+        }    
+        foreach($hoat_dong_id_chua_duyet as $item) {
+                $hoatdong_chuaduyet[] = DB::table('hoatdong')->where('id',$item)->get();
+        }
+         foreach($hoatdong_chuaduyet as $key => $value)
+        {
+            foreach($value as $row => $i)
+            {
+                $current_id_hoatdong_chuaduyet[] = $i->id;
+            }
+        }
+     
+        foreach($current_id_hoatdong_chuaduyet as $key=>$value)
+        {
+            $hoat_dong_status_0[] = DB::table('hoatdong')->where('id',$value)->where('status_clone',0)->get();
+        }
+        
+        $temp = array();
+        foreach($hoat_dong_status_0 as $key=>$value)
+        {
+            foreach($value as $row=>$i){
+                $temp[] = $i;
+            }
+        }
+        
+        return $temp;
+    }
 }

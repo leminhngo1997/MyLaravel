@@ -20,7 +20,7 @@ class CreatePhongtraoHoatdongTable extends Migration
             $table->unsignedBigInteger('hoatdong_id');
             $table->foreign('hoatdong_id')->references('id')->on('hoatdong');
             $table->integer('status');
-            $table->string('nguoiduyet');
+            $table->string('nguoiduyet')->nullable();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
