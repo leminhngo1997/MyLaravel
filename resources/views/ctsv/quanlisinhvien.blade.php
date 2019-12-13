@@ -177,14 +177,7 @@
                             </div>
                             <table class="border table table-striped">
                                 <thead>
-                                    <tr>
-                                        <th scope="col">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" class="check" id="checkAll">
-                                                </label>
-                                            </div>
-                                        </th>            
+                                    <tr>         
                                         <th scope="col">Mã tài khoản</th>
                                         <th scope="col">Tên sinh viên</th>
                                         <th scope="col">Email</th>
