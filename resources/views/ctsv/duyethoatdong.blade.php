@@ -139,7 +139,7 @@
 <script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
 
 <script>
-    // get API cơ sở -- quản lí cơ sở
+    // get API hoạt động-- xét duyệt hoạt động
     $(document).ready(function () {
         $.ajaxSetup({
             headers: {
@@ -147,7 +147,6 @@
             }
         });
         var getSelected = $("#dropdown-bang-diem-xetduyethoatdong").children("option:selected").val();
-
         $.ajax({
             type: 'POST',
 
@@ -158,12 +157,24 @@
             },
 
             success: function (data) {
-                $('.delete-row-hoatdong-chuaduyet').remove();
+                $('.delete-hoatdong-0').remove();
                 data.forEach(element => {
-                    html = `<tr class="delete-row-hoatdong-chuaduyet">
+                    html = `<tr class="delete-hoatdong-0">
+                                <td>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input value="` + element.id + `" name="check[]" type="checkbox" class="check">
+                                        </label>
+                                    </div>
+                                </td>
                                 <td>` + element.id + `</td>
                                 <td class="return-data"><a href="#">` + element.name + `</a></td>
+                                <td class="return-data">` + element.doituong + `</td>
+                                <td class="return-data">` + 10 + `</td>
+                                <td class="return-data">` + element.nguoitao + `</td>
+                                <td class="return-data">` + element.nguoiduyet + `</td>
                                 <td class="return-data">` + element.status_clone + `</td>
+                                <td class="return-data">` + element.mota + `</td>
                             </tr>`;
                     $('#show-hoat-dong-xetduyethoatdong').append(html);
                 });
@@ -171,7 +182,6 @@
 
         });
     });
-    //
     $('#dropdown-bang-diem-xetduyethoatdong').change(function (e) {
         $.ajaxSetup({
             headers: {
@@ -180,6 +190,7 @@
         });
         e.preventDefault();
         var getSelected = $(this).children("option:selected").val();
+        
         $.ajax({
             type: 'POST',
 
@@ -190,12 +201,24 @@
             },
 
             success: function (data) {
-                $('.delete-row-hoatdong-chuaduyet').remove();
+                $('.delete-hoatdong-0').remove();
                 data.forEach(element => {
-                    html = `<tr class="delete-row-hoatdong-chuaduyet">
+                    html = `<tr class="delete-hoatdong-0">
+                                <td>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input value="` + element.id + `" name="check[]" type="checkbox" class="check">
+                                        </label>
+                                    </div>
+                                </td>
                                 <td>` + element.id + `</td>
                                 <td class="return-data"><a href="#">` + element.name + `</a></td>
+                                <td class="return-data">` + element.doituong + `</td>
+                                <td class="return-data">` + 10 + `</td>
+                                <td class="return-data">` + element.nguoitao + `</td>
+                                <td class="return-data">` + element.nguoiduyet + `</td>
                                 <td class="return-data">` + element.status_clone + `</td>
+                                <td class="return-data">` + element.mota + `</td>
                             </tr>`;
                     $('#show-hoat-dong-xetduyethoatdong').append(html);
                 });
@@ -203,6 +226,7 @@
 
         });
     });
+    
 </script>
 
 <!-- check all -->

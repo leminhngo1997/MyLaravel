@@ -7,7 +7,7 @@ use DB;
 
 class TestController extends Controller
 {
-    public function index(){
-       return view('ctsv.quanlibangdiem');
+    public function GetUser(){
+       return view('test.test3');
     }
 }
