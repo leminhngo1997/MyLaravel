@@ -30,22 +30,13 @@
         </div>
     </li>
     <!-- Nav Item - Dashboard -->
-<<<<<<< HEAD
-    <li class="nav-item active">
-        <a class="nav-link" href="{{route('duyethoatdong')}}">
-=======
     <li class="nav-item">
         <a class="nav-link" href="{{route('quanlibangdiem')}}">
->>>>>>> c9c975f57ba822f2ee9ae3dbbf76247d7284057d
             <i class="fas fa-fw fa-skating"></i>
             <span>Bảng điểm</span></a>
     </li>
     <!-- Nav Item - Cơ sở-Sinh viên -->
-<<<<<<< HEAD
-    <li class="nav-item dropdown">
-=======
     <li class="nav-item active dropdown">
->>>>>>> c9c975f57ba822f2ee9ae3dbbf76247d7284057d
         <a class="nav-link dropdown-toggle" href="{{route('quanlicoso')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Cơ sở-Sinh viên</span>
@@ -53,10 +44,7 @@
         <div class="dropdown-menu">
             <a class="dropdown-item" href="{{route('quanlicoso')}}">Quản lí cơ sở</a>
             <a class="dropdown-item" href="{{route('quanlisinhvien')}}">Quản lí sinh viên</a>
-<<<<<<< HEAD
-=======
             <a class="dropdown-item" href="{{route('quanlitaikhoan')}}">Phân quyền tải khoản</a>
->>>>>>> c9c975f57ba822f2ee9ae3dbbf76247d7284057d
         </div>
     </li>
     <!-- Nav Item - Dashboard -->
