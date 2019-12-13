@@ -70,6 +70,21 @@ class ctsvController extends Controller
         ]);
     }
 
+    public function get_value_quanlitaikhoan(){
+        $user = DB::table('users')->get();
+        $role = DB::table('roles')->get();
+        $user_role = DB::table('users')
+            ->join('user_role','users.id','=','user_role.sv_id')
+            ->join('roles','user_role.role_id','=','roles.id')
+            ->select('users.id','users.name','users.email','user_role.role_id','roles.name as role')
+            ->get();
+        return view('ctsv.quanlitaikhoan',[
+            'role'=>$role,
+            'user'=>$user,
+            'user_role'=>$user_role
+        ]);
+    }
+
     public function get_value_duyethoatdong(){
         $hoatdong = DB::table('hoatdong')->get();
         $bangdiem = DB::table('bangdiem')->get();
@@ -403,5 +418,11 @@ class ctsvController extends Controller
         DB::table('users')->where('id',$id)->delete();
         Session::put('message','Xóa users thành công.');
         return Redirect::to('quanlisinhvien');
+    }
+
+// -- Tài khoản
+    // phân quyền
+    public function update_quanlitaikhoan(Request $request){
+        
     }
 }
