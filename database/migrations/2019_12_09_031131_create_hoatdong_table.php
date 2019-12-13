@@ -21,8 +21,9 @@ class CreateHoatdongTable extends Migration
             $table->date('ngaybatdau');
             $table->date('ngayketthuc');
             $table->string('nguoitao');
-            $table->string('nguoiduyet');
+            $table->string('nguoiduyet')->nullable();
             $table->integer('status_clone');
+            $table->text('mota')->nullable();
         });
     }
 
