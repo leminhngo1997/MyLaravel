@@ -34,7 +34,7 @@
     </li>
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{route('duyethoatdong')}}">
             <i class="fas fa-fw fa-skating"></i>
             <span>Hoạt động</span></a>
     </li>
