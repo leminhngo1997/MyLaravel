@@ -85,18 +85,12 @@
                             <!-- Core sheet type -->
                             <!-- collapse 1 content -->
 
-                            <!-- tim kiem hoat dong -->
+                            <!-- danh sach tai khoan -->
                             <div class="card-body col-12 mb-4">
-                                    <table class="border table table-striped">
+                                 <!-- bảng hiển thị danh sách tài khoản -->
+                                    <table class="border table table-striped" id="userTable">
                                             <thead>
-                                                <tr>
-                                                    <th scope="col">
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" class="check" id="checkAll">
-                                                            </label>
-                                                        </div>
-                                                    </th>
+                                                <tr class="clickable-row">
                                                     <th scope="col">Mã tài khoản</th>
                                                     <th scope="col">Tên người dùng</th>
                                                     <th scope="col">Email</th>
@@ -104,7 +98,15 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {{--  --}}
+                                                    @foreach ($user_role as $row)
+                                                    <tr class="clickable-row">
+                                                        <td>{{ $row->id }}</a></td>
+                                                        <td><a role="button" tabindex="0" onclick="">{{ $row->name }}</a></td>
+                                                        <td>{{ $row->email }}</td>
+                                                        <td>{{ $row->role }}</td>
+                                                    </tr>
+                                                    </a>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                 <?php
@@ -116,12 +118,40 @@
                                 ?>
                                 {{csrf_field()}}
                                 <div class="card-body col-12 mb-4">
-
-                                    <!-- bảng hiển thị danh sách hoạt động -->
-                            
                                         <form method="POST" role="form"
                                         action="{{URL::to('/xoa-hoat-dong-quanlihoatdong')}}">
-                                        
+                                        <table class="col-8 mb-4">
+                                            <tr>
+                                                <td>
+                                                    <div>Mã tài khoản</div>
+                                                </td>
+                                                <td>
+                                                    <div>Email khoản</div>
+                                                </td>
+                                                <td>
+                                                    <div>Chọn đối tượng</div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input name="input_name_user" type="text"
+                                                    class="card border-secondary shadow h-100 py-2 col-8" />
+                                                </td>
+                                                <td>
+                                                    <input name="input_email_user" type="text"
+                                                    class="card border-secondary shadow h-100 py-2 col-8" 
+                                                    onfocus="this.blur()" readonly="readonly"/>
+                                                </td>
+                                                <td>
+                                                    <select id="dropdown-doi-tuong-quanlicoso" name="input_doituong_id"
+                                                    class="card border-secondary shadow h-100 py-2 col-12">
+                                                    @foreach($role as $key=>$value)
+                                                    <option value="{{$value->id}}">{{$value->name}}</option>
+                                                    @endforeach
+                                                    </select>
+                                                </td>
+                                            </tr>    
+                                        </table>
                                         <?php
                                                 $message = Session::get('message');
                                                 if($message){
@@ -131,7 +161,7 @@
                                             ?>
                                         {{csrf_field()}}
                                         
-                                        <input type="submit" value="Xóa" class="btn btn-outline-secondary py-2 shadow">
+                                        <input type="submit" value="Phân quyền" class="btn btn-outline-secondary py-2 shadow">
                                     </form>                                   
                                 </div>
                                 </div>
@@ -142,5 +172,7 @@
         </div>
     </div>
 </div>
+
+<script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
 
 @endsection
