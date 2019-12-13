@@ -143,3 +143,6 @@ Route::post('get-users-quanlisinhvien','APIController@GetUsers_quanlisinhvien');
 
 // -- -- -- Duyệt hoạt động
 Route::get('duyethoatdong',['as'=>'duyethoatdong','uses'=>'ctsvController@get_value_duyethoatdong']);
+
+// -- -- -- Quản lí tài khoản
+Route::get('quanlitaikhoan',['as'=>'quanlitaikhoan','uses'=>'ctsvController@get_value_quanlitaikhoan']);

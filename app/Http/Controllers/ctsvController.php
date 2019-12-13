@@ -70,6 +70,15 @@ class ctsvController extends Controller
         ]);
     }
 
+    public function get_value_quanlitaikhoan(){
+        $user = DB::table('users')->get();
+        $role = DB::table('roles')->get();
+        return view('ctsv.quanlitaikhoan',[
+            'role'=>$role,
+            'user'=>$user,
+        ]);
+    }
+
     public function get_value_duyethoatdong(){
         $hoatdong = DB::table('hoatdong')->get();
         $bangdiem = DB::table('bangdiem')->get();

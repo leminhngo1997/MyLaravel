@@ -10,33 +10,31 @@
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">CTSV - UIT<sup>2</sup></div>
     </a>
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-
-
     <!-- Nav Item - Dashboard -->
     <li class="nav-item dropdown">
         <i class="fas fa-fw fa-tachometer-alt"></i>
-        <a class="nav-link dropdown-toggle" href="{{route('quanlibangdiem')}}" id="navbardrop" data-toggle="dropdown">
+        <a class="nav-link dropdown-toggle" href="{{route('quanlitieuchi')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Bảng điểm</span>
+            <span>Đoàn hội</span>
         </a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{route('quanlibangdiem')}}">Quản lí bảng điểm</a>
             <a class="dropdown-item" href="{{route('quanlitieuchi')}}">Quản lí tiêu chí</a>
             <a class="dropdown-item" href="{{route('quanliphongtrao')}}">Quản lí phong trào</a>
             <a class="dropdown-item" href="{{route('quanlihoatdong')}}">Quản lí hoạt động</a>
+            <a class="dropdown-item" href="{{route('duyethoatdong')}}">Xét duyệt hoạt động</a>
         </div>
     </li>
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-        <a class="nav-link" href="{{route('duyethoatdong')}}">
+        <a class="nav-link" href="{{route('quanlibangdiem')}}">
             <i class="fas fa-fw fa-skating"></i>
-            <span>Hoạt động</span></a>
+            <span>Bảng điểm</span></a>
     </li>
     <!-- Nav Item - Cơ sở-Sinh viên -->
     <li class="nav-item active dropdown">
@@ -47,6 +45,7 @@
         <div class="dropdown-menu">
             <a class="dropdown-item" href="{{route('quanlicoso')}}">Quản lí cơ sở</a>
             <a class="dropdown-item" href="{{route('quanlisinhvien')}}">Quản lí sinh viên</a>
+            <a class="dropdown-item" href="{{route('quanlitaikhoan')}}">Phân quyền tải khoản</a>
         </div>
     </li>
     <!-- Nav Item - Dashboard -->
