@@ -108,52 +108,52 @@ class APIController extends Controller
     //--Xét duyệt hoạt động
     function GetHoatDong_duyethoatdong(Request $request){
         $bangdiem_id = $request->bangdiem_id;
+
+        //attributes
+        $tieu_chi_id = '';
+
         $tieuchi_id = DB::table('tieuchi')->where('bangdiem_id',$bangdiem_id)->get();
+        
         foreach($tieuchi_id as $item)
         {
-            $phongtrao_id[] = DB::table('tieuchi_phongtrao')->where('tieuchi_id',$item->id)->get('phongtrao_id');
+            $tieu_chi_id = $tieu_chi_id.$item->id.',';
         }
-        foreach($phongtrao_id as $item)
+        $phong_trao_id = ''; 
+        foreach(explode(',', $tieu_chi_id) as $item)
         {
-            foreach($item as $key=>$value)
+            $phongtrao_id = DB::table('tieuchi_phongtrao')->where('tieuchi_id',$item)->get();
+            foreach($phongtrao_id as $item)
             {
-                $hoatdong_id[] = DB::table('phongtrao_hoatdong')->where('phongtrao_id',$value->phongtrao_id)->get('hoatdong_id');                   
-            }
-            
+                $phong_trao_id = $phong_trao_id.$item->id.',';
+               
+            }  
         }
-       
-        foreach($hoatdong_id as $item){
-            foreach($item as $key=>$value)
-            {
-                $hoat_dong_id_chua_duyet[] = $value->hoatdong_id;
-            
-            }
-            
-        }    
-        foreach($hoat_dong_id_chua_duyet as $item) {
-                $hoatdong_chuaduyet[] = DB::table('hoatdong')->where('id',$item)->get();
-        }
-         foreach($hoatdong_chuaduyet as $key => $value)
+        $hoat_dong_id = ''; 
+        foreach(explode(',', $phong_trao_id) as $item)
         {
-            foreach($value as $row => $i)
+            $hoatdong_id = DB::table('phongtrao_hoatdong')->where('phongtrao_id',$item)->get();
+            
+            foreach($hoatdong_id as $item)
             {
-                $current_id_hoatdong_chuaduyet[] = $i->id;
-            }
-        }
-     
-        foreach($current_id_hoatdong_chuaduyet as $key=>$value)
-        {
-            $hoat_dong_status_0[] = DB::table('hoatdong')->where('id',$value)->where('status_clone',0)->get();
+                $hoat_dong_id = $hoat_dong_id.$item->hoatdong_id.',';
+               
+            }  
         }
         
-        $temp = array();
-        foreach($hoat_dong_status_0 as $key=>$value)
+        foreach(explode(',', $hoat_dong_id) as $item)
         {
-            foreach($value as $row=>$i){
-                $temp[] = $i;
+            $temp[] = DB::table('hoatdong')->where('id',$item)->get();
+        }
+        $current_hoatdong = array();
+        foreach($temp as $key=>$value)
+        {
+            foreach($value as $row=>$i)
+            {
+                $current_hoatdong[] = $i;
             }
         }
         
-        return $temp;
+        return $current_hoatdong;
+        
     }
 }
