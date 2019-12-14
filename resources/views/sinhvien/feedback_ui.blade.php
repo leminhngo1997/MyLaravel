@@ -91,7 +91,7 @@
                         <div class="card border-secondary shadow h-100 py-2 col-12">
                             <div class="row">
                                 <div class="col-7">
-                                    <h1 class="h4 m-2 text-gray-800">Phản hồi gần đây</h1>
+                                    <h1 class="h4 m-2 text-gray-800">Danh sách phản hồi</h1>
                                 </div>
                             </div>
                             <div class="card-body">

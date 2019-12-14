@@ -157,3 +157,7 @@ Route::get('duyethoatdong',['as'=>'duyethoatdong','uses'=>'ctsvController@get_va
 // -- -- -- Quản lí tài khoản
 Route::get('quanlitaikhoan',['as'=>'quanlitaikhoan','uses'=>'ctsvController@get_value_quanlitaikhoan']);
 Route::post('/quanlitaikhoan/phanquyen','ctsvController@update_quanlitaikhoan');
+
+
+// -- -- -- Quản lí phản hồi
+Route::get('feedback/chitiet',['as'=>'feedback/chitiet','uses'=>'feedbackController@get_value_feedbackdetail']);

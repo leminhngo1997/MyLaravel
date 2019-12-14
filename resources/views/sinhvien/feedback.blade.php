@@ -94,14 +94,14 @@
                         <div class="card border-secondary shadow h-100 py-2 col-12">
                             <div class="row">
                                 <div class="col-7">
-                                    <h1 class="h4 m-2 text-gray-800">Phản hồi gần đây</h1>
+                                    <h1 class="h4 m-2 text-gray-800">Danh sách phản hồi</h1>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <ul class="list-unstyled friend-list">
                                     <!-- Feedback list -->
                                     <li class="active grey lighten-3 p-2">
-                                        <a href="#" class="d-flex justify-content-between">
+                                        <a href="{{route('feedback/chitiet')}}" class="d-flex justify-content-between">
                                             <div class="text-small">
                                                 <strong>John Doe</strong>
                                                 <p class="last-message text-muted">Hello, Are you there?</p>

@@ -53,6 +53,7 @@
         Hoạt động
     </div>
     <!-- Content Row -->
+    <!-- begin tab title -->
     <ul class="nav nav-tabs" id="eventTab" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" id="activity-tab" data-toggle="tab" href="#activity" role="tab"
@@ -66,9 +67,15 @@
             <a class="nav-link" id="registered-activity-tab" data-toggle="tab" href="#registered-activity" role="tab"
                 aria-controls="registered-activity" aria-selected="false">Đã đăng ký</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" id="import-tab" data-toggle="tab" href="#import-participant-tab" role="tab"
+                aria-controls="import-participant-tab" aria-selected="false">Danh sách tham gia</a>
+        </li>
     </ul>
+    <!-- end tab title -->
+    <!-- begin tab content -->
     <div class="tab-content" id="eventTabContent">
-        <!-- Activity-list tab -->
+        <!-- begin tab hoạt động -->
         <div class="tab-pane fade show active" id="activity" role="tabpanel" aria-labelledby="activity-tab">
             <form method="POST" role="form" action="{{URL::to('/them-hoat-dong-thamgiahoatdong')}}">
                 <label class="text-danger">Hoạt động sau khi tạo sẽ được phòng CTSV kiểm duyệt</label>
@@ -134,7 +141,8 @@
                 </div>
             </form>
         </div>
-        <!-- Create-activity tab -->
+        <!-- end tab hoạt động -->
+        <!-- begin tab thêm mới -->
         <div class="tab-pane fade" id="create-activity" role="tabpanel" aria-labelledby="create-activity-tab">
 
             <table class="table table-striped">
@@ -217,7 +225,8 @@
                 </nav>
             </div>
         </div>
-        <!-- Registered-activity tab -->
+        <!-- end tab thêm mới -->
+        <!-- begin tab đăng ký -->
         <div class="tab-pane fade" id="registered-activity" role="tabpanel" aria-labelledby="registered-activity-tab">
             <table class="table table-striped">
                 <thead>
@@ -299,7 +308,13 @@
                 </nav>
             </div>
         </div>
+        <!-- end tab đăng ký -->
+        <!-- begin tab import -->
+        <div class="tab-pane fade show active" id="import-participant-tab" role="tabpanel" aria-labelledby="import-tab">
+        </div>
+        <!-- end tab import -->
     </div>
+    <!-- end tab content -->
 </div>
 <script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
 {{-- Auto call get phongtrao api --}}
