@@ -437,4 +437,30 @@ class ctsvController extends Controller
             ]);
         return back();
     }
+
+    //delete hoat dong
+    public function xoa_duyet_hoat_dong(Request $request){
+        $list_hoat_dong = $request->array_hoat_dong;
+        $action = $request->action;
+        if($action == 'delete'){
+            foreach($list_hoat_dong as $item){
+                DB::table('coso_hoatdong')->where('hoatdong_id',$item)->delete();
+                DB::table('phongtrao_hoatdong')->where('hoatdong_id',$item)->delete();
+                DB::table('hoatdong')->where('id',$item)->delete();
+            }
+            return response()->json(['message' => 'Hủy thành công!', 'data'=>$list_hoat_dong]);
+        }
+        elseif($action == 'update'){
+            foreach($list_hoat_dong as $item){
+                DB::table('hoatdong')->where('id',$item)->update(['status_clone'=>1]);
+            }
+            return response()->json(['message' => 'Duyệt thành công!', 'data'=>$list_hoat_dong]);
+        }
+        else{
+            return back();
+        }
+    }
+
+  
+    
 }

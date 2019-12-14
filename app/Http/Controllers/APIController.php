@@ -142,7 +142,7 @@ class APIController extends Controller
         
         foreach(explode(',', $hoat_dong_id) as $item)
         {
-            $temp[] = DB::table('hoatdong')->where('id',$item)->get();
+            $temp[] = DB::table('hoatdong')->where('id',$item)->where('status_clone',0)->get();
         }
         $current_hoatdong = array();
         foreach($temp as $key=>$value)
