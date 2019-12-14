@@ -428,10 +428,13 @@ class ctsvController extends Controller
         $user_id = $request->input_user_id;
         $role_id = $request->select_role_name;
 
-        DB::table('user_role')->updateOrInsert([
-            'sv_id' => $user_id,
-            'role_id' => $role_id
-        ]);
+        DB::table('user_role')->updateOrInsert(
+            [
+                'sv_id' => $user_id
+            ],
+            [
+                'role_id' => $role_id
+            ]);
         return back();
     }
 
