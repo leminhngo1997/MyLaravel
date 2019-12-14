@@ -61,14 +61,16 @@ class sinhvienController extends Controller
         $nguoi_tao = Auth::user()->name;
         //--tên cơ sở
         $auth_id = Auth::user()->id;
-        $coso_id_hoatdong = DB::table('sv_coso')->where('sv_id',$auth_id)->get('id');
+        
+        $coso_id_hoatdong = DB::table('sv_coso')->where('sv_id',$auth_id)->get('coso_id');
         foreach($coso_id_hoatdong as $item){
-            $current_coso_id = $item->id;
+            $current_coso_id = $item->coso_id;
         }
         $coso_name_hoatdong = DB::table('coso')->where('id',$current_coso_id)->get('name');
         foreach($coso_name_hoatdong as $item){
             $current_coso_name = $item->name;
         }
+        
         $data_hoatdong['name'] = $request->input_name_hoatdong;
         $data_hoatdong['mota'] = $request->input_mota_hoatdong;
         $data_hoatdong['diem'] = $request->input_diem_hoatdong;

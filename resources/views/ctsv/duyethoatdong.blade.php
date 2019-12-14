@@ -81,51 +81,48 @@
                     </div>
                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="card-body">
+                            {{-- show message --}}
+                            <div class="text-danger show-message"></div>
                             <!-- Core sheet type -->
                             <!-- collapse 1 content -->
-                            
-                            <div class="card-body col-12 mb-4">
-                                <div class="mb-4">Chọn bảng điểm</div>
-                                <select id="dropdown-bang-diem-xetduyethoatdong"
-                                    class="card border-secondary shadow py-2 col-2 mb-4">
-                                    @foreach($bangdiem as $key=>$value)
-                                    <option value="{{$value->id}}">{{$value->name}}</option>
-                                    @endforeach
-                                </select>
+                                <div class="card-body col-12 mb-4">
+                                    <div class="mb-4">Chọn bảng điểm</div>
+                                    <select id="dropdown-bang-diem-xetduyethoatdong"
+                                        class="card border-secondary shadow py-2 col-2 mb-4">
+                                        @foreach($bangdiem as $key=>$value)
+                                        <option value="{{$value->id}}">{{$value->name}}</option>
+                                        @endforeach
+                                    </select>
 
-                                <!-- bảng hiển thị danh sách hoạt động -->
+                                    <!-- bảng hiển thị danh sách hoạt động -->
 
 
-                                <table class="border table table-striped">
+                                    <table class="border table table-striped">
 
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox" class="check" id="checkAll">
-                                                    </label>
-                                                </div>
-                                            </th>
-                                            <th scope="col">Tên hoạt động</th>
-                                            <th scope="col">Điểm cộng</th>
-                                            <th scope="col">Đối tượng</th>
-                                            <th scope="col">Số lượng tham gia</th>
-                                            <th scope="col">Người tạo</th>
-                                            <th scope="col">Người duyệt</th>
-                                            <th scope="col">Trạng thái</th>
-                                            <th scope="col">Mô tả</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="show-hoat-dong-xetduyethoatdong">
-                                        {{--  --}}
-                                    </tbody>
-                                </table>
-                                <div class="mb-4">Lý do hủy hoạt động</div>
-                                <textarea class="col-4 mb-4" rows="3"></textarea><br>
-                                <input type="submit" value="Hủy" class="btn btn-outline-secondary py-2 shadow">
-                                <input type="submit" value="Duyệt" class="btn btn-outline-secondary py-2 shadow" />
-                            </div>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">
+                                                    
+                                                </th>
+                                                <th scope="col">Tên hoạt động</th>
+                                                <th scope="col">Điểm cộng</th>
+                                                <th scope="col">Đối tượng</th>
+                                                <th scope="col">Số lượng tham gia</th>
+                                                <th scope="col">Người tạo</th>
+                                                <th scope="col">Người duyệt</th>
+                                                <th scope="col">Trạng thái</th>
+                                                <th scope="col">Mô tả</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="show-hoat-dong-xetduyethoatdong">
+                                            {{--  --}}
+                                        </tbody>
+                                    </table>
+                                    <div class="mb-4">Lý do hủy hoạt động</div>
+                                    <textarea class="col-4 mb-4" rows="3"></textarea><br>
+                                    <input type="button" value="Hủy" class="btn btn-outline-secondary btn-delete">
+                                    <input type="button" value="Duyệt" class="btn btn-outline-secondary py-2 shadow btn-update" />
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -138,8 +135,10 @@
 <script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
 
 <script>
+    var get_all_id = [];
     // get API hoạt động-- xét duyệt hoạt động
     $(document).ready(function () {
+        get_all_id = [];
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -158,6 +157,7 @@
             success: function (data) {
                 $('.delete-hoatdong-0').remove();
                 data.forEach(element => {
+                    get_all_id.push(element.id);
                     html = `<tr class="delete-hoatdong-0">
                                 <td>
                                     <div class="checkbox">
@@ -166,8 +166,8 @@
                                         </label>
                                     </div>
                                 </td>
-                                <td>` + element.id + `</td>
                                 <td class="return-data"><a href="#">` + element.name + `</a></td>
+                                <td class="return-data"><a href="#">` + element.diem + `</a></td>
                                 <td class="return-data">` + element.doituong + `</td>
                                 <td class="return-data">` + 10 + `</td>
                                 <td class="return-data">` + element.nguoitao + `</td>
@@ -182,6 +182,7 @@
         });
     });
     $('#dropdown-bang-diem-xetduyethoatdong').change(function (e) {
+        get_all_id = [];
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -189,7 +190,7 @@
         });
         e.preventDefault();
         var getSelected = $(this).children("option:selected").val();
-        
+
         $.ajax({
             type: 'POST',
 
@@ -200,9 +201,10 @@
             },
 
             success: function (data) {
-                $('.delete-hoatdong-0').remove();
+                $('.delete-all-hoat-dong').remove();
                 data.forEach(element => {
-                    html = `<tr class="delete-hoatdong-0">
+                    get_all_id.push(element.id);
+                    html = `<tr class="delete-all-hoat-dong delete-hoatdong-`+element.id+`">
                                 <td>
                                     <div class="checkbox">
                                         <label>
@@ -210,8 +212,8 @@
                                         </label>
                                     </div>
                                 </td>
-                                <td>` + element.id + `</td>
                                 <td class="return-data"><a href="#">` + element.name + `</a></td>
+                                <td class="return-data"><a href="#">` + element.diem + `</a></td>
                                 <td class="return-data">` + element.doituong + `</td>
                                 <td class="return-data">` + 10 + `</td>
                                 <td class="return-data">` + element.nguoitao + `</td>
@@ -225,13 +227,70 @@
 
         });
     });
-    
 </script>
 
 <!-- check all -->
 <script>
-    $("#checkAll").click(function () {
-        $(".check").prop('checked', $(this).prop('checked'))
+    var array_hoat_dong = [];
+
+    $('#show-hoat-dong-xetduyethoatdong').on('click','.check', function () {
+        if($(this).prop('checked') == true){
+            array_hoat_dong.push($(this).val());
+        }
+        if($(this).prop('checked') == false){
+            if(array_hoat_dong.indexOf($(this).val()) > -1)
+            array_hoat_dong.splice( array_hoat_dong.indexOf($(this).val()), 1 );
+        }
+    });
+
+    $('.btn-delete').on('click', function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'POST',
+
+            url: "{{url('/xoa-duyet-hoat-dong')}}",
+
+            data: {
+                action: 'delete',
+                array_hoat_dong: array_hoat_dong
+            },
+
+            success: function (result) {
+                alert(result.message);
+                result.data.forEach(element => {
+                    $('.delete-hoatdong-'+element).remove();
+                });
+            }   
+        });
+    });
+
+    $('.btn-update').on('click', function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'POST',
+
+            url: "{{url('/xoa-duyet-hoat-dong')}}",
+
+            data: {
+                action: 'update',
+                array_hoat_dong: array_hoat_dong
+            },
+
+            success: function (result) {
+                alert(result.message);
+                result.data.forEach(element => {
+                    $('.delete-hoatdong-'+element).remove();
+                });
+            }   
+        });
     });
 </script>
 

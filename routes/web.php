@@ -82,7 +82,6 @@ Route::post('/them-users-quanlisinhvien','ctsvController@insert_users_quanlisinh
 //-- -- --Xóa sinh viên
 Route::get('/delete-users-quanlisinhvien/{id}','ctsvController@delete_users_quanlisinhvien' );
 
-
 //-- --Quản lý tiêu chí
 Route::get('quanlitieuchi',['as'=>'quanlitieuchi','uses'=>'ctsvController@get_value_quanlitieuchi']);
 //-- --Quản lý phong trào
@@ -153,6 +152,7 @@ Route::post('get-users-quanlisinhvien','APIController@GetUsers_quanlisinhvien');
 
 // -- -- -- Duyệt hoạt động
 Route::get('duyethoatdong',['as'=>'duyethoatdong','uses'=>'ctsvController@get_value_duyethoatdong']);
+Route::post('xoa-duyet-hoat-dong','ctsvController@xoa_duyet_hoat_dong');
 
 // -- -- -- Quản lí tài khoản
 Route::get('quanlitaikhoan',['as'=>'quanlitaikhoan','uses'=>'ctsvController@get_value_quanlitaikhoan']);
