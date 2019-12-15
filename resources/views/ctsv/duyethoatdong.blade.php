@@ -16,7 +16,7 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item dropdown">
+    <li class="nav-item active dropdown">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <a class="nav-link dropdown-toggle" href="{{route('quanlitieuchi')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -36,7 +36,7 @@
             <span>Bảng điểm</span></a>
     </li>
     <!-- Nav Item - Cơ sở-Sinh viên -->
-    <li class="nav-item active dropdown">
+    <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="{{route('quanlicoso')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Cơ sở-Sinh viên</span>

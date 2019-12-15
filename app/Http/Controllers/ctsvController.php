@@ -346,7 +346,7 @@ class ctsvController extends Controller
         $data_users = array();
         $data_users['name'] = $request->input_name_users;
         $data_users['email'] = $request->input_email_users;
-        $data_users['password'] = bcrypt('{{$request->input_password_users}}');
+        $data_users['password'] = bcrypt($request->input_password_users);
         DB::table('users')->insert($data_users);
         //insert table sv_coso
         $current_user_id = DB::table('users')->orderBy('id','DESC')->first()->id;
@@ -404,4 +404,6 @@ class ctsvController extends Controller
             return back();
         }
     }
+
+  
 }

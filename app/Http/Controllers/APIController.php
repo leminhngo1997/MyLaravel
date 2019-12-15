@@ -105,6 +105,13 @@ class APIController extends Controller
         ->where('sv_coso.coso_id', $coso_id)->get();
         return $users;
     }
+    function Load_Account_quanlisinhvien(Request $request){
+        $co_so_id = $request->co_so_id;
+        $users = DB::table('users')->join('sv_coso', 'users.id', '=', 'sv_coso.sv_id')
+        ->where('sv_coso.coso_id', $co_so_id)->get();
+        return $users;
+    }
+
     //--Xét duyệt hoạt động
     function GetHoatDong_duyethoatdong(Request $request){
         $bangdiem_id = $request->bangdiem_id;

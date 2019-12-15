@@ -120,6 +120,7 @@
                                         <th scope="col">Mã cơ sở</th>
                                         <th scope="col">Tên cơ sở</th>
                                         <th scope="col">Sĩ số</th>
+                                        <th scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody id="show-co-so">

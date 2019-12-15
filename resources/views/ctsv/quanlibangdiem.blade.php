@@ -31,13 +31,13 @@
         </div>
     </li>
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
+    <li class="nav-item active">
         <a class="nav-link" href="{{route('quanlibangdiem')}}">
             <i class="fas fa-fw fa-skating"></i>
             <span>Bảng điểm</span></a>
     </li>
     <!-- Nav Item - Cơ sở-Sinh viên -->
-    <li class="nav-item active dropdown">
+    <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="{{route('quanlicoso')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Cơ sở-Sinh viên</span>
