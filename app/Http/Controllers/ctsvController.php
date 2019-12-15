@@ -264,14 +264,11 @@ class ctsvController extends Controller
         //insert table coso_hoatdong
         $data_coso_hoatdong = array();
         $current_id_bangdiem = $request->current_id_bangdiem;
-        // dd($current_id_bangdiem);
         $current_doituong_id = DB::table('bangdiem_doituong')->where('bangdiem_id',$current_id_bangdiem)->get('doituong_id');
-        // dd($current_doituong_id);
        
         foreach($current_doituong_id as $item){
             $doi_tuong_id[] = $item->doituong_id;
         }
-        // dd($doi_tuong_id);
         foreach($doi_tuong_id as $item){
             $current_coso_id[] = DB::table('coso')->where('doituong_id',$item)->get();
         }
@@ -318,9 +315,8 @@ class ctsvController extends Controller
         }
         //delete 2 table phongtrao_hoatdong & hoatdong
         $check = $request->check;
-        //dd($check);
         foreach($check as $key => $value){
-            //dd($value);
+            DB::table('coso_hoatdong')->where('hoatdong_id',$value)->delete();
             DB::table('phongtrao_hoatdong')->where('hoatdong_id',$value)->delete();
             DB::table('hoatdong')->where('id',$value)->delete();
         }
@@ -408,7 +404,4 @@ class ctsvController extends Controller
             return back();
         }
     }
-
-  
-    
 }
