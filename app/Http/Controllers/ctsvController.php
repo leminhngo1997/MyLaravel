@@ -138,63 +138,11 @@ class ctsvController extends Controller
 //--Thêm tiêu chí
     public function insert_tieu_chi_quanlitieuchi(Request $request){
         //insert table tieuchi
-        // $data = array();
-        // $data['name'] = $request->input_name_tieuchi;
-        // $data['bangdiem_id'] = $request->input_bangdiem_id_tieuchi;
-        // $data['maxtieuchi'] = $request->input_maxtieuchi_tieuchi;
-        // DB::table('tieuchi')->insert($data);
-
-        $tieuchi_id = DB::table('tieuchi')->where('bangdiem_id',11)->get();
-        foreach($tieuchi_id as $item)
-        {
-            $phongtrao_id[] = DB::table('tieuchi_phongtrao')->where('tieuchi_id',$item->id)->get('phongtrao_id');
-        }
-        foreach($phongtrao_id as $item)
-        {
-            foreach($item as $key=>$value)
-            {
-                $hoatdong_id[] = DB::table('phongtrao_hoatdong')->where('phongtrao_id',$value->phongtrao_id)->get('hoatdong_id');                   
-            }
-            
-        }
-       
-        foreach($hoatdong_id as $item){
-            foreach($item as $key=>$value)
-            {
-                $hoat_dong_id_chua_duyet[] = $value->hoatdong_id;
-            
-            }
-            
-        }    
-        foreach($hoat_dong_id_chua_duyet as $item) {
-                $hoatdong_chuaduyet[] = DB::table('hoatdong')->where('id',$item)->get();
-        }
-         foreach($hoatdong_chuaduyet as $key => $value)
-        {
-            foreach($value as $row => $i)
-            {
-                $current_id_hoatdong_chuaduyet[] = $i->id;
-            }
-        }
-     
-        foreach($current_id_hoatdong_chuaduyet as $key=>$value)
-        {
-            $hoat_dong_status_0[] = DB::table('hoatdong')->where('id',$value)->get();
-        }
-        
-        $temp = array();
-        foreach($hoat_dong_status_0 as $key=>$value)
-        {
-            foreach($value as $row=>$i)
-            {
-                $temp[] = $i;
-            }
-           
-        }
-        dd($temp);
-        
-        
-
+        $data = array();
+        $data['name'] = $request->input_name_tieuchi;
+        $data['bangdiem_id'] = $request->input_bangdiem_id_tieuchi;
+        $data['maxtieuchi'] = $request->input_maxtieuchi_tieuchi;
+        DB::table('tieuchi')->insert($data);
         Session::put('message','Thêm tiêu chí thành công.');
         return Redirect::to('quanlitieuchi');
     }
