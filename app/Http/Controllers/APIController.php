@@ -118,9 +118,7 @@ class APIController extends Controller
 
         //attributes
         $tieu_chi_id = '';
-
         $tieuchi_id = DB::table('tieuchi')->where('bangdiem_id',$bangdiem_id)->get();
-        
         foreach($tieuchi_id as $item)
         {
             $tieu_chi_id = $tieu_chi_id.$item->id.',';
@@ -132,26 +130,24 @@ class APIController extends Controller
             foreach($phongtrao_id as $item)
             {
                 $phong_trao_id = $phong_trao_id.$item->id.',';
-               
             }  
         }
         $hoat_dong_id = ''; 
         foreach(explode(',', $phong_trao_id) as $item)
         {
             $hoatdong_id = DB::table('phongtrao_hoatdong')->where('phongtrao_id',$item)->get();
-            
             foreach($hoatdong_id as $item)
             {
-                $hoat_dong_id = $hoat_dong_id.$item->hoatdong_id.',';
-               
+                $hoat_dong_id = $hoat_dong_id.$item->hoatdong_id.',';  
             }  
         }
-        
         foreach(explode(',', $hoat_dong_id) as $item)
         {
             $temp[] = DB::table('hoatdong')->where('id',$item)->where('status_clone',0)->get();
+           
         }
         $current_hoatdong = array();
+        
         foreach($temp as $key=>$value)
         {
             foreach($value as $row=>$i)
@@ -159,8 +155,55 @@ class APIController extends Controller
                 $current_hoatdong[] = $i;
             }
         }
-        
         return $current_hoatdong;
-        
+    }
+     //--Import danh sách sinh viên tham gia hoạt động
+     function GetHoatDong_importsinhvienthamgiahoatdong(Request $request){
+        $bangdiem_id = $request->bangdiem_id;
+
+        //attributes
+        $tieu_chi_id = '';
+        $tieuchi_id = DB::table('tieuchi')->where('bangdiem_id',$bangdiem_id)->get();
+        foreach($tieuchi_id as $item)
+        {
+            $tieu_chi_id = $tieu_chi_id.$item->id.',';
+        }
+        $phong_trao_id = ''; 
+        foreach(explode(',', $tieu_chi_id) as $item)
+        {
+            $phongtrao_id = DB::table('tieuchi_phongtrao')->where('tieuchi_id',$item)->get();
+            foreach($phongtrao_id as $item)
+            {
+                $phong_trao_id = $phong_trao_id.$item->id.',';
+            }  
+        }
+        $hoat_dong_id = ''; 
+        foreach(explode(',', $phong_trao_id) as $item)
+        {
+            $hoatdong_id = DB::table('phongtrao_hoatdong')->where('phongtrao_id',$item)->get();
+            foreach($hoatdong_id as $item)
+            {
+                $hoat_dong_id = $hoat_dong_id.$item->hoatdong_id.',';  
+            }  
+        }
+        foreach(explode(',', $hoat_dong_id) as $item)
+        {
+            $temp[] = DB::table('hoatdong')->where('id',$item)->where('status_clone',1)->get();
+        }
+        $current_hoatdong = array();
+        foreach($temp as $key=>$value)
+        {
+            foreach($value as $row=>$i)
+            {
+                $phongtrao_name = DB::table('phongtrao')->join('phongtrao_hoatdong', 'phongtrao.id','=','phongtrao_hoatdong.phongtrao_id')
+                ->where('phongtrao_hoatdong.hoatdong_id',$i->id)->get();
+                foreach($phongtrao_name as $key=>$value){
+                    $i->phongtrao_name = $value->name;
+                }
+                $current_hoatdong[] = $i;
+            }
+        }
+       
+        return $current_hoatdong;
     }
 }

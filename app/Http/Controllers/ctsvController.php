@@ -96,6 +96,13 @@ class ctsvController extends Controller
             'bangdiem'=>$bangdiem,
         ]);
     }
+
+    public function get_value_importsinhvienthamgiahoatdong(){
+        $bangdiem = DB::table('bangdiem')->get();
+        return view('ctsv.importsinhvienthamgiahoatdong',[
+            'bangdiem'=>$bangdiem,
+            ]);
+    }
     
     //POST
 //--Thêm loại bảng điểm

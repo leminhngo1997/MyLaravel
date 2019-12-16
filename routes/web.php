@@ -155,6 +155,10 @@ Route::post('get-users-quanlisinhvien','APIController@GetUsers_quanlisinhvien');
 Route::get('duyethoatdong',['as'=>'duyethoatdong','uses'=>'ctsvController@get_value_duyethoatdong']);
 Route::post('xoa-duyet-hoat-dong','ctsvController@xoa_duyet_hoat_dong');
 
+// -- -- -- Import sinh viên tham gia hoạt động
+Route::get('importsinhvienthamgiahoatdong',['as'=>'importsinhvienthamgiahoatdong','uses'=>'ctsvController@get_value_importsinhvienthamgiahoatdong']);
+Route::post('get-hoat-dong-importsinhvienthamgiahoatdong','APIController@GetHoatDong_importsinhvienthamgiahoatdong');
+
 // -- -- -- Quản lí tài khoản
 Route::get('quanlitaikhoan',['as'=>'quanlitaikhoan','uses'=>'ctsvController@get_value_quanlitaikhoan']);
 Route::post('/quanlitaikhoan/phanquyen','ctsvController@update_quanlitaikhoan');
