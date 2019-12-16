@@ -434,17 +434,17 @@ class ctsvController extends Controller
     DB::table('xeploai')->where('id',$id)->delete();
     Session::put('message','Xóa xếp loại thành công.');
     return Redirect::to('quanlixeploai');
-}
+    }
 //--Thêm xếp loại
-public function insert_xep_loai_quanlixeploai(Request $request){
-    //insert table xeploai
-    $data = array();
-    $data['name'] = $request->input_name_xeploai;
-    $data['loaibangdiem_id'] = $request->input_id_loai_bang_diem_xeploai;
-    $data['canduoi'] = $request->input_canduoi_xeploai;
-    $data['cantren'] = $request->input_cantren_xeploai;
-    DB::table('xeploai')->insert($data);
-    Session::put('message','Thêm xếp loại thành công.');
-    return Redirect::to('quanlixeploai');
-}
+    public function insert_xep_loai_quanlixeploai(Request $request){
+        //insert table xeploai
+        $data = array();
+        $data['name'] = $request->input_name_xeploai;
+        $data['loaibangdiem_id'] = $request->input_id_loai_bang_diem_xeploai;
+        $data['canduoi'] = $request->input_canduoi_xeploai;
+        $data['cantren'] = $request->input_cantren_xeploai;
+        DB::table('xeploai')->insert($data);
+        Session::put('message','Thêm xếp loại thành công.');
+        return Redirect::to('quanlixeploai');
+    }
 }
