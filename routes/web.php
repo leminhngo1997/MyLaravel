@@ -138,6 +138,8 @@ Route::post('get-hoat-dong-duyethoatdong','APIController@GetHoatDong_duyethoatdo
 Route::post('quanlihoatdong/import','ImportExcelController@import');
     //import sinh viên
 Route::post('quanlisinhvien/import','ImportExcelController@importSinhvien');
+    //import phong trao
+Route::post('quanliphongtrao/import','ImportExcelController@importPhongtrao');
 
 
 

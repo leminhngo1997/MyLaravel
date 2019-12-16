@@ -246,4 +246,60 @@ class ImportExcelController extends Controller
         }
         return back()->with('success', 'Excel Data Imported successfully.');
     }
+
+    function importPhongtrao(Request $request)
+    {
+        $this->validate($request, [
+            'select_file' => 'required|mimes:xls,xlsx'
+        ]);
+        
+        $path = $request->file('select_file')->getRealPath();
+        
+        $data = Excel::load($path)->get();
+        
+        if($data->count() > 0)
+        {
+            
+            foreach($data->toArray() as $key => $value)
+            {
+                    if(($value['tenphongtrao']!==null)&&($value['matieuchi']!==null)){
+                   
+                        $insert_phongtrao[] = array(
+                            'name' => $value['tenphongtrao'],
+                            'maxphongtrao' => $value['diemtoida'],
+                        );
+
+                        $tieuchi_id[] = $value['matieuchi'];
+
+                    }
+
+            }
+            
+            
+            if(!empty($insert_phongtrao))
+            {    
+                // insert phong trao
+                DB::table('phongtrao')->insert($insert_phongtrao);
+
+                // lấy mã phong trào vừa thêm vào
+                $temp = DB::table('phongtrao')->orderBy('id', 'DESC')->take(count($insert_phongtrao))->get('id');
+
+                foreach($temp as $key => $value){
+                    $phongtrao_id[] = $value->id;
+                }
+                
+                sort($phongtrao_id);
+
+                foreach($phongtrao_id as $key => $value){
+                    DB::table('tieuchi_phongtrao')->insert([
+                        'tieuchi_id' => $value,
+                        'phongtrao_id'=> $tieuchi_id[$key]
+                    ]);
+                }
+            }
+
+        
+        }
+        return back()->with('success', 'Excel Data Imported successfully.');
+    }
 }
