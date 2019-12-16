@@ -80,7 +80,7 @@ Route::get('/delete-co-so-quanlicoso/{id}','ctsvController@delete_co_so_quanlico
 //-- -- --Thêm tiêu chí
 Route::post('/them-users-quanlisinhvien','ctsvController@insert_users_quanlisinhvien');
 //-- -- --Xóa sinh viên
-Route::get('/delete-users-quanlisinhvien/{id}','ctsvController@delete_users_quanlisinhvien' );
+Route::post('/xoa-user-quanlisinhvien','ctsvController@delete_users_quanlisinhvien');
 
 //-- --Quản lý tiêu chí
 Route::get('quanlitieuchi',['as'=>'quanlitieuchi','uses'=>'ctsvController@get_value_quanlitieuchi']);

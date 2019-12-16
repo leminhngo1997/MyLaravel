@@ -183,19 +183,29 @@
                                     </table>
                                 </div>
                             </div>
-                            <table class="border table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Mã tài khoản</th>
-                                        <th scope="col">Tên sinh viên</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col"></th>
-                                    </tr>
-                                </thead>
-                                <tbody id="show-users">
-                                    {{--  --}}
-                                </tbody>
-                            </table>
+                            <form method="POST" role="form" action="{{URL::to('/xoa-user-quanlisinhvien')}}">
+                                <table class="border table table-striped">
+                                    {{csrf_field()}}
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" class="check" id="checkAll">
+                                                    </label>
+                                                </div>
+                                            </th>
+                                            <th scope="col">Mã tài khoản</th>
+                                            <th scope="col">Tên sinh viên</th>
+                                            <th scope="col">Email</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="show-users">
+                                        {{--  --}}
+                                    </tbody>
+                                    <input type="submit" value="Xóa" class="btn btn-outline-secondary py-2 shadow">
+                                </table>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -286,24 +296,24 @@
                 $('.delete-users').remove();
                 data.forEach(element => {
                     html = `<tr class="delete-users">
-        <td>` + element.id + `</td>
-        <td class="return-data"><a href="#">` + element.name + `</a></td>
-        <td class="return-data">` + element.email + `</td>
-        <td>
-            <a onclick="return confirm('Bạn chắn chắc muốn xóa không ?')"
-                href="{{URL::to('/delete-users-quanlisinhvien/` + element.id + `')}}" class="active"
-                ui-toggle-class="">
-                <i class="fa fa-times text-danger text"></i>
-            </a>
-        </td>
-    </tr>`;
+                                <td>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input value="` + element.id + `" name="check[]" type="checkbox" class="check">
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>` + element.id + `</td>
+                                <td class="return-data"><a href="#">` + element.name + `</a></td>
+                                <td class="return-data">` + element.email + `</td>
+                                
+                            </tr>`;
                     $('#show-users').append(html);
                 });
             }
 
         });
     });
-  
 </script>
 
 

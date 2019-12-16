@@ -378,14 +378,7 @@ class ctsvController extends Controller
         Session::put('message','Thêm sinh viên thành công.');
         return Redirect::to('quanlisinhvien');
     }
-    //--Xóa users
-    public function delete_users_quanlisinhvien($id){
-        DB::table('sv_coso')->where('sv_id',$id)->delete();
-        DB::table('user_role')->where('sv_id',$id)->delete();
-        DB::table('users')->where('id',$id)->delete();
-        Session::put('message','Xóa users thành công.');
-        return Redirect::to('quanlisinhvien');
-    }
+
 
 // -- Tài khoản
     // phân quyền
@@ -425,7 +418,25 @@ class ctsvController extends Controller
             return back();
         }
     }
-
+//--quản lí sinh viên
+//--Xóa hoạt động
+public function delete_users_quanlisinhvien(Request $request){
+    if($request->check == null)
+    {
+        Session::put('message','Lỗi: Check hoạt động cần xóa');
+        return Redirect::to('quanlisinhvien');
+    }
+    //delete 2 table phongtrao_hoatdong & hoatdong
+    $check = $request->check;
+    foreach($check as $key => $value){
+        DB::table('sv_coso')->where('sv_id',$value)->delete();
+        DB::table('user_role')->where('sv_id',$value)->delete();
+        DB::table('users')->where('id',$value)->delete();
+    }
+    Session::put('message','Xóa user thành công.');
+    return Redirect::to('quanlisinhvien');
+}
+//--quản lí xếp loại
   //--Xóa xếp loại
   public function delete_xep_loai_quanlixeploai($id){
     // delete table xeploai
