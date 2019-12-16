@@ -28,6 +28,8 @@
             <a class="dropdown-item" href="{{route('quanliphongtrao')}}">Quản lí phong trào</a>
             <a class="dropdown-item" href="{{route('quanlihoatdong')}}">Quản lí hoạt động</a>
             <a class="dropdown-item" href="{{route('duyethoatdong')}}">Xét duyệt hoạt động</a>
+            <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Import sinh viên tham gia hoạt
+                động</a>
         </div>
     </li>
     <!-- Nav Item - Bảng điểm -->
@@ -39,8 +41,6 @@
         <div class="dropdown-menu">
             <a class="dropdown-item" href="{{route('quanlibangdiem')}}">Quản lí bảng điểm</a>
             <a class="dropdown-item" href="{{route('quanlixeploai')}}">Quản lí xếp loại</a>
-            <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Import sinh viên tham gia hoạt
-                động</a>
         </div>
     </li>
     <!-- Nav Item - Cơ sở-Sinh viên -->
@@ -184,19 +184,31 @@
                                     </table>
                                 </div>
                             </div>
-                            <table class="border table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Mã tài khoản</th>
-                                        <th scope="col">Tên sinh viên</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col"></th>
-                                    </tr>
-                                </thead>
-                                <tbody id="show-users">
-                                    {{--  --}}
-                                </tbody>
-                            </table>
+                            <form method="POST" role="form" action="{{URL::to('/xoa-user-quanlisinhvien')}}">
+                                <div>Tìm kiếm theo mã sinh viên</div>
+                                <input type="text" class="form-control col-6 mb-4" id="myInput" onkeyup="myFunction()">
+                                <table class="border table table-striped" id="myTable">
+                                    {{csrf_field()}}
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" class="check" id="checkAll">
+                                                    </label>
+                                                </div>
+                                            </th>
+                                            <th scope="col">Mã tài khoản</th>
+                                            <th scope="col">Tên sinh viên</th>
+                                            <th scope="col">Email</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="show-users">
+                                        {{--  --}}
+                                    </tbody>
+                                    <input type="submit" value="Xóa" class="btn btn-outline-secondary py-2 shadow">
+                                </table>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -287,27 +299,48 @@
                 $('.delete-users').remove();
                 data.forEach(element => {
                     html = `<tr class="delete-users">
-        <td>` + element.id + `</td>
-        <td class="return-data"><a href="#">` + element.name + `</a></td>
-        <td class="return-data">` + element.email + `</td>
-        <td>
-            <a onclick="return confirm('Bạn chắn chắc muốn xóa không ?')"
-                href="{{URL::to('/delete-users-quanlisinhvien/` + element.id + `')}}" class="active"
-                ui-toggle-class="">
-                <i class="fa fa-times text-danger text"></i>
-            </a>
-        </td>
-    </tr>`;
+                                <td>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input value="` + element.id + `" name="check[]" type="checkbox" class="check">
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>` + element.id + `</td>
+                                <td class="return-data"><a href="#">` + element.name + `</a></td>
+                                <td class="return-data">` + element.email + `</td>
+                                
+                            </tr>`;
                     $('#show-users').append(html);
                 });
             }
 
         });
     });
-  
 </script>
 
-
+{{-- add datatable --}}
+<script src="{{asset('public/admin/vendor/datatables/jquery.dataTables.js')}}"></script>
+<script>
+    function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[3];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
 
 
 <!-- check all -->

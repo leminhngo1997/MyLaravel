@@ -28,6 +28,8 @@
             <a class="dropdown-item" href="{{route('quanliphongtrao')}}">Quản lí phong trào</a>
             <a class="dropdown-item" href="{{route('quanlihoatdong')}}">Quản lí hoạt động</a>
             <a class="dropdown-item" href="{{route('duyethoatdong')}}">Xét duyệt hoạt động</a>
+            <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Import sinh viên tham gia hoạt
+                động</a>
         </div>
     </li>
     <!-- Nav Item - Bảng điểm -->
@@ -39,8 +41,6 @@
         <div class="dropdown-menu">
             <a class="dropdown-item" href="{{route('quanlibangdiem')}}">Quản lí bảng điểm</a>
             <a class="dropdown-item" href="{{route('quanlixeploai')}}">Quản lí xếp loại</a>
-            <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Import sinh viên tham gia hoạt
-                động</a>
         </div>
     </li>
     <!-- Nav Item - Cơ sở-Sinh viên -->
@@ -95,117 +95,126 @@
                             <!-- collapse 1 content -->
                             <div class="row ">
 
-                            <!-- tim kiem hoat dong -->
-                            <div class="card-body col-6 mb-4">
-                            <form method="POST" role="form" action="{{URL::to('/them-hoat-dong-quanlihoatdong')}}">
-                                <?php
+                                <!-- tim kiem hoat dong -->
+                                <div class="card-body col-6 mb-4">
+                                    <form method="POST" role="form"
+                                        action="{{URL::to('/them-hoat-dong-quanlihoatdong')}}">
+                                        <?php
                                     $message = Session::get('message');
                                     if($message){
                                         echo '<span style="color:red">' .$message. '</span>';
                                         Session::put('message',null);
                                         }
                                 ?>
-                                {{csrf_field()}}
-                                <div class="card-body col-12 mb-4">
-                                    <div class="mb-4">Chọn loại bảng điểm</div>
-                                    <select id="dropdown-loai-bang-diem-quanlihoatdong"
-                                        class="card border-secondary shadow py-2 col-8 mb-4">
-                                        @foreach($loaibangdiem as $key=>$value)
-                                        <option value="{{$value->id}}">{{$value->name}}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="mb-4">Chọn bảng điểm</div>
-                                    <select id="dropdown-bang-diem-quanlihoatdong" name="current_id_bangdiem"
-                                        class="card border-secondary shadow py-2 col-8 mb-4">
-                                        {{--  --}}
-                                    </select>
-                                    <div class="mb-4">Chọn tiêu chí</div>
-                                    <select id="dropdown-tieu-chi-quanlihoatdong"
-                                        class="card border-secondary shadow py-2 col-8 mb-4">
-                                        {{--  --}}
-                                    </select>
-                                    <div class="mb-4">Chọn phong trào</div>
-                                    <select name="input_phongtrao_id_hoatdong" id="dropdown-phong-trao-quanlihoatdong"
-                                        class="card border-secondary shadow py-2 col-8 mb-4">
-                                        {{-- <option value="1">hoạt động 1</option>
+                                        {{csrf_field()}}
+                                        <div class="card-body col-12 mb-4">
+                                            <div class="mb-4">Chọn loại bảng điểm</div>
+                                            <select id="dropdown-loai-bang-diem-quanlihoatdong"
+                                                class="card border-secondary shadow py-2 col-8 mb-4">
+                                                @foreach($loaibangdiem as $key=>$value)
+                                                <option value="{{$value->id}}">{{$value->name}}</option>
+                                                @endforeach
+                                            </select>
+                                            <div class="mb-4">Chọn bảng điểm</div>
+                                            <select id="dropdown-bang-diem-quanlihoatdong" name="current_id_bangdiem"
+                                                class="card border-secondary shadow py-2 col-8 mb-4">
+                                                {{--  --}}
+                                            </select>
+                                            <div class="mb-4">Chọn tiêu chí</div>
+                                            <select id="dropdown-tieu-chi-quanlihoatdong"
+                                                class="card border-secondary shadow py-2 col-8 mb-4">
+                                                {{--  --}}
+                                            </select>
+                                            <div class="mb-4">Chọn phong trào</div>
+                                            <select name="input_phongtrao_id_hoatdong"
+                                                id="dropdown-phong-trao-quanlihoatdong"
+                                                class="card border-secondary shadow py-2 col-8 mb-4">
+                                                {{-- <option value="1">hoạt động 1</option>
                                         <option value="2">hoạt động 2</option> --}}
-                                    </select>
-                                    <div>Chọn cơ sở áp dụng</div>
-                                    <div style="color: red">( Mặc định là ALL, tất cả)
-                                        VD: Nếu nhiều lớp thì HTTT2010-MTT2010-CNPM2010...</div>
-                                    <input name="input_doituong_hoatdong" value="ALL" type="text"
-                                        class="card border-secondary shadow py-2 col-8 mb-4" />
-                                    <div class="mb-4">Nhập tên hoạt động</div>
-                                    <input name="input_name_hoatdong" type="text"
-                                        class="card border-secondary shadow py-2 col-8 mb-4" />
-                                    <div class="mb-4">Mô tả</div>
-                                    <textarea name="input_mota_hoatdong" class="col-12 mb-4" rows="4"></textarea>
-                                    <div class="mb-4">Nhập điểm hoạt động</div>
-                                    <input name="input_diem_hoatdong" type="text"
-                                        class="card border-secondary shadow py-2 col-8 mb-4" />
-                                    <div class="mb-4">Ngày bắt đầu</div>
-                                    <input name="input_ngaybatdau_hoatdong" type="date" placeholder="yyyy-mm-dd"
-                                        class="form-custom border-secondary py-2 col-8 mb-4">
-                                    <div class="mb-4">Ngày kết thúc</div>
-                                    <input name="input_ngayketthuc_hoatdong" type="date" placeholder="yyyy-mm-dd"
-                                        class="form-custom border-secondary py-2 col-8 mb-4"><br>
-                                    <input type="submit" value="Thêm" class="btn btn-outline-secondary py-2 shadow mb-4" />
+                                            </select>
+                                            <div>Chọn cơ sở áp dụng</div>
+                                            <div style="color: red">( Mặc định là ALL, tất cả)
+                                                VD: Nếu nhiều lớp thì HTTT2010-MTT2010-CNPM2010...</div>
+                                            <input name="input_doituong_hoatdong" value="ALL" type="text"
+                                                class="card border-secondary shadow py-2 col-8 mb-4" />
+                                            <div class="mb-4">Nhập tên hoạt động</div>
+                                            <input name="input_name_hoatdong" type="text"
+                                                class="card border-secondary shadow py-2 col-8 mb-4" />
+                                            <div class="mb-4">Mô tả</div>
+                                            <textarea name="input_mota_hoatdong" class="col-12 mb-4"
+                                                rows="4"></textarea>
+                                            <div class="mb-4">Nhập điểm hoạt động</div>
+                                            <input name="input_diem_hoatdong" type="text"
+                                                class="card border-secondary shadow py-2 col-8 mb-4" />
+                                            <div class="mb-4">Ngày bắt đầu</div>
+                                            <input name="input_ngaybatdau_hoatdong" type="date" placeholder="yyyy-mm-dd"
+                                                class="form-custom border-secondary py-2 col-8 mb-4">
+                                            <div class="mb-4">Ngày kết thúc</div>
+                                            <input name="input_ngayketthuc_hoatdong" type="date"
+                                                placeholder="yyyy-mm-dd"
+                                                class="form-custom border-secondary py-2 col-8 mb-4"><br>
+                                            <input type="submit" value="Thêm"
+                                                class="btn btn-outline-secondary py-2 shadow mb-4" />
+                                        </div>
+                                    </form>
                                 </div>
-                            </form>
-                                </div>
-                            
-                            <!-- import excel (hoat dong) -->
-                            <div class="card-body col-6 mb-4 border-left">
-                                <div class="mb-4">Thêm hoạt động bằng Excel</div>                           
-                                    <form method="post" enctype="multipart/form-data" action="{{ url('/quanlihoatdong/import') }}">
+
+                                <!-- import excel (hoat dong) -->
+                                <div class="card-body col-6 mb-4 border-left">
+                                    <div class="mb-4">Thêm hoạt động bằng Excel</div>
+                                    <form method="post" enctype="multipart/form-data"
+                                        action="{{ url('/quanlihoatdong/import') }}">
                                         {{ csrf_field() }}
-                                
-                                        <input type="file" name="select_file" class="btn btn-outline-secondary py-2 shadow"/>
-                                        <input type="submit" name="upload" value="Upload" class="btn btn-outline-secondary py-2 shadow"/>
+
+                                        <input type="file" name="select_file"
+                                            class="btn btn-outline-secondary py-2 shadow" />
+                                        <input type="submit" name="upload" value="Upload"
+                                            class="btn btn-outline-secondary py-2 shadow" />
                                     </form>
                                     @if(count($errors) > 0)
-                                        <div class="alert alert-danger">
-                                            Upload validation errors<br><br>
-                                            <ul>
-                                                @foreach ($errors -> all() as $error)
-                                                    <li>{{ $error }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
+                                    <div class="alert alert-danger">
+                                        Upload validation errors<br><br>
+                                        <ul>
+                                            @foreach ($errors -> all() as $error)
+                                            <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
                                     @endif
-                            
+
                                     @if($message = Session::get('success'))
-                                        <div class="alert alert-success alert-block">
-                                            <button type="button" class="close" data-dismiss="alert">X</button>
-                                            <strong>{{ $message }}</strong>
-                                        </div>
+                                    <div class="alert alert-success alert-block">
+                                        <button type="button" class="close" data-dismiss="alert">X</button>
+                                        <strong>{{ $message }}</strong>
+                                    </div>
                                     @endif
 
                                     <br><br>
 
-                                    <div class="mb-4">Danh sách thêm vào gần đây</div> 
+                                    <div class="mb-4">Danh sách thêm vào gần đây</div>
                                     <table class="border table table-striped col-12">
-                                            <tr>
-                                                <th>Tên hoạt động</th>
-                                                <th>Đối tượng tham gia</th>
-                                                <th>Điểm</th>                                              
-                                            </tr>
-                                            @foreach ($data as $row)
-                                                <tr>
-                                                    <td>{{ $row->name }}</td>
-                                                    <td>{{ $row->doituong }}</td>
-                                                    <td>{{ $row->diem }}</td>
-                                                </tr>
-                                            @endforeach
+                                        <tr>
+                                            <th>Tên hoạt động</th>
+                                            <th>Đối tượng tham gia</th>
+                                            <th>Điểm</th>
+                                        </tr>
+                                        @foreach ($data as $row)
+                                        <tr>
+                                            <td>{{ $row->name }}</td>
+                                            <td>{{ $row->doituong }}</td>
+                                            <td>{{ $row->diem }}</td>
+                                        </tr>
+                                        @endforeach
                                     </table>
                                 </div>
                             </div>
 
                             <!-- bảng hiển thị danh sách hoạt động -->
-                            
-                                <form method="POST" role="form"
-                                    action="{{URL::to('/xoa-hoat-dong-quanlihoatdong')}}">
-                                    <table class="border table table-striped">
+
+                            <form method="POST" role="form" action="{{URL::to('/xoa-hoat-dong-quanlihoatdong')}}">
+                                <div>Tìm kiếm theo tên hoạt động</div>
+                                <input type="text" class="form-control col-6 mb-4" id="myInput" onkeyup="myFunction()">
+                                <table class="border table table-striped data-table" id="myTable">
                                     <?php
                                             $message = Session::get('message');
                                             if($message){
@@ -232,8 +241,8 @@
                                         {{--  --}}
                                     </tbody>
                                 </table>
-                                    <input type="submit" value="Xóa" class="btn btn-outline-secondary py-2 shadow">
-                                </form>
+                                <input type="submit" value="Xóa" class="btn btn-outline-secondary py-2 shadow">
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -388,5 +397,27 @@
     });
 </script>
 
+{{-- add datatable --}}
+<script src="{{asset('public/admin/vendor/datatables/jquery.dataTables.js')}}"></script>
+<script>
+    function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
 
 @endsection

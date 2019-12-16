@@ -28,10 +28,12 @@
             <a class="dropdown-item" href="{{route('quanliphongtrao')}}">Quản lí phong trào</a>
             <a class="dropdown-item" href="{{route('quanlihoatdong')}}">Quản lí hoạt động</a>
             <a class="dropdown-item" href="{{route('duyethoatdong')}}">Xét duyệt hoạt động</a>
+            <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Import sinh viên tham gia hoạt
+                động</a>
         </div>
     </li>
-     <!-- Nav Item - Bảng điểm -->
-     <li class="nav-item dropdown">
+    <!-- Nav Item - Bảng điểm -->
+    <li class="nav-item active dropdown">
         <a class="nav-link dropdown-toggle" href="{{route('quanlibangdiem')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Bảng điểm</span>
@@ -39,8 +41,6 @@
         <div class="dropdown-menu">
             <a class="dropdown-item" href="{{route('quanlibangdiem')}}">Quản lí bảng điểm</a>
             <a class="dropdown-item" href="{{route('quanlixeploai')}}">Quản lí xếp loại</a>
-            <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Import sinh viên tham gia hoạt
-                động</a>
         </div>
     </li>
     <!-- Nav Item - Cơ sở-Sinh viên -->
