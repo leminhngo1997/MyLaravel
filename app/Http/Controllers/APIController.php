@@ -206,4 +206,10 @@ class APIController extends Controller
        
         return $current_hoatdong;
     }
+
+    function GetXepLoai_quanlixeploai(Request $request){
+        $loai_bang_diem_id = $request->loai_bang_diem_id;
+        $xep_loai = DB::table('xeploai')->where('loaibangdiem_id', $loai_bang_diem_id)->get();
+        return $xep_loai;
+    }
 }

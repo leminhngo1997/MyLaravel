@@ -155,6 +155,14 @@ Route::post('get-users-quanlisinhvien','APIController@GetUsers_quanlisinhvien');
 Route::get('duyethoatdong',['as'=>'duyethoatdong','uses'=>'ctsvController@get_value_duyethoatdong']);
 Route::post('xoa-duyet-hoat-dong','ctsvController@xoa_duyet_hoat_dong');
 
+// -- -- -- Quản lí xếp loại
+Route::get('quanlixeploai',['as'=>'quanlixeploai','uses'=>'ctsvController@get_value_quanlixeploai']);
+Route::post('get-xep-loai-quanlixeploai','APIController@GetXepLoai_quanlixeploai');
+//-- -- --Thêm xếp loại
+Route::post('/them-xep-loai-quanlixeploai','ctsvController@insert_xep_loai_quanlixeploai');
+//-- -- -- Xóa xếp loại
+Route::get('/delete-xep-loai-quanlixeploai/{id}','ctsvController@delete_xep_loai_quanlixeploai' );
+
 // -- -- -- Import sinh viên tham gia hoạt động
 Route::get('importsinhvienthamgiahoatdong',['as'=>'importsinhvienthamgiahoatdong','uses'=>'ctsvController@get_value_importsinhvienthamgiahoatdong']);
 Route::post('get-hoat-dong-importsinhvienthamgiahoatdong','APIController@GetHoatDong_importsinhvienthamgiahoatdong');

@@ -95,6 +95,12 @@ class ctsvController extends Controller
             'bangdiem'=>$bangdiem,
         ]);
     }
+    public function get_value_quanlixeploai(){
+        $loai_bang_diem = DB::table('loaibangdiem')->get();
+        // dd($loai_bang_diem);
+        return view('ctsv.quanlixeploai',[
+            'loai_bang_diem'=>$loai_bang_diem]);
+    }
 
     public function get_value_importsinhvienthamgiahoatdong(){
         $bangdiem = DB::table('bangdiem')->get();
@@ -420,5 +426,23 @@ class ctsvController extends Controller
         }
     }
 
-  
+  //--Xóa xếp loại
+  public function delete_xep_loai_quanlixeploai($id){
+    // delete table xeploai
+    DB::table('xeploai')->where('id',$id)->delete();
+    Session::put('message','Xóa xếp loại thành công.');
+    return Redirect::to('quanlixeploai');
+}
+//--Thêm xếp loại
+public function insert_xep_loai_quanlixeploai(Request $request){
+    //insert table xeploai
+    $data = array();
+    $data['name'] = $request->input_name_xeploai;
+    $data['loaibangdiem_id'] = $request->input_id_loai_bang_diem_xeploai;
+    $data['canduoi'] = $request->input_canduoi_xeploai;
+    $data['cantren'] = $request->input_cantren_xeploai;
+    DB::table('xeploai')->insert($data);
+    Session::put('message','Thêm xếp loại thành công.');
+    return Redirect::to('quanlixeploai');
+}
 }

@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(LuutruSeeder::class);  
         $this->call(HoatdongSeeder::class);  
         $this->call(Phongtrao_HoatdongSeeder::class);  
+        $this->call(XeploaiSeeder::class);
     }
 }
 
@@ -523,6 +524,27 @@ class Phongtrao_HoatdongSeeder extends Seeder
             //-- --Phong trào 6
             ['phongtrao_id' => 6,'hoatdong_id' => 14,'status' => 1,'nguoiduyet' => 'ctsv'],
             ['phongtrao_id' => 6,'hoatdong_id' => 15,'status' => 1,'nguoiduyet' => 'ctsv'],     
+        ]);
+        
+    }
+}
+
+class XeploaiSeeder extends Seeder
+{
+    /**
+     * Seed the application's database.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        DB::table('xeploai')->insert([
+            ['name' => 'Xuất Sắc','loaibangdiem_id' => 1,'canduoi' => 90,'cantren'=> 100],
+            ['name' => 'Tốt','loaibangdiem_id' => 1,'canduoi' => 80,'cantren'=> 90],
+            ['name' => 'Khá','loaibangdiem_id' => 1,'canduoi' => 65,'cantren'=> 80],
+            ['name' => 'Trung Bình','loaibangdiem_id' => 1,'canduoi' => 50,'cantren'=> 65],
+            ['name' => 'Yếu','loaibangdiem_id' => 1,'canduoi' => 35,'cantren'=> 50],
+            ['name' => 'Kém','loaibangdiem_id' => 1,'canduoi' => 0,'cantren'=> 35],
         ]);
         
     }
