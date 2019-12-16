@@ -71,7 +71,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Nhập danh sách sinh viên tham gia hoạt động</h1>
+        <h1 class="h3 mb-0 text-gray-800">Quản lí tham gia hoạt động</h1>
     </div>
     <!-- Content Row -->
     <div class="row">
@@ -83,7 +83,7 @@
                         <h5 class="mb-0">
                             <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
                                 aria-expanded="true" aria-controls="collapseOne">
-                                Tìm kiếm hoạt động
+                                Hoạt động đã chọn
                             </button>
                         </h5>
                     </div>
@@ -93,20 +93,6 @@
                         <div class="card-body">
                             <!-- Core sheet type -->
                             <!-- collapse 1 content -->
-
-                            <div class="card-body col-12 mb-4">
-                                <div class="mb-4">Chọn bảng điểm</div>
-                                <select id="dropdown-bang-diem-importsinhvienthamgiahoatdong" name="input_bangdiem_id_tieuchi"
-                                    class="card border-secondary shadow h-100 py-2 col-6 mb-4">
-                                    @foreach($bangdiem as $key=>$value)
-                                    <option value="{{$value->id}}">{{$value->name}}</option>
-                                    @endforeach
-                                </select>
-                                <div class="mb-4">Nhập tên hoạt động</div>
-                                <input name="input_name_tieuchi" type="text"
-                                    class="card border-secondary shadow h-100 py-2 col-6 mb-4" />
-                                <input type="submit" value="Tìm kiếm" class="btn btn-outline-secondary py-2 shadow">
-                            </div>
 
                             <table class="border table table-striped">
                                 <thead>
@@ -121,6 +107,36 @@
                                     {{--  --}}
                                 </tbody>
                             </table>
+
+
+                            <div class="card-body col-12 mb-4">
+                                <div class="mb-4" style="color:brown">Sinh viên đã tham gia - đăng kí tham gia ( Hệ số
+                                    =0 là đăng kí )</div>
+                                <table class="border table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Mã hoạt động</th>
+                                            <th scope="col">Tên hoạt động</th>
+                                            <th scope="col">Tên phong trào</th>
+                                            <th scope="col">Điểm</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="show-hoat-dong">
+                                        {{--  --}}
+                                    </tbody>
+                                </table>
+                                <div>Upload file danh sách tham gia (xls, xlsx)</div>
+                                <form method="post" enctype="multipart/form-data"
+                                    action="{{ url('/quanlihoatdong/import') }}">
+                                    {{ csrf_field() }}
+    
+                                    <input type="file" name="select_file" class="btn btn-outline-secondary py-2 shadow" />
+                                    <input type="submit" name="upload" value="Upload"
+                                        class="btn btn-outline-secondary py-2 shadow" />
+                                </form>
+                            </div>
+                           
+
                         </div>
                     </div>
                 </div>
@@ -131,73 +147,7 @@
 </div>
 <!-- /.container-fluid -->
 <script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
-<script>
-    //Get API hoạt động - Import danh sách sinh viên tham gia hoạt động
-    $(document).ready(function () {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-    var getSelected = $("#dropdown-bang-diem-importsinhvienthamgiahoatdong").children("option:selected").val();
-    $.ajax({
-        type: 'POST',
 
-        url: "{{url('get-hoat-dong-importsinhvienthamgiahoatdong')}}",
 
-        data: {
-            bangdiem_id: getSelected
-        },
-
-        success: function (data) {
-            $('.delete-hoatdong-1').remove();
-            data.forEach(element => {
-                html = `<tr class="delete-hoatdong-1">
-                            <td class="return-data"><a href="#">` + element.id + `</a></td>
-                            <td class="return-data"><a href="#">....</a></td>
-                            <td class="return-data"><a href="#">` + element.name + `</a></td>
-                            <td class="return-data"><a href="#">` + element.diem + `</a></td>
-                        </tr>`;
-                $('#show-hoat-dong').append(html);
-            });
-        }
-
-    });
-
-    $('#dropdown-bang-diem-importsinhvienthamgiahoatdong').change(function (e) {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        e.preventDefault();
-        var getSelected = $(this).children("option:selected").val();
-
-        $.ajax({
-        type: 'POST',
-
-        url: "{{url('get-hoat-dong-importsinhvienthamgiahoatdong')}}",
-
-        data: {
-            bangdiem_id: getSelected
-        },
-
-        success: function (data) {
-            $('.delete-hoatdong-1').remove();
-            data.forEach(element => {
-                html = `<tr class="delete-hoatdong-1">
-                            <td class="return-data">` + element.id + `</td>
-                            <td class="return-data"><a href="{{ url('danhsachsinhvienthamgiahoatdong')}}">` + element.name + `</a></td>
-                            <td class="return-data">`+element.phongtrao_name+`</td>
-                            <td class="return-data">` + element.diem + `</td>
-                        </tr>`;
-                $('#show-hoat-dong').append(html);
-            });
-        }
-        
-    });
-    });
-});
-</script>
 
 @endsection
