@@ -134,10 +134,10 @@ class ImportExcelController extends Controller
             foreach($data->toArray() as $key => $value)
             {
                 //dd($value);
-                    if($value['email']!==null){
+                    if($value['mssv']!==null){
                         $insert_sinhvien[] = array(
                             'name' => $value['name'],
-                            'email' => $value['email'],
+                            'email' => $value['mssv'].'@gm.uit.edu.vn',
                             'password' => bcrypt($value['password']),
                         );
 

@@ -103,7 +103,7 @@
                                         echo '<span style="color:red">' .$message. '</span>';
                                         Session::put('message',null);
                                         }
-                                ?>
+                                        ?>
                                         {{csrf_field()}}
                                         <div class="card-body col-12 mb-4">
                                             <div class="mb-4">Chọn đối tượng</div>
@@ -137,6 +137,7 @@
                                         </div>
                                     </form>
                                 </div>
+                                <!-- import excel -->
                                 <div class="card-body col-6 mb-4 border-left">
                                     <div class="mb-4">Thêm tài khoản bằng Excel</div>
                                     <form method="post" enctype="multipart/form-data"
