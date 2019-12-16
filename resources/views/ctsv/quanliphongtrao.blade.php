@@ -38,7 +38,9 @@
         </a>
         <div class="dropdown-menu">
             <a class="dropdown-item" href="{{route('quanlibangdiem')}}">Quản lí bảng điểm</a>
-            <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Import sinh viên tham gia hoạt động</a>
+            <a class="dropdown-item" href="{{route('quanlixeploai')}}">Quản lí xếp loại</a>
+            <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Import sinh viên tham gia hoạt
+                động</a>
         </div>
     </li>
     <!-- Nav Item - Cơ sở-Sinh viên -->

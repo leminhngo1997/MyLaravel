@@ -20,7 +20,7 @@ class CreateSinhvienHoatdongTable extends Migration
             $table->unsignedBigInteger('hoatdong_id');
             $table->foreign('hoatdong_id')->references('id')->on('hoatdong');
             $table->integer('heso');
-            $table->string('chuthich');
+            $table->string('chuthich')->nullable();
             $table->timestamps();
         });
     }

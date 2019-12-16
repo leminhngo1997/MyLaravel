@@ -30,17 +30,19 @@
             <a class="dropdown-item" href="{{route('duyethoatdong')}}">Xét duyệt hoạt động</a>
         </div>
     </li>
-   <!-- Nav Item - Bảng điểm -->
-   <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="{{route('quanlibangdiem')}}" id="navbardrop" data-toggle="dropdown">
-        <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Bảng điểm</span>
-    </a>
-    <div class="dropdown-menu">
-        <a class="dropdown-item" href="{{route('quanlibangdiem')}}">Quản lí bảng điểm</a>
-        <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Import sinh viên tham gia hoạt động</a>
-    </div>
-</li>
+    <!-- Nav Item - Bảng điểm -->
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="{{route('quanlibangdiem')}}" id="navbardrop" data-toggle="dropdown">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Bảng điểm</span>
+        </a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="{{route('quanlibangdiem')}}">Quản lí bảng điểm</a>
+            <a class="dropdown-item" href="{{route('quanlixeploai')}}">Quản lí xếp loại</a>
+            <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Import sinh viên tham gia hoạt
+                động</a>
+        </div>
+    </li>
     <!-- Nav Item - Cơ sở-Sinh viên -->
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="{{route('quanlicoso')}}" id="navbardrop" data-toggle="dropdown">
@@ -116,9 +118,11 @@
                                         {{--  --}}
                                     </select>
                                     <div class="mb-4">Nhập tên tiêu chí</div>
-                                    <input name="input_name_tieuchi" type="text" class="card border-secondary shadow h-100 py-2 col-6 mb-4" />
+                                    <input name="input_name_tieuchi" type="text"
+                                        class="card border-secondary shadow h-100 py-2 col-6 mb-4" />
                                     <div class="mb-4">Nhập điểm tiêu chí tối đa</div>
-                                    <input name="input_maxtieuchi_tieuchi" type="text" class="card border-secondary shadow h-100 py-2 col-6 mb-4" />
+                                    <input name="input_maxtieuchi_tieuchi" type="text"
+                                        class="card border-secondary shadow h-100 py-2 col-6 mb-4" />
                                     <input type="submit" value="Thêm" class="btn btn-outline-secondary py-2 shadow">
                                 </div>
                             </form>
@@ -210,42 +214,42 @@
 
 
     $('#dropdown-bang-diem-quanlitieuchi').change(function (e) {
-    $.ajaxSetup({
-    headers: {
-    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-    });
-    e.preventDefault();
-    var getSelected = $(this).children("option:selected").val();
-    $.ajax({
-    type: 'POST',
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        e.preventDefault();
+        var getSelected = $(this).children("option:selected").val();
+        $.ajax({
+            type: 'POST',
 
-    url: "{{url('get-tieu-chi-quanlitieuchi')}}",
+            url: "{{url('get-tieu-chi-quanlitieuchi')}}",
 
-    data: {
-    bang_diem_id: getSelected
-    },
+            data: {
+                bang_diem_id: getSelected
+            },
 
-    success: function (data) {
-    $('.delete-row').remove();
-    data.forEach(element => {
-    html = `<tr class="delete-row">
-        <td>` + element.id + `</td>
-        <td class="return-data"><a href="#">` + element.name + `</a></td>
-        <td class="return-data">` + element.maxtieuchi + `</td>
-        <td>
-            <a onclick="return confirm('Bạn chắn chắc muốn xóa không ?')"
-                href="{{URL::to('/delete-tieu-chi-quanlitieuchi/` + element.id + `')}}}" class="active"
-                ui-toggle-class="">
-                <i class="fa fa-times text-danger text"></i>
-            </a>
-        </td>
-    </tr>`;
-    $('#show-tieu-chi').append(html);
-    });
-    }
+            success: function (data) {
+                $('.delete-row').remove();
+                data.forEach(element => {
+                html = `<tr class="delete-row">
+                            <td>` + element.id + `</td>
+                            <td class="return-data"><a href="#">` + element.name + `</a></td>
+                            <td class="return-data">` + element.maxtieuchi + `</td>
+                            <td>
+                                <a onclick="return confirm('Bạn chắn chắc muốn xóa không ?')"
+                                    href="{{URL::to('/delete-tieu-chi-quanlitieuchi/` + element.id + `')}}}" class="active"
+                                    ui-toggle-class="">
+                                    <i class="fa fa-times text-danger text"></i>
+                                </a>
+                            </td>
+                        </tr>`;
+                $('#show-tieu-chi').append(html);
+                });
+            }
 
-    });
+        });
     });
 </script>
 
