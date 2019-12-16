@@ -145,6 +145,25 @@
                                         class="btn btn-outline-secondary py-2 shadow" />
                                     <input type="submit" name="upload" value="Upload"
                                         class="btn btn-outline-secondary py-2 shadow" />
+                                        @if(count($errors) > 0)
+                                        <div class="alert alert-danger">
+                                            Upload validation errors<br><br>
+                                            <ul>
+                                                @foreach ($errors -> all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+                            
+                                    @if($message = Session::get('success'))
+                                        <div class="alert alert-success alert-block">
+                                            <button type="button" class="close" data-dismiss="alert">X</button>
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @endif
+
+                                    <br><br>
                                 </form>
                             </div>
 
