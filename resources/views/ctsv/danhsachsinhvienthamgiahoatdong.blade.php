@@ -31,14 +31,15 @@
         </div>
     </li>
     <!-- Nav Item - Bảng điểm -->
-    <li class="nav-item active dropdown">
+    <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="{{route('quanlibangdiem')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Bảng điểm</span>
         </a>
         <div class="dropdown-menu">
             <a class="dropdown-item" href="{{route('quanlibangdiem')}}">Quản lí bảng điểm</a>
-            <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Quản lí phong trào</a>
+            <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Import sinh viên tham gia hoạt
+                động</a>
         </div>
     </li>
     <!-- Nav Item - Cơ sở-Sinh viên -->
@@ -99,26 +100,35 @@
                                     <tr>
                                         <th scope="col">Mã hoạt động</th>
                                         <th scope="col">Tên hoạt động</th>
-                                        <th scope="col">Tên phong trào</th>
                                         <th scope="col">Điểm</th>
                                     </tr>
                                 </thead>
                                 <tbody id="show-hoat-dong">
-                                    {{--  --}}
+                                    @foreach($list_hoat_dong as $key=>$value)
+                                    <td>{{$value->id}}</td>
+                                    <td>{{$value->name}}</td>
+                                    <td>{{$value->diem}}</td>
+                                    @endforeach
                                 </tbody>
                             </table>
 
 
                             <div class="card-body col-12 mb-4">
-                                <div class="mb-4" style="color:brown">Sinh viên đã tham gia - đăng kí tham gia ( Hệ số
-                                    =0 là đăng kí )</div>
+
+                                <div class="mb-4" style="color:brown">Hệ số
+                                    0 là đăng kí nhưng không tham gia </div>
+                                <div class="mb-4" style="color:brown">Hệ số
+                                    1 là đã tham gia</div>
+                                <div class="mb-4" style="color:brown">Hệ số
+                                    -1 là không đăng ký</div>
                                 <table class="border table table-striped">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Mã hoạt động</th>
-                                            <th scope="col">Tên hoạt động</th>
-                                            <th scope="col">Tên phong trào</th>
-                                            <th scope="col">Điểm</th>
+                                            <th scope="col">STT</th>
+                                            <th scope="col">Mã sinh viên</th>
+                                            <th scope="col">Tên sinh viên</th>
+                                            <th scope="col">Hệ số tham gia</th>
+                                            <th scope="col">Chú thích</th>
                                         </tr>
                                     </thead>
                                     <tbody id="show-hoat-dong">
@@ -129,13 +139,14 @@
                                 <form method="post" enctype="multipart/form-data"
                                     action="{{ url('/quanlihoatdong/import') }}">
                                     {{ csrf_field() }}
-    
-                                    <input type="file" name="select_file" class="btn btn-outline-secondary py-2 shadow" />
+
+                                    <input type="file" name="select_file"
+                                        class="btn btn-outline-secondary py-2 shadow" />
                                     <input type="submit" name="upload" value="Upload"
                                         class="btn btn-outline-secondary py-2 shadow" />
                                 </form>
                             </div>
-                           
+
 
                         </div>
                     </div>

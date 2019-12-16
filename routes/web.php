@@ -158,7 +158,7 @@ Route::post('xoa-duyet-hoat-dong','ctsvController@xoa_duyet_hoat_dong');
 // -- -- -- Import sinh viên tham gia hoạt động
 Route::get('importsinhvienthamgiahoatdong',['as'=>'importsinhvienthamgiahoatdong','uses'=>'ctsvController@get_value_importsinhvienthamgiahoatdong']);
 Route::post('get-hoat-dong-importsinhvienthamgiahoatdong','APIController@GetHoatDong_importsinhvienthamgiahoatdong');
-Route::get('danhsachsinhvienthamgiahoatdong',['as'=>'danhsachsinhvienthamgiahoatdong','uses'=>'ctsvController@get_value_danhsachsinhvienthamgiahoatdong']);
+Route::get('danhsachsinhvienthamgiahoatdong/{id}',['as'=>'danhsachsinhvienthamgiahoatdong','uses'=>'ctsvController@get_value_danhsachsinhvienthamgiahoatdong']);
 
 // -- -- -- Quản lí tài khoản
 Route::get('quanlitaikhoan',['as'=>'quanlitaikhoan','uses'=>'ctsvController@get_value_quanlitaikhoan']);

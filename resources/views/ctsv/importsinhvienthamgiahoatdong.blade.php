@@ -30,15 +30,16 @@
             <a class="dropdown-item" href="{{route('duyethoatdong')}}">Xét duyệt hoạt động</a>
         </div>
     </li>
-    <!-- Nav Item - Bảng điểm -->
-    <li class="nav-item active dropdown">
+     <!-- Nav Item - Bảng điểm -->
+     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="{{route('quanlibangdiem')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Bảng điểm</span>
         </a>
         <div class="dropdown-menu">
             <a class="dropdown-item" href="{{route('quanlibangdiem')}}">Quản lí bảng điểm</a>
-            <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Quản lí phong trào</a>
+            <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Import sinh viên tham gia hoạt
+                động</a>
         </div>
     </li>
     <!-- Nav Item - Cơ sở-Sinh viên -->
@@ -187,7 +188,7 @@
             data.forEach(element => {
                 html = `<tr class="delete-hoatdong-1">
                             <td class="return-data">` + element.id + `</td>
-                            <td class="return-data"><a href="{{ url('danhsachsinhvienthamgiahoatdong')}}">` + element.name + `</a></td>
+                            <td class="return-data"><a href="{{URL::to('/danhsachsinhvienthamgiahoatdong/` + element.id + `')}}">` + element.name + `</a></td>
                             <td class="return-data">`+element.phongtrao_name+`</td>
                             <td class="return-data">` + element.diem + `</td>
                         </tr>`;
