@@ -36,7 +36,7 @@ class sinhvienController extends Controller
 
     public function get_value_hoatdong(){
         // $auth_id = Auth::user()->id;
-        $current_term = DB::table('bangdiem')->orderBy('ngayketthuc','DESC')->first();
+        $current_term = DB::table('bangdiem')->orderBy('id','DESC')->first();
         //get tiêu chí của học kì hiện tại
         $tieuchi = DB::table('tieuchi')->where('bangdiem_id',$current_term->id)->get();
         return view('sinhvien.thamgiahoatdong',[

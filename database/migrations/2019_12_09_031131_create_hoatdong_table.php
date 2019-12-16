@@ -18,8 +18,8 @@ class CreateHoatdongTable extends Migration
             $table->string('name');
             $table->integer('diem');
             $table->string('doituong');
-            $table->date('ngaybatdau');
-            $table->date('ngayketthuc');
+            $table->date('ngaybatdau')->nullable();
+            $table->date('ngayketthuc')->nullable();
             $table->string('nguoitao');
             $table->string('nguoiduyet')->nullable();
             $table->integer('status_clone');

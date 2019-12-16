@@ -30,11 +30,16 @@
             <a class="dropdown-item" href="{{route('duyethoatdong')}}">Xét duyệt hoạt động</a>
         </div>
     </li>
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{route('quanlibangdiem')}}">
-            <i class="fas fa-fw fa-skating"></i>
-            <span>Bảng điểm</span></a>
+    <!-- Nav Item - Bảng điểm -->
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="{{route('quanlibangdiem')}}" id="navbardrop" data-toggle="dropdown">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Bảng điểm</span>
+        </a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="{{route('quanlibangdiem')}}">Quản lí bảng điểm</a>
+            <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Import sinh viên tham gia hoạt động</a>
+        </div>
     </li>
     <!-- Nav Item - Cơ sở-Sinh viên -->
     <li class="nav-item active dropdown">
@@ -89,8 +94,7 @@
                             <!-- collapse 1 content -->
                             <div class="row">
                                 <div class="card-body col-6 mb-4">
-                                    <form method="POST" role="form"
-                                        action="{{URL::to('/them-users-quanlisinhvien')}}">
+                                    <form method="POST" role="form" action="{{URL::to('/them-users-quanlisinhvien')}}">
                                         <?php
                                     $message = Session::get('message');
                                     if($message){
@@ -132,54 +136,58 @@
                                     </form>
                                 </div>
                                 <div class="card-body col-6 mb-4 border-left">
-                                        <div class="mb-4">Thêm tài khoản bằng Excel</div>                           
-                                            <form method="post" enctype="multipart/form-data" action="{{ url('/quanlisinhvien/import') }}">
-                                                {{ csrf_field() }}
-                                        
-                                                <input type="file" name="select_file" class="btn btn-outline-secondary py-2 shadow"/>
-                                                <input type="submit" name="upload" value="Upload" class="btn btn-outline-secondary py-2 shadow"/>
-                                            </form>
-                                            @if(count($errors) > 0)
-                                                <div class="alert alert-danger">
-                                                    Upload validation errors<br><br>
-                                                    <ul>
-                                                        @foreach ($errors -> all() as $error)
-                                                            <li>{{ $error }}</li>
-                                                        @endforeach
-                                                    </ul>
-                                                </div>
-                                            @endif
-                                    
-                                            @if($message = Session::get('success'))
-                                                <div class="alert alert-success alert-block">
-                                                    <button type="button" class="close" data-dismiss="alert">X</button>
-                                                    <strong>{{ $message }}</strong>
-                                                </div>
-                                            @endif
-                                            <br><br>
-                                            <div class="mb-4">Danh sách thêm vào gần đây</div> 
-                                            <table class="border table table-striped col-12">
-                                                    <tr>
-                                                        <th>id</th>
-                                                        <th>name</th>
-                                                        <th>email</th>
-                                                    </tr>
-                                                    @foreach ($data as $row)
-                                                        <tr>
-                                                            <td>{{ $row->id }}</td>
-                                                            <td>{{ $row->name }}</td>
-                                                            <td>{{ $row->email }}</td>
-                                                        </tr>
-                                                    @endforeach
-                                            </table>
-                                        </div>
+                                    <div class="mb-4">Thêm tài khoản bằng Excel</div>
+                                    <form method="post" enctype="multipart/form-data"
+                                        action="{{ url('/quanlisinhvien/import') }}">
+                                        {{ csrf_field() }}
+
+                                        <input type="file" name="select_file"
+                                            class="btn btn-outline-secondary py-2 shadow" />
+                                        <input type="submit" name="upload" value="Upload"
+                                            class="btn btn-outline-secondary py-2 shadow" />
+                                    </form>
+                                    @if(count($errors) > 0)
+                                    <div class="alert alert-danger">
+                                        Upload validation errors<br><br>
+                                        <ul>
+                                            @foreach ($errors -> all() as $error)
+                                            <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    @endif
+
+                                    @if($message = Session::get('success'))
+                                    <div class="alert alert-success alert-block">
+                                        <button type="button" class="close" data-dismiss="alert">X</button>
+                                        <strong>{{ $message }}</strong>
+                                    </div>
+                                    @endif
+                                    <br><br>
+                                    <div class="mb-4">Danh sách thêm vào gần đây</div>
+                                    <table class="border table table-striped col-12">
+                                        <tr>
+                                            <th>id</th>
+                                            <th>name</th>
+                                            <th>email</th>
+                                        </tr>
+                                        @foreach ($data as $row)
+                                        <tr>
+                                            <td>{{ $row->id }}</td>
+                                            <td>{{ $row->name }}</td>
+                                            <td>{{ $row->email }}</td>
+                                        </tr>
+                                        @endforeach
+                                    </table>
+                                </div>
                             </div>
                             <table class="border table table-striped">
                                 <thead>
-                                    <tr>         
+                                    <tr>
                                         <th scope="col">Mã tài khoản</th>
                                         <th scope="col">Tên sinh viên</th>
                                         <th scope="col">Email</th>
+                                        <th scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody id="show-users">
@@ -293,12 +301,16 @@
 
         });
     });
+  
 </script>
+
+
+
 
 <!-- check all -->
 <script>
-        $("#checkAll").click(function () {
-            $(".check").prop('checked', $(this).prop('checked'))
-        });
+    $("#checkAll").click(function () {
+        $(".check").prop('checked', $(this).prop('checked'))
+    });
 </script>
 @endsection

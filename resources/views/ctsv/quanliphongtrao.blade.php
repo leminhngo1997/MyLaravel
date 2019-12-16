@@ -17,7 +17,7 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item dropdown">
+    <li class="nav-item active dropdown">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <a class="nav-link dropdown-toggle" href="{{route('quanlitieuchi')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -30,14 +30,19 @@
             <a class="dropdown-item" href="{{route('duyethoatdong')}}">Xét duyệt hoạt động</a>
         </div>
     </li>
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{route('quanlibangdiem')}}">
-            <i class="fas fa-fw fa-skating"></i>
-            <span>Bảng điểm</span></a>
+    <!-- Nav Item - Bảng điểm -->
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="{{route('quanlibangdiem')}}" id="navbardrop" data-toggle="dropdown">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Bảng điểm</span>
+        </a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="{{route('quanlibangdiem')}}">Quản lí bảng điểm</a>
+            <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Import sinh viên tham gia hoạt động</a>
+        </div>
     </li>
     <!-- Nav Item - Cơ sở-Sinh viên -->
-    <li class="nav-item active dropdown">
+    <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="{{route('quanlicoso')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Cơ sở-Sinh viên</span>
@@ -133,15 +138,11 @@
                                             <th scope="col">Mã phong trào</th>
                                             <th scope="col">Tên phong trào</th>
                                             <th scope="col">Điểm tối đa</th>
+                                            <th scope="col"></th>
                                         </tr>
                                     </thead>
                                     <tbody id="show-phong-trao">
-                                        {{-- <tr>
-                                            <td>2019-2020-1</td>
-                                            <td>phong trào đoàn hội</td>
-                                            <td>20</td>
-                                        </tr> --}}
-
+                                        {{--  --}}
                                     </tbody>
                                 </table>
                             </div>

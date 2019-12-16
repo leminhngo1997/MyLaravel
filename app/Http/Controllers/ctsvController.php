@@ -96,6 +96,13 @@ class ctsvController extends Controller
             'bangdiem'=>$bangdiem,
         ]);
     }
+
+    public function get_value_importsinhvienthamgiahoatdong(){
+        $bangdiem = DB::table('bangdiem')->get();
+        return view('ctsv.importsinhvienthamgiahoatdong',[
+            'bangdiem'=>$bangdiem,
+            ]);
+    }
     
     //POST
 //--Thêm loại bảng điểm
@@ -138,63 +145,11 @@ class ctsvController extends Controller
 //--Thêm tiêu chí
     public function insert_tieu_chi_quanlitieuchi(Request $request){
         //insert table tieuchi
-        // $data = array();
-        // $data['name'] = $request->input_name_tieuchi;
-        // $data['bangdiem_id'] = $request->input_bangdiem_id_tieuchi;
-        // $data['maxtieuchi'] = $request->input_maxtieuchi_tieuchi;
-        // DB::table('tieuchi')->insert($data);
-
-        $tieuchi_id = DB::table('tieuchi')->where('bangdiem_id',11)->get();
-        foreach($tieuchi_id as $item)
-        {
-            $phongtrao_id[] = DB::table('tieuchi_phongtrao')->where('tieuchi_id',$item->id)->get('phongtrao_id');
-        }
-        foreach($phongtrao_id as $item)
-        {
-            foreach($item as $key=>$value)
-            {
-                $hoatdong_id[] = DB::table('phongtrao_hoatdong')->where('phongtrao_id',$value->phongtrao_id)->get('hoatdong_id');                   
-            }
-            
-        }
-       
-        foreach($hoatdong_id as $item){
-            foreach($item as $key=>$value)
-            {
-                $hoat_dong_id_chua_duyet[] = $value->hoatdong_id;
-            
-            }
-            
-        }    
-        foreach($hoat_dong_id_chua_duyet as $item) {
-                $hoatdong_chuaduyet[] = DB::table('hoatdong')->where('id',$item)->get();
-        }
-         foreach($hoatdong_chuaduyet as $key => $value)
-        {
-            foreach($value as $row => $i)
-            {
-                $current_id_hoatdong_chuaduyet[] = $i->id;
-            }
-        }
-     
-        foreach($current_id_hoatdong_chuaduyet as $key=>$value)
-        {
-            $hoat_dong_status_0[] = DB::table('hoatdong')->where('id',$value)->get();
-        }
-        
-        $temp = array();
-        foreach($hoat_dong_status_0 as $key=>$value)
-        {
-            foreach($value as $row=>$i)
-            {
-                $temp[] = $i;
-            }
-           
-        }
-        dd($temp);
-        
-        
-
+        $data = array();
+        $data['name'] = $request->input_name_tieuchi;
+        $data['bangdiem_id'] = $request->input_bangdiem_id_tieuchi;
+        $data['maxtieuchi'] = $request->input_maxtieuchi_tieuchi;
+        DB::table('tieuchi')->insert($data);
         Session::put('message','Thêm tiêu chí thành công.');
         return Redirect::to('quanlitieuchi');
     }
@@ -316,14 +271,11 @@ class ctsvController extends Controller
         //insert table coso_hoatdong
         $data_coso_hoatdong = array();
         $current_id_bangdiem = $request->current_id_bangdiem;
-        // dd($current_id_bangdiem);
         $current_doituong_id = DB::table('bangdiem_doituong')->where('bangdiem_id',$current_id_bangdiem)->get('doituong_id');
-        // dd($current_doituong_id);
        
         foreach($current_doituong_id as $item){
             $doi_tuong_id[] = $item->doituong_id;
         }
-        // dd($doi_tuong_id);
         foreach($doi_tuong_id as $item){
             $current_coso_id[] = DB::table('coso')->where('doituong_id',$item)->get();
         }
@@ -370,9 +322,8 @@ class ctsvController extends Controller
         }
         //delete 2 table phongtrao_hoatdong & hoatdong
         $check = $request->check;
-        //dd($check);
         foreach($check as $key => $value){
-            //dd($value);
+            DB::table('coso_hoatdong')->where('hoatdong_id',$value)->delete();
             DB::table('phongtrao_hoatdong')->where('hoatdong_id',$value)->delete();
             DB::table('hoatdong')->where('id',$value)->delete();
         }
@@ -402,7 +353,7 @@ class ctsvController extends Controller
         $data_users = array();
         $data_users['name'] = $request->input_name_users;
         $data_users['email'] = $request->input_email_users;
-        $data_users['password'] = bcrypt('{{$request->input_password_users}}');
+        $data_users['password'] = bcrypt($request->input_password_users);
         DB::table('users')->insert($data_users);
         //insert table sv_coso
         $current_user_id = DB::table('users')->orderBy('id','DESC')->first()->id;
@@ -462,5 +413,4 @@ class ctsvController extends Controller
     }
 
   
-    
 }

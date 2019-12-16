@@ -25,9 +25,10 @@ class HomeController extends Controller
      */
     public function index(){
         
-		$auth_id = Auth::user()->id;
-		$user_role = DB::table('user_role')->where('sv_id', $auth_id)->first('role_id');
+        $auth_id = Auth::user()->id;
+        $user_role = DB::table('user_role')->where('sv_id', $auth_id)->first('role_id');
         $role = DB::table('roles')->where('id', $user_role->role_id)->first('name');
+        
 		if($role->name == "sinh viên"){
 			return redirect()->route('dashboard');
 		}

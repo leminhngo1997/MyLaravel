@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSinhvienHoatdongTable extends Migration
+class CreateSinhvienBangdiem extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateSinhvienHoatdongTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_hoatdong', function (Blueprint $table) {
+        Schema::create('sinhvien_bangdiem', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('sv_id');
             $table->foreign('sv_id')->references('id')->on('users');
-            $table->unsignedBigInteger('hoatdong_id');
-            $table->foreign('hoatdong_id')->references('id')->on('hoatdong');
-            $table->integer('heso');
-            $table->string('chuthich');
+            $table->unsignedBigInteger('bangdiem_id');
+            $table->foreign('bangdiem_id')->references('id')->on('bangdiem');
+            $table->integer('diem');
+            $table->integer('xeploai');
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ class CreateSinhvienHoatdongTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_hoatdong');
+        Schema::dropIfExists('sinhvien_bangdiem');
     }
 }

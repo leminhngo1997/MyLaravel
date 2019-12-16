@@ -16,7 +16,7 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item dropdown">
+    <li class="nav-item active dropdown">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <a class="nav-link dropdown-toggle" href="{{route('quanlitieuchi')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -29,14 +29,20 @@
             <a class="dropdown-item" href="{{route('duyethoatdong')}}">Xét duyệt hoạt động</a>
         </div>
     </li>
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{route('quanlibangdiem')}}">
-            <i class="fas fa-fw fa-skating"></i>
-            <span>Bảng điểm</span></a>
+    <!-- Nav Item - Bảng điểm -->
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="{{route('quanlibangdiem')}}" id="navbardrop" data-toggle="dropdown">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Bảng điểm</span>
+        </a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="{{route('quanlibangdiem')}}">Quản lí bảng điểm</a>
+            <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Import sinh viên tham gia hoạt
+                động</a>
+        </div>
     </li>
     <!-- Nav Item - Cơ sở-Sinh viên -->
-    <li class="nav-item active dropdown">
+    <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="{{route('quanlicoso')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Cơ sở-Sinh viên</span>
@@ -85,44 +91,45 @@
                             <div class="text-danger show-message"></div>
                             <!-- Core sheet type -->
                             <!-- collapse 1 content -->
-                                <div class="card-body col-12 mb-4">
-                                    <div class="mb-4">Chọn bảng điểm</div>
-                                    <select id="dropdown-bang-diem-xetduyethoatdong"
-                                        class="card border-secondary shadow py-2 col-2 mb-4">
-                                        @foreach($bangdiem as $key=>$value)
-                                        <option value="{{$value->id}}">{{$value->name}}</option>
-                                        @endforeach
-                                    </select>
+                            <div class="card-body col-12 mb-4">
+                                <div class="mb-4">Chọn bảng điểm</div>
+                                <select id="dropdown-bang-diem-xetduyethoatdong"
+                                    class="card border-secondary shadow py-2 col-2 mb-4">
+                                    @foreach($bangdiem as $key=>$value)
+                                    <option value="{{$value->id}}">{{$value->name}}</option>
+                                    @endforeach
+                                </select>
 
-                                    <!-- bảng hiển thị danh sách hoạt động -->
+                                <!-- bảng hiển thị danh sách hoạt động -->
 
 
-                                    <table class="border table table-striped">
+                                <table class="border table table-striped">
 
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">
-                                                    
-                                                </th>
-                                                <th scope="col">Tên hoạt động</th>
-                                                <th scope="col">Điểm cộng</th>
-                                                <th scope="col">Đối tượng</th>
-                                                <th scope="col">Số lượng tham gia</th>
-                                                <th scope="col">Người tạo</th>
-                                                <th scope="col">Người duyệt</th>
-                                                <th scope="col">Trạng thái</th>
-                                                <th scope="col">Mô tả</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="show-hoat-dong-xetduyethoatdong">
-                                            {{--  --}}
-                                        </tbody>
-                                    </table>
-                                    <div class="mb-4">Lý do hủy hoạt động</div>
-                                    <textarea class="col-4 mb-4" rows="3"></textarea><br>
-                                    <input type="button" value="Hủy" class="btn btn-outline-secondary btn-delete">
-                                    <input type="button" value="Duyệt" class="btn btn-outline-secondary py-2 shadow btn-update" />
-                                </div>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">
+
+                                            </th>
+                                            <th scope="col">Tên hoạt động</th>
+                                            <th scope="col">Điểm cộng</th>
+                                            <th scope="col">Đối tượng</th>
+                                            <th scope="col">Số lượng tham gia</th>
+                                            <th scope="col">Người tạo</th>
+                                            <th scope="col">Người duyệt</th>
+                                            <th scope="col">Trạng thái</th>
+                                            <th scope="col">Mô tả</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="show-hoat-dong-xetduyethoatdong">
+                                        {{--  --}}
+                                    </tbody>
+                                </table>
+                                <div class="mb-4">Lý do hủy hoạt động</div>
+                                <textarea class="col-4 mb-4" rows="3"></textarea><br>
+                                <input type="button" value="Hủy" class="btn btn-outline-secondary btn-delete">
+                                <input type="button" value="Duyệt"
+                                    class="btn btn-outline-secondary py-2 shadow btn-update" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -204,7 +211,7 @@
                 $('.delete-all-hoat-dong').remove();
                 data.forEach(element => {
                     get_all_id.push(element.id);
-                    html = `<tr class="delete-all-hoat-dong delete-hoatdong-`+element.id+`">
+                    html = `<tr class="delete-all-hoat-dong delete-hoatdong-` + element.id + `">
                                 <td>
                                     <div class="checkbox">
                                         <label>
@@ -233,17 +240,17 @@
 <script>
     var array_hoat_dong = [];
 
-    $('#show-hoat-dong-xetduyethoatdong').on('click','.check', function () {
-        if($(this).prop('checked') == true){
+    $('#show-hoat-dong-xetduyethoatdong').on('click', '.check', function () {
+        if ($(this).prop('checked') == true) {
             array_hoat_dong.push($(this).val());
         }
-        if($(this).prop('checked') == false){
-            if(array_hoat_dong.indexOf($(this).val()) > -1)
-            array_hoat_dong.splice( array_hoat_dong.indexOf($(this).val()), 1 );
+        if ($(this).prop('checked') == false) {
+            if (array_hoat_dong.indexOf($(this).val()) > -1)
+                array_hoat_dong.splice(array_hoat_dong.indexOf($(this).val()), 1);
         }
     });
 
-    $('.btn-delete').on('click', function(){
+    $('.btn-delete').on('click', function () {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -262,13 +269,13 @@
             success: function (result) {
                 alert(result.message);
                 result.data.forEach(element => {
-                    $('.delete-hoatdong-'+element).remove();
+                    $('.delete-hoatdong-' + element).remove();
                 });
-            }   
+            }
         });
     });
 
-    $('.btn-update').on('click', function(){
+    $('.btn-update').on('click', function () {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -287,9 +294,9 @@
             success: function (result) {
                 alert(result.message);
                 result.data.forEach(element => {
-                    $('.delete-hoatdong-'+element).remove();
+                    $('.delete-hoatdong-' + element).remove();
                 });
-            }   
+            }
         });
     });
 </script>
