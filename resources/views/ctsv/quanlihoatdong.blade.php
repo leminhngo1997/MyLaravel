@@ -123,7 +123,7 @@
                                         {{-- <option value="1">hoạt động 1</option>
                                         <option value="2">hoạt động 2</option> --}}
                                     </select>
-                                    <div>Chọn đối tượng</div>
+                                    <div>Chọn cơ sở áp dụng</div>
                                     <div style="color: red">( Mặc định là TẤT CẢ )
                                         VD: Nếu nhiều lớp thì HTTT2010-MTT2010-CNPM2010...</div>
                                     <input name="input_doituong_hoatdong" value="TẤT CẢ" type="text"
