@@ -106,7 +106,7 @@ class ctsvController extends Controller
     public function get_value_danhsachsinhvienthamgiahoatdong(){
         return view('ctsv.danhsachsinhvienthamgiahoatdong');
     }
-    pu
+
     //POST
 //--Thêm loại bảng điểm
     public function insert_loai_bang_diem(Request $request){
