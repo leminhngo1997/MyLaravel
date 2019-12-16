@@ -328,7 +328,7 @@ class ctsvController extends Controller
             $current_coso_id[] = DB::table('coso')->where('doituong_id',$item)->get();
         }
         foreach($data_hoatdong_coso as $key=>$value){
-            if($value==='TẤT CẢ'){
+            if($value==='ALL'){
                 foreach($current_coso_id as $item){
                     foreach($item as $key=>$value){
                         $data_coso_hoatdong['coso_id'] = $value->id;

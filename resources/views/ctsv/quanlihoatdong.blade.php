@@ -124,9 +124,9 @@
                                         <option value="2">hoạt động 2</option> --}}
                                     </select>
                                     <div>Chọn cơ sở áp dụng</div>
-                                    <div style="color: red">( Mặc định là TẤT CẢ )
+                                    <div style="color: red">( Mặc định là ALL, tất cả)
                                         VD: Nếu nhiều lớp thì HTTT2010-MTT2010-CNPM2010...</div>
-                                    <input name="input_doituong_hoatdong" value="TẤT CẢ" type="text"
+                                    <input name="input_doituong_hoatdong" value="ALL" type="text"
                                         class="card border-secondary shadow py-2 col-8 mb-4" />
                                     <div class="mb-4">Nhập tên hoạt động</div>
                                     <input name="input_name_hoatdong" type="text"
