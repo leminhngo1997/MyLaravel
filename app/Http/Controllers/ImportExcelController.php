@@ -186,6 +186,14 @@ class ImportExcelController extends Controller
                         }
                     }
                 }
+
+                // insert user_role
+                foreach($user_id as $value){
+                    DB::table('user_role')->insert([
+                        'sv_id' => $value,
+                        'role_id' => 1,
+                    ]);
+                }
                 
             }
         }
