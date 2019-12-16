@@ -107,7 +107,7 @@ class ctsvController extends Controller
         $list_hoat_dong = DB::table('hoatdong')->where('id',$id)->get();
         return view('ctsv.danhsachsinhvienthamgiahoatdong',[
             'list_hoat_dong'=>$list_hoat_dong,
-            
+            'hoatdong_id' => $id
         ]);
        
     }

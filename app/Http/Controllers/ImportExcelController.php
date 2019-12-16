@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use phpDocumentor\Reflection\Types\Integer;
 
-class ImportExcelHoatdongController extends Controller
+class ImportExcelController extends Controller
 {
     function import(Request $request)
     {
@@ -73,6 +74,8 @@ class ImportExcelHoatdongController extends Controller
             // Xử lí insert coso
 
                 // lấy danh sách cơ sở
+                $temp = array();
+                $danhsachcoso = array();
                 $temp = DB::table('coso')->get(['id','name']);
                 $danhsachcoso = array();
                 foreach($temp as $key => $item)
@@ -161,6 +164,8 @@ class ImportExcelHoatdongController extends Controller
                 
                 // xử lí insert cơ sở
                 // lấy danh sách cơ sở
+                $temp = array();
+                $danhsachcoso = array();
                 $temp = DB::table('coso')->get(['id','name']);
                 $danhsachcoso = array();
                 foreach($temp as $key => $item)
@@ -183,6 +188,53 @@ class ImportExcelHoatdongController extends Controller
                 }
                 
             }
+        }
+        return back()->with('success', 'Excel Data Imported successfully.');
+    }
+
+    function importThamgia(Request $request)
+    {
+        $id_hoatdong = $request->hoatdong_id;
+        $this->validate($request, [
+            'select_file' => 'required|mimes:xls,xlsx'
+        ]);
+        
+        $path = $request->file('select_file')->getRealPath();
+        
+        $data = Excel::load($path)->get();
+        
+        if($data->count() > 0)
+        {
+            
+            foreach($data->toArray() as $key => $value)
+            {
+                    if($value['masosinhvien']!==null){
+                        // mã số sinh viên
+                        $temp = array();
+                        $email_sinhvien = null;
+                        $sv_id = null;
+                        $email_sinhvien = $value['masosinhvien'].'@gm.uit.edu.vn';
+                        $temp = DB::table('users')->where('email',$email_sinhvien)->get('id');
+                        foreach($temp as $item){
+                            $sv_id = $item->id;
+                        }
+                        
+                        $insert_thamgia[] = array(
+                            'sv_id' => $sv_id,
+                            'hoatdong_id' => intval($id_hoatdong),
+                            'heso' => $value['hesothamgia'],
+                            'chuthich' => $value['chuthich'],
+                        );
+                    }
+
+            }
+            
+            // lấy danh sách mã tài khoản
+            if(!empty($insert_thamgia))
+            {    
+                DB::table('user_hoatdong')->insert($insert_thamgia);
+            }
+
         }
         return back()->with('success', 'Excel Data Imported successfully.');
     }

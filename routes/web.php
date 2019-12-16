@@ -135,9 +135,9 @@ Route::post('get-hoat-dong-duyethoatdong','APIController@GetHoatDong_duyethoatdo
 
 //-- -- --import
     //import hoạt động
-Route::post('quanlihoatdong/import','ImportExcelHoatdongController@import');
+Route::post('quanlihoatdong/import','ImportExcelController@import');
     //import sinh viên
-Route::post('quanlisinhvien/import','ImportExcelHoatdongController@importSinhvien');
+Route::post('quanlisinhvien/import','ImportExcelController@importSinhvien');
 
 
 
@@ -159,6 +159,7 @@ Route::post('xoa-duyet-hoat-dong','ctsvController@xoa_duyet_hoat_dong');
 Route::get('importsinhvienthamgiahoatdong',['as'=>'importsinhvienthamgiahoatdong','uses'=>'ctsvController@get_value_importsinhvienthamgiahoatdong']);
 Route::post('get-hoat-dong-importsinhvienthamgiahoatdong','APIController@GetHoatDong_importsinhvienthamgiahoatdong');
 Route::get('danhsachsinhvienthamgiahoatdong/{id}',['as'=>'danhsachsinhvienthamgiahoatdong','uses'=>'ctsvController@get_value_danhsachsinhvienthamgiahoatdong']);
+Route::post('danhsachsinhvienthamgiahoatdong/import','ImportExcelController@importThamgia');
 
 // -- -- -- Quản lí tài khoản
 Route::get('quanlitaikhoan',['as'=>'quanlitaikhoan','uses'=>'ctsvController@get_value_quanlitaikhoan']);

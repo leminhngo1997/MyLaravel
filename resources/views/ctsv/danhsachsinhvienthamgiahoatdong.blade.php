@@ -105,7 +105,7 @@
                                 </thead>
                                 <tbody id="show-hoat-dong">
                                     @foreach($list_hoat_dong as $key=>$value)
-                                    <td>{{$value->id}}</td>
+                                    <td id = {{$value->id}}>{{$value->id}}</td>
                                     <td>{{$value->name}}</td>
                                     <td>{{$value->diem}}</td>
                                     @endforeach
@@ -137,9 +137,9 @@
                                 </table>
                                 <div>Upload file danh sách tham gia (xls, xlsx)</div>
                                 <form method="post" enctype="multipart/form-data"
-                                    action="{{ url('/quanlihoatdong/import') }}">
+                                    action="{{ url('/danhsachsinhvienthamgiahoatdong/import') }}">
                                     {{ csrf_field() }}
-
+                                    <input name="hoatdong_id" value={{$hoatdong_id}} hidden/>
                                     <input type="file" name="select_file"
                                         class="btn btn-outline-secondary py-2 shadow" />
                                     <input type="submit" name="upload" value="Upload"
