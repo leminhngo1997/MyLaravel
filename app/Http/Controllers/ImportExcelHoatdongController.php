@@ -29,13 +29,16 @@ class ImportExcelHoatdongController extends Controller
                     $insert_hoatdong[] = array(
                         'name' => $value['hoatdong'],
                         'diem' => $value['diem'],
-                        'doituong' => $value['doituong'],
+                        'doituong' => $value['coso'],
                         'ngaybatdau' => $value['ngaybatdau'],
                         'ngayketthuc' => $value['ngayketthuc'],
                         'nguoitao' => $value['nguoitao'],
                         'nguoiduyet' => $value['nguoiduyet'],
                         'status_clone' => 0,
                     );
+                    
+                    //lấy tên cơ sở và mã phong trào
+                    $coso_name[] = $value['coso'];
                     $phongtrao_id[] = $value['maphongtrao'];
                 }
             }
@@ -44,9 +47,10 @@ class ImportExcelHoatdongController extends Controller
             {
                 DB::table('hoatdong')->insert($insert_hoatdong);
             }
-            else return back()->with('success', 'Excel Data Imported successfully.');
+            else return back()->with('success', 'Excel Data Imported Completely.');
             
-            $new_inserted_rows = DB::table('hoatdong')->orderBy('id', 'DESC')->take(count($insert_hoatdong))->get('id');
+            // xử lí insert phongtrao_hoatdong
+            $new_inserted_rows = DB::table('hoatdong')->orderBy('id', 'DESC')->take(count($insert_hoatdong))->orderBy('id')->get('id');
             foreach($new_inserted_rows as $key => $value)
             {
                 foreach($value as $row => $item){
@@ -54,18 +58,57 @@ class ImportExcelHoatdongController extends Controller
                 }
             }
 
+            sort($hoatdong_id);                 //hoat dong id
             foreach($hoatdong_id as $key => $value){
                 $insert_phongtrao_hoatdong[] = array(
                     'phongtrao_id' => $phongtrao_id[$key],
-                    'hoatdong_id' => $value
+                    'hoatdong_id' => $value,
+                    'status' => 0
                 );
-                
             }
-            
-            //DB::table('phongtrao_hoatdong')->insert($insert_phongtrao_hoatdong);
+            DB::table('phongtrao_hoatdong')->insert($insert_phongtrao_hoatdong);
+
+            // Xử lí insert coso
+
+                // lấy danh sách cơ sở
+                $temp = DB::table('coso')->get(['id','name']);
+                $danhsachcoso = array();
+                foreach($temp as $key => $item)
+                {
+                    $danhsachcoso[] = $item;        //(id, name)
+                }
+                dd($danhsachcoso);
+                // Xử lí input cơ sở
+                foreach($coso_name as $index => $value){
+                    if ($value==='ALL'){
+                        foreach ($danhsachcoso as $row){
+                            DB::table('coso_hoatdong')->insert([
+                                'coso_id' => $row->id,
+                                'hoatdong_id' => $hoatdong_id[$index]
+                            ]);
+                        }
+                    }
+                    else {
+                        $cosoapdung = explode("-",$value);
+                        foreach ($cosoapdung as $index => $value){
+                            foreach($danhsachcoso as $row)
+                            {
+                                if($value===$row->name) // tìm cơ sở trong danh sách cơ sở
+                                {
+                                    DB::table('coso_hoatdong')->insert([
+                                        'coso_id' => $row->id,
+                                        'hoatdong_id' => $hoatdong_id[$index]
+                                    ]);
+                                }
+                            }
+                        }
+                        
+                    }
+                    
+                }
 
         }
-        return back()->with('success', 'Excel Data Imported successfully.');
+        return back()->with('success', 'Excel Data Imported Completely.');
     }
 
 
@@ -91,7 +134,6 @@ class ImportExcelHoatdongController extends Controller
                         'password' => bcrypt($value['password']),
                     );
                 }
-               
             }
             if(!empty($insert_sinhvien))
             {
