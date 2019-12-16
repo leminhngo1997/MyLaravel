@@ -79,6 +79,7 @@ Route::get('/delete-co-so-quanlicoso/{id}','ctsvController@delete_co_so_quanlico
 //-- --Quản lý sinh viên
 //-- -- --Thêm tiêu chí
 Route::post('/them-users-quanlisinhvien','ctsvController@insert_users_quanlisinhvien');
+
 //-- -- --Xóa sinh viên
 Route::post('/xoa-user-quanlisinhvien','ctsvController@delete_users_quanlisinhvien');
 

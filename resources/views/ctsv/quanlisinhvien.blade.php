@@ -28,6 +28,8 @@
             <a class="dropdown-item" href="{{route('quanliphongtrao')}}">Quản lí phong trào</a>
             <a class="dropdown-item" href="{{route('quanlihoatdong')}}">Quản lí hoạt động</a>
             <a class="dropdown-item" href="{{route('duyethoatdong')}}">Xét duyệt hoạt động</a>
+            <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Import sinh viên tham gia hoạt
+                động</a>
         </div>
     </li>
     <!-- Nav Item - Bảng điểm -->
@@ -39,8 +41,6 @@
         <div class="dropdown-menu">
             <a class="dropdown-item" href="{{route('quanlibangdiem')}}">Quản lí bảng điểm</a>
             <a class="dropdown-item" href="{{route('quanlixeploai')}}">Quản lí xếp loại</a>
-            <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Import sinh viên tham gia hoạt
-                động</a>
         </div>
     </li>
     <!-- Nav Item - Cơ sở-Sinh viên -->
@@ -185,7 +185,9 @@
                                 </div>
                             </div>
                             <form method="POST" role="form" action="{{URL::to('/xoa-user-quanlisinhvien')}}">
-                                <table class="border table table-striped">
+                                <div>Tìm kiếm theo mã sinh viên</div>
+                                <input type="text" class="form-control col-6 mb-4" id="myInput" onkeyup="myFunction()">
+                                <table class="border table table-striped" id="myTable">
                                     {{csrf_field()}}
                                     <thead>
                                         <tr>
@@ -317,7 +319,28 @@
     });
 </script>
 
-
+{{-- add datatable --}}
+<script src="{{asset('public/admin/vendor/datatables/jquery.dataTables.js')}}"></script>
+<script>
+    function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[3];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
 
 
 <!-- check all -->
