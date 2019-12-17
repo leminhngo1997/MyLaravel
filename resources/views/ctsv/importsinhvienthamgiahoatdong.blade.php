@@ -103,13 +103,11 @@
                                     <option value="{{$value->id}}">{{$value->name}}</option>
                                     @endforeach
                                 </select>
-                                <div class="mb-4">Nhập tên hoạt động</div>
-                                <input name="input_name_tieuchi" type="text"
-                                    class="card border-secondary shadow h-100 py-2 col-6 mb-4" />
-                                <input type="submit" value="Tìm kiếm" class="btn btn-outline-secondary py-2 shadow">
+                                
                             </div>
-
-                            <table class="border table table-striped">
+                            <div>Tìm kiếm theo tên hoạt động</div>
+                            <input type="text" class="form-control col-6 mb-4" id="myInput" onkeyup="myFunction()">
+                            <table class="border table table-striped"  id="myTable">
                                 <thead>
                                     <tr>
                                         <th scope="col">Mã hoạt động</th>
@@ -199,6 +197,28 @@
     });
     });
 });
+</script>
+{{-- add datatable --}}
+<script src="{{asset('public/admin/vendor/datatables/jquery.dataTables.js')}}"></script>
+<script>
+    function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
 </script>
 
 @endsection

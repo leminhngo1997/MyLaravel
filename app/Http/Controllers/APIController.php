@@ -115,7 +115,7 @@ class APIController extends Controller
     //--Xét duyệt hoạt động
     function GetHoatDong_duyethoatdong(Request $request){
         $bangdiem_id = $request->bangdiem_id;
-
+       
         //attributes
         $tieu_chi_id = '';
         $tieuchi_id = DB::table('tieuchi')->where('bangdiem_id',$bangdiem_id)->get();
