@@ -283,7 +283,6 @@ class ImportExcelController extends Controller
 
                 // lấy mã phong trào vừa thêm vào
                 $temp = DB::table('phongtrao')->orderBy('id', 'DESC')->take(count($insert_phongtrao))->get('id');
-
                 foreach($temp as $key => $value){
                     $phongtrao_id[] = $value->id;
                 }
@@ -292,8 +291,8 @@ class ImportExcelController extends Controller
 
                 foreach($phongtrao_id as $key => $value){
                     DB::table('tieuchi_phongtrao')->insert([
-                        'tieuchi_id' => $value,
-                        'phongtrao_id'=> $tieuchi_id[$key]
+                        'tieuchi_id' => $tieuchi_id[$key],
+                        'phongtrao_id'=> $value
                     ]);
                 }
             }

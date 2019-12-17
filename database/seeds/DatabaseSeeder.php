@@ -22,13 +22,13 @@ class DatabaseSeeder extends Seeder
         $this->call(LoaibangdiemSeeder::class);   
         $this->call(BangdiemSeeder::class);  
         $this->call(Bangdiem_DoituongSeeder::class);
-        $this->call(TieuchiSeeder::class);   
-        $this->call(PhongtraoSeeder::class);  
-        $this->call(Tieuchi_PhongtraoSeeder::class);  
+        // $this->call(TieuchiSeeder::class);   
+        // $this->call(PhongtraoSeeder::class);  
+        // $this->call(Tieuchi_PhongtraoSeeder::class);  
         // $this->call(Sinhvien_DoituongSeeder::class);  
         // $this->call(LuutruSeeder::class);  
-        $this->call(HoatdongSeeder::class);  
-        $this->call(Phongtrao_HoatdongSeeder::class);  
+        // $this->call(HoatdongSeeder::class);  
+        // $this->call(Phongtrao_HoatdongSeeder::class);  
         $this->call(XeploaiSeeder::class);
     }
 }
@@ -43,9 +43,9 @@ class UsersSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            ['name' => 'Lê Hữu Phúc','email' => '15520639@gm.uit.edu.vn','password' => bcrypt('123456')],
-            ['name' => 'Nguyễn Trường Thịnh','email' => '15520844@gm.uit.edu.vn','password' => bcrypt('123456')],
-            ['name' => 'Ngô Lê Minh','email' => '15520214@gm.uit.edu.vn','password' => bcrypt('123456')],
+            // ['name' => 'Lê Hữu Phúc','email' => '15520639@gm.uit.edu.vn','password' => bcrypt('123456')],
+            // ['name' => 'Nguyễn Trường Thịnh','email' => '15520844@gm.uit.edu.vn','password' => bcrypt('123456')],
+            // ['name' => 'Ngô Lê Minh','email' => '15520214@gm.uit.edu.vn','password' => bcrypt('123456')],
             ['name' => 'Lương Nguyễn Gia Lượng','email' => '15520123@gm.uit.edu.vn','password' => bcrypt('123456')],
             ['name' => 'Nguyễn Viết Thinh','email' => '15520456@gm.uit.edu.vn','password' => bcrypt('123456')],
             ['name' => 'cvht','email' => 'cvht@uit.edu.vn','password' => bcrypt('123456')],
@@ -84,13 +84,13 @@ class User_RoleSeeder extends Seeder
     public function run()
     {
         DB::table('user_role')->insert([
+            // ['sv_id' => 1,'role_id' => 1],
+            // ['sv_id' => 2,'role_id' => 2],
+            // ['sv_id' => 3,'role_id' => 1],
             ['sv_id' => 1,'role_id' => 1],
-            ['sv_id' => 2,'role_id' => 2],
-            ['sv_id' => 3,'role_id' => 1],
-            ['sv_id' => 4,'role_id' => 1],
-            ['sv_id' => 5,'role_id' => 1],
-            ['sv_id' => 6,'role_id' => 3],
-            ['sv_id' => 7,'role_id' => 4]
+            ['sv_id' => 2,'role_id' => 1],
+            ['sv_id' => 3,'role_id' => 3],
+            ['sv_id' => 4,'role_id' => 4]
         ]);
         
     }
@@ -157,11 +157,11 @@ class Sv_CosoSeeder extends Seeder
     public function run()
     {
         DB::table('sv_coso')->insert([
-            ['sv_id' => 1,'coso_id' => 1],
-            ['sv_id' => 2,'coso_id' => 1],
-            ['sv_id' => 3,'coso_id' => 1],
-            ['sv_id' => 4,'coso_id' => 7],
-            ['sv_id' => 5,'coso_id' => 6],
+            // ['sv_id' => 1,'coso_id' => 1],
+            // ['sv_id' => 2,'coso_id' => 1],
+            // ['sv_id' => 3,'coso_id' => 1],
+            ['sv_id' => 1,'coso_id' => 7],
+            ['sv_id' => 2,'coso_id' => 6],
         ]);       
     }
 }
@@ -332,12 +332,7 @@ class TieuchiSeeder extends Seeder
             ['name' => 'Ý thức tham gia các hoạt động chính trị, xã hội, văn hóa, văn nghệ','bangdiem_id' => 10,'maxtieuchi'=> 20],
             ['name' => 'Ý thức công dân trong quan hệ cộng đồng','bangdiem_id' => 10,'maxtieuchi'=> 25],
             ['name' => 'Ý thức và kết quả tham gia công tác cán bộ lớp, đoàn thể','bangdiem_id' => 10,'maxtieuchi'=> 10],
-            //HK1 2019-2020
-            ['name' => 'Ý thức và thái độ tham gia học tập và nghiên cứu khoa học','bangdiem_id' => 11,'maxtieuchi'=> 30],
-            ['name' => 'Ý thức chấp hành nội quy, quy chế, quy định trong Nhà trường','bangdiem_id' => 11,'maxtieuchi'=> 20],
-            ['name' => 'Ý thức tham gia các hoạt động CT, XH, VH, VN, TDTT, phòng chống tội phạm và các TNXH','bangdiem_id' => 11,'maxtieuchi'=> 25],
-            ['name' => 'Ý thức công dân trong quan hệ cộng đồng','bangdiem_id' => 11,'maxtieuchi'=> 25],
-            ['name' => 'Các nội dung cộng thêm','bangdiem_id' => 11,'maxtieuchi'=> 10],
+           
         ]);
         
     }
@@ -353,23 +348,23 @@ class PhongtraoSeeder extends Seeder
     public function run()
     {
         DB::table('phongtrao')->insert([
-            //---HK1 2019-2020---Tiêu chí 1
-            ['name' => 'Quy chế đào tạo, kiểm tra, thi và công nhận tốt nghiệp đại học, cao đẳng chính quy trong năm','maxphongtrao'=> 15],
-            ['name' => 'Tham gia cuộc thi học thuật','maxphongtrao'=> 30],
-            ['name' => 'Kết quả học tập và nghiên cứu khoa học','maxphongtrao'=> 12],
-            ['name' => 'Tham gia các CLB học thuật, hoạt động học thuật, hoạt động nghiên cứu khoa học','maxphongtrao'=> 30],
-            ['name' => 'Hoàn thành tập huấn thư viện trung tâm','maxphongtrao'=> 5],
-            ['name' => 'BTC, CTV, SV tham gia hỗ trợ trợ các hoạt động học thuật','maxphongtrao'=> 30],
-            ['name' => 'Tin thần vượt khó, phấn đấu vươn lên trong học tập','maxphongtrao'=> 5],
-            //---HK1 2019-2020---Tiêu chí 2
-            ['name' => 'Tham gia các buổi sinh hoạt lớp','maxphongtrao'=> 15],
-            //---HK1 2019-2020---Tiêu chí 3
-            ['name' => 'Tham gia các hoạt động do lớp (chi đoàn, chi hội, câu lạc bộ) tổ chức','maxphongtrao'=> 20],
-            ['name' => 'Tham gia các hoạt động do Khoa, Trường tổ chức','maxphongtrao'=> 20],
-            ['name' => 'Tham gia các lớp nâng cao kỹ năng cho sinh viên','maxphongtrao'=> 30],
-            //---HK1 2019-2020---Tiêu chí 4
-            ['name' => 'Tham gia các hoạt động do lớp (chi đoàn, chi hội, câu lạc bộ) tổ chức','maxphongtrao'=> 20],
-            ['name' => 'Tham gia các hoạt động do Khoa, Trường tổ chức','maxphongtrao'=> 20],
+            // //---HK1 2019-2020---Tiêu chí 1
+            // ['name' => 'Quy chế đào tạo, kiểm tra, thi và công nhận tốt nghiệp đại học, cao đẳng chính quy trong năm','maxphongtrao'=> 15],
+            // ['name' => 'Tham gia cuộc thi học thuật','maxphongtrao'=> 30],
+            // ['name' => 'Kết quả học tập và nghiên cứu khoa học','maxphongtrao'=> 12],
+            // ['name' => 'Tham gia các CLB học thuật, hoạt động học thuật, hoạt động nghiên cứu khoa học','maxphongtrao'=> 30],
+            // ['name' => 'Hoàn thành tập huấn thư viện trung tâm','maxphongtrao'=> 5],
+            // ['name' => 'BTC, CTV, SV tham gia hỗ trợ trợ các hoạt động học thuật','maxphongtrao'=> 30],
+            // ['name' => 'Tin thần vượt khó, phấn đấu vươn lên trong học tập','maxphongtrao'=> 5],
+            // //---HK1 2019-2020---Tiêu chí 2
+            // ['name' => 'Tham gia các buổi sinh hoạt lớp','maxphongtrao'=> 15],
+            // //---HK1 2019-2020---Tiêu chí 3
+            // ['name' => 'Tham gia các hoạt động do lớp (chi đoàn, chi hội, câu lạc bộ) tổ chức','maxphongtrao'=> 20],
+            // ['name' => 'Tham gia các hoạt động do Khoa, Trường tổ chức','maxphongtrao'=> 20],
+            // ['name' => 'Tham gia các lớp nâng cao kỹ năng cho sinh viên','maxphongtrao'=> 30],
+            // //---HK1 2019-2020---Tiêu chí 4
+            // ['name' => 'Tham gia các hoạt động do lớp (chi đoàn, chi hội, câu lạc bộ) tổ chức','maxphongtrao'=> 20],
+            // ['name' => 'Tham gia các hoạt động do Khoa, Trường tổ chức','maxphongtrao'=> 20],
             
             // ['name' => '','maxphongtrao'=> ],
           
@@ -388,24 +383,24 @@ class Tieuchi_PhongtraoSeeder extends Seeder
     public function run()
     {
         DB::table('tieuchi_phongtrao')->insert([
-            //---HK1 2019-2020---Tiêu chí 1
-            //Phong trào 
-            ['tieuchi_id' => 41,'phongtrao_id'=> 1],
-            ['tieuchi_id' => 41,'phongtrao_id'=> 2],
-            ['tieuchi_id' => 41,'phongtrao_id'=> 3],
-            ['tieuchi_id' => 41,'phongtrao_id'=> 4],
-            ['tieuchi_id' => 41,'phongtrao_id'=> 5],
-            ['tieuchi_id' => 41,'phongtrao_id'=> 6],
-            ['tieuchi_id' => 41,'phongtrao_id'=> 7],
-            //---HK1 2019-2020---Tiêu chí 2
-            ['tieuchi_id' => 42,'phongtrao_id'=> 8],
-            //---HK1 2019-2020---Tiêu chí 3
-            ['tieuchi_id' => 43,'phongtrao_id'=> 9],
-            ['tieuchi_id' => 43,'phongtrao_id'=> 10],
-            ['tieuchi_id' => 43,'phongtrao_id'=> 11],
-             //---HK1 2019-2020---Tiêu chí 4
-            ['tieuchi_id' => 44,'phongtrao_id'=> 12],
-            ['tieuchi_id' => 44,'phongtrao_id'=> 13],
+            // //---HK1 2019-2020---Tiêu chí 1
+            // //Phong trào 
+            // ['tieuchi_id' => 41,'phongtrao_id'=> 1],
+            // ['tieuchi_id' => 41,'phongtrao_id'=> 2],
+            // ['tieuchi_id' => 41,'phongtrao_id'=> 3],
+            // ['tieuchi_id' => 41,'phongtrao_id'=> 4],
+            // ['tieuchi_id' => 41,'phongtrao_id'=> 5],
+            // ['tieuchi_id' => 41,'phongtrao_id'=> 6],
+            // ['tieuchi_id' => 41,'phongtrao_id'=> 7],
+            // //---HK1 2019-2020---Tiêu chí 2
+            // ['tieuchi_id' => 42,'phongtrao_id'=> 8],
+            // //---HK1 2019-2020---Tiêu chí 3
+            // ['tieuchi_id' => 43,'phongtrao_id'=> 9],
+            // ['tieuchi_id' => 43,'phongtrao_id'=> 10],
+            // ['tieuchi_id' => 43,'phongtrao_id'=> 11],
+            //  //---HK1 2019-2020---Tiêu chí 4
+            // ['tieuchi_id' => 44,'phongtrao_id'=> 12],
+            // ['tieuchi_id' => 44,'phongtrao_id'=> 13],
          
             // ['tieuchi_id' => ,'phongtrao_id'=> ],
             
@@ -463,29 +458,29 @@ class HoatdongSeeder extends Seeder
     public function run()
     {
         DB::table('hoatdong')->insert([
-            //HK1 2019-2020
-            //--Tiêu chí 1
-            //-- --Phong trào 1
-            ['name' => 'Không vi phạm quy chế','diem'=> 15,'doituong' => 'Tất cả','ngaybatdau'=> '2019-09-03','ngayketthuc'=> '2020-02-29','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
-            //-- --Phong trào 2
-            ['name' => 'Tham gia và giải được bài ở cuộc thi ICPC online các vòng miền Trung ngày 6/10/2019','diem'=> 5,'doituong' => 'Tất cả','ngaybatdau'=> '2019-10-06','ngayketthuc'=> '2019-10-06','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
-            ['name' => 'Tham gia và giải được bài ở cuộc thi ICPC online các vòng miền Bắc ngày 13/10/2019','diem'=> 5,'doituong' => 'Tất cả','ngaybatdau'=> '2019-10-13','ngayketthuc'=> '2019-10-13','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
-            ['name' => 'Tham gia và giải được bài ở cuộc ICPC online các vòng miền Nam ngày 20/10/2019','diem'=> 5,'doituong' => 'Tất cả','ngaybatdau'=> '2019-10-20','ngayketthuc'=> '2019-10-20','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
-            ['name' => 'Tham gia và giải được bài ở cuộc thi ICPC Quốc gia năm 2019 ngày 3/11/2019','diem'=> 5,'doituong' => 'Tất cả','ngaybatdau'=> '2019-11-03','ngayketthuc'=> '2019-11-03','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
-            //-- --Phong trào 4
-            ['name' => '[KH&KTTT - BHTCNTT] TRAINING GIỮA KÌ 1 2019-2020 - GIẢI TÍCH','diem'=> 3,'doituong' => 'Tất cả','ngaybatdau'=> '2019-11-29','ngayketthuc'=> '2019-11-29','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
-            ['name' => '[KH&KTTT - BHTCNTT] TRAINING GIỮA KÌ 1 2019-2020 - NHẬP MÔN LẬP TRÌNH','diem'=> 3,'doituong' => 'Tất cả','ngaybatdau'=> '2019-11-29','ngayketthuc'=> '2019-11-29','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
-            ['name' => '[KH&KTTT - BHTCNTT] TRAINING GIỮA KÌ 1 2019-2020 - NHẬP MÔN ĐIỆN TỬ','diem'=> 3,'doituong' => 'Tất cả','ngaybatdau'=> '2019-11-29','ngayketthuc'=> '2019-11-29','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
-            ['name' => '[KH&KTTT - BHTCNTT] TRAINING GIỮA KÌ 1 2019-2020 - NHẬP MÔN MẠCH SỐ','diem'=> 3,'doituong' => 'Tất cả','ngaybatdau'=> '2019-11-29','ngayketthuc'=> '2019-11-29','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
-            ['name' => '[KH&KTTT - BHTCNTT] TRAINING GIỮA KÌ 1 2019-2020 - KIẾN TRÚC MÁY TÍNH','diem'=> 3,'doituong' => 'Tất cả','ngaybatdau'=> '2019-11-29','ngayketthuc'=> '2019-11-29','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
-            ['name' => '[KH&KTTT - BHTCNTT] TRAINING GIỮA KÌ 1 2019-2020 - NHẬP MÔN MẠNG MÁY TÍNH','diem'=> 3,'doituong' => 'Tất cả','ngaybatdau'=> '2019-11-29','ngayketthuc'=> '2019-11-29','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
-            ['name' => '[KH&KTTT - BHTCNTT] TRAINING GIỮA KÌ 1 2019-2020 - CƠ SỞ DỮ LIỆU','diem'=> 3,'doituong' => 'Tất cả','ngaybatdau'=> '2019-11-29','ngayketthuc'=> '2019-11-29','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
-             //-- --Phong trào 5
-            ['name' => 'Nhận thẻ thư viện trung tâm','diem'=> 5,'doituong' => 'Tất cả','ngaybatdau'=> '2019-09-01','ngayketthuc'=> '2019-11-22','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
-            ['name' => 'Cộng tác viên hỗ trợ cuộc thi ICPC online các vòng miền Bắc ngày 13/10/2019','diem'=> 8,'doituong' => 'Tất cả','ngaybatdau'=> '2019-10-13','ngayketthuc'=> '2019-10-13','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
-            ['name' => 'CTV hỗ trợ cuộc thi ICPC online các vòng miền Nam ngày 20/10/2019','diem'=> 8,'doituong' => 'Tất cả','ngaybatdau'=> '2019-10-20','ngayketthuc'=> '2019-10-20','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
-            // ['name' => '','diem'=> 3,'doituong' => 'Tất cả','ngaybatdau'=> '','ngayketthuc'=> '','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
-            // ['name' => '','diem'=> 3,'doituong' => 'Tất cả','ngaybatdau'=> '','ngayketthuc'=> '','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
+            // //HK1 2019-2020
+            // //--Tiêu chí 1
+            // //-- --Phong trào 1
+            // ['name' => 'Không vi phạm quy chế','diem'=> 15,'doituong' => 'Tất cả','ngaybatdau'=> '2019-09-03','ngayketthuc'=> '2020-02-29','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
+            // //-- --Phong trào 2
+            // ['name' => 'Tham gia và giải được bài ở cuộc thi ICPC online các vòng miền Trung ngày 6/10/2019','diem'=> 5,'doituong' => 'Tất cả','ngaybatdau'=> '2019-10-06','ngayketthuc'=> '2019-10-06','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
+            // ['name' => 'Tham gia và giải được bài ở cuộc thi ICPC online các vòng miền Bắc ngày 13/10/2019','diem'=> 5,'doituong' => 'Tất cả','ngaybatdau'=> '2019-10-13','ngayketthuc'=> '2019-10-13','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
+            // ['name' => 'Tham gia và giải được bài ở cuộc ICPC online các vòng miền Nam ngày 20/10/2019','diem'=> 5,'doituong' => 'Tất cả','ngaybatdau'=> '2019-10-20','ngayketthuc'=> '2019-10-20','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
+            // ['name' => 'Tham gia và giải được bài ở cuộc thi ICPC Quốc gia năm 2019 ngày 3/11/2019','diem'=> 5,'doituong' => 'Tất cả','ngaybatdau'=> '2019-11-03','ngayketthuc'=> '2019-11-03','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
+            // //-- --Phong trào 4
+            // ['name' => '[KH&KTTT - BHTCNTT] TRAINING GIỮA KÌ 1 2019-2020 - GIẢI TÍCH','diem'=> 3,'doituong' => 'Tất cả','ngaybatdau'=> '2019-11-29','ngayketthuc'=> '2019-11-29','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
+            // ['name' => '[KH&KTTT - BHTCNTT] TRAINING GIỮA KÌ 1 2019-2020 - NHẬP MÔN LẬP TRÌNH','diem'=> 3,'doituong' => 'Tất cả','ngaybatdau'=> '2019-11-29','ngayketthuc'=> '2019-11-29','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
+            // ['name' => '[KH&KTTT - BHTCNTT] TRAINING GIỮA KÌ 1 2019-2020 - NHẬP MÔN ĐIỆN TỬ','diem'=> 3,'doituong' => 'Tất cả','ngaybatdau'=> '2019-11-29','ngayketthuc'=> '2019-11-29','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
+            // ['name' => '[KH&KTTT - BHTCNTT] TRAINING GIỮA KÌ 1 2019-2020 - NHẬP MÔN MẠCH SỐ','diem'=> 3,'doituong' => 'Tất cả','ngaybatdau'=> '2019-11-29','ngayketthuc'=> '2019-11-29','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
+            // ['name' => '[KH&KTTT - BHTCNTT] TRAINING GIỮA KÌ 1 2019-2020 - KIẾN TRÚC MÁY TÍNH','diem'=> 3,'doituong' => 'Tất cả','ngaybatdau'=> '2019-11-29','ngayketthuc'=> '2019-11-29','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
+            // ['name' => '[KH&KTTT - BHTCNTT] TRAINING GIỮA KÌ 1 2019-2020 - NHẬP MÔN MẠNG MÁY TÍNH','diem'=> 3,'doituong' => 'Tất cả','ngaybatdau'=> '2019-11-29','ngayketthuc'=> '2019-11-29','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
+            // ['name' => '[KH&KTTT - BHTCNTT] TRAINING GIỮA KÌ 1 2019-2020 - CƠ SỞ DỮ LIỆU','diem'=> 3,'doituong' => 'Tất cả','ngaybatdau'=> '2019-11-29','ngayketthuc'=> '2019-11-29','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
+            //  //-- --Phong trào 5
+            // ['name' => 'Nhận thẻ thư viện trung tâm','diem'=> 5,'doituong' => 'Tất cả','ngaybatdau'=> '2019-09-01','ngayketthuc'=> '2019-11-22','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
+            // ['name' => 'Cộng tác viên hỗ trợ cuộc thi ICPC online các vòng miền Bắc ngày 13/10/2019','diem'=> 8,'doituong' => 'Tất cả','ngaybatdau'=> '2019-10-13','ngayketthuc'=> '2019-10-13','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
+            // ['name' => 'CTV hỗ trợ cuộc thi ICPC online các vòng miền Nam ngày 20/10/2019','diem'=> 8,'doituong' => 'Tất cả','ngaybatdau'=> '2019-10-20','ngayketthuc'=> '2019-10-20','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
+            // // ['name' => '','diem'=> 3,'doituong' => 'Tất cả','ngaybatdau'=> '','ngayketthuc'=> '','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
+            // // ['name' => '','diem'=> 3,'doituong' => 'Tất cả','ngaybatdau'=> '','ngayketthuc'=> '','nguoitao'=> 'ctsv','nguoiduyet'=> 'ctsv','status_clone'=> 1],
 
         ]);
         
@@ -501,30 +496,30 @@ class Phongtrao_HoatdongSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('phongtrao_hoatdong')->insert([
-            //HK1 2019-2020
-            //--Tiêu chí 1
-            //-- --Phong trào 1
-            ['phongtrao_id' => 1,'hoatdong_id' => 1,'status' => 1,'nguoiduyet' => 'ctsv'],
-            //-- --Phong trào 2
-            ['phongtrao_id' => 2,'hoatdong_id' => 2,'status' => 1,'nguoiduyet' => 'ctsv'],
-            ['phongtrao_id' => 2,'hoatdong_id' => 3,'status' => 1,'nguoiduyet' => 'ctsv'],
-            ['phongtrao_id' => 2,'hoatdong_id' => 4,'status' => 1,'nguoiduyet' => 'ctsv'],
-            ['phongtrao_id' => 2,'hoatdong_id' => 5,'status' => 1,'nguoiduyet' => 'ctsv'],
-            //-- --Phong trào 4
-            ['phongtrao_id' => 4,'hoatdong_id' => 6,'status' => 1,'nguoiduyet' => 'ctsv'],
-            ['phongtrao_id' => 4,'hoatdong_id' => 7,'status' => 1,'nguoiduyet' => 'ctsv'],
-            ['phongtrao_id' => 4,'hoatdong_id' => 8,'status' => 1,'nguoiduyet' => 'ctsv'],
-            ['phongtrao_id' => 4,'hoatdong_id' => 9,'status' => 1,'nguoiduyet' => 'ctsv'],
-            ['phongtrao_id' => 4,'hoatdong_id' => 10,'status' => 1,'nguoiduyet' => 'ctsv'],
-            ['phongtrao_id' => 4,'hoatdong_id' => 11,'status' => 1,'nguoiduyet' => 'ctsv'],
-            ['phongtrao_id' => 4,'hoatdong_id' => 12,'status' => 1,'nguoiduyet' => 'ctsv'],
-            //-- --Phong trào 5
-            ['phongtrao_id' => 5,'hoatdong_id' => 13,'status' => 1,'nguoiduyet' => 'ctsv'],
-            //-- --Phong trào 6
-            ['phongtrao_id' => 6,'hoatdong_id' => 14,'status' => 1,'nguoiduyet' => 'ctsv'],
-            ['phongtrao_id' => 6,'hoatdong_id' => 15,'status' => 1,'nguoiduyet' => 'ctsv'],     
-        ]);
+        // DB::table('phongtrao_hoatdong')->insert([
+        //     //HK1 2019-2020
+        //     //--Tiêu chí 1
+        //     //-- --Phong trào 1
+        //     ['phongtrao_id' => 1,'hoatdong_id' => 1,'status' => 1,'nguoiduyet' => 'ctsv'],
+        //     //-- --Phong trào 2
+        //     ['phongtrao_id' => 2,'hoatdong_id' => 2,'status' => 1,'nguoiduyet' => 'ctsv'],
+        //     ['phongtrao_id' => 2,'hoatdong_id' => 3,'status' => 1,'nguoiduyet' => 'ctsv'],
+        //     ['phongtrao_id' => 2,'hoatdong_id' => 4,'status' => 1,'nguoiduyet' => 'ctsv'],
+        //     ['phongtrao_id' => 2,'hoatdong_id' => 5,'status' => 1,'nguoiduyet' => 'ctsv'],
+        //     //-- --Phong trào 4
+        //     ['phongtrao_id' => 4,'hoatdong_id' => 6,'status' => 1,'nguoiduyet' => 'ctsv'],
+        //     ['phongtrao_id' => 4,'hoatdong_id' => 7,'status' => 1,'nguoiduyet' => 'ctsv'],
+        //     ['phongtrao_id' => 4,'hoatdong_id' => 8,'status' => 1,'nguoiduyet' => 'ctsv'],
+        //     ['phongtrao_id' => 4,'hoatdong_id' => 9,'status' => 1,'nguoiduyet' => 'ctsv'],
+        //     ['phongtrao_id' => 4,'hoatdong_id' => 10,'status' => 1,'nguoiduyet' => 'ctsv'],
+        //     ['phongtrao_id' => 4,'hoatdong_id' => 11,'status' => 1,'nguoiduyet' => 'ctsv'],
+        //     ['phongtrao_id' => 4,'hoatdong_id' => 12,'status' => 1,'nguoiduyet' => 'ctsv'],
+        //     //-- --Phong trào 5
+        //     ['phongtrao_id' => 5,'hoatdong_id' => 13,'status' => 1,'nguoiduyet' => 'ctsv'],
+        //     //-- --Phong trào 6
+        //     ['phongtrao_id' => 6,'hoatdong_id' => 14,'status' => 1,'nguoiduyet' => 'ctsv'],
+        //     ['phongtrao_id' => 6,'hoatdong_id' => 15,'status' => 1,'nguoiduyet' => 'ctsv'],     
+        // ]);
         
     }
 }
