@@ -24,13 +24,47 @@ class sinhvienController extends Controller
         $bangdiem = DB::table('bangdiem')->get();
         //tieuchi
         $tieuchi = DB::table('tieuchi')->get();
+
+        //tính tổng điểm cộng 
+        foreach ($bangdiem_id as $key => $value){
+            $sum = 0;
+            $diemcong = DB::table('tieuchi')
+            ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
+            ->Join('phongtrao', 'tieuchi_phongtrao.phongtrao_id', '=', 'phongtrao.id')
+            ->Join('phongtrao_hoatdong','phongtrao.id', '=', 'phongtrao_hoatdong.phongtrao_id')
+            ->Join('hoatdong', 'phongtrao_hoatdong.hoatdong_id', '=', 'hoatdong.id')
+            ->Join('user_hoatdong', 'hoatdong.id', '=', 'user_hoatdong.hoatdong_id')
+            ->where([
+                        ['tieuchi.bangdiem_id', '=', $value->bangdiem_id],
+                        ['user_hoatdong.sv_id', '=', $auth_id],
+                        ['hoatdong.status_clone','=',1],
+                        ['user_hoatdong.heso', '=', 1],
+                    ])->sum('hoatdong.diem');
+            $diemtru = DB::table('tieuchi')
+            ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
+            ->Join('phongtrao', 'tieuchi_phongtrao.phongtrao_id', '=', 'phongtrao.id')
+            ->Join('phongtrao_hoatdong','phongtrao.id', '=', 'phongtrao_hoatdong.phongtrao_id')
+            ->Join('hoatdong', 'phongtrao_hoatdong.hoatdong_id', '=', 'hoatdong.id')
+            ->Join('user_hoatdong', 'hoatdong.id', '=', 'user_hoatdong.hoatdong_id')
+            ->where([
+                        ['tieuchi.bangdiem_id', '=', $value->bangdiem_id],
+                        ['user_hoatdong.sv_id', '=', $auth_id],
+                        ['hoatdong.status_clone','=',1],
+                        ['user_hoatdong.heso', '=', -1],
+                    ])->sum('hoatdong.diem');
+
+            $sum = intval($diemcong)-intval($diemtru);
+        }
+        //end tính điểm tổng
+
+
         return view('sinhvien.dashboard',[
             'siso'=>$siso,
             'coso_name'=>$coso_name,
             'bangdiem_id'=>$bangdiem_id,
             'bangdiem'=>$bangdiem,
             'tieuchi'=> $tieuchi,
-
+            'sum'=>$sum
             ]);
     }
 
@@ -96,6 +130,24 @@ class sinhvienController extends Controller
         DB::table('coso_hoatdong')->insert($data_coso_hoatdong);
         Session::put('message','Thêm hoạt động thành công.');
         return back();
+    }
+
+
+    public function diem_cong_theo_tieu_chi($user_id, $bangdiem_id){
+        $temp = DB::table('tieuchi')
+        ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
+        ->Join('phongtrao', 'tieuchi_phongtrao.phongtrao_id', '=', 'phongtrao.id')
+        ->Join('phongtrao_hoatdong','phongtrao.id', '=', 'phongtrao_hoatdong.phongtrao_id')
+        ->Join('hoatdong', 'phongtrao_hoatdong.hoatdong_id', '=', 'hoatdong.id')
+        ->Join('user_hoatdong', 'hoatdong.id', '=', 'user_hoatdong.hoatdong_id')
+        ->where([
+                    ['tieuchi.bangdiem_id', '=', $bangdiem_id],
+                    ['user_hoatdong.sv_id', '=', $user_id],
+                    ['hoatdong.status_clone','=',1],
+                    ['user_hoatdong.heso', '=',1],
+                ])->sum('hoatdong.diem');
+
+        return $temp;
     }
     
 }

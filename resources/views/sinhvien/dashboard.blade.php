@@ -77,10 +77,8 @@
                                       }
                                       @endforeach
                                     </select>
-
                             </div>
                             <div class="col-6">
-                                <h6 class="h6 m-3 text-right">Đã cập nhập một ngày trước</h6>
                             </div>
                         </div>
                         <div class="card-body">
@@ -88,7 +86,7 @@
                                 <div class="col-4">
                                     <div class="chart-pie pt-4 pb-2">
                                         <canvas id="myPieChart"></canvas>
-                                        <h2 class="text-center">81</h2>
+                                        <h2 class="text-center">{{$sum}}</h2>
                                     </div>
                                 </div>
                                 <div class="col-8 border border-secondary">
