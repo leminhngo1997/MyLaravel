@@ -79,12 +79,14 @@ class sinhvienController extends Controller
     }
 
     public function get_value_feedback(){
-        // $auth_id = Auth::user()->id;
+        $current_user_id = Auth::user()->id;
+        $posts = DB::table('posts')->where('sv_id',$current_user_id)->get();
         $current_term = DB::table('bangdiem')->orderBy('ngayketthuc', 'DESC')->first();
         //get tieu chi của học kì hiện tại
         $tieuchi = DB::table('tieuchi')->where('bangdiem_id', $current_term->id)->get();
         return view('sinhvien.feedback',[
             'tieuchi'=> $tieuchi,
+            'posts'=> $posts,
             ]);
     }
 
@@ -148,6 +150,25 @@ class sinhvienController extends Controller
                 ])->sum('hoatdong.diem');
 
         return $temp;
+    //--Thêm feedback
+    public function insert_feedback(Request $request){
+        //insert table posts
+        $current_user = Auth::user()->id;
+        $bang_diem_id = DB::table('bangdiem')->orderBy('id', 'DESC')->first()->id;
+        $name_tieuchi = DB::table('tieuchi')->where('id',$request->input_name_tieuchi)->first()->name;
+        $name_phongtrao = DB::table('phongtrao')->where('id',$request->input_name_phongtrao)->first()->name;
+        $name_hoatdong = DB::table('hoatdong')->where('id',$request->input_name_hoatdong)->first()->name;
+        // dd($name_hoatdong);
+        $data = array();
+        $data['mota'] = $request->input_mota;
+        $data['name_tieuchi'] = $name_tieuchi;
+        $data['name_phongtrao'] = $name_phongtrao;
+        $data['name_hoatdong'] = $name_hoatdong;
+        $data['sv_id'] = $current_user;
+        $data['bangdiem_id'] = $bang_diem_id;
+        DB::table('posts')->insert($data);
+        Session::put('message','Thêm phản hồi thành công.');
+        return back();
     }
     
 }

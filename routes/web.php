@@ -83,6 +83,10 @@ Route::post('/them-users-quanlisinhvien','ctsvController@insert_users_quanlisinh
 //-- -- --Xóa sinh viên
 Route::post('/xoa-user-quanlisinhvien','ctsvController@delete_users_quanlisinhvien');
 
+//-- --FEEDBACK
+//-- -- --Thêm feedback
+Route::post('/them-feedback',['as'=>'them-feedback','uses'=>'sinhvienController@insert_feedback']);
+
 //-- --Quản lý tiêu chí
 Route::get('quanlitieuchi',['as'=>'quanlitieuchi','uses'=>'ctsvController@get_value_quanlitieuchi']);
 //-- --Quản lý phong trào
@@ -171,6 +175,8 @@ Route::get('importsinhvienthamgiahoatdong',['as'=>'importsinhvienthamgiahoatdong
 Route::post('get-hoat-dong-importsinhvienthamgiahoatdong','APIController@GetHoatDong_importsinhvienthamgiahoatdong');
 Route::get('danhsachsinhvienthamgiahoatdong/{id}',['as'=>'danhsachsinhvienthamgiahoatdong','uses'=>'ctsvController@get_value_danhsachsinhvienthamgiahoatdong']);
 Route::post('danhsachsinhvienthamgiahoatdong/import','ImportExcelController@importThamgia');
+//-- -- --Xóa user-hoatdong
+Route::post('/xoa-user-hoatdong-danhsachsinhvienthamgiahoatdong','ctsvController@delete_user_hoat_dong_danhsachsinhvienthamgiahoatdong');
 
 // -- -- -- Quản lí tài khoản
 Route::get('quanlitaikhoan',['as'=>'quanlitaikhoan','uses'=>'ctsvController@get_value_quanlitaikhoan']);
@@ -178,4 +184,4 @@ Route::post('/quanlitaikhoan/phanquyen','ctsvController@update_quanlitaikhoan');
 
 
 // -- -- -- Quản lí phản hồi
-Route::get('feedback/chitiet',['as'=>'feedback/chitiet','uses'=>'feedbackController@get_value_feedbackdetail']);
+Route::get('/feedback/chitiet/{id}',['as'=>'feedback/chitiet','uses'=>'feedbackController@get_value_feedbackdetail']);

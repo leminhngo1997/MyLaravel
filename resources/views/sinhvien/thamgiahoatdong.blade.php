@@ -25,7 +25,7 @@
     <li class="nav-item active">
         <a class="nav-link" href="{{route('thamgiahoatdong')}}">
             <i class="fas fa-fw fa-skating"></i>
-            <span>Tham gia hoạt động</span></a>
+            <span>Tạo hoạt động</span></a>
     </li>
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
@@ -58,18 +58,6 @@
         <li class="nav-item">
             <a class="nav-link active" id="activity-tab" data-toggle="tab" href="#activity" role="tab"
                 aria-controls="activity" aria-selected="true">Tạo mới</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="create-activity-tab" data-toggle="tab" href="#create-activity" role="tab"
-                aria-controls="create-activity" aria-selected="false">Hoạt động</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="registered-activity-tab" data-toggle="tab" href="#registered-activity" role="tab"
-                aria-controls="registered-activity" aria-selected="false">Đã đăng ký</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="import-tab" data-toggle="tab" href="#import-participant-tab" role="tab"
-                aria-controls="import-participant-tab" aria-selected="false">Danh sách tham gia</a>
         </li>
     </ul>
     <!-- end tab title -->
@@ -141,178 +129,7 @@
                 </div>
             </form>
         </div>
-        <!-- end tab hoạt động -->
-        <!-- begin tab thêm mới -->
-        <div class="tab-pane fade" id="create-activity" role="tabpanel" aria-labelledby="create-activity-tab">
-
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Đăng ký</th>
-                        <th scope="col">Tên tiêu chí</th>
-                        <th scope="col">Tên hoạt động</th>
-                        <th scope="col">Điểm cộng</th>
-                        <th scope="col">Bắt đầu</th>
-                        <th scope="col">Kết thúc</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="registration-Check1">
-                                <label class="custom-control-label" for="registration-Check1"></label>
-                            </div>
-                        </td>
-                        <td>Tiêu chí 1</td>
-                        <td>Bán hoa</td>
-                        <td>5</td>
-                        <td>11/06/2019</td>
-                        <td>11/07/2019</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="registration-Check2">
-                                <label class="custom-control-label" for="registration-Check2"></label>
-                            </div>
-                        </td>
-                        <td>Tiêu chí 2</td>
-                        <td>Nhổ cỏ</td>
-                        <td>3</td>
-                        <td>30/04/2019</td>
-                        <td>30/05/2019</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="registration-Check3">
-                                <label class="custom-control-label" for="registration-Check3"></label>
-                            </div>
-                        </td>
-                        <td>Tiêu chí 3</td>
-                        <td>Hiến máu</td>
-                        <td>5</td>
-                        <td>30/03/2019</td>
-                        <td>30/04/2019</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="mb-4">
-                <button type="button" class="btn btn-outline-secondary py-2 shadow">Đăng ký</button>
-            </div>
-            <!-- /.container-fluid -->
-            <div class="d-sm-flex align-items-center justify-content-between mb-4 align-items-end">
-                <!-- page navigation -->
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-        <!-- end tab thêm mới -->
-        <!-- begin tab đăng ký -->
-        <div class="tab-pane fade" id="registered-activity" role="tabpanel" aria-labelledby="registered-activity-tab">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Hủy đăng ký</th>
-                        <th scope="col">Tên tiêu chí</th>
-                        <th scope="col">Tên hoạt động</th>
-                        <th scope="col">Điểm cộng</th>
-                        <th scope="col">Bắt đầu</th>
-                        <th scope="col">Kết thúc</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="cancel-registration-Check1">
-                                <label class="custom-control-label" for="cancel-registration-Check1"></label>
-                            </div>
-                        </td>
-                        <td>Tiêu chí 1</td>
-                        <td>Bán hoa</td>
-                        <td>5</td>
-                        <td>11/06/2019</td>
-                        <td>11/07/2019</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="cancel-registration-Check2">
-                                <label class="custom-control-label" for="cancel-registration-Check2"></label>
-                            </div>
-                        </td>
-                        <td>Tiêu chí 2</td>
-                        <td>Nhổ cỏ</td>
-                        <td>3</td>
-                        <td>30/04/2019</td>
-                        <td>30/05/2019</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="cancel-registration-Check3">
-                                <label class="custom-control-label" for="cancel-registration-Check3"></label>
-                            </div>
-                        </td>
-                        <td>Tiêu chí 3</td>
-                        <td>Hiến máu</td>
-                        <td>5</td>
-                        <td>30/03/2019</td>
-                        <td>30/04/2019</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="mb-4">
-                <button type="button" class="btn btn-outline-secondary py-2 shadow">Hủy</button>
-            </div>
-            <!-- /.container-fluid -->
-            <div class="d-sm-flex align-items-center justify-content-between mb-4 align-items-end">
-                <!-- page navigation -->
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-        <!-- end tab đăng ký -->
-        <!-- begin tab import -->
-        <div class="tab-pane fade show active" id="import-participant-tab" role="tabpanel" aria-labelledby="import-tab">
-        </div>
-        <!-- end tab import -->
+        <!-- end tab hoạt động -->       
     </div>
     <!-- end tab content -->
 </div>

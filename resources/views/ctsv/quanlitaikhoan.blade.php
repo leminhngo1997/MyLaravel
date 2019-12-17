@@ -5,11 +5,11 @@
 <ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('quanlibangdiem')}}">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">CTSV - UIT<sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">UIT - CTSV</div>
     </a>
 
     <!-- Divider -->
@@ -94,28 +94,30 @@
 
                             <!-- danh sach tai khoan -->
                             <div class="card-body col-12 mb-4">
-                                 <!-- bảng hiển thị danh sách tài khoản -->
-                                    <table class="border table table-striped" id="userTable">
-                                            <thead>
-                                                <tr class="clickable-row">
-                                                    <th scope="col">Mã tài khoản</th>
-                                                    <th scope="col">Tên người dùng</th>
-                                                    <th scope="col">Email</th>
-                                                    <th scope="col">Loại tài khoản</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                    @foreach ($user_role as $row)
-                                                    <tr class="clickable-row" onclick="setRole()">
-                                                        <td>{{ $row->id }}</td>
-                                                        <td><a role="button" tabindex="0">{{ $row->name }}</a></td>
-                                                        <td>{{ $row->email }}</td>
-                                                        <td>{{ $row->role }}</td>
-                                                    </tr>
-                                                    </a>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
+                                <!-- bảng hiển thị danh sách tài khoản -->
+                                <div>Tìm kiếm theo email</div>
+                                <input type="text" class="form-control col-6 mb-4" id="myInput" onkeyup="myFunction()">
+                                <table class="border table table-striped" id="myTable">
+                                    <thead>
+                                        <tr class="clickable-row">
+                                            <th scope="col">Mã tài khoản</th>
+                                            <th scope="col">Tên người dùng</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Loại tài khoản</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($user_role as $row)
+                                        <tr class="clickable-row" onclick="setRole()">
+                                            <td>{{ $row->id }}</td>
+                                            <td><a role="button" tabindex="0">{{ $row->name }}</a></td>
+                                            <td>{{ $row->email }}</td>
+                                            <td>{{ $row->role }}</td>
+                                        </tr>
+                                        </a>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                                 <?php
                                     $message = Session::get('message');
                                     if($message){
@@ -125,8 +127,9 @@
                                 ?>
                                 {{csrf_field()}}
                                 <div class="card-body col-12 mb-4">
-                                        <form method="POST" role="form" action="{{URL::to('/quanlitaikhoan/phanquyen')}}">
-                                        <div class="mb-4" style="color: red">*Nhấn vào hàng trên bảng dữ liệu để lấy thông tin</div>
+                                    <form method="POST" role="form" action="{{URL::to('/quanlitaikhoan/phanquyen')}}">
+                                        <div class="mb-4" style="color: red">*Nhấn vào hàng trên bảng dữ liệu để lấy
+                                            thông tin</div>
                                         <table class="col-8 mb-4">
                                             <tr>
                                                 <td>
@@ -142,21 +145,24 @@
                                             <tr>
                                                 <td>
                                                     <input name="input_user_id" type="text"
-                                                    class="card border-secondary shadow h-100 py-2 col-8" id="user_id"/>
+                                                        class="card border-secondary shadow h-100 py-2 col-8"
+                                                        id="user_id" />
                                                 </td>
                                                 <td>
                                                     <input name="input_email_user" type="text"
-                                                    class="card border-secondary shadow h-100 py-2 col-8" id="user_email"/>
+                                                        class="card border-secondary shadow h-100 py-2 col-8"
+                                                        id="user_email" />
                                                 </td>
                                                 <td>
                                                     <select id="dropdown-role" name="select_role_name"
-                                                    class="card border-secondary shadow h-100 py-2 col-12">
-                                                    @foreach($role as $key=>$value)
-                                                    <option name="role_id" value="{{$value->id}}">{{$value->name}}</option>
-                                                    @endforeach
+                                                        class="card border-secondary shadow h-100 py-2 col-12">
+                                                        @foreach($role as $key=>$value)
+                                                        <option name="role_id" value="{{$value->id}}">{{$value->name}}
+                                                        </option>
+                                                        @endforeach
                                                     </select>
                                                 </td>
-                                            </tr>    
+                                            </tr>
                                         </table>
                                         <?php
                                                 $message = Session::get('message');
@@ -166,11 +172,12 @@
                                                     }
                                             ?>
                                         {{csrf_field()}}
-                                        
-                                        <input type="submit" value="Phân quyền" class="btn btn-outline-secondary py-2 shadow">
-                                    </form>                                   
+
+                                        <input type="submit" value="Phân quyền"
+                                            class="btn btn-outline-secondary py-2 shadow">
+                                    </form>
                                 </div>
-                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -181,23 +188,46 @@
 
 <script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
 <script>
-function setRole() {
-    var table = document.getElementById("userTable");
-    var rows = table.getElementsByTagName("tr");
-    for (i = 0; i < rows.length; i++) {
-      var currentRow = table.rows[i];
-      var createClickHandler = function(row) {
-        return function() {
-            var cell_id = row.getElementsByTagName("td")[0];   
-            var id = cell_id.innerHTML;
-            var cell_email = row.getElementsByTagName("td")[2];
-            var email = cell_email.innerHTML;
-            $("#user_id").val(id);
-            $("#user_email").val(email);
-        };
-      };
-      currentRow.onclick = createClickHandler(currentRow);
+    function setRole() {
+        var table = document.getElementById("userTable");
+        var rows = table.getElementsByTagName("tr");
+        for (i = 0; i < rows.length; i++) {
+            var currentRow = table.rows[i];
+            var createClickHandler = function (row) {
+                return function () {
+                    var cell_id = row.getElementsByTagName("td")[0];
+                    var id = cell_id.innerHTML;
+                    var cell_email = row.getElementsByTagName("td")[2];
+                    var email = cell_email.innerHTML;
+                    $("#user_id").val(id);
+                    $("#user_email").val(email);
+                };
+            };
+            currentRow.onclick = createClickHandler(currentRow);
+        }
     }
+</script>
+
+{{-- add datatable --}}
+<script src="{{asset('public/admin/vendor/datatables/jquery.dataTables.js')}}"></script>
+<script>
+    function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
   }
+}
 </script>
 @endsection

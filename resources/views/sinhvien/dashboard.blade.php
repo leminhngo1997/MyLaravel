@@ -26,7 +26,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{route('thamgiahoatdong')}}">
                     <i class="fas fa-fw fa-skating"></i>
-                    <span>Tham gia hoạt động</span></a>
+                    <span>Tạo hoạt động</span></a>
             </li>
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
