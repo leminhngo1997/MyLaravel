@@ -113,9 +113,11 @@ class ctsvController extends Controller
     
     public function get_value_danhsachsinhvienthamgiahoatdong($id){
         $list_hoat_dong = DB::table('hoatdong')->where('id',$id)->get();
+        $user_hoatdong = DB::table('user_hoatdong')->where('hoatdong_id',$id)->paginate(10);
         return view('ctsv.danhsachsinhvienthamgiahoatdong',[
             'list_hoat_dong'=>$list_hoat_dong,
-            'hoatdong_id' => $id
+            'hoatdong_id' => $id,
+            'user_hoatdong'=>$user_hoatdong,
         ]);
        
     }
@@ -156,7 +158,7 @@ class ctsvController extends Controller
             ));
         }
         Session::put('message','Thêm bảng điểm thành công.');
-        return Redirect::to('quanlibangdiem');
+        return back();
     }    
 //--Thêm tiêu chí
     public function insert_tieu_chi_quanlitieuchi(Request $request){
@@ -167,7 +169,7 @@ class ctsvController extends Controller
         $data['maxtieuchi'] = $request->input_maxtieuchi_tieuchi;
         DB::table('tieuchi')->insert($data);
         Session::put('message','Thêm tiêu chí thành công.');
-        return Redirect::to('quanlitieuchi');
+        return back();
     }
 //--Xóa tiêu chí
     public function delete_tieu_chi_quanlitieuchi($id){
@@ -458,4 +460,21 @@ public function delete_users_quanlisinhvien(Request $request){
         Session::put('message','Thêm xếp loại thành công.');
         return Redirect::to('quanlixeploai');
     }
+
+    //-- --Danh sách sinh viên tham gia
+    //--Xóa sinh viên tham gia
+    public function delete_user_hoat_dong_danhsachsinhvienthamgiahoatdong(Request $request){
+        if($request->check == null)
+        {
+            Session::put('message','Lỗi: Check hoạt động cần xóa');
+            return Redirect::to('quanlihoatdong');
+        }
+        //delete 2 table phongtrao_hoatdong & hoatdong
+        $check = $request->check;
+        foreach($check as $key => $value){
+            DB::table('user_hoatdong')->where('id',$value)->delete();
+        }
+        Session::put('message','Xóa sinh viên tham gia hoạt động thành công.');
+        return back();
+    }    
 }

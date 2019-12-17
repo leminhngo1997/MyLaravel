@@ -6,11 +6,11 @@
 <ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('quanlibangdiem')}}">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">CTSV - UIT<sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">UIT - CTSV</div>
     </a>
 
     <!-- Divider -->
@@ -106,7 +106,7 @@
                                 </thead>
                                 <tbody id="show-hoat-dong">
                                     @foreach($list_hoat_dong as $key=>$value)
-                                    <td id = {{$value->id}}>{{$value->id}}</td>
+                                    <td name="id_hoat_dong" id={{$value->id}}>{{$value->id}}</td>
                                     <td>{{$value->name}}</td>
                                     <td>{{$value->diem}}</td>
                                     @endforeach
@@ -122,45 +122,91 @@
                                     1 là đã tham gia</div>
                                 <div class="mb-4" style="color:brown">Hệ số
                                     -1 là không đăng ký</div>
-                                <table class="border table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">STT</th>
-                                            <th scope="col">Mã sinh viên</th>
-                                            <th scope="col">Tên sinh viên</th>
-                                            <th scope="col">Hệ số tham gia</th>
-                                            <th scope="col">Chú thích</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="show-hoat-dong">
-                                        {{--  --}}
-                                    </tbody>
-                                </table>
+
+                                <form method="POST" role="form"
+                                    action="{{URL::to('/xoa-user-hoatdong-danhsachsinhvienthamgiahoatdong')}}">
+                                    {{csrf_field()}}
+                                    <div>
+                                        <?php
+                                    $message = Session::get('message');
+                                    if($message){
+                                        echo '<span style="color:red">' .$message. '</span>';
+                                        Session::put('message',null);
+                                        }
+                                ?>
+                                    </div>
+
+                                    <input type="submit" value="Xóa"
+                                        class="btn btn-outline-secondary py-2 shadow mb-4" />
+                                    <div>Tìm kiếm theo MSSV</div>
+                                    <input type="text" class="form-control col-6 mb-4" id="myInput"
+                                        onkeyup="myFunction()">
+                                    <table class="border table table-striped" id="myTable">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" class="check" id="checkAll">
+                                                        </label>
+                                                    </div>
+                                                </th>
+                                                <th scope="col">STT</th>
+                                                <th scope="col">Mã sinh viên</th>
+                                                <th scope="col">Tên sinh viên</th>
+                                                <th scope="col">Hệ số tham gia</th>
+                                                <th scope="col">Chú thích</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="show-hoat-dong">
+                                            @foreach ($user_hoatdong as $key=>$value)
+                                            <tr class="delete-row-hoat-dong">
+                                                <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input value="{{$value->id}}" name="check[]" type="checkbox"
+                                                                class="check">
+                                                        </label>
+                                                    </div>
+                                                </td>
+
+                                                <td>STT</td>
+                                                <td class="return-data"><a href="#">MSSV</a></td>
+                                                <td class="return-data">Họ tên</td>
+                                                <td class="return-data"><a href="#">{{$value->heso}}</a></td>
+                                                <td class="return-data"><a href="#">{{$value->chuthich}}</a></td>
+                                            </tr>
+                                            @endforeach
+
+                                        </tbody>
+                                    </table>
+                                    {{$user_hoatdong->links()}}
+                                </form>
                                 <div>Upload file danh sách tham gia (xls, xlsx)</div>
                                 <form method="post" enctype="multipart/form-data"
                                     action="{{ url('/danhsachsinhvienthamgiahoatdong/import') }}">
                                     {{ csrf_field() }}
-                                    <input name="hoatdong_id" value={{$hoatdong_id}} hidden/>
+                                    <input name="hoatdong_id" value={{$hoatdong_id}} hidden />
                                     <input type="file" name="select_file"
                                         class="btn btn-outline-secondary py-2 shadow" />
                                     <input type="submit" name="upload" value="Upload"
                                         class="btn btn-outline-secondary py-2 shadow" />
-                                        @if(count($errors) > 0)
-                                        <div class="alert alert-danger">
-                                            Upload validation errors<br><br>
-                                            <ul>
-                                                @foreach ($errors -> all() as $error)
-                                                    <li>{{ $error }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
+                                    @if(count($errors) > 0)
+                                    <div class="alert alert-danger">
+                                        Upload validation errors<br><br>
+                                        <ul>
+                                            @foreach ($errors -> all() as $error)
+                                            <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
                                     @endif
-                            
+
                                     @if($message = Session::get('success'))
-                                        <div class="alert alert-success alert-block">
-                                            <button type="button" class="close" data-dismiss="alert">X</button>
-                                            <strong>{{ $message }}</strong>
-                                        </div>
+                                    <div class="alert alert-success alert-block">
+                                        <button type="button" class="close" data-dismiss="alert">X</button>
+                                        <strong>{{ $message }}</strong>
+                                    </div>
                                     @endif
 
                                     <br><br>
@@ -179,6 +225,33 @@
 <!-- /.container-fluid -->
 <script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
 
+{{-- add datatable --}}
+<script src="{{asset('public/admin/vendor/datatables/jquery.dataTables.js')}}"></script>
+<script>
+    function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
 
+<script>
+    $("#checkAll").click(function () {
+        $(".check").prop('checked', $(this).prop('checked'))
+    });
+</script>
 
 @endsection

@@ -203,7 +203,7 @@ class APIController extends Controller
                 $current_hoatdong[] = $i;
             }
         }
-       
+        
         return $current_hoatdong;
     }
 
@@ -212,4 +212,6 @@ class APIController extends Controller
         $xep_loai = DB::table('xeploai')->where('loaibangdiem_id', $loai_bang_diem_id)->get();
         return $xep_loai;
     }
+
+   
 }
