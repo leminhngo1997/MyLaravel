@@ -35,7 +35,7 @@ class ImportExcelController extends Controller
                         'ngayketthuc' => $value['ngayketthuc'],
                         'nguoitao' => $value['nguoitao'],
                         'nguoiduyet' => $value['nguoiduyet'],
-                        'status_clone' => 0,
+                        'status_clone' => 1,
                     );
                     
                     //lấy tên cơ sở và mã phong trào
@@ -66,7 +66,7 @@ class ImportExcelController extends Controller
                 $insert_phongtrao_hoatdong[] = array(
                     'phongtrao_id' => $phongtrao_id[$key],
                     'hoatdong_id' => $value,
-                    'status' => 0
+                    'status' => 1
                 );
             }
             DB::table('phongtrao_hoatdong')->insert($insert_phongtrao_hoatdong);
