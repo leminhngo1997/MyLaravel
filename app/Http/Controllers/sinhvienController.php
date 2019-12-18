@@ -73,8 +73,6 @@ class sinhvienController extends Controller
             'bangdiem_id'=>$bangdiem_id,
             'bangdiem'=>$bangdiem,
             'tieuchi'=> $tieuchi,
-            // 'sum'=>$sum,
-            // 'diemtieuchi'=>$diem_tieuchi
             ]);
     }
 
@@ -181,5 +179,6 @@ class sinhvienController extends Controller
         Session::put('message','Thêm phản hồi thành công.');
         return back();
     }
+  
     
 }

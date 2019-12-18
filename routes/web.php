@@ -86,6 +86,10 @@ Route::post('/xoa-user-quanlisinhvien','ctsvController@delete_users_quanlisinhvi
 //-- --FEEDBACK
 //-- -- --Thêm feedback
 Route::post('/them-feedback',['as'=>'them-feedback','uses'=>'sinhvienController@insert_feedback']);
+//-- -- --Thêm feedback
+Route::post('/them-comment',['as'=>'them-comment','uses'=>'feedbackController@insert_comment']);
+//-- -- --Thêm reply
+Route::post('/them-reply',['as'=>'them-reply','uses'=>'feedbackController@insert_reply']);
 
 //-- --Quản lý tiêu chí
 Route::get('quanlitieuchi',['as'=>'quanlitieuchi','uses'=>'ctsvController@get_value_quanlitieuchi']);
