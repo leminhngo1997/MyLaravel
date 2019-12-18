@@ -9,10 +9,41 @@ class APIController extends Controller
 {	//SINHVIEN
     //--DASHBOARD
     function GetTieuChi_dashboard(Request $request){
-        // $auth_id = Auth::user()->id;
         $term = $request->term;
         $tieuChi = DB::table('tieuchi')->where('bangdiem_id', $term)->get();
         return $tieuChi;
+    }
+
+    function GetSumBangDiem_dashboard(Request $request){
+        $term = $request->term;
+        $auth_id = Auth::user()->id;
+        $sum = 0;
+        $diemcong = DB::table('tieuchi')
+        ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
+        ->Join('phongtrao', 'tieuchi_phongtrao.phongtrao_id', '=', 'phongtrao.id')
+        ->Join('phongtrao_hoatdong','phongtrao.id', '=', 'phongtrao_hoatdong.phongtrao_id')
+        ->Join('hoatdong', 'phongtrao_hoatdong.hoatdong_id', '=', 'hoatdong.id')
+        ->Join('user_hoatdong', 'hoatdong.id', '=', 'user_hoatdong.hoatdong_id')
+        ->where([
+                    ['tieuchi.bangdiem_id', '=', $term],
+                    ['user_hoatdong.sv_id', '=', $auth_id],
+                    ['hoatdong.status_clone','=',1],
+                    ['user_hoatdong.heso', '=', 1],
+                ])->sum('hoatdong.diem');
+        $diemtru = DB::table('tieuchi')
+        ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
+        ->Join('phongtrao', 'tieuchi_phongtrao.phongtrao_id', '=', 'phongtrao.id')
+        ->Join('phongtrao_hoatdong','phongtrao.id', '=', 'phongtrao_hoatdong.phongtrao_id')
+        ->Join('hoatdong', 'phongtrao_hoatdong.hoatdong_id', '=', 'hoatdong.id')
+        ->Join('user_hoatdong', 'hoatdong.id', '=', 'user_hoatdong.hoatdong_id')
+        ->where([
+                    ['tieuchi.bangdiem_id', '=', $term],
+                    ['user_hoatdong.sv_id', '=', $auth_id],
+                    ['hoatdong.status_clone','=',1],
+                    ['user_hoatdong.heso', '=', -1],
+                ])->sum('hoatdong.diem');
+        $sum = intval($diemcong)-intval($diemtru);
+        return $sum;
     }
     //--THAM GIA HOAT DONG
     function GetPhongTrao_thamgiahoatdong(Request $request){
