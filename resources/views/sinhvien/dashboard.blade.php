@@ -118,7 +118,7 @@
                                 <th scope="col" class="text-center">XẾP HẠNG</th>
                             </tr>
                             <tr class="border-bottom">
-                                <th class="text-danger" style="font-size: 20px;">81 <span style="font-size: 10px;" class="text-danger">Điểm</span></th>
+                                <th class="text-danger" style="font-size: 20px;">{{$sum}} <span style="font-size: 10px;" class="text-danger">Điểm</span></th>
                                 <th class="text-center text-danger">23</th>
                             </tr>
                         </thead>

@@ -24,9 +24,13 @@ class sinhvienController extends Controller
         $bangdiem = DB::table('bangdiem')->get();
         //tieuchi
         $tieuchi = DB::table('tieuchi')->get();
-
+        
+        
         //tính tổng điểm cộng 
-        foreach ($bangdiem_id as $key => $value){
+        //tổng điểm bảng điểm
+        $temp = end($bangdiem_id);
+        $max_bangdiem_id = end($temp);
+        foreach ($max_bangdiem_id as $key => $value){
             $sum = 0;
             $diemcong = DB::table('tieuchi')
             ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
@@ -35,7 +39,7 @@ class sinhvienController extends Controller
             ->Join('hoatdong', 'phongtrao_hoatdong.hoatdong_id', '=', 'hoatdong.id')
             ->Join('user_hoatdong', 'hoatdong.id', '=', 'user_hoatdong.hoatdong_id')
             ->where([
-                        ['tieuchi.bangdiem_id', '=', $value->bangdiem_id],
+                        ['tieuchi.bangdiem_id', '=', $value],
                         ['user_hoatdong.sv_id', '=', $auth_id],
                         ['hoatdong.status_clone','=',1],
                         ['user_hoatdong.heso', '=', 1],
@@ -47,7 +51,7 @@ class sinhvienController extends Controller
             ->Join('hoatdong', 'phongtrao_hoatdong.hoatdong_id', '=', 'hoatdong.id')
             ->Join('user_hoatdong', 'hoatdong.id', '=', 'user_hoatdong.hoatdong_id')
             ->where([
-                        ['tieuchi.bangdiem_id', '=', $value->bangdiem_id],
+                        ['tieuchi.bangdiem_id', '=', $value],
                         ['user_hoatdong.sv_id', '=', $auth_id],
                         ['hoatdong.status_clone','=',1],
                         ['user_hoatdong.heso', '=', -1],
@@ -55,8 +59,42 @@ class sinhvienController extends Controller
 
             $sum = intval($diemcong)-intval($diemtru);
         }
-        //end tính điểm tổng
 
+        //dd($sum);
+
+        //tổng điểm từng tiêu chí
+        $max_bangdiem_tieuchi_id = DB::table('tieuchi')->where('bangdiem_id',end($max_bangdiem_id))->get('id');
+        $max_bangdiem_tieuchi_id = end($max_bangdiem_tieuchi_id);
+        foreach ($max_bangdiem_tieuchi_id as $key => $value){
+            $diemcong = DB::table('tieuchi')
+            ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
+            ->Join('phongtrao', 'tieuchi_phongtrao.phongtrao_id', '=', 'phongtrao.id')
+            ->Join('phongtrao_hoatdong','phongtrao.id', '=', 'phongtrao_hoatdong.phongtrao_id')
+            ->Join('hoatdong', 'phongtrao_hoatdong.hoatdong_id', '=', 'hoatdong.id')
+            ->Join('user_hoatdong', 'hoatdong.id', '=', 'user_hoatdong.hoatdong_id')
+            ->where([
+                        ['tieuchi.id', '=', $value->id],
+                        ['user_hoatdong.sv_id', '=', $auth_id],
+                        ['hoatdong.status_clone','=',1],
+                        ['user_hoatdong.heso', '=', 1],
+                    ])->sum('hoatdong.diem');
+            $diemtru = DB::table('tieuchi')
+            ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
+            ->Join('phongtrao', 'tieuchi_phongtrao.phongtrao_id', '=', 'phongtrao.id')
+            ->Join('phongtrao_hoatdong','phongtrao.id', '=', 'phongtrao_hoatdong.phongtrao_id')
+            ->Join('hoatdong', 'phongtrao_hoatdong.hoatdong_id', '=', 'hoatdong.id')
+            ->Join('user_hoatdong', 'hoatdong.id', '=', 'user_hoatdong.hoatdong_id')
+            ->where([
+                        ['tieuchi.id', '=', $value->id],
+                        ['user_hoatdong.sv_id', '=', $auth_id],
+                        ['hoatdong.status_clone','=',1],
+                        ['user_hoatdong.heso', '=', -1],
+                    ])->sum('hoatdong.diem');
+            $sumtieuchi = intval($diemcong)-intval($diemtru);
+            $diem_tieuchi[] = $sumtieuchi;
+        }
+
+        //end tính điểm tổng
 
         return view('sinhvien.dashboard',[
             'siso'=>$siso,
@@ -64,7 +102,8 @@ class sinhvienController extends Controller
             'bangdiem_id'=>$bangdiem_id,
             'bangdiem'=>$bangdiem,
             'tieuchi'=> $tieuchi,
-            'sum'=>$sum
+            'sum'=>$sum,
+            'diemtieuchi'=>$diem_tieuchi
             ]);
     }
 
@@ -150,6 +189,7 @@ class sinhvienController extends Controller
                 ])->sum('hoatdong.diem');
 
         return $temp;
+    }
     //--Thêm feedback
     public function insert_feedback(Request $request){
         //insert table posts
