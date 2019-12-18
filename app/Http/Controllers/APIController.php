@@ -9,9 +9,51 @@ class APIController extends Controller
 {	//SINHVIEN
     //--DASHBOARD
     function GetTieuChi_dashboard(Request $request){
+        $auth_id = Auth::user()->id;
         $term = $request->term;
-        $tieuChi = DB::table('tieuchi')->where('bangdiem_id', $term)->get();
-        return $tieuChi;
+        $tieu_chi = DB::table('tieuchi')->where('bangdiem_id', $term)->get();
+        $max_bangdiem_tieuchi_id = DB::table('tieuchi')->where('bangdiem_id',$term)->get('id');
+        $max_bangdiem_tieuchi_id = end($max_bangdiem_tieuchi_id);
+        foreach ($max_bangdiem_tieuchi_id as $key => $value){
+            $diemcong = DB::table('tieuchi')
+            ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
+            ->Join('phongtrao', 'tieuchi_phongtrao.phongtrao_id', '=', 'phongtrao.id')
+            ->Join('phongtrao_hoatdong','phongtrao.id', '=', 'phongtrao_hoatdong.phongtrao_id')
+            ->Join('hoatdong', 'phongtrao_hoatdong.hoatdong_id', '=', 'hoatdong.id')
+            ->Join('user_hoatdong', 'hoatdong.id', '=', 'user_hoatdong.hoatdong_id')
+            ->where([
+                        ['tieuchi.id', '=', $value->id],
+                        ['user_hoatdong.sv_id', '=', $auth_id],
+                        ['hoatdong.status_clone','=',1],
+                        ['user_hoatdong.heso', '=', 1],
+                    ])->sum('hoatdong.diem');
+            $diemtru = DB::table('tieuchi')
+            ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
+            ->Join('phongtrao', 'tieuchi_phongtrao.phongtrao_id', '=', 'phongtrao.id')
+            ->Join('phongtrao_hoatdong','phongtrao.id', '=', 'phongtrao_hoatdong.phongtrao_id')
+            ->Join('hoatdong', 'phongtrao_hoatdong.hoatdong_id', '=', 'hoatdong.id')
+            ->Join('user_hoatdong', 'hoatdong.id', '=', 'user_hoatdong.hoatdong_id')
+            ->where([
+                        ['tieuchi.id', '=', $value->id],
+                        ['user_hoatdong.sv_id', '=', $auth_id],
+                        ['hoatdong.status_clone','=',1],
+                        ['user_hoatdong.heso', '=', -1],
+                    ])->sum('hoatdong.diem');
+            $sumtieuchi = intval($diemcong)-intval($diemtru);
+            $diem_tieuchi[] = $sumtieuchi;
+        }
+       
+        $temp = array();
+        foreach($tieu_chi as $key=>$value)
+        {
+            $temp[] = array(
+                'name'=>$value->name,
+                'maxtieuchi'=>$value->maxtieuchi,
+                'sum_tieuchi'=>$diem_tieuchi[$key]
+            );
+        }
+       
+        return $temp;
     }
 
     function GetSumBangDiem_dashboard(Request $request){

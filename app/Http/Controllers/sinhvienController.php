@@ -28,43 +28,14 @@ class sinhvienController extends Controller
         
         //tính tổng điểm cộng 
         //tổng điểm bảng điểm
-        $temp = end($bangdiem_id);
-        $max_bangdiem_id = end($temp);
-        foreach ($max_bangdiem_id as $key => $value){
-            $sum = 0;
-            $diemcong = DB::table('tieuchi')
-            ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
-            ->Join('phongtrao', 'tieuchi_phongtrao.phongtrao_id', '=', 'phongtrao.id')
-            ->Join('phongtrao_hoatdong','phongtrao.id', '=', 'phongtrao_hoatdong.phongtrao_id')
-            ->Join('hoatdong', 'phongtrao_hoatdong.hoatdong_id', '=', 'hoatdong.id')
-            ->Join('user_hoatdong', 'hoatdong.id', '=', 'user_hoatdong.hoatdong_id')
-            ->where([
-                        ['tieuchi.bangdiem_id', '=', $value],
-                        ['user_hoatdong.sv_id', '=', $auth_id],
-                        ['hoatdong.status_clone','=',1],
-                        ['user_hoatdong.heso', '=', 1],
-                    ])->sum('hoatdong.diem');
-            $diemtru = DB::table('tieuchi')
-            ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
-            ->Join('phongtrao', 'tieuchi_phongtrao.phongtrao_id', '=', 'phongtrao.id')
-            ->Join('phongtrao_hoatdong','phongtrao.id', '=', 'phongtrao_hoatdong.phongtrao_id')
-            ->Join('hoatdong', 'phongtrao_hoatdong.hoatdong_id', '=', 'hoatdong.id')
-            ->Join('user_hoatdong', 'hoatdong.id', '=', 'user_hoatdong.hoatdong_id')
-            ->where([
-                        ['tieuchi.bangdiem_id', '=', $value],
-                        ['user_hoatdong.sv_id', '=', $auth_id],
-                        ['hoatdong.status_clone','=',1],
-                        ['user_hoatdong.heso', '=', -1],
-                    ])->sum('hoatdong.diem');
-
-            $sum = intval($diemcong)-intval($diemtru);
-        }
+       
 
         //dd($sum);
 
         //tổng điểm từng tiêu chí
-        $max_bangdiem_tieuchi_id = DB::table('tieuchi')->where('bangdiem_id',end($max_bangdiem_id))->get('id');
+        $max_bangdiem_tieuchi_id = DB::table('tieuchi')->where('bangdiem_id',11)->get('id');
         $max_bangdiem_tieuchi_id = end($max_bangdiem_tieuchi_id);
+        // dd($max_bangdiem_tieuchi_id);
         foreach ($max_bangdiem_tieuchi_id as $key => $value){
             $diemcong = DB::table('tieuchi')
             ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
@@ -102,8 +73,8 @@ class sinhvienController extends Controller
             'bangdiem_id'=>$bangdiem_id,
             'bangdiem'=>$bangdiem,
             'tieuchi'=> $tieuchi,
-            'sum'=>$sum,
-            'diemtieuchi'=>$diem_tieuchi
+            // 'sum'=>$sum,
+            // 'diemtieuchi'=>$diem_tieuchi
             ]);
     }
 

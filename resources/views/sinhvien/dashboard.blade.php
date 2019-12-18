@@ -215,16 +215,13 @@
             },
 
             success: function (data) {
-
-                // console.log(data);
                 $('.delete-row').remove();
                 data.forEach(element => {
                     html = `<tr class = "delete-row" >
                             <td class="return-data"><a href = "#">` + element.name + ` (` + element.maxtieuchi + `)</a></td>
-                            <td class="return-data" class="text-center">20</td>
+                            <td class="return-data" class="text-center">` + element.sum_tieuchi + `</td>
                         </tr>`;
                     $('#show-tieu-chi').append(html);
-                    console.log(data);
                 });
             }
 
@@ -240,8 +237,8 @@
             },
 
             success: function (data) {
-                debugger;
-                console.log(data);
+                // debugger;
+                // console.log(data);
                 $('.delete-sum-bang-diem').remove();
                 html = `<h2 class="text-center delete-sum-bang-diem">` + data + `</h2>`;
                 $('#show-sum-bang-diem').append(html);
@@ -272,7 +269,7 @@
                 data.forEach(element => {
                     html = `<tr class = "delete-row" >
                         <td class="return-data"><a href = "#">` + element.name + ` (` + element.maxtieuchi + `)</a></td>
-                        <td class="return-data" class="text-center">20</td>
+                        <td class="return-data" class="text-center">` + element.sum_tieuchi + `</td>
                     </tr>`;
                     $('#show-tieu-chi').append(html);
                     console.log(data);
@@ -291,8 +288,8 @@
             },
 
             success: function (data) {
-                debugger;
-                console.log(data);
+                // debugger;
+                // console.log(data);
                 $('.delete-sum-bang-diem').remove();
                 html = `<h2 class="text-center delete-sum-bang-diem">` + data + `</h2>`;
                 $('#show-sum-bang-diem').append(html);
