@@ -204,31 +204,45 @@ class sinhvienController extends Controller
             'hoatdong.diem',
             'user_hoatdong.heso')->get();
         
-        $temp = -1;
         $sum_phongtrao = 0;
         foreach($phongtrao as $index => $item){
-            $temp_phongtrao = $item->phongtrao_id;
-            $hoatdong[] = array(
+            
+            if($index === 0){
+                $temp_phongtrao = $item->phongtrao_id;
+            }
+            
+            if($temp_phongtrao === $item->phongtrao_id)
+            {
+                $phongtrao_name_old = $item->phongtrao_name;
+                $hoatdong[] = array(
                     'hoatdong_id'=>$item->hoatdong_id,
                     'hoatdong_name'=>$item->hoatdong_name,
                     'hoatdong_diem'=>$item->diem,
                     'hoatdong_heso'=>$item->heso
                 );
     
-            $sum_phongtrao = intval($item->diem) * floatval($item->heso);
-
-            if($item->phongtrao_id!==$temp){
-                
+                $sum_phongtrao = intval($item->diem) * floatval($item->heso);
+            }
+            else
+            {
                 $chitietthamgia[] = array(
-                    'phongtrao_id' => $item->phongtrao_id,
-                    'phongtrao_name'=> $item->phongtrao_name,
+                    'phongtrao_id' => $temp_phongtrao,
+                    'phongtrao_name'=> $phongtrao_name_old,
                     'phongtrao_diem'=> $sum_phongtrao,
                     'hoatdong'=>$hoatdong,
                 );
                 //reset temp
                 $sum_phongtrao = 0;
-                $hoatdong = array();
-                $temp = $item->phongtrao_id;
+                $hoatdong = null;
+                $sum_phongtrao = intval($item->diem) * floatval($item->heso);
+                $hoatdong[] = array(
+                    'hoatdong_id'=>$item->hoatdong_id,
+                    'hoatdong_name'=>$item->hoatdong_name,
+                    'hoatdong_diem'=>$item->diem,
+                    'hoatdong_heso'=>$item->heso
+                );
+                $temp_phongtrao = $item->phongtrao_id;
+                $phongtrao_name_old = $item->phongtrao_name;
             }
 
         }
