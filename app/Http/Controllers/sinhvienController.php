@@ -38,8 +38,6 @@ class sinhvienController extends Controller
             'bangdiem_id'=>$bangdiem_id,
             'bangdiem'=>$bangdiem,
             'tieuchi'=> $tieuchi,
-            // 'sum'=>$sum,
-            // 'diemtieuchi'=>$diem_tieuchi
             ]);
     }
 

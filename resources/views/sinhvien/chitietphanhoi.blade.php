@@ -60,81 +60,110 @@
                     <div>
                         <span style="color: darkgrey">-PT: {{$value->name_phongtrao}}</span>
                     </div>
-                    
+
                     <!-- nội dung thắc mắc -->
                     {{-- <p class="text-smaller text-muted mb-0">Just now</p> --}}
                 </div>
-                <div class="border mb-3">
-                    <div class="m-1 h3">{{$value->mota}}</div>
-                </div>
+                <strong style="color: mediumblue" class="m-1 h3">{{$value->mota}}</strong>
                 @endforeach
-                <input type="text" class="card border-secondary shadow h-100 py-2 col-6 mb-4">
-                <button type="submit" class="btn btn-outline-secondary">Bình luận</button>
+                <br />
+                <br />
+                <br />
+                <form method="post" enctype="multipart/form-data" action="{{ url('/them-comment') }}">
+                    {{ csrf_field() }}
+                    <input name="input_comment" type="text" placeholder="Bình luận...."
+                        class="card border-secondary shadow h-100 py-2 col-8 mb-4" />
+                    <button name="input_post_id" type="submit" value="{{$post_id}}"
+                        class="btn btn-outline-secondary py-2 shadow">Gửi</button>
+                </form>
+
+
             </div>
 
         </div>
-        <div class="row">
-            <div class="col-1"></div>
-            <div class="card border-secondary shadow col-10">
-                <!-- danh sách trả lời -->
-                <ul class="mb-4">
-                    <li class="border-bottom border-top">
-                        <div class="d-flex justify-content-between">
-                            <div class="text-small">
-                                <strong>Alex Steward</strong> - <strong>HTTT2019</strong>
-                                <p class="last-message text-muted">không biết không biết không biết không biết không
-                                    biết không biết</p>
-                            </div>
-                            <div class="chat-footer">
-                                <p class="text-smaller text-muted mb-0">Yesterday</p>
-                                <span class="text-muted float-right"><i class="fas fa-mail-reply"
-                                        aria-hidden="true"></i></span>
-                            </div>
-                        </div>
-                        <a role="button" tabindex="0">Trả lời</a>
-                    </li>
+        <br />
+        <div class="container py-2">
+            <div class="row">
+                <div class="comments col-md-9" id="comments">
+                    <h3 class="mb-4 font-weight-light">Bình luận</h3>
+                    <!-- comment -->
+                    <div class="comment mb-2">
 
-                    <li class="border-bottom border-top">
-                        <div class="d-flex justify-content-between">
-                            <div class="text-small">
-                                <strong>Alex Steward</strong> - <strong>HTTT2019</strong>
-                                <p class="last-message text-muted">không biết không biết không biết không biết không
-                                    biết không biết không biết không biết không biết không biết không biết không biết
-                                    không biết</p>
+                        @foreach ($comments as $key=>$value)
+                        <form method="POST" role="form" action="{{URL::to('/them-reply')}}">
+                            {{ csrf_field() }}
+                            <hr/>
+                            <div class="comment-content col-md-11 col-sm-10">
+                                <h6 class="small comment-meta"><strong
+                                        style="color: mediumslateblue">{{$value->user_name_comment}}</strong> Today,
+                                    2:38</h6>
+                                <div class="comment-body">
+                                    <p>{{$value->comment_text}}<br>
+                                        <a onclick="myFunction({{$key}})" role="button" tabindex="0"
+                                            class="text-right small"><i class="ion-reply"></i> Reply</a>
+                                        <div class="row">
+                                            <input id="myInput_{{$key}}" placeholder="Trả lời..."
+                                                name="input_reply_text" style="display: none"
+                                                class="card border-secondary shadow h-100 py-2 col-8" type="text">
+                                            <button id="myButton_{{$key}}" class="btn btn-info" style="display: none"
+                                                type="submit" name="input_comment_id"
+                                                value="{{$value->id}}">Gửi</button>
+                                        </div>
+                                    </p>
+                                </div>
                             </div>
-                            <div class="chat-footer">
-                                <p class="text-smaller text-muted mb-0">Yesterday</p>
-                                <span class="text-muted float-right"><i class="fas fa-mail-reply"
-                                        aria-hidden="true"></i></span>
+                            @foreach($replies as $item)
+                            @foreach($item as $key=>$value)
+                            <div class="comment-reply col-md-11 offset-md-1 col-sm-10 offset-sm-2">
+                                <div class="row">
+                                    <div class="comment-content col-md-11 col-sm-10 col-12">
+                                    <h6 class="small comment-meta"><a href="#">{{$value->user_name_reply}}</a> Today, 12:31</h6>
+                                        <div class="comment-body">
+                                            <p>{{$value->reply_text}}<br>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <a role="button" tabindex="0">Trả lời</a>
-                    </li>
+                            @endforeach
+                            @endforeach
+                            <!-- /reply is indented -->
+                        </form>
 
-                    <li class="border-bottom border-top">
-                        <div class="d-flex justify-content-between">
-                            <div class="text-small">
-                                <strong>Alex Steward</strong> - <strong>HTTT2019</strong>
-                                <p class="last-message text-muted">không biết</p>
-                            </div>
-                            <div class="chat-footer">
-                                <p class="text-smaller text-muted mb-0">Yesterday</p>
-                                <span class="text-muted float-right"><i class="fas fa-mail-reply"
-                                        aria-hidden="true"></i></span>
-                            </div>
+                        @endforeach
+
+                        <!-- reply is indented -->
+
+                    </div>
+
+                    <!-- /comment -->
+                    <div class="row pt-2">
+                        <div class="col-12">
+                            <a href="" class="btn btn-sm btn-primary">Add a Comment</a>
                         </div>
-                        <a role="button" tabindex="0">Trả lời</a>
-                    </li>
-                </ul>
-                <!-- input tra loi -->
-                <div class="row m-4">
-                    <input type="text" class="card border-secondary shadow col-10" />
-                    <button type="button" class="btn btn-outline-secondary">Gửi</button>
+                    </div>
                 </div>
             </div>
-            <div class="col-1"></div>
         </div>
     </div>
     <div class="col-md-2"></div>
 </div>
+
+<script>
+    function myFunction(key) {
+        console.log(key);
+        var x = document.getElementById("myInput_" + key);
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+        var y = document.getElementById("myButton_" + key);
+        if (y.style.display === "none") {
+            y.style.display = "block";
+        } else {
+            y.style.display = "none";
+        }
+    }
+</script>
 @endsection
