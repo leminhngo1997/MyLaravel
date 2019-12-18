@@ -47,6 +47,7 @@ class APIController extends Controller
         foreach($tieu_chi as $key=>$value)
         {
             $temp[] = array(
+                'id'=>$value->id,
                 'name'=>$value->name,
                 'maxtieuchi'=>$value->maxtieuchi,
                 'sum_tieuchi'=>$diem_tieuchi[$key]

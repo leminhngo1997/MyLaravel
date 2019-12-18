@@ -218,7 +218,7 @@
                 $('.delete-row').remove();
                 data.forEach(element => {
                     html = `<tr class = "delete-row" >
-                            <td class="return-data"><a href = "#">` + element.name + ` (` + element.maxtieuchi + `)</a></td>
+                            <td class="return-data"><a href = "{{URL::to('dashboard/chitiettieuchi')}}/`+ element.id +`">` + element.name + ` (` + element.maxtieuchi + `)</a></td>
                             <td class="return-data" class="text-center">` + element.sum_tieuchi + `</td>
                         </tr>`;
                     $('#show-tieu-chi').append(html);

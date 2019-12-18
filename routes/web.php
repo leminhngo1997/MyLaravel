@@ -106,6 +106,8 @@ Route::get('get-user', 'TestController@GetUser');
 //-- --Get tiêu chí 
 Route::post('get-tieu-chi-dashboard', 'APIController@GetTieuChi_dashboard');
 Route::post('get-sum-bang-diem-dashboard', 'APIController@GetSumBangDiem_dashboard');
+Route::get('dashboard/chitiettieuchi/{id}', 'sinhvienController@chitietTieuchi');
+
 
 //--THAM GIA HOẠT ĐỘNG
 //-- --Get phong trào

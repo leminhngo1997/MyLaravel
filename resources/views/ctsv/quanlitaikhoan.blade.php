@@ -114,7 +114,7 @@
                                             <td>{{ $row->email }}</td>
                                             <td>{{ $row->role }}</td>
                                         </tr>
-                                        </a>
+                                    
                                         @endforeach
                                     </tbody>
                                 </table>

@@ -261,8 +261,19 @@ class ctsvController extends Controller
     }
 //--Thêm hoạt động
     public function insert_hoat_dong_quanlihoatdong(Request $request){
+
+
+        if(Auth::user()!==NULL)
+        {
+            $current_user_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
+
         //insert table hoatdong
-        
+
         $data_hoatdong = array();
         $nguoi_tao_duyet = Auth::user()->name;
         $data_hoatdong['name'] = $request->input_name_hoatdong;
