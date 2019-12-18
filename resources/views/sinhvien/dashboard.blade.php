@@ -120,7 +120,7 @@
                         <tr class="border-bottom">
                             <th class="text-danger" style="font-size: 20px;">0<span style="font-size: 10px;"
                                     class="text-danger">Điểm</span></th>
-                            <th class="text-center text-danger">23</th>
+                            <th class="text-center text-danger">0</th>
                         </tr>
                     </thead>
                     <tbody>
