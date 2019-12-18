@@ -150,6 +150,7 @@ class sinhvienController extends Controller
                 ])->sum('hoatdong.diem');
 
         return $temp;
+    }
     //--Thêm feedback
     public function insert_feedback(Request $request){
         //insert table posts

@@ -13,7 +13,7 @@ $(document).ready(function(){
 </script> --}}
 </head>
 <body>
-    <form action="{{url('get-hoat-dong-importsinhvienthamgiahoatdong')}}" method="POST">
+    <form action="{{url('get-tieu-chi-dashboard')}}" method="POST">
         {{csrf_field()}}
     <div>
         <select name="bangdiem_id">
