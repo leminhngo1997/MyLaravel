@@ -115,25 +115,40 @@
                                 </div>
  
                             <div id="show-replies-{{$value->id}}" class="comment-reply col-md-11 offset-md-1 col-sm-10 offset-sm-2">
-                                    @foreach ($replies as $index => $row)
-                                    @foreach ($row as $i => $v)
+                                    @foreach ($replies as $row)
+                                        @foreach ($row as $i => $v)
+                                            
                                         
-                                    
-                                    @if ($v->comment_id===$value->id)
-                                        
-                                    
-                                    <div class="row delete-row-reply">
-                                        <div class="comment-content col-md-11 col-sm-10 col-12">
-                                        <h6 class="small comment-meta"><a href="#">{{$v->user_name_reply}}</a> Today, 12:31</h6>
-                                            <div class="comment-body">
-                                                <p>{{$v->reply_text}}<br>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                            @if ($v->comment_id===$value->id)
+                                                
+                                            
+                                            <div class="row delete-row-reply">
+                                                <div class="comment-content col-md-11 col-sm-10 col-12">
+                                                    <h6 class="small comment-meta"><strong
+                                                        style="color: mediumslateblue">
+                                                        @foreach ($list_user as $ls)
+                                                        
+                                                            @foreach ($ls as $lsv => $lsvv)
+                                                                
+                                                            
+                                                                @if ($lsvv['user_id'] === $v->sv_id)
+                                                                
+                                                                    {{$lsvv['user_name']}}
+                                                                @endif
 
-                                    @endif
-                                    @endforeach
+                                                            @endforeach
+                                                        @endforeach
+                                                        </strong> Today,
+                                                    2:38</h6>
+                                                    <div class="comment-body">
+                                                        <p>{{$v->reply_text}}<br>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            @endif
+                                        @endforeach
                                     @endforeach
                             </div>
                                 
@@ -171,7 +186,7 @@
     }
 </script>
 <script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
-<script>
+{{-- <script>
      $(document).ready(function () {
         $.ajaxSetup({
             headers: {
@@ -204,11 +219,13 @@
                                         </div>
                                     </div>
                                 </div> `;
-                var $show_replies_id = '#show-replies-'+element.comment_id;
-                // $($show_replies_id).append(html);
+                var show_replies_id = '#show-replies-'+element.comment_id;
+                debugger;
+                console.log(show_replies_id);
+                $(show_replies_id).append(html);
                 });
             }
         });
     });
-</script>
+</script> --}}
 @endsection
