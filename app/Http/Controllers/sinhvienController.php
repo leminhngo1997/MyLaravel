@@ -7,6 +7,7 @@ use Session;
 use Illuminate\Support\Facades\Redirect;
 session_start();
 use DB;
+use Egulias\EmailValidator\Exception\InvalidEmail;
 
 class sinhvienController extends Controller
 {	
@@ -203,54 +204,36 @@ class sinhvienController extends Controller
             'hoatdong.name as hoatdong_name',
             'hoatdong.diem',
             'user_hoatdong.heso')->get();
-        
-        $sum_phongtrao = 0;
-        foreach($phongtrao as $index => $item){
-            
-            if($index === 0){
-                $temp_phongtrao = $item->phongtrao_id;
-            }
-            
-            if($temp_phongtrao === $item->phongtrao_id)
-            {
-                $phongtrao_name_old = $item->phongtrao_name;
-                $hoatdong[] = array(
-                    'hoatdong_id'=>$item->hoatdong_id,
-                    'hoatdong_name'=>$item->hoatdong_name,
-                    'hoatdong_diem'=>$item->diem,
-                    'hoatdong_heso'=>$item->heso
-                );
-    
-                $sum_phongtrao = intval($item->diem) * floatval($item->heso);
-            }
-            else
-            {
-                $chitietthamgia[] = array(
-                    'phongtrao_id' => $temp_phongtrao,
-                    'phongtrao_name'=> $phongtrao_name_old,
-                    'phongtrao_diem'=> $sum_phongtrao,
-                    'hoatdong'=>$hoatdong,
-                );
-                //reset temp
-                $sum_phongtrao = 0;
-                $hoatdong = null;
-                $sum_phongtrao = intval($item->diem) * floatval($item->heso);
-                $hoatdong[] = array(
-                    'hoatdong_id'=>$item->hoatdong_id,
-                    'hoatdong_name'=>$item->hoatdong_name,
-                    'hoatdong_diem'=>$item->diem,
-                    'hoatdong_heso'=>$item->heso
-                );
-                $temp_phongtrao = $item->phongtrao_id;
-                $phongtrao_name_old = $item->phongtrao_name;
-            }
 
+            //dd($phongtrao);
+        $sum_phongtrao=0;
+        $phongtrao_id_old = null;
+        $phongtrao_list = array();
+        $hoatdong_list = array();
+        foreach($phongtrao as $index  => $value){
+                if($value->phongtrao_id!==$phongtrao_id_old){
+                    $phongtrao_list[] = array(
+                        'phongtrao_id' => $value->phongtrao_id,
+                        'phongtrao_name' => $value->phongtrao_name
+                    );
+
+                    $phongtrao_id_old = $value->phongtrao_id;
+                    
+                }
+
+                $hoatdong_list[] = array(
+                    'phongtrao_id'=> $value->phongtrao_id,
+                    'hoatdong_id' => $value->hoatdong_id,
+                    'hoatdong_name' => $value->hoatdong_name,
+                    'diem' => $value->diem,
+                    'heso' => $value->heso
+                );         
+
+                $sum_phongtrao += intval($value->diem) * floatval($value->heso);
         }
-
-        dd($chitietthamgia);
-
         return view('sinhvien.chitiettieuchi',[
-            'chitietthamgia' => $chitietthamgia
+            'phongtrao_list' => $phongtrao_list,
+            'hoatdong_list' => $hoatdong_list
         ]);
     }
     
