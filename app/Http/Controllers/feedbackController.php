@@ -18,7 +18,7 @@ class feedbackController extends Controller
         $comment_id = array();
        
         // $user_name_reply = DB::table('users')->join('replies','users.id','=','replies.sv_id')->where('replies.comment_id',$x)->get();
-       
+        $replies = array();
         foreach($comments as $key=>$value)
         {
             
@@ -41,7 +41,7 @@ class feedbackController extends Controller
                
             }
         }
-        
+        //dd($replies);
         return view('sinhvien.chitietphanhoi',[
             'post_id'=>$id,
             'posts'=>$posts,
