@@ -72,4 +72,42 @@ class feedbackController extends Controller
             DB::table('replies')->insert($data_reply);
             return back();
         }
+        public function get_value_feedbackdetailctsv($id){
+            $posts = DB::table('posts')->where('id',$id)->get();
+            $comments = DB::table('comments')->where('post_id',$id)->get();
+            $user_name_comment = DB::table('users')->join('comments','users.id','=','comments.sv_id')->where('comments.post_id',$id)->get();
+            $comment_id = array();
+           
+            // $user_name_reply = DB::table('users')->join('replies','users.id','=','replies.sv_id')->where('replies.comment_id',$x)->get();
+            $replies = array();
+            foreach($comments as $key=>$value)
+            {
+                
+                $replies[] = DB::table('replies')->where('comment_id',$value->id)->get();
+                $user_name_reply = DB::table('users')->join('replies','users.id','=','replies.sv_id')->where('replies.comment_id',$value->id)->get();
+                
+                foreach($user_name_comment as $row=>$item)
+                {
+                    $value->user_name_comment = $item->name;
+                }  
+                foreach($replies as $item)
+                {
+                    foreach($item as $key=>$value){
+                       
+                        foreach($user_name_reply as $row=>$item)
+                        {
+                            $value->user_name_reply= $item->name;
+                        }
+                    }
+                   
+                }
+            }
+            //dd($replies);
+            return view('sinhvien.chitietphanhoi',[
+                'post_id'=>$id,
+                'posts'=>$posts,
+                'comments'=>$comments,
+                'replies'=>$replies,
+                ]);
+        }
 }
