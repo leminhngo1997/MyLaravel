@@ -108,30 +108,41 @@ class feedbackController extends Controller
             //dd($replies);
 
 
-            $temp = '';
+            $count_dup = 0;
             $temp_arr = array();
             //dd($list_user_id_reply);
             foreach($list_user_id_reply as $row => $value)
             {
                 foreach($value as $key=>$item){   
-                    foreach($temp_arr as $index => $i){
-                        dd(count(array_search($item->sv_id,$i)));
-                        if(count(array_search($item->sv_id,$i))<0)  {
-                            
-                            $temp_arr[] = array(
+                    if($row === 0 && $key === 0)
+                        {
+                            $list_user[] = array(
                                 'user_id' => $item->sv_id,
                                 'user_name'=>$item->name
                             );
-                        }
-                    }              
-                        
-                    }
 
+                            $temp_arr[] = $item->sv_id;
+                        }
+                    else {
+                            foreach($temp_arr as $index => $i){
+                                if($item->sv_id===$i)
+                                {
+                                    $count_dup ++;
+                                }
+                            }
+                            if($count_dup===0){
+                                $list_user[] = array(
+                                    'user_id' => $item->sv_id,
+                                    'user_name'=>$item->name
+                                );
+                                $temp_arr[] = $item->sv_id;
+                            }
+                        }
+                }
             }
 
 
 
-            dd($list_user);
            
            
             return view('sinhvien.chitietphanhoi',[

@@ -127,16 +127,11 @@
                                                     <h6 class="small comment-meta"><strong
                                                         style="color: mediumslateblue">
                                                         @foreach ($list_user as $ls)
-                                                        
-                                                            @foreach ($ls as $lsv => $lsvv)
+                                                            @if ($v->sv_id===$ls['user_id'])
                                                                 
-                                                            
-                                                                @if ($lsvv['user_id'] === $v->sv_id)
-                                                                
-                                                                    {{$lsvv['user_name']}}
-                                                                @endif
-
-                                                            @endforeach
+                                                                {{$ls['user_name']}}
+    
+                                                            @endif
                                                         @endforeach
                                                         </strong> Today,
                                                     2:38</h6>
