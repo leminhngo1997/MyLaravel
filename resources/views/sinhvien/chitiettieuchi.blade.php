@@ -67,40 +67,55 @@
                                     <div class="accordion" id="collapsePhongtrao">
                                         <tbody id="show-tieu-chi">
                                             <!-- table body -->
+                                            @if (count($phongtrao_list)>0)
+                                                @foreach ($phongtrao_list as $i => $item)
+                                                    <tr style="width: 100%">
+                                                        <td colspan="2" class="col-12">
+                                                            <div class="card">
+                                                                <!-- header 1 -->
+                                                                <div class="card-header" id="phongtrao_header_{{$i}}">
+                                                                    <h2 class="mb-0">
+                                                                        <button class="btn btn-link col-12" type="button" data-toggle="collapse" data-target="#phongtrao_content_{{$i}}" aria-expanded="true" aria-controls="phongtrao_content_{{$i}}">
+                                                                            <div class="row justify-content-between col-12">
+                                                                                <div>{{$item['phongtrao_name']}}</div>
+                                                                                <div>
+                                                                                    <?php
+                                                                                        $sum=0;
+                                                                                        foreach($hoatdong_list as $index=>$value){
+                                                                                            if ($value['phongtrao_id']===$item['phongtrao_id']) {
+                                    
+                                                                                                $sum += intval($value['diem']) * floatval($value['heso']);
+                                                                                            }
+                                                                                        }
+                                                                                        echo $sum;
+                                                                                    ?>
+                                                                                </div>
+                                                                            </div>
+                                                                        </button>
+                                                                    </h2>
+                                                                </div>
 
-                                            @foreach ($chitietthamgia as $item)
-                                            <tr style="width: 100%">
-                                                <td colspan="2" class="col-12">
-                                                    <div class="card">
-                                                        <!-- header 1 -->
-                                                        <div class="card-header" id="phongtrao_header_1">
-                                                            <h2 class="mb-0">
-                                                                <button class="btn btn-link col-12" type="button" data-toggle="collapse" data-target="#phongtrao_content_1" aria-expanded="true" aria-controls="phongtrao_content_1">
-                                                                    <div class="row justify-content-between col-12">
-                                                                        <div>{{$item->phongtrao_name}}</div>
-                                                                        <div>10</div>
-                                                                    </div>
-                                                                </button>
-                                                            </h2>
-                                                        </div>
-
-                                                        <!-- content 1 -->
-                                                        <div id="phongtrao_content_1" class="collapse show" aria-labelledby="phongtrao_header_1" data-parent="#collapsePhongtrao">
-                                                            <div class="row justify-content-between col-12">
-                                                                <div class="m-4">hoat dong 1</div>
-                                                                <div class="m-4">5</div>
+                                                                <!-- content 1 -->
+                                                                <div id="phongtrao_content_{{$i}}" class="collapse show" aria-labelledby="phongtrao_header_{{$i}}" data-parent="#collapsePhongtrao">
+                                                                    @foreach ($hoatdong_list as $index => $value)
+                                                                        @if ($value['phongtrao_id'] === $item['phongtrao_id'])
+                                                                            <div class="row justify-content-between col-12">
+                                                                                <div class="m-4">{{$value['hoatdong_name']}}</div>
+                                                                                <div class="m-4">
+                                                                                    <?php
+                                                                                        $diem = intval($value['diem'])*floatval($value['heso']);
+                                                                                        echo $diem;
+                                                                                    ?>
+                                                                                </div>
+                                                                            </div>  
+                                                                        @endif                                            
+                                                                    @endforeach
+                                                                </div>
                                                             </div>
-                                                            <div class="row justify-content-between col-12">
-                                                                <div class="m-4">hoat dong 2</div>
-                                                                <div class="m-4">5</div>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                </td>
-                                            </tr>             
-                                            @endforeach
-
+                                                        </td>
+                                                    </tr>             
+                                                @endforeach
+                                            @endif
                                             {{-- <tr style="width: 100%">
                                                 <td colspan="2" class="col-12">
                                                     <div class="card">
