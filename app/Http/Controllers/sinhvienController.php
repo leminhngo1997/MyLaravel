@@ -276,15 +276,58 @@ class sinhvienController extends Controller
         $bangdiem_id = DB::table('bangdiem_doituong')->where('doituong_id',$doituong_id)->get('bangdiem_id');
         $bangdiem = DB::table('bangdiem')->get();
 
-        //Tổng điểm
+        //danh sach sinh vien
         $sinhvien = DB::table('users')
         ->join('sv_coso','users.id','=','sv_coso.sv_id')
-        ->where('sv_coso.coso_id','=',$coso_id)->get('id');
-        dd($sinhvien);
+        ->where('sv_coso.coso_id','=',$coso_id)->select('users.id','users.name','users.email')->get();
 
+        // max bang diem id
+        if($bangdiem_id!==null&&count($bangdiem_id)>0){
+            $bangdiem_id_max = end($bangdiem_id);
+            $bangdiem_id_max = end($bangdiem_id_max);
+            $bangdiem_id_max = end($bangdiem_id_max);
+            
+        }
+        
+        //tong diem tung sinh vien
+        $diem = array();
+        if(count($sinhvien)>0){
+            foreach($sinhvien as $key => $value){
+                $sum = 0;
+                $diemcong = DB::table('tieuchi')
+                ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
+                ->Join('phongtrao', 'tieuchi_phongtrao.phongtrao_id', '=', 'phongtrao.id')
+                ->Join('phongtrao_hoatdong','phongtrao.id', '=', 'phongtrao_hoatdong.phongtrao_id')
+                ->Join('hoatdong', 'phongtrao_hoatdong.hoatdong_id', '=', 'hoatdong.id')
+                ->Join('user_hoatdong', 'hoatdong.id', '=', 'user_hoatdong.hoatdong_id')
+                ->where([
+                            ['tieuchi.bangdiem_id', '=', $bangdiem_id_max],
+                            ['user_hoatdong.sv_id', '=', $value->id],
+                            ['hoatdong.status_clone','=',1],
+                            ['user_hoatdong.heso', '=', 1],
+                        ])->sum('hoatdong.diem');
+                $diemtru = DB::table('tieuchi')
+                ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
+                ->Join('phongtrao', 'tieuchi_phongtrao.phongtrao_id', '=', 'phongtrao.id')
+                ->Join('phongtrao_hoatdong','phongtrao.id', '=', 'phongtrao_hoatdong.phongtrao_id')
+                ->Join('hoatdong', 'phongtrao_hoatdong.hoatdong_id', '=', 'hoatdong.id')
+                ->Join('user_hoatdong', 'hoatdong.id', '=', 'user_hoatdong.hoatdong_id')
+                ->where([
+                            ['tieuchi.bangdiem_id', '=', $bangdiem_id_max],
+                            ['user_hoatdong.sv_id', '=', $value->id],
+                            ['hoatdong.status_clone','=',1],
+                            ['user_hoatdong.heso', '=', -1],
+                        ])->sum('hoatdong.diem');
+                $sum = intval($diemcong)-intval($diemtru);
+                $diem[] = $sum;
+            }
+        }
+        
         return view('sinhvien.thongke_loptruong',[
             'bangdiem_id'=>$bangdiem_id,
             'bangdiem'=>$bangdiem,
+            'sinhvien'=>$sinhvien,
+            'diem'=>$diem
         ]);
     }
     

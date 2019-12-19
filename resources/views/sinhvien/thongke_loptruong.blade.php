@@ -97,11 +97,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($collection as $item)
+                                    @foreach ($sinhvien as $item=>$row)
                                         <tr>
-                                            
+                                            <td>{{}}</td>
+                                            <td>{{$row->name}}</td>
+                                            <td>{{$row->name}}</td>
+                                            <td>unknown</td>
                                         </tr>
-                                    @endforeach                               --}}
+                                    @endforeach                              
                                 </tbody>
                             </table>
 
