@@ -3,6 +3,7 @@
 @section('sidebar')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <!-- Sidebar -->
+<script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
 <ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
@@ -39,6 +40,12 @@
         <a class="nav-link" href="{{route('vote')}}">
             <i class="fas fa-fw fa-vote-yea"></i>
             <span>Bầu chọn</span></a>
+    </li>
+    {{-- thong ke - lop truong --}}
+    <li class="nav-item">
+        <a class="nav-link" href="{{route('thongke')}} " id="loptruong_only">
+            <i class="fas fa-fw fa-thongke"></i>
+            <span>Thống kê</span></a>
     </li>
 
 </ul>
@@ -297,4 +304,5 @@
         });
     });
 </script>
+
 @endsection

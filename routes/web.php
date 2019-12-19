@@ -42,9 +42,15 @@ Route::get('vote',['as'=>'vote',function(){
     return view('sinhvien.vote');
 }]);
 
+//--lop truong thong ke
+Route::get('thongke',['as'=>'thongke','uses'=>'sinhvienController@thongke_loptruong']);
+
+
 //CTSV
 //--Quản lý bảng điểm
 
+//-- get quyen --
+Route::get('getQuyen','ctsvController@getQuyen');
 //-- --Quản lý bảng điểm
 Route::get('quanlibangdiem',['as'=>'quanlibangdiem','uses'=>'ctsvController@get_value_quanlibangdiem']);
 //-- -- --Thêm loại bảng điểm

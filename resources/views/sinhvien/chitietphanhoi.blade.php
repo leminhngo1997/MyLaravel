@@ -124,7 +124,7 @@
                                     
                                     <div class="row delete-row-reply">
                                         <div class="comment-content col-md-11 col-sm-10 col-12">
-                                        <h6 class="small comment-meta"><a href="#">{{$v->id}}</a> Today, 12:31</h6>
+                                        <h6 class="small comment-meta"><a href="#">{{$v->user_name_reply}}</a> Today, 12:31</h6>
                                             <div class="comment-body">
                                                 <p>{{$v->reply_text}}<br>
                                                 </p>

@@ -11,6 +11,8 @@ use Egulias\EmailValidator\Exception\InvalidEmail;
 
 class sinhvienController extends Controller
 {	
+
+
     public function get_value_dashboard(){
         //get id user hiện tại  
         if(Auth::user()!==NULL)
@@ -21,6 +23,21 @@ class sinhvienController extends Controller
         {
             return view('Auth.login');
         }
+        //get phân quyền
+        $quyen_id = DB::table('user_role')->where('sv_id',$auth_id)->get('role_id');
+        $quyen_id = end($quyen_id);
+        $quyen_id = end($quyen_id);
+        $quyen_id = end($quyen_id);
+
+        $quyen = '';
+        switch($quyen_id)
+        {
+            case 1: $quyen = 'sinhvien'; break;
+            case 2: $quyen = 'loptruong'; break;
+            case 3: $quyen = 'ctsv'; break;
+        }
+
+        
         //get si_so
         $coso_id = DB::table('sv_coso')->where('sv_id', $auth_id)->first('coso_id')->coso_id;
         $siso = DB::table('coso')->where('id', $coso_id)->first('siso')->siso;
@@ -39,6 +56,7 @@ class sinhvienController extends Controller
             'bangdiem_id'=>$bangdiem_id,
             'bangdiem'=>$bangdiem,
             'tieuchi'=> $tieuchi,
+            '$quyen' => $quyen
             ]);
     }
 
@@ -231,9 +249,41 @@ class sinhvienController extends Controller
 
                 $sum_phongtrao += intval($value->diem) * floatval($value->heso);
         }
+
         return view('sinhvien.chitiettieuchi',[
             'phongtrao_list' => $phongtrao_list,
             'hoatdong_list' => $hoatdong_list
+        ]);
+    }
+
+    public function thongke_loptruong(){
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
+
+        //get si_so
+        $coso_id = DB::table('sv_coso')->where('sv_id', $auth_id)->first('coso_id')->coso_id;
+        $siso = DB::table('coso')->where('id', $coso_id)->first('siso')->siso;
+        $coso_name = DB::table('coso')->where('id', $coso_id)->first('name')->name;
+        //doituong_id của user hiện tại
+        $doituong_id = DB::table('coso')->where('id',$coso_id)->first('doituong_id')->doituong_id;
+        //các bảng điểm thuộc doituong_id
+        $bangdiem_id = DB::table('bangdiem_doituong')->where('doituong_id',$doituong_id)->get('bangdiem_id');
+        $bangdiem = DB::table('bangdiem')->get();
+
+        //Tổng điểm
+        $sinhvien = DB::table('users')
+        ->join('sv_coso')
+        ->where('sv_coso.coso_id','=',$coso_id)->get('id');
+
+        return view('sinhvien.thongke_loptruong',[
+            'bangdiem_id'=>$bangdiem_id,
+            'bangdiem'=>$bangdiem,
         ]);
     }
     
