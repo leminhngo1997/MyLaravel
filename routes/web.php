@@ -144,6 +144,8 @@ Route::post('get-hoat-dong-quanlihoatdong','APIController@GetHoatDong_quanlihoat
 //-- --Xét duyệt hoạt động
 //-- -- --load hoạt động/hủy hoạt động
 Route::post('get-hoat-dong-duyethoatdong','APIController@GetHoatDong_duyethoatdong');
+//-- FEEDBACK
+Route::post('get-comment-id-feedback','APIController@GetComment_Id_feedback');
 
 //-- -- --import
     //import hoạt động

@@ -93,11 +93,12 @@
                         <form method="POST" role="form" action="{{URL::to('/them-reply')}}">
                             {{ csrf_field() }}
                             <hr/>
-                            <div class="comment-content col-md-11 col-sm-10">
+                            <div class="comment-content col-md-11 col-sm-10 dropdown_comment_id">
                                 <h6 class="small comment-meta"><strong
                                         style="color: mediumslateblue">{{$value->user_name_comment}}</strong> Today,
                                     2:38</h6>
-                                <div class="comment-body">
+                                    {{-- {{dd($comments)}}; --}}
+                                <div  value="{{$value->id}}" class="comment-body dropdown_comment_id_{{$value->id}}">
                                     <p>{{$value->comment_text}}<br>
                                         <a onclick="myFunction({{$key}})" role="button" tabindex="0"
                                             class="text-right small"><i class="ion-reply"></i> Reply</a>
@@ -112,36 +113,21 @@
                                     </p>
                                 </div>
                             </div>
-                            @foreach($replies as $item)
-                            @foreach($item as $key=>$value)
-                            <div class="comment-reply col-md-11 offset-md-1 col-sm-10 offset-sm-2">
-                                <div class="row">
-                                    <div class="comment-content col-md-11 col-sm-10 col-12">
-                                    <h6 class="small comment-meta"><a href="#">{{$value->user_name_reply}}</a> Today, 12:31</h6>
-                                        <div class="comment-body">
-                                            <p>{{$value->reply_text}}<br>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
-                            @endforeach
+                            
+                        <div id="show-replies" class="comment-reply col-md-11 offset-md-1 col-sm-10 offset-sm-2">
+                                {{--  --}}
+                        </div>
+                            
                             <!-- /reply is indented -->
                         </form>
-
                         @endforeach
+
 
                         <!-- reply is indented -->
 
                     </div>
 
                     <!-- /comment -->
-                    <div class="row pt-2">
-                        <div class="col-12">
-                            <a href="" class="btn btn-sm btn-primary">Add a Comment</a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -151,7 +137,6 @@
 
 <script>
     function myFunction(key) {
-        console.log(key);
         var x = document.getElementById("myInput_" + key);
         if (x.style.display === "none") {
             x.style.display = "block";
@@ -165,5 +150,48 @@
             y.style.display = "none";
         }
     }
+</script>
+<script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
+<script>
+     $(document).ready(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+      
+        // var allListElements = $( "div" );   
+        var x = $("div.dropdown_comment_id").children("div");
+        var getSelected = [];
+        for (var i = 0; i< x.length;i++)
+        {
+            getSelected.push(x[i].attributes[0].value);
+        }    
+        $.ajax({
+            
+            type: 'POST',
+            url: "{{url('get-comment-id-feedback')}}",
+            data: {
+                comment_id: getSelected
+            },
+            success: function (data) {
+                // debugger;
+                // console.log(data);
+                // $('.delete-row-reply').remove();
+                data.forEach(element => {
+                    html = ` <div class="row delete-row-reply">
+                                    <div class="comment-content col-md-11 col-sm-10 col-12">
+                                    <h6 class="small comment-meta"><a href="#">`+element.user_name_reply+`</a> Today, 12:31</h6>
+                                        <div class="comment-body">
+                                            <p>`+element.reply_text+`<br>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div> `;
+                $('#show-replies').append(html);
+                });
+            }
+        });
+    });
 </script>
 @endsection

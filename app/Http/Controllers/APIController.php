@@ -109,6 +109,19 @@ class APIController extends Controller
         ->where('phongtrao_hoatdong.phongtrao_id', $phong_trao_id)->get();
         return $hoat_dong;
     }
+    //Replies
+    function GetComment_Id_feedback(Request $request){
+        $comment_id[] = $request->comment_id;
+        foreach($comment_id as $item)
+        {
+            $replies = DB::table('replies')->where('comment_id',$item)->get();
+        }
+        
+        // $user_name_reply = DB::table('users')->join('replies','users.id','=','replies.sv_id')->where('replies.comment_id',$comment_id)->get();
+     
+        
+        return $replies;
+    }
     //CTSV
     //--Quản lý tiêu chí
     function GetBangDiem_quanlitieuchi(Request $request){

@@ -41,7 +41,6 @@ class feedbackController extends Controller
                
             }
         }
-       
         
         return view('sinhvien.chitietphanhoi',[
             'post_id'=>$id,
