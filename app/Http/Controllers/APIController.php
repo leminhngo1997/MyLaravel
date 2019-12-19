@@ -129,6 +129,30 @@ class APIController extends Controller
         $bang_diem = DB::table('bangdiem')->where('loaibangdiem_id', $loai_bang_diem_id)->get();
         return $bang_diem;
     }
+    function GetCoSo_phanhoictsv(Request $request){
+        $doituong_id = $request->doituong_id;
+        $co_so = DB::table('coso')->where('doituong_id', $doituong_id)->get();
+        return $co_so;
+    }
+    //
+     function GetFeedbackCtsv_phanhoictsv(Request $request){
+        $coso_id = $request->coso_id;
+        // $coso_id = 1;
+        $x = array();
+        $sv_coso = DB::table('sv_coso')->where('coso_id',$coso_id)->get();
+        foreach($sv_coso as $key=>$value)
+        {
+            $posts[] = DB::table('posts')->where('sv_id',$value->sv_id)->get();
+        }
+        foreach($posts as $item){
+            foreach($item as $key=>$value)
+            {
+                array_push($x,$value);
+            }
+        }
+        return $x;
+    }
+
     function GetTieuChi_quanlitieuchi(Request $request){
         $bang_diem_id = $request->bang_diem_id;
         $tieu_chi = DB::table('tieuchi')->where('bangdiem_id', $bang_diem_id)->get();

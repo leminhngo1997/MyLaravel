@@ -122,6 +122,8 @@ Route::post('get-phong-trao-thamgiahoatdong','APIController@GetPhongTrao_thamgia
 Route::post('get-phong-trao-feedback', 'APIController@GetPhongTrao_feedback');
 //-- --Get hoạt động
 Route::post('get-hoat-dong-feedback', 'APIController@GetHoatDong_feedback');
+Route::post('get-feedback-ctsv','APIController@GetFeedbackCtsv_phanhoictsv');
+
 
 
 //CTSV
@@ -146,7 +148,9 @@ Route::post('get-hoat-dong-quanlihoatdong','APIController@GetHoatDong_quanlihoat
 Route::post('get-hoat-dong-duyethoatdong','APIController@GetHoatDong_duyethoatdong');
 //-- FEEDBACK
 Route::post('get-comment-id-feedback','APIController@GetComment_Id_feedback');
+Route::get('phan-hoi-ctsv',['as'=>'phan-hoi-ctsv','uses'=>'ctsvController@get_value_phanhoictsv']);
 
+Route::post('get-co-so-phanhoictsv','APIController@GetCoSo_phanhoictsv');
 //-- -- --import
     //import hoạt động
 Route::post('quanlihoatdong/import','ImportExcelController@import');
@@ -194,3 +198,4 @@ Route::post('/quanlitaikhoan/phanquyen','ctsvController@update_quanlitaikhoan');
 
 // -- -- -- Quản lí phản hồi
 Route::get('/feedback/chitiet/{id}',['as'=>'feedback/chitiet','uses'=>'feedbackController@get_value_feedbackdetail']);
+Route::get('/feedbackctsv/chitiet/{id}',['as'=>'feedbackctsv/chitiet','uses'=>'feedbackController@get_value_feedbackdetailctsv']);

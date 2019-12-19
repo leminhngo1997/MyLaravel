@@ -194,9 +194,6 @@
                 comment_id: getSelected
             },
             success: function (data) {
-                // debugger;
-                // console.log(data);
-                // $('.delete-row-reply').remove();
                 data.forEach(element => {
                     html = ` <div class="row delete-row-reply">
                                     <div class="comment-content col-md-11 col-sm-10 col-12">
@@ -208,7 +205,7 @@
                                     </div>
                                 </div> `;
                 var $show_replies_id = '#show-replies-'+element.comment_id;
-                $($show_replies_id).append(html);
+                // $($show_replies_id).append(html);
                 });
             }
         });

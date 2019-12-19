@@ -15,7 +15,8 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <li class="nav-item active dropdown">
+     <!-- Nav Item - Dashboard -->
+     <li class="nav-item active dropdown">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <a class="nav-link dropdown-toggle" href="{{route('quanlitieuchi')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -28,6 +29,7 @@
             <a class="dropdown-item" href="{{route('duyethoatdong')}}">Xét duyệt hoạt động</a>
             <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Import sinh viên tham gia hoạt
                 động</a>
+            <a class="dropdown-item" href="{{route('phan-hoi-ctsv')}}">Phản hồi sinh viên</a>
         </div>
     </li>
     <!-- Nav Item - Bảng điểm -->

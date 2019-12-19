@@ -86,7 +86,13 @@ class ctsvController extends Controller
             'user_role'=>$user_role
         ]);
     }
-
+    public function get_value_phanhoictsv(){
+        $doituong = DB::table('doituong')->get();
+        return view('ctsv.phanhoictsv',[
+            'doituong'=>$doituong,
+            ]);
+    }
+    
     public function get_value_duyethoatdong(){
         $hoatdong = DB::table('hoatdong')->get();
         $bangdiem = DB::table('bangdiem')->get();
