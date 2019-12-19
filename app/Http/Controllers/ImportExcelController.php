@@ -262,6 +262,7 @@ class ImportExcelController extends Controller
             
             foreach($data->toArray() as $key => $value)
             {
+                //dd($value);
                     if(($value['tenphongtrao']!==null)&&($value['matieuchi']!==null)){
                    
                         $insert_phongtrao[] = array(

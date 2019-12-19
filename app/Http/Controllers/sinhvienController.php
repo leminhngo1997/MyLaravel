@@ -278,8 +278,9 @@ class sinhvienController extends Controller
 
         //Tổng điểm
         $sinhvien = DB::table('users')
-        ->join('sv_coso')
+        ->join('sv_coso','users.id','=','sv_coso.sv_id')
         ->where('sv_coso.coso_id','=',$coso_id)->get('id');
+        dd($sinhvien);
 
         return view('sinhvien.thongke_loptruong',[
             'bangdiem_id'=>$bangdiem_id,

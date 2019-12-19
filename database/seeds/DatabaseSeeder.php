@@ -140,7 +140,7 @@ class CosoSeeder extends Seeder
             ['name' => 'HTTT2018','doituong_id'=> 9,'siso'=>42],
             ['name' => 'MMT&TT2015','doituong_id'=> 6,'siso'=>41],
             ['name' => 'KHMT2017','doituong_id'=> 8,'siso'=>46],
-            ['name' => 'PMCL2015','doituong_id'=> 6,'siso'=>53],
+            ['name' => 'PMCL2017','doituong_id'=> 6,'siso'=>53],
             ['name' => 'TMĐT2015','doituong_id'=> 6,'siso'=>33],
         ]);
         

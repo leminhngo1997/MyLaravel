@@ -145,31 +145,33 @@
                         </div>
                         <!-- import excel -->
                         <div class="card-body col-6 mb-4 border-left">
-                            <div class="mb-4">Thêm tài khoản bằng Excel</div>
-                            <form method="POST" role="form" action="{{URL::to('/them-comment')}}">
-                                {{ csrf_field() }}
+                            <div class="mb-4">Thêm hoạt động bằng Excel</div>
+                                    <form method="post" enctype="multipart/form-data"
+                                        action="{{ url('/quanliphongtrao/import') }}">
+                                        {{ csrf_field() }}
 
-                                <input type="file" name="select_file" class="btn btn-outline-secondary py-2 shadow" />
-                                <input type="submit" name="upload" value="Upload"
-                                    class="btn btn-outline-secondary py-2 shadow" />
-                            </form>
-                            @if(count($errors) > 0)
-                            <div class="alert alert-danger">
-                                Upload validation errors<br><br>
-                                <ul>
-                                    @foreach ($errors -> all() as $error)
-                                    <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                            @endif
+                                        <input type="file" name="select_file"
+                                            class="btn btn-outline-secondary py-2 shadow" />
+                                        <input type="submit" name="upload" value="Upload"
+                                            class="btn btn-outline-secondary py-2 shadow" />
+                                    </form>
+                                    @if(count($errors) > 0)
+                                    <div class="alert alert-danger">
+                                        Upload validation errors<br><br>
+                                        <ul>
+                                            @foreach ($errors -> all() as $error)
+                                            <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    @endif
 
-                            @if($message = Session::get('success'))
-                            <div class="alert alert-success alert-block">
-                                <button type="button" class="close" data-dismiss="alert">X</button>
-                                <strong>{{ $message }}</strong>
-                            </div>
-                            @endif
+                                    @if($message = Session::get('success'))
+                                    <div class="alert alert-success alert-block">
+                                        <button type="button" class="close" data-dismiss="alert">X</button>
+                                        <strong>{{ $message }}</strong>
+                                    </div>
+                                    @endif
                             <br><br>
                             <div class="mb-4">Danh sách thêm vào gần đây</div>
                             <table class="border table table-striped col-12">
