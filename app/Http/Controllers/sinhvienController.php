@@ -275,95 +275,28 @@ class sinhvienController extends Controller
         $bangdiem_id = DB::table('bangdiem_doituong')->where('doituong_id',$doituong_id)->get('bangdiem_id');
         $bangdiem = DB::table('bangdiem')->get();
 
-        // //danh sach sinh vien
-        // $sinhvien = DB::table('users')
-        // ->join('sv_coso','users.id','=','sv_coso.sv_id')
-        // ->join('user_role','users.id','=','user_role.sv_id')
-        // ->where([
-        //     ['sv_coso.coso_id','=',$coso_id],
-        //     ['user_role.role_id','<',3]
-        // ])
-        // ->select('users.id','users.name','users.email')
-        // ->get();
-
-        // // max bang diem id
-        // if($bangdiem_id!==null&&count($bangdiem_id)>0){
-        //     $bangdiem_id_max = end($bangdiem_id);
-        //     $bangdiem_id_max = end($bangdiem_id_max);
-        //     $bangdiem_id_max = end($bangdiem_id_max);         
-        // }
-        
-        // //tong diem tung sinh vien
-        // $diem = array();
-        // if(count($sinhvien)>0){
-        //     foreach($sinhvien as $key => $value){
-        //         $sum = 0;
-        //         $diemcong = DB::table('tieuchi')
-        //         ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
-        //         ->Join('phongtrao', 'tieuchi_phongtrao.phongtrao_id', '=', 'phongtrao.id')
-        //         ->Join('phongtrao_hoatdong','phongtrao.id', '=', 'phongtrao_hoatdong.phongtrao_id')
-        //         ->Join('hoatdong', 'phongtrao_hoatdong.hoatdong_id', '=', 'hoatdong.id')
-        //         ->Join('user_hoatdong', 'hoatdong.id', '=', 'user_hoatdong.hoatdong_id')
-        //         ->where([
-        //                     ['tieuchi.bangdiem_id', '=', $bangdiem_id_max],
-        //                     ['user_hoatdong.sv_id', '=', $value->id],
-        //                     ['hoatdong.status_clone','=',1],
-        //                     ['user_hoatdong.heso', '=', 1],
-        //                 ])->sum('hoatdong.diem');
-        //         $diemtru = DB::table('tieuchi')
-        //         ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
-        //         ->Join('phongtrao', 'tieuchi_phongtrao.phongtrao_id', '=', 'phongtrao.id')
-        //         ->Join('phongtrao_hoatdong','phongtrao.id', '=', 'phongtrao_hoatdong.phongtrao_id')
-        //         ->Join('hoatdong', 'phongtrao_hoatdong.hoatdong_id', '=', 'hoatdong.id')
-        //         ->Join('user_hoatdong', 'hoatdong.id', '=', 'user_hoatdong.hoatdong_id')
-        //         ->where([
-        //                     ['tieuchi.bangdiem_id', '=', $bangdiem_id_max],
-        //                     ['user_hoatdong.sv_id', '=', $value->id],
-        //                     ['hoatdong.status_clone','=',1],
-        //                     ['user_hoatdong.heso', '=', -1],
-        //                 ])->sum('hoatdong.diem');
-        //         $sum = intval($diemcong)-intval($diemtru);
-        //         $diem[] = $sum;
-        //     }
-        
-
-        //     //xep loai
-        //     $xeploaidiem = DB::table('bangdiem')
-        //     ->join('loaibangdiem','bangdiem.loaibangdiem_id','=','loaibangdiem.id')
-        //     ->join('xeploai','loaibangdiem.id','=','xeploai.loaibangdiem_id')
-        //     ->where('bangdiem.id',$bangdiem_id_max)
-        //     ->select('xeploai.name','cantren','canduoi')->get();
-
-        //     if(count($diem)>0){
-        //         foreach($diem as $index => $value){
-        //             foreach($xeploaidiem as $key => $item){
-        //                 if($value<=$item->canduoi && $value>=$item->canduoi){
-        //                     $xeploaisinhvien[] = $item->name;
-        //                 }
-        //             }
-        //         }
-        //     }
-
-            
-        //     foreach($sinhvien as $key => $value){
-        //         $json[] = collect([
-        //             'id' => $value->id,
-        //             'name' => $value->name,
-        //             'email' => $value->email,
-        //             'diem' => $diem[$key],
-        //             'xeploai'=> $xeploaisinhvien[$key]
-        //         ]);
-        //     }
-
-        // }
-        
         return view('sinhvien.thongke_loptruong',[
             'bangdiem_id'=>$bangdiem_id,
             'bangdiem'=>$bangdiem,
-            // 'sinhvien'=>$sinhvien,
-            // 'diem'=>$diem,
-            // 'xeploai'=>$xeploaisinhvien
         ]);
     }
+
+    public function get_value_vote(){
+        $current_user_id = Auth::user()->id;
+        $coso_id = DB::table('coso')->join('sv_coso','coso.id','=','sv_coso.coso_id')
+        ->where('sv_coso.sv_id',$current_user_id)->get();
+        foreach($coso_id as $key=>$value)
+        {
+            //$x là mã cơ sở của user hiện tại
+            $x = $value->coso_id;
+        }
+        $list_cauhoi = DB::table('cauhoi')->where('coso_id',$x)->get();
+        // dd($list_cauhoi);
+        return view('sinhvien.vote',[
+            'list_cauhoi'=>$list_cauhoi,
+            ]);
+    }
+    
+    
     
 }

@@ -74,8 +74,8 @@
         <table class="table table-striped">
             <thead>
               <tr>
-                <th scope="col">#</th>
-                <th scope="col">Tên tiêu chí</th>
+                <th scope="col">STT</th>
+                <th scope="col">Tên bầu chọn</th>
                 <th scope="col">Bắt đầu</th>
                 <th scope="col">Kết thúc</th>
                 <th scope="col">Lựa chọn</th>
@@ -83,54 +83,34 @@
               </tr>
             </thead>
             <tbody>
+              @foreach ($list_cauhoi as $key=>$value)
               <tr>
-                <th scope="row">1</th>
-                <td>Vote ĐRL cộng cho thành viên</td>
-                <td>11/06/2019</td>
-                <td>11/07/2019</td>
-                <td>Nhiều</td>
-                <td>Đang mở</td>
+                <th scope="row">{{$key+1}}</th>
+              <td><a href="">{{$value->name_cauhoi}}</a></td>
+                <td>{{$value->ngaybatdau}}</td>
+                <td>{{$value->ngayketthuc}}</td>
+                <td><?php
+                  if($value->suluachon_id == 1)
+                    echo "Một";
+                  else {
+                    echo "Nhiều";
+                  }
+                ?></td>
+                <td><?php 
+                if($value->ngayketthuc < date('Y-m-d'))
+                {
+                  echo "<div style='color: red'>Hết hạn</div>";
+                }
+                else {
+                  echo "<div style='color: blue'>Đang mở</div>";
+                }
+                ?></td>
               </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Vote bầu ban cán sự lớp</td>
-                <td>30/04/2019</td>
-                <td>30/05/2019</td>
-                <td>Một</td>
-                <td>Đang mở</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Vote bầu thủ lĩnh sinh viên</td>
-                <td>30/03/2019</td>
-                <td>30/04/2019</td>
-                <td>Một</td>
-                <td>Đã đóng</td>
-              </tr>
+              @endforeach
+              
+             
             </tbody>
           </table>
-        <!-- /.container-fluid -->
-        <div class="d-sm-flex align-items-center justify-content-between mb-4 align-items-end">
-            <!-- page navigation -->
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                      <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                          <span aria-hidden="true">&laquo;</span>
-                          <span class="sr-only">Previous</span>
-                        </a>
-                      </li>
-                      <li class="page-item"><a class="page-link" href="#">1</a></li>
-                      <li class="page-item"><a class="page-link" href="#">2</a></li>
-                      <li class="page-item"><a class="page-link" href="#">3</a></li>
-                      <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                          <span aria-hidden="true">&raquo;</span>
-                          <span class="sr-only">Next</span>
-                        </a>
-                      </li>
-                    </ul>
-                </nav>
-            </div>  
+      
     </div>
 @endsection

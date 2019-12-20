@@ -38,9 +38,9 @@ Route::post('/them-hoat-dong-thamgiahoatdong','sinhvienController@insert_hoat_do
 Route::get('feedback',['as'=>'feedback','uses'=>'sinhvienController@get_value_feedback']);
 
 //--vote
-Route::get('vote',['as'=>'vote',function(){
-    return view('sinhvien.vote');
-}]);
+Route::get('vote',['as'=>'vote','uses'=>'sinhvienController@get_value_vote']);
+//-- -- --Thêm bầu chọn
+Route::post('/tao-bau-chon-cvht','cvhtController@insert_cauhoi_vote');
 
 //--lop truong thong ke
 Route::get('thongke',['as'=>'thongke','uses'=>'sinhvienController@thongke_loptruong']);
@@ -107,8 +107,11 @@ Route::get('quanliphongtrao',['as'=>'quanliphongtrao','uses'=>'ctsvController@ge
 Route::get('quanlihoatdong',['as'=>'quanlihoatdong','uses'=>'ctsvController@get_value_quanlihoatdong']);
 //-- --CVHT
 //-- --Phản hồi sinh viên
-Route::get('phanhoicvht',['as'=>'phanhoicvht','uses'=>'cvhtController@get_value_phanhoicvht']);
-Route::get('thongkecvht',['as'=>'thongkecvht','uses'=>'cvhtController@thongke_cvht']);
+Route::get('phan-hoi-cvht',['as'=>'phan-hoi-cvht','uses'=>'cvhtController@get_value_phanhoicvht']);
+//-- --Quản lí vote
+Route::get('votecvht',['as'=>'votecvht','uses'=>'cvhtController@get_value_votecvht']);
+//-- --Tạo vote
+Route::get('create-vote-cvht',['as'=>'create-vote-cvht','uses'=>'cvhtController@get_value_create_vote_cvht']);
 
 //TEST Route
 // Route::get('test', 'TestController@index');

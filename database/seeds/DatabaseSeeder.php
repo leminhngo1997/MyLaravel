@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(HoatdongSeeder::class);  
         // $this->call(Phongtrao_HoatdongSeeder::class);  
         $this->call(XeploaiSeeder::class);
+        $this->call(SuluachonSeeder::class);
     }
 }
 
@@ -162,6 +163,7 @@ class Sv_CosoSeeder extends Seeder
             // ['sv_id' => 3,'coso_id' => 1],
             ['sv_id' => 1,'coso_id' => 7],
             ['sv_id' => 2,'coso_id' => 6],
+            ['sv_id' => 3,'coso_id' => 1],
         ]);       
     }
 }
@@ -540,6 +542,23 @@ class XeploaiSeeder extends Seeder
             ['name' => 'Trung Bình','loaibangdiem_id' => 1,'canduoi' => 50,'cantren'=> 65],
             ['name' => 'Yếu','loaibangdiem_id' => 1,'canduoi' => 35,'cantren'=> 50],
             ['name' => 'Kém','loaibangdiem_id' => 1,'canduoi' => 0,'cantren'=> 35],
+        ]);
+        
+    }
+}
+class SuluachonSeeder extends Seeder
+{
+    /**
+     * Seed the application's database.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        DB::table('suluachon')->insert([
+           
+            ['name' => 'Một sự lựa chọn'],
+            ['name' => 'Nhiều sự lựa chọn'],
         ]);
         
     }
