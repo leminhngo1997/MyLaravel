@@ -79,7 +79,7 @@
                                     {
                                         @if($value1->id == $value->bangdiem_id)
                                         {
-                                        <option value="{{$value1->id}}" selected>{{$value1->name}}</option>
+                                            <option value="{{$value1->id}}" selected>{{$value1->name}}</option>
                                         }
                                         @endif
                                     }
@@ -96,13 +96,19 @@
                                         <th scope="col">Xếp loại</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="show-xep-loai">
                                     @foreach ($sinhvien as $item=>$row)
                                         <tr>
-                                            <td>{{}}</td>
+                                            <td>
+                                                <?php
+                                                    //dd($xeploai[$item]);
+                                                    $mssv = explode('@',$row->email);
+                                                    echo $mssv[0];
+                                                ?>
+                                            </td>
                                             <td>{{$row->name}}</td>
-                                            <td>{{$row->name}}</td>
-                                            <td>unknown</td>
+                                            <td>{{$diem[$item]}}</td>
+                                            <td>{{$xeploai[$item]}}</td>
                                         </tr>
                                     @endforeach                              
                                 </tbody>
@@ -149,4 +155,105 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var getSelected = $("#drop-down-term").children("option:selected").val();
+
+        $.ajax({
+            type: 'POST',
+
+            url: "{{url('get-tieu-chi-dashboard')}}",
+
+            data: {
+                term: getSelected
+            },
+
+            success: function (data) {
+                $('.delete-row').remove();
+                data.forEach(element => {
+                    html = `<tr class = "delete-row" >
+                            <td class="return-data"><a href = "{{URL::to('dashboard/chitiettieuchi')}}/`+ element.id +`">` + element.name + ` (` + element.maxtieuchi + `)</a></td>
+                            <td class="return-data" class="text-center">` + element.sum_tieuchi + `</td>
+                        </tr>`;
+                    $('#show-tieu-chi').append(html);
+                });
+            }
+
+        });
+        //get-sum-bang-diem
+        $.ajax({
+            type: 'POST',
+
+            url: "{{url('get-sum-bang-diem-dashboard')}}",
+
+            data: {
+                term: getSelected
+            },
+
+            success: function (data) {
+                // debugger;
+                // console.log(data);
+                $('.delete-sum-bang-diem').remove();
+                html = `<h2 class="text-center delete-sum-bang-diem">` + data + `</h2>`;
+                $('#show-sum-bang-diem').append(html);
+            }
+
+        });
+    });
+
+    $('#drop-down-term').change(function (e) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        e.preventDefault();
+        var getSelected = $(this).children("option:selected").val();
+        $.ajax({
+            type: 'POST',
+
+            url: "{{url('get-tieu-chi-dashboard')}}",
+
+            data: {
+                term: getSelected
+            },
+
+            success: function (data) {
+                $('.delete-row').remove();
+                data.forEach(element => {
+                    html = `<tr class = "delete-row" >
+                        <td class="return-data"><a href = "#">` + element.name + ` (` + element.maxtieuchi + `)</a></td>
+                        <td class="return-data" class="text-center">` + element.sum_tieuchi + `</td>
+                    </tr>`;
+                    $('#show-tieu-chi').append(html);
+                    console.log(data);
+                });
+            }
+
+        });
+        //get-sum-bang-diem
+        $.ajax({
+            type: 'POST',
+
+            url: "{{url('get-sum-bang-diem-dashboard')}}",
+
+            data: {
+                term: getSelected
+            },
+
+            success: function (data) {
+                // debugger;
+                // console.log(data);
+                $('.delete-sum-bang-diem').remove();
+                html = `<h2 class="text-center delete-sum-bang-diem">` + data + `</h2>`;
+                $('#show-sum-bang-diem').append(html);
+            }
+        });
+    });
+</script>
 @endsection

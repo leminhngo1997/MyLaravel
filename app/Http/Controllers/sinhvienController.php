@@ -285,8 +285,7 @@ class sinhvienController extends Controller
         if($bangdiem_id!==null&&count($bangdiem_id)>0){
             $bangdiem_id_max = end($bangdiem_id);
             $bangdiem_id_max = end($bangdiem_id_max);
-            $bangdiem_id_max = end($bangdiem_id_max);
-            
+            $bangdiem_id_max = end($bangdiem_id_max);         
         }
         
         //tong diem tung sinh vien
@@ -321,13 +320,34 @@ class sinhvienController extends Controller
                 $sum = intval($diemcong)-intval($diemtru);
                 $diem[] = $sum;
             }
+        
+
+            //xep loai
+            $xeploaidiem = DB::table('bangdiem')
+            ->join('loaibangdiem','bangdiem.loaibangdiem_id','=','loaibangdiem.id')
+            ->join('xeploai','loaibangdiem.id','=','xeploai.loaibangdiem_id')
+            ->where('bangdiem.id',$bangdiem_id_max)
+            ->select('xeploai.name','cantren','canduoi')->get();
+
+            if(count($diem)>0){
+                foreach($diem as $index => $value){
+                    foreach($xeploaidiem as $key => $item){
+                        if($value<=$item->canduoi && $value>=$item->canduoi){
+                            $xeploaisinhvien[] = $item->name;
+                        }
+                    }
+                }
+            }
+
         }
+        
         
         return view('sinhvien.thongke_loptruong',[
             'bangdiem_id'=>$bangdiem_id,
             'bangdiem'=>$bangdiem,
             'sinhvien'=>$sinhvien,
-            'diem'=>$diem
+            'diem'=>$diem,
+            'xeploai'=>$xeploaisinhvien
         ]);
     }
     

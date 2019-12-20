@@ -72,15 +72,15 @@
                                 id="drop-down-term" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 @foreach($bangdiem_id as $key=>$value)
                                 {
-                                @foreach($bangdiem as $key=>$value1)
-                                {
-                                @if($value1->id == $value->bangdiem_id)
-                                {
-                                <option value="{{$value1->id}}" selected>{{$value1->name}}</option>
-                                }
-                                @endif
-                                }
-                                @endforeach
+                                    @foreach($bangdiem as $key=>$value1)
+                                    {
+                                        @if($value1->id == $value->bangdiem_id)
+                                        {
+                                            <option value="{{$value1->id}}" selected>{{$value1->name}}</option>
+                                        }
+                                        @endif
+                                    }
+                                    @endforeach
                                 }
                                 @endforeach
                             </select>
