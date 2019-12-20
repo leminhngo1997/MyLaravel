@@ -106,6 +106,7 @@ Route::get('quanlihoatdong',['as'=>'quanlihoatdong','uses'=>'ctsvController@get_
 //-- --CVHT
 //-- --Phản hồi sinh viên
 Route::get('phanhoicvht',['as'=>'phanhoicvht','uses'=>'cvhtController@get_value_phanhoicvht']);
+Route::get('thongkecvht',['as'=>'thongkecvht','uses'=>'cvhtController@thongke_cvht']);
 
 //TEST Route
 // Route::get('test', 'TestController@index');

@@ -279,7 +279,14 @@ class sinhvienController extends Controller
         //danh sach sinh vien
         $sinhvien = DB::table('users')
         ->join('sv_coso','users.id','=','sv_coso.sv_id')
-        ->where('sv_coso.coso_id','=',$coso_id)->select('users.id','users.name','users.email')->get();
+        ->join('user_role','users.id','=','user_role.sv_id')
+        ->where([
+            ['sv_coso.coso_id','=',$coso_id],
+            ['user_role.role_id','<',3]
+
+        ])
+        ->select('users.id','users.name','users.email')
+        ->get();
 
         // max bang diem id
         if($bangdiem_id!==null&&count($bangdiem_id)>0){
@@ -339,8 +346,18 @@ class sinhvienController extends Controller
                 }
             }
 
+            
+            foreach($sinhvien as $key => $value){
+                $json[] = collect([
+                    'id' => $value->id,
+                    'name' => $value->name,
+                    'email' => $value->email,
+                    'diem' => $diem[$key],
+                    'xeploai'=> $xeploaisinhvien[$key]
+                ]);
+            }
+
         }
-        
         
         return view('sinhvien.thongke_loptruong',[
             'bangdiem_id'=>$bangdiem_id,
