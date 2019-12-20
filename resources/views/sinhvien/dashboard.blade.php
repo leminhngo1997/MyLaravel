@@ -1,59 +1,68 @@
 @extends('sinhvien.trangchu')
 
 @section('sidebar')
-<meta name="csrf-token" content="{{ csrf_token() }}">
-<!-- Sidebar -->
-<script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
-<ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- Sidebar -->
+    <script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
+    <ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-    <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
-        </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
-    </a>
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-laugh-wink"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        </a>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider my-0">
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
-        <a class="nav-link" href="{{route('dashboard')}}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
-    </li>
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{route('thamgiahoatdong')}}">
-            <i class="fas fa-fw fa-skating"></i>
-            <span>Tạo hoạt động</span></a>
-    </li>
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{route('feedback')}}">
-            <i class="fas fa-fw fa-comments"></i>
-            <span>Phản hồi</span></a>
-    </li>
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{route('vote')}}">
-            <i class="fas fa-fw fa-vote-yea"></i>
-            <span>Bầu chọn</span></a>
-    </li>
-    {{-- thong ke - lop truong --}}
-    <li class="nav-item">
-        <a class="nav-link" href="{{route('thongke')}} " id="loptruong_only">
-            <i class="fas fa-fw fa-thongke"></i>
-            <span>Thống kê</span></a>
-    </li>
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+            <a class="nav-link" href="{{route('dashboard')}}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
+        </li>
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('thamgiahoatdong')}}">
+                <i class="fas fa-fw fa-skating"></i>
+                <span>Tạo hoạt động</span></a>
+        </li>
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('feedback')}}">
+                <i class="fas fa-fw fa-comments"></i>
+                <span>Phản hồi</span></a>
+        </li>
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('vote')}}">
+                <i class="fas fa-fw fa-vote-yea"></i>
+                <span>Bầu chọn</span></a>
+        </li>
+        {{-- thong ke - lop truong --}}
+        <li class="nav-item" id="loptruong_only">
+            <a class="nav-link" href="{{route('thongke')}} " >
+                <i class="fas fa-fw fa-thongke"></i>
+                <span>Thống kê</span></a>
+        </li>
 
-</ul>
-<!-- End of Sidebar -->
+    </ul>
+    <input type="text" id = "sidebar-user-quyen" value={{$quyen}} hidden/>
+    <script>
+        //get user info
+        var quyen = $('#sidebar-user-quyen').val();
+        if(quyen==='loptruong'){
+            $('#loptruong_only').show();
+        }
+        else $('#loptruong_only').hide();
+    </script>
+
+    <!-- End of Sidebar -->
 @endsection
 
 @section('main_content')
-
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -204,6 +213,7 @@
 <script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
 
 <script>
+
     $(document).ready(function () {
         $.ajaxSetup({
             headers: {

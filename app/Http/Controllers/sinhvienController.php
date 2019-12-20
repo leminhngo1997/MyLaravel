@@ -49,14 +49,13 @@ class sinhvienController extends Controller
         $bangdiem = DB::table('bangdiem')->get();
         //tieuchi
         $tieuchi = DB::table('tieuchi')->get();
-
         return view('sinhvien.dashboard',[
             'siso'=>$siso,
             'coso_name'=>$coso_name,
             'bangdiem_id'=>$bangdiem_id,
             'bangdiem'=>$bangdiem,
             'tieuchi'=> $tieuchi,
-            '$quyen' => $quyen
+            'quyen' => $quyen
             ]);
     }
 
