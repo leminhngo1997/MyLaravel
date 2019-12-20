@@ -71,22 +71,25 @@
                         <div class="card-body">
                             <!-- Core sheet type -->
                             <!-- collapse 1 content -->
-                            <select class="btn btn-secondary dropdown-toggle ml-3 mb-4" href="#" role="button"
-                                id="drop-down-term" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                @foreach($bangdiem_id as $key=>$value)
-                                {
-                                    @foreach($bangdiem as $key=>$value1)
+                            <div class="row">
+                                <select class="btn btn-secondary dropdown-toggle ml-3 mb-4" href="#" role="button"
+                                    id="drop-down-term" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    @foreach($bangdiem_id as $key=>$value)
                                     {
-                                        @if($value1->id == $value->bangdiem_id)
+                                        @foreach($bangdiem as $key=>$value1)
                                         {
-                                            <option value="{{$value1->id}}" selected>{{$value1->name}}</option>
+                                            @if($value1->id == $value->bangdiem_id)
+                                            {
+                                                <option value="{{$value1->id}}" selected>{{$value1->name}}</option>
+                                            }
+                                            @endif
                                         }
-                                        @endif
+                                        @endforeach
                                     }
                                     @endforeach
-                                }
-                                @endforeach
-                            </select>
+                                </select>
+                                <a href="{{ route('thongke.export_diem') }}" class="btn btn-success mb-4 ml-5 align-self-center">Export Excel</a>
+                            </div>
                             <table class="border table table-striped">
                                 <thead>
                                     <tr>
@@ -135,14 +138,15 @@
                                 <!-- collapse 3 content -->
  
                             </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
 <script>
+    
     $(document).ready(function () {
             $.ajaxSetup({
                 headers: {
@@ -158,18 +162,13 @@
             },
             success: function (data) {
                 $('.delete-row-thong-ke').remove();
+                
                 data.forEach(element => {
                     html = `<tr class="delete-row-thong-ke">
-                                <td>
-                                    <?php
-                                        //dd($xeploai[$item]);
-                                        $mssv = explode('@',$row->email);
-                                        echo $mssv[0];
-                                    ?>
-                                </td>
-                                <td>{{$row->name}}</td>
-                                <td>{{$diem[$item]}}</td>
-                                <td>{{$xeploai[$item]}}</td>
+                                <td>`+element.mssv+`</td>
+                                <td>`+element.name+`</td>
+                                <td>`+element.diem+`</td>
+                                <td>`+element.xeploai+`</td>
                             </tr>`;
                     $('#show-thong-ke').append(html);
                 });
@@ -194,18 +193,13 @@
             },
             success: function (data) {
                 $('.delete-row-thong-ke').remove();
+                
                 data.forEach(element => {
                     html = `<tr class="delete-row-thong-ke">
-                                <td>
-                                    <?php
-                                        //dd($xeploai[$item]);
-                                        $mssv = explode('@',$row->email);
-                                        echo $mssv[0];
-                                    ?>
-                                </td>
-                                <td>{{$row->name}}</td>
-                                <td>{{$diem[$item]}}</td>
-                                <td>{{$xeploai[$item]}}</td>
+                                <td>`+element.mssv+`</td>
+                                <td>`+element.name+`</td>
+                                <td>`+element.diem+`</td>
+                                <td>`+element.xeploai+`</td>
                             </tr>`;
                     $('#show-thong-ke').append(html);
                 });

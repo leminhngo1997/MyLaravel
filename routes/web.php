@@ -173,6 +173,8 @@ Route::post('quanlisinhvien/import','ImportExcelController@importSinhvien');
     //import phong trao
 Route::post('quanliphongtrao/import','ImportExcelController@importPhongtrao');
 
+// -- -- -- EXport
+//Route::get('/export_diem','ExportExcel@get_value_phanhoictsv');
 
 
 

@@ -9,7 +9,14 @@ class APIController extends Controller
 {	//SINHVIEN
     //--DASHBOARD
     function GetTieuChi_dashboard(Request $request){
-        $auth_id = Auth::user()->id;
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
         $term = $request->term;
         $tieu_chi = DB::table('tieuchi')->where('bangdiem_id', $term)->get();
         $max_bangdiem_tieuchi_id = DB::table('tieuchi')->where('bangdiem_id',$term)->get('id');
@@ -59,7 +66,14 @@ class APIController extends Controller
 
     function GetSumBangDiem_dashboard(Request $request){
         $term = $request->term;
-        $auth_id = Auth::user()->id;
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
         $sum = 0;
         $diemcong = DB::table('tieuchi')
         ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
@@ -192,12 +206,29 @@ class APIController extends Controller
         ->where('tieuchi_phongtrao.tieuchi_id', $tieu_chi_id)->get();
         return $phong_trao;
     }
-    function GetHoatDong_quanlihoatdong(Request $request){
+    function GetThongKe_thongkeloptruong(Request $request){
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
+
+        $coso_id = DB::table('sv_coso')->where('sv_id', $auth_id)->first('coso_id')->coso_id;
         $term_id = $request->term_id;
+
          //danh sach sinh vien
         $sinhvien = DB::table('users')
         ->join('sv_coso','users.id','=','sv_coso.sv_id')
-        ->where('sv_coso.coso_id','=',$coso_id)->select('users.id','users.name','users.email')->get();
+        ->join('user_role','users.id','=','user_role.sv_id')
+        ->where([
+            ['sv_coso.coso_id','=',$coso_id],
+            ['user_role.role_id','<',3]
+        ])
+        ->select('users.id','users.name','users.email')
+        ->get();
 
         
         //tong diem tung sinh vien
@@ -250,10 +281,21 @@ class APIController extends Controller
                     }
                 }
             }
+
+            foreach($sinhvien as $key => $value){
+                $mssv = explode('@',$value->email);
+                $danhsachdiem[] = collect([
+                    'id' => $value->id,
+                    'name' => $value->name,
+                    'mssv' => $mssv[0],
+                    'diem' => $diem[$key],
+                    'xeploai'=> $xeploaisinhvien[$key]
+                ]);
+            }
         }
-        return $hoat_dong;
+        return $danhsachdiem;
     }
-    function GetThongKe_thongkeloptruong(Request $request){
+    function GetHoatDong_quanlihoatdong(Request $request){
         $phong_trao_id = $request->phong_trao_id;
         $hoat_dong = DB::table('hoatdong')->join('phongtrao_hoatdong', 'hoatdong.id', '=', 'phongtrao_hoatdong.hoatdong_id')
         ->where('phongtrao_hoatdong.phongtrao_id', $phong_trao_id)->get();
