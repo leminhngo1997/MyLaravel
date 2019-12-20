@@ -44,6 +44,8 @@ Route::get('vote',['as'=>'vote',function(){
 
 //--lop truong thong ke
 Route::get('thongke',['as'=>'thongke','uses'=>'sinhvienController@thongke_loptruong']);
+// -- export
+Route::post('/thongke/export_diem','ExportExcel@export_diem' );
 
 
 //CTSV
@@ -170,8 +172,6 @@ Route::post('quanlisinhvien/import','ImportExcelController@importSinhvien');
     //import phong trao
 Route::post('quanliphongtrao/import','ImportExcelController@importPhongtrao');
 
-// -- -- -- EXport
-//Route::get('/export_diem','ExportExcel@get_value_phanhoictsv');
 
 
 

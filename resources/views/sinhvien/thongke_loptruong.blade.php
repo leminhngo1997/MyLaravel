@@ -72,8 +72,11 @@
                             <!-- Core sheet type -->
                             <!-- collapse 1 content -->
                             <div class="row">
+                                <form method="post" enctype="multipart/form-data"
+                                        action="{{ url('/thongke/export_diem') }}">
+                                        {{ csrf_field() }}
                                 <select class="btn btn-secondary dropdown-toggle ml-3 mb-4" href="#" role="button"
-                                    id="drop-down-term" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    id="drop-down-term" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="bang_diem_id">
                                     @foreach($bangdiem_id as $key=>$value)
                                     {
                                         @foreach($bangdiem as $key=>$value1)
@@ -88,7 +91,8 @@
                                     }
                                     @endforeach
                                 </select>
-                                <a href="{{ route('thongke.export_diem') }}" class="btn btn-success mb-4 ml-5 align-self-center">Export Excel</a>
+                                <input type="submit" class="btn btn-success mb-4 ml-5 align-self-center" value="Export Excel">
+                                </form>
                             </div>
                             <table class="border table table-striped">
                                 <thead>
