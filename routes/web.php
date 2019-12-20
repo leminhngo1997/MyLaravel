@@ -38,9 +38,9 @@ Route::post('/them-hoat-dong-thamgiahoatdong','sinhvienController@insert_hoat_do
 Route::get('feedback',['as'=>'feedback','uses'=>'sinhvienController@get_value_feedback']);
 
 //--vote
-Route::get('vote',['as'=>'vote',function(){
-    return view('sinhvien.vote');
-}]);
+Route::get('vote',['as'=>'vote','uses'=>'sinhvienController@get_value_vote']);
+//-- -- --Thêm bầu chọn
+Route::post('/tao-bau-chon-cvht','cvhtController@insert_cauhoi_vote');
 
 //--lop truong thong ke
 Route::get('thongke',['as'=>'thongke','uses'=>'sinhvienController@thongke_loptruong']);

@@ -13,7 +13,7 @@ class CreateTraloiTable extends Migration
      */
     public function up()
     {
-        Schema::create('traloi_talbe', function (Blueprint $table) {
+        Schema::create('traloi', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name_traloi');
             $table->unsignedBigInteger('sv_id');
@@ -32,6 +32,6 @@ class CreateTraloiTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('traloi_talbe');
+        Schema::dropIfExists('traloi');
     }
 }

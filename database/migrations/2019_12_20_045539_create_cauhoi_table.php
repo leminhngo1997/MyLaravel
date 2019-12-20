@@ -16,13 +16,13 @@ class CreateCauhoiTable extends Migration
         Schema::create('cauhoi', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name_cauhoi');
-            $table->string('name_ungcuvien');
-            $table->unsignedBigInteger('sv_id');
-            $table->foreign('sv_id')->references('id')->on('users');
+            $table->string('ungcuvien');
             $table->unsignedBigInteger('suluachon_id');
             $table->foreign('suluachon_id')->references('id')->on('suluachon');
-            $table->date('ngaybatdau');
-            $table->date('ngayketthuc');
+            $table->unsignedBigInteger('coso_id');
+            $table->foreign('coso_id')->references('id')->on('coso');
+            $table->date('ngaybatdau')->nullable();
+            $table->date('ngayketthuc')->nullable();
         });
     }
 
