@@ -16,19 +16,22 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
+    <li class="nav-item">
         <a class="nav-link" href="{{route('phan-hoi-cvht')}}">
             <i class="fas fa-fw fa-comments"></i>
             <span>Phản hồi sinh viên</span></a>
     </li>
     <!-- Nav Item - Bảng điểm -->
-    <li class="nav-item">
-        <a class="nav-link" href="" id="navbardrop" data-toggle="dropdown">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Thống kê báo cáo</span>
-        </a>
+  
+    <!-- Nav Item - Cơ sở-Sinh viên -->
+  
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+        <a class="nav-link" href="{{route('feedback')}}">
+            <i class="fas fa-fw fa-comments"></i>
+            <span>Thống kê báo cáo</span></a>
     </li>
-    <li class="nav-item dropdown">
+    <li class="nav-item active dropdown">
         <a class="nav-link dropdown-toggle" href="{{route('votecvht')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Bầu chọn</span>
@@ -50,9 +53,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        @foreach ($co_so as $key=>$value)
-            <h1 class="h3 mb-0 text-gray-800">PHẢN HỒI - {{$value->name}}</h1>
-        @endforeach
+        <h1 class="h3 mb-0 text-gray-800">VOTE</h1>
     </div>     
        
     <div class="col-xl-10 col-md-12 col-sm-12 mb-4">
@@ -64,16 +65,7 @@
             </div>
             <div class="card-body">
                 <ul class="list-unstyled friend-list">
-                    @foreach ($list_posts as $key=>$value)
-                        <li class="active grey lighten-3 p-2 delete-row-feedbackctsv">
-                            <div class="text-small">
-                            <a href="{{URL::to('/feedbackcvht/chitiet')}}/{{$value->id}}" class="d-flex justify-content-between">
-                            <strong>{{$value->name_hoatdong}}</strong>
-                                </a>
-                                <p>{{$value->mota}}</p>
-                            </div>
-                        </li>
-                    @endforeach
+                  
                 </ul>
             </div>
             <!-- page navigation -->

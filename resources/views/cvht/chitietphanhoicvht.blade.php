@@ -1,11 +1,11 @@
-@extends('sinhvien.trangchu')
+@extends('cvht.trangchu')
 @section('sidebar')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion" id="accordionSidebar">
 
      <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('quanlibangdiem')}}">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('phan-hoi-cvht')}}">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
@@ -16,18 +16,22 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
-        <i class="fas fa-fw fa-tachometer-alt"></i>
-        <a class="nav-link" href="{{route('phanhoicvht')}}" id="navbardrop" data-toggle="dropdown">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Phản hồi sinh viên</span>
-        </a>
+    <li class="nav-item">
+        <a class="nav-link" href="{{route('phan-hoi-cvht')}}">
+            <i class="fas fa-fw fa-comments"></i>
+            <span>Phản hồi sinh viên</span></a>
     </li>
     <!-- Nav Item - Bảng điểm -->
     <li class="nav-item">
         <a class="nav-link" href="{{route('quanlibangdiem')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Thống kê báo cáo</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{route('votecvht')}}" id="navbardrop" data-toggle="dropdown">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Vote</span>
         </a>
     </li>
 </ul>

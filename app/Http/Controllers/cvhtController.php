@@ -27,12 +27,19 @@ class cvhtController extends Controller
                 array_push($list_posts,$value);
             }
         }
-   
-        
         return view('cvht.phanhoicvht',[
             'co_so'=>$co_so,
             'list_posts'=>$list_posts,
             ]);
     }
    
+    public function get_value_create_vote_cvht(){
+        $su_lua_chon = DB::table('suluachon')->get();
+        return view('cvht.createvotecvht',[
+            'su_lua_chon'=> $su_lua_chon,
+            ]);
+    }
+    public function get_value_votecvht(){
+        return view('cvht.votecvht');
+    }
 }

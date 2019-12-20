@@ -97,20 +97,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="show-thong-ke">
-                                    {{-- @foreach ($sinhvien as $item=>$row) --}}
-                                        {{-- <tr>
-                                            <td>
-                                               // <?php
-                                                    
-                                                  //  $mssv = explode('@',$row->email);
-                                                  //  echo $mssv[0];
-                                               // ?>
-                                            </td>
-                                            <td>{{$row->name}}</td>
-                                            <td>{{$diem[$item]}}</td>
-                                            <td>{{$xeploai[$item]}}</td>
-                                        </tr> --}}
-                                    {{-- @endforeach                               --}}
+                                   {{--  --}}
                                 </tbody>
                             </table>
 
