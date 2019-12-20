@@ -16,37 +16,57 @@ class feedbackController extends Controller
         $comments = DB::table('comments')->where('post_id',$id)->get();
         $user_name_comment = DB::table('users')->join('comments','users.id','=','comments.sv_id')->where('comments.post_id',$id)->get();
         $comment_id = array();
-       
-        // $user_name_reply = DB::table('users')->join('replies','users.id','=','replies.sv_id')->where('replies.comment_id',$x)->get();
         $replies = array();
+        $list_user_id_reply = array();
+        $list_user_id = array();
+        $list_user = array();
         foreach($comments as $key=>$value)
         {
-            
             $replies[] = DB::table('replies')->where('comment_id',$value->id)->get();
-            $user_name_reply = DB::table('users')->join('replies','users.id','=','replies.sv_id')->where('replies.comment_id',$value->id)->get();
+            array_push($list_user_id_reply,DB::table('users')->join('replies','users.id','=','replies.sv_id')->where('replies.comment_id',$value->id)->select('sv_id','users.name')->get());
             
             foreach($user_name_comment as $row=>$item)
             {
                 $value->user_name_comment = $item->name;
             }  
-            foreach($replies as $item)
-            {
-                foreach($item as $key=>$value){
-                   
-                    foreach($user_name_reply as $row=>$item)
+        }
+        $count_dup = 0;
+        $temp_arr = array();
+        foreach($list_user_id_reply as $row => $value)
+        {
+            foreach($value as $key=>$item){   
+                if($row === 0 && $key === 0)
                     {
-                        $value->user_name_reply= $item->name;
+                        $list_user[] = array(
+                            'user_id' => $item->sv_id,
+                            'user_name'=>$item->name
+                        );
+
+                        $temp_arr[] = $item->sv_id;
                     }
-                }
-               
+                else {
+                        foreach($temp_arr as $index => $i){
+                            if($item->sv_id===$i)
+                            {
+                                $count_dup ++;
+                            }
+                        }
+                        if($count_dup===0){
+                            $list_user[] = array(
+                                'user_id' => $item->sv_id,
+                                'user_name'=>$item->name
+                            );
+                            $temp_arr[] = $item->sv_id;
+                        }
+                    }
             }
         }
-        //dd($replies);
         return view('sinhvien.chitietphanhoi',[
             'post_id'=>$id,
             'posts'=>$posts,
             'comments'=>$comments,
             'replies'=>$replies,
+            'list_user'=>$list_user
             ]);
     }
        //--Thêm comments
@@ -63,7 +83,6 @@ class feedbackController extends Controller
         //--Thêm replies
         public function insert_reply(Request $request){
             //insert table replies
-            // dd($request->input_reply_text);
             $current_user = Auth::user()->id;
             $data_reply = array();
             $data_reply['reply_text'] = $request->input_reply_text;
@@ -79,7 +98,6 @@ class feedbackController extends Controller
             $user_name_comment = DB::table('users')->join('comments','users.id','=','comments.sv_id')->where('comments.post_id',$id)->get();
             $comment_id = array();
             $replies = array();
-            // $current_user = Auth::user()->id;
             $list_user_id_reply = array();
             $list_user_id = array();
             $list_user = array();
@@ -93,24 +111,8 @@ class feedbackController extends Controller
                     $value->user_name_comment = $item->name;
                 }  
             }
-
-            // foreach($list_user_id_reply as $row)
-            // {
-            //     foreach($row as $x=>$y){
-            //         array_push($list_user_id,$y);
-            //     }
-            // }
-            // foreach($list_user_id as $row){
-            //     array_push($list_user_name,DB::table('users')->where('id',$row->sv_id)->get());
-            // }
-
-
-            //dd($replies);
-
-
             $count_dup = 0;
             $temp_arr = array();
-            //dd($list_user_id_reply);
             foreach($list_user_id_reply as $row => $value)
             {
                 foreach($value as $key=>$item){   
@@ -141,11 +143,67 @@ class feedbackController extends Controller
                 }
             }
 
+            return view('ctsv.chitietphanhoictsv',[
+                'post_id'=>$id,
+                'posts'=>$posts,
+                'comments'=>$comments,
+                'replies'=>$replies,
+                'list_user'=>$list_user
+                ]);
+        }
+        public function get_value_feedbackdetailcvht($id){
+            
+            $posts = DB::table('posts')->where('id',$id)->get();
+            $comments = DB::table('comments')->where('post_id',$id)->get();
+            $user_name_comment = DB::table('users')->join('comments','users.id','=','comments.sv_id')->where('comments.post_id',$id)->get();
+            $comment_id = array();
+            $replies = array();
+            $list_user_id_reply = array();
+            $list_user_id = array();
+            $list_user = array();
+            foreach($comments as $key=>$value)
+            {
+                $replies[] = DB::table('replies')->where('comment_id',$value->id)->get();
+                array_push($list_user_id_reply,DB::table('users')->join('replies','users.id','=','replies.sv_id')->where('replies.comment_id',$value->id)->select('sv_id','users.name')->get());
+                
+                foreach($user_name_comment as $row=>$item)
+                {
+                    $value->user_name_comment = $item->name;
+                }  
+            }
+            $count_dup = 0;
+            $temp_arr = array();
+            foreach($list_user_id_reply as $row => $value)
+            {
+                foreach($value as $key=>$item){   
+                    if($row === 0 && $key === 0)
+                        {
+                            $list_user[] = array(
+                                'user_id' => $item->sv_id,
+                                'user_name'=>$item->name
+                            );
 
+                            $temp_arr[] = $item->sv_id;
+                        }
+                    else {
+                            foreach($temp_arr as $index => $i){
+                                if($item->sv_id===$i)
+                                {
+                                    $count_dup ++;
+                                }
+                            }
+                            if($count_dup===0){
+                                $list_user[] = array(
+                                    'user_id' => $item->sv_id,
+                                    'user_name'=>$item->name
+                                );
+                                $temp_arr[] = $item->sv_id;
+                            }
+                        }
+                }
+            }
 
-           
-           
-            return view('sinhvien.chitietphanhoi',[
+            return view('cvht.chitietphanhoicvht',[
                 'post_id'=>$id,
                 'posts'=>$posts,
                 'comments'=>$comments,

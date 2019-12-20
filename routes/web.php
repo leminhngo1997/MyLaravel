@@ -103,7 +103,9 @@ Route::get('quanlitieuchi',['as'=>'quanlitieuchi','uses'=>'ctsvController@get_va
 Route::get('quanliphongtrao',['as'=>'quanliphongtrao','uses'=>'ctsvController@get_value_quanliphongtrao']);
 //-- --Quản lý hoạt động
 Route::get('quanlihoatdong',['as'=>'quanlihoatdong','uses'=>'ctsvController@get_value_quanlihoatdong']);
-
+//-- --CVHT
+//-- --Phản hồi sinh viên
+Route::get('phanhoicvht',['as'=>'phanhoicvht','uses'=>'cvhtController@get_value_phanhoicvht']);
 
 //TEST Route
 // Route::get('test', 'TestController@index');
@@ -205,3 +207,4 @@ Route::post('/quanlitaikhoan/phanquyen','ctsvController@update_quanlitaikhoan');
 // -- -- -- Quản lí phản hồi
 Route::get('/feedback/chitiet/{id}',['as'=>'feedback/chitiet','uses'=>'feedbackController@get_value_feedbackdetail']);
 Route::get('/feedbackctsv/chitiet/{id}',['as'=>'feedbackctsv/chitiet','uses'=>'feedbackController@get_value_feedbackdetailctsv']);
+Route::get('/feedbackcvht/chitiet/{id}',['as'=>'feedbackcvht/chitiet','uses'=>'feedbackController@get_value_feedbackdetailcvht']);
