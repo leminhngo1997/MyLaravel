@@ -193,6 +193,67 @@ class APIController extends Controller
         return $phong_trao;
     }
     function GetHoatDong_quanlihoatdong(Request $request){
+        $term_id = $request->term_id;
+         //danh sach sinh vien
+        $sinhvien = DB::table('users')
+        ->join('sv_coso','users.id','=','sv_coso.sv_id')
+        ->where('sv_coso.coso_id','=',$coso_id)->select('users.id','users.name','users.email')->get();
+
+        
+        //tong diem tung sinh vien
+        $diem = array();
+        if(count($sinhvien)>0){
+            foreach($sinhvien as $key => $value){
+                $sum = 0;
+                $diemcong = DB::table('tieuchi')
+                ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
+                ->Join('phongtrao', 'tieuchi_phongtrao.phongtrao_id', '=', 'phongtrao.id')
+                ->Join('phongtrao_hoatdong','phongtrao.id', '=', 'phongtrao_hoatdong.phongtrao_id')
+                ->Join('hoatdong', 'phongtrao_hoatdong.hoatdong_id', '=', 'hoatdong.id')
+                ->Join('user_hoatdong', 'hoatdong.id', '=', 'user_hoatdong.hoatdong_id')
+                ->where([
+                            ['tieuchi.bangdiem_id', '=', $term_id],
+                            ['user_hoatdong.sv_id', '=', $value->id],
+                            ['hoatdong.status_clone','=',1],
+                            ['user_hoatdong.heso', '=', 1],
+                        ])->sum('hoatdong.diem');
+                $diemtru = DB::table('tieuchi')
+                ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
+                ->Join('phongtrao', 'tieuchi_phongtrao.phongtrao_id', '=', 'phongtrao.id')
+                ->Join('phongtrao_hoatdong','phongtrao.id', '=', 'phongtrao_hoatdong.phongtrao_id')
+                ->Join('hoatdong', 'phongtrao_hoatdong.hoatdong_id', '=', 'hoatdong.id')
+                ->Join('user_hoatdong', 'hoatdong.id', '=', 'user_hoatdong.hoatdong_id')
+                ->where([
+                            ['tieuchi.bangdiem_id', '=', $term_id],
+                            ['user_hoatdong.sv_id', '=', $value->id],
+                            ['hoatdong.status_clone','=',1],
+                            ['user_hoatdong.heso', '=', -1],
+                        ])->sum('hoatdong.diem');
+                $sum = intval($diemcong)-intval($diemtru);
+                $diem[] = $sum;
+            }
+        
+
+            //xep loai
+            $xeploaidiem = DB::table('bangdiem')
+            ->join('loaibangdiem','bangdiem.loaibangdiem_id','=','loaibangdiem.id')
+            ->join('xeploai','loaibangdiem.id','=','xeploai.loaibangdiem_id')
+            ->where('bangdiem.id',$term_id)
+            ->select('xeploai.name','cantren','canduoi')->get();
+
+            if(count($diem)>0){
+                foreach($diem as $index => $value){
+                    foreach($xeploaidiem as $key => $item){
+                        if($value<=$item->canduoi && $value>=$item->canduoi){
+                            $xeploaisinhvien[] = $item->name;
+                        }
+                    }
+                }
+            }
+        }
+        return $hoat_dong;
+    }
+    function GetThongKe_thongkeloptruong(Request $request){
         $phong_trao_id = $request->phong_trao_id;
         $hoat_dong = DB::table('hoatdong')->join('phongtrao_hoatdong', 'hoatdong.id', '=', 'phongtrao_hoatdong.hoatdong_id')
         ->where('phongtrao_hoatdong.phongtrao_id', $phong_trao_id)->get();

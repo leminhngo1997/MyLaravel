@@ -157,6 +157,8 @@ Route::post('get-hoat-dong-duyethoatdong','APIController@GetHoatDong_duyethoatdo
 //-- FEEDBACK
 Route::post('get-comment-id-feedback','APIController@GetComment_Id_feedback');
 Route::get('phan-hoi-ctsv',['as'=>'phan-hoi-ctsv','uses'=>'ctsvController@get_value_phanhoictsv']);
+//-- --THỐNG KÊ BÁO CÁO
+Route::post('get-thong-ke-thongkeloptruong','APIController@GetThongKe_thongkeloptruong');
 
 Route::post('get-co-so-phanhoictsv','APIController@GetCoSo_phanhoictsv');
 //-- -- --import
