@@ -220,3 +220,8 @@ Route::post('/quanlitaikhoan/phanquyen','ctsvController@update_quanlitaikhoan');
 Route::get('/feedback/chitiet/{id}',['as'=>'feedback/chitiet','uses'=>'feedbackController@get_value_feedbackdetail']);
 Route::get('/feedbackctsv/chitiet/{id}',['as'=>'feedbackctsv/chitiet','uses'=>'feedbackController@get_value_feedbackdetailctsv']);
 Route::get('/feedbackcvht/chitiet/{id}',['as'=>'feedbackcvht/chitiet','uses'=>'feedbackController@get_value_feedbackdetailcvht']);
+
+//--lop truong thong ke
+Route::get('thongkectsv',['as'=>'thongkectsv','uses'=>'ctsvController@thongke_ctsv']);
+// -- export
+Route::post('/thongkectsv/export_diem','ExportExcel@export_diem' );
