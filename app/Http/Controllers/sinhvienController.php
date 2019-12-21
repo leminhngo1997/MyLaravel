@@ -60,11 +60,34 @@ class sinhvienController extends Controller
     }
 
     public function get_value_hoatdong(){
+        //get id user hiện tại  
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
         $current_term = DB::table('bangdiem')->orderBy('id','DESC')->first();
         //get tiêu chí của học kì hiện tại
         $tieuchi = DB::table('tieuchi')->where('bangdiem_id',$current_term->id)->get();
+        //get phân quyền
+        $quyen_id = DB::table('user_role')->where('sv_id',$auth_id)->get('role_id');
+        $quyen_id = end($quyen_id);
+        $quyen_id = end($quyen_id);
+        $quyen_id = end($quyen_id);
+
+        $quyen = '';
+        switch($quyen_id)
+        {
+            case 1: $quyen = 'sinhvien'; break;
+            case 2: $quyen = 'loptruong'; break;
+            case 3: $quyen = 'ctsv'; break;
+        }
         return view('sinhvien.thamgiahoatdong',[
             'tieuchi'=> $tieuchi,
+            'quyen'=>$quyen
             ]);
     }
 
@@ -79,6 +102,23 @@ class sinhvienController extends Controller
             return view('Auth.login');
         }
 
+        $current_term = DB::table('bangdiem')->orderBy('id','DESC')->first();
+        //get tiêu chí của học kì hiện tại
+        $tieuchi = DB::table('tieuchi')->where('bangdiem_id',$current_term->id)->get();
+        //get phân quyền
+        $quyen_id = DB::table('user_role')->where('sv_id',$current_user_id)->get('role_id');
+        $quyen_id = end($quyen_id);
+        $quyen_id = end($quyen_id);
+        $quyen_id = end($quyen_id);
+
+        $quyen = '';
+        switch($quyen_id)
+        {
+            case 1: $quyen = 'sinhvien'; break;
+            case 2: $quyen = 'loptruong'; break;
+            case 3: $quyen = 'ctsv'; break;
+        }
+
         $current_user_id = Auth::user()->id;
         $posts = DB::table('posts')->where('sv_id',$current_user_id)->get();
         $current_term = DB::table('bangdiem')->orderBy('ngayketthuc', 'DESC')->first();
@@ -87,6 +127,7 @@ class sinhvienController extends Controller
         return view('sinhvien.feedback',[
             'tieuchi'=> $tieuchi,
             'posts'=> $posts,
+            'quyen'=>$quyen
             ]);
     }
 
@@ -101,6 +142,11 @@ class sinhvienController extends Controller
         {
             return view('Auth.login');
         }
+
+        $current_term = DB::table('bangdiem')->orderBy('id','DESC')->first();
+        //get tiêu chí của học kì hiện tại
+        $tieuchi = DB::table('tieuchi')->where('bangdiem_id',$current_term->id)->get();
+        
         //insert table hoatdong
         $data_hoatdong = array();
 
@@ -200,6 +246,19 @@ class sinhvienController extends Controller
         {
             return view('Auth.login');
         }
+        //get phân quyền
+        $quyen_id = DB::table('user_role')->where('sv_id',$auth_id)->get('role_id');
+        $quyen_id = end($quyen_id);
+        $quyen_id = end($quyen_id);
+        $quyen_id = end($quyen_id);
+
+        $quyen = '';
+        switch($quyen_id)
+        {
+            case 1: $quyen = 'sinhvien'; break;
+            case 2: $quyen = 'loptruong'; break;
+            case 3: $quyen = 'ctsv'; break;
+        }
         
         //get phong trào
         $phongtrao = DB::table('tieuchi')
@@ -251,11 +310,13 @@ class sinhvienController extends Controller
 
         return view('sinhvien.chitiettieuchi',[
             'phongtrao_list' => $phongtrao_list,
-            'hoatdong_list' => $hoatdong_list
+            'hoatdong_list' => $hoatdong_list,
+            'quyen'=>$quyen
         ]);
     }
 
     public function thongke_loptruong(){
+        //get id user hiện tại  
         if(Auth::user()!==NULL)
         {
             $auth_id = Auth::user()->id;
@@ -264,6 +325,20 @@ class sinhvienController extends Controller
         {
             return view('Auth.login');
         }
+        //get phân quyền
+        $quyen_id = DB::table('user_role')->where('sv_id',$auth_id)->get('role_id');
+        $quyen_id = end($quyen_id);
+        $quyen_id = end($quyen_id);
+        $quyen_id = end($quyen_id);
+
+        $quyen = '';
+        switch($quyen_id)
+        {
+            case 1: $quyen = 'sinhvien'; break;
+            case 2: $quyen = 'loptruong'; break;
+            case 3: $quyen = 'ctsv'; break;
+        }
+        
 
         //get si_so
         $coso_id = DB::table('sv_coso')->where('sv_id', $auth_id)->first('coso_id')->coso_id;
@@ -278,11 +353,35 @@ class sinhvienController extends Controller
         return view('sinhvien.thongke_loptruong',[
             'bangdiem_id'=>$bangdiem_id,
             'bangdiem'=>$bangdiem,
+            'quyen'=>$quyen
         ]);
     }
 
     public function get_value_vote(){
-        $current_user_id = Auth::user()->id;
+        
+        //get id user hiện tại  
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
+        //get phân quyền
+        $quyen_id = DB::table('user_role')->where('sv_id',$auth_id)->get('role_id');
+        $quyen_id = end($quyen_id);
+        $quyen_id = end($quyen_id);
+        $quyen_id = end($quyen_id);
+
+        $quyen = '';
+        switch($quyen_id)
+        {
+            case 1: $quyen = 'sinhvien'; break;
+            case 2: $quyen = 'loptruong'; break;
+            case 3: $quyen = 'ctsv'; break;
+        }
+
         $coso_id = DB::table('coso')->join('sv_coso','coso.id','=','sv_coso.coso_id')
         ->where('sv_coso.sv_id',$current_user_id)->get();
         foreach($coso_id as $key=>$value)
@@ -294,9 +393,7 @@ class sinhvienController extends Controller
         // dd($list_cauhoi);
         return view('sinhvien.vote',[
             'list_cauhoi'=>$list_cauhoi,
+            'quyen'=>$quyen
             ]);
     }
-    
-    
-    
 }
