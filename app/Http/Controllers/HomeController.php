@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use DB;
-
+use Session;
+session_start();
 class HomeController extends Controller
 {
     /**
@@ -30,7 +31,7 @@ class HomeController extends Controller
         $role = DB::table('roles')->where('id', $user_role->role_id)->first('name');
         
 		if($role->name == "sinh viên"){
-			return redirect()->route('dashboard');
+            return redirect()->route('dashboard');
 		}
 		elseif ($role->name == "lớp trưởng"){
 			return redirect()->route('dashboard');
