@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(LoaibangdiemSeeder::class);   
         $this->call(BangdiemSeeder::class);  
         $this->call(Bangdiem_DoituongSeeder::class);
-        // $this->call(TieuchiSeeder::class);   
+        $this->call(TieuchiSeeder::class);   
         // $this->call(PhongtraoSeeder::class);  
         // $this->call(Tieuchi_PhongtraoSeeder::class);  
         // $this->call(Sinhvien_DoituongSeeder::class);  
@@ -286,54 +286,12 @@ class TieuchiSeeder extends Seeder
     public function run()
     {
         DB::table('tieuchi')->insert([
-            //HK1 2015-2016
-            ['name' => 'Ý thức học tập và nghiên cứu khoa học','bangdiem_id' => 3,'maxtieuchi'=> 30],
-            ['name' => 'Ý thức chấp hành nội quy, quy chế của Trường và ĐHQG-HCM','bangdiem_id' => 3,'maxtieuchi'=> 25],
-            ['name' => 'Ý thức tham gia các hoạt động chính trị, xã hội, văn hóa, văn nghệ, thể thao, phòng chống các tệ nạn xã hội','bangdiem_id' => 3,'maxtieuchi'=> 20],
-            ['name' => 'Ý thức công dân trong quan hệ cộng đồng','bangdiem_id' => 3,'maxtieuchi'=> 25],
-            ['name' => 'Ý thức và kết quả tham công tác cán bộ lớp, các đoàn thể, tổ chức trong Trường. Sinh viên đạt thành tích đặc biệt trong học tập','bangdiem_id' => 3,'maxtieuchi'=> 10],
-            //HK2 2015-2016
-            ['name' => 'Ý thức tham gia học tập','bangdiem_id' => 4,'maxtieuchi'=> 20],
-            ['name' => 'Ý thức chấp hành nội quy, quy chế','bangdiem_id' => 4,'maxtieuchi'=> 25],
-            ['name' => 'Ý thức tham gia các hoạt động chính trị, xã hội, văn hóa, văn nghệ','bangdiem_id' => 4,'maxtieuchi'=> 20],
-            ['name' => 'Ý thức công dân trong quan hệ cộng đồng','bangdiem_id' => 4,'maxtieuchi'=> 25],
-            ['name' => 'Ý thức và kết quả tham gia công tác cán bộ lớp, đoàn thể','bangdiem_id' => 4,'maxtieuchi'=> 10],
-            //HK1 2016-2017
-            ['name' => 'Ý thức tham gia học tập','bangdiem_id' => 5,'maxtieuchi'=> 20],
-            ['name' => 'Ý thức chấp hành nội quy, quy chế','bangdiem_id' => 5,'maxtieuchi'=> 25],
-            ['name' => 'Ý thức tham gia các hoạt động chính trị, xã hội, văn hóa, văn nghệ','bangdiem_id' => 5,'maxtieuchi'=> 20],
-            ['name' => 'Ý thức công dân trong quan hệ cộng đồng','bangdiem_id' => 5,'maxtieuchi'=> 25],
-            ['name' => 'Ý thức và kết quả tham gia công tác cán bộ lớp, đoàn thể','bangdiem_id' => 5,'maxtieuchi'=> 10],
-            //HK2 2016-2017
-            ['name' => 'Ý thức tham gia học tập','bangdiem_id' => 6,'maxtieuchi'=> 20],
-            ['name' => 'Ý thức chấp hành nội quy, quy chế','bangdiem_id' => 6,'maxtieuchi'=> 25],
-            ['name' => 'Ý thức tham gia các hoạt động chính trị, xã hội, văn hóa, văn nghệ','bangdiem_id' => 6,'maxtieuchi'=> 20],
-            ['name' => 'Ý thức công dân trong quan hệ cộng đồng','bangdiem_id' => 6,'maxtieuchi'=> 25],
-            ['name' => 'Ý thức và kết quả tham gia công tác cán bộ lớp, đoàn thể','bangdiem_id' => 6,'maxtieuchi'=> 10],
-            //HK1 2017-2018
-            ['name' => 'Ý thức tham gia học tập','bangdiem_id' => 7,'maxtieuchi'=> 20],
-            ['name' => 'Ý thức chấp hành nội quy, quy chế','bangdiem_id' => 7,'maxtieuchi'=> 25],
-            ['name' => 'Ý thức tham gia các hoạt động chính trị, xã hội, văn hóa, văn nghệ','bangdiem_id' => 7,'maxtieuchi'=> 20],
-            ['name' => 'Ý thức công dân trong quan hệ cộng đồng','bangdiem_id' => 7,'maxtieuchi'=> 25],
-            ['name' => 'Ý thức và kết quả tham gia công tác cán bộ lớp, đoàn thể','bangdiem_id' => 7,'maxtieuchi'=> 10],
-            //HK2 2017-2018
-            ['name' => 'Ý thức tham gia học tập','bangdiem_id' => 8,'maxtieuchi'=> 20],
-            ['name' => 'Ý thức chấp hành nội quy, quy chế','bangdiem_id' => 8,'maxtieuchi'=> 25],
-            ['name' => 'Ý thức tham gia các hoạt động chính trị, xã hội, văn hóa, văn nghệ','bangdiem_id' => 8,'maxtieuchi'=> 20],
-            ['name' => 'Ý thức công dân trong quan hệ cộng đồng','bangdiem_id' => 8,'maxtieuchi'=> 25],
-            ['name' => 'Ý thức và kết quả tham gia công tác cán bộ lớp, đoàn thể','bangdiem_id' => 8,'maxtieuchi'=> 10],
-            //HK1 2018-2019
-            ['name' => 'Ý thức tham gia học tập','bangdiem_id' => 9,'maxtieuchi'=> 20],
-            ['name' => 'Ý thức chấp hành nội quy, quy chế','bangdiem_id' => 9,'maxtieuchi'=> 25],
-            ['name' => 'Ý thức tham gia các hoạt động chính trị, xã hội, văn hóa, văn nghệ','bangdiem_id' => 9,'maxtieuchi'=> 20],
-            ['name' => 'Ý thức công dân trong quan hệ cộng đồng','bangdiem_id' => 9,'maxtieuchi'=> 25],
-            ['name' => 'Ý thức và kết quả tham gia công tác cán bộ lớp, đoàn thể','bangdiem_id' => 9,'maxtieuchi'=> 10],
-            //HK2 2018-2019
-            ['name' => 'Ý thức tham gia học tập','bangdiem_id' => 10,'maxtieuchi'=> 20],
-            ['name' => 'Ý thức chấp hành nội quy, quy chế','bangdiem_id' => 10,'maxtieuchi'=> 25],
-            ['name' => 'Ý thức tham gia các hoạt động chính trị, xã hội, văn hóa, văn nghệ','bangdiem_id' => 10,'maxtieuchi'=> 20],
-            ['name' => 'Ý thức công dân trong quan hệ cộng đồng','bangdiem_id' => 10,'maxtieuchi'=> 25],
-            ['name' => 'Ý thức và kết quả tham gia công tác cán bộ lớp, đoàn thể','bangdiem_id' => 10,'maxtieuchi'=> 10],
+            //HK1 2019-2020
+            ['name' => 'Ý thức và thái độ tham gia học tập và nghiên cứu khoa học','bangdiem_id' => 11,'maxtieuchi'=> 30],
+            ['name' => 'Ý thức chấp hành nội quy, quy chế, quy định trong Nhà trường','bangdiem_id' => 11,'maxtieuchi'=> 20],
+            ['name' => 'Ý thức tham gia các hoạt động CT, XH, VH, VN, TDTT, phòng chống tội phạm và các TNXH','bangdiem_id' => 11,'maxtieuchi'=> 25],
+            ['name' => 'Ý thức công dân trong quan hệ cộng đồng','bangdiem_id' => 11,'maxtieuchi'=> 25],
+            ['name' => 'Các nội dung cộng thêm','bangdiem_id' => 11,'maxtieuchi'=> 10],
            
         ]);
         
