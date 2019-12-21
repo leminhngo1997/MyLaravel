@@ -164,7 +164,7 @@
                                 <div class="card-body col-6 mb-4 border-left">
                                     <div class="mb-4">Thêm hoạt động bằng Excel</div>
                                     <form method="post" enctype="multipart/form-data"
-                                        action="{{ url('/quanliphongtrao/import') }}">
+                                        action="{{ url('/quanlihoatdong/import') }}">
                                         {{ csrf_field() }}
 
                                         <input type="file" name="select_file"

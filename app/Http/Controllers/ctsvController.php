@@ -592,5 +592,27 @@ public function delete_users_quanlisinhvien(Request $request){
         }
         Session::put('message','Xóa sinh viên tham gia hoạt động thành công.');
         return back();
-    }    
+    }
+    
+    
+//thống kê
+public function thongke_ctsv(){
+    //get id user hiện tại  
+    if(Auth::user()!==NULL)
+    {
+        $auth_id = Auth::user()->id;
+    }
+    else
+    {
+        return view('Auth.login');
+    }
+    
+
+    //get si_so
+    $bangdiem = DB::table('bangdiem')->select('id','name')->get();
+
+    return view('ctsv.thongke_ctsv',[
+        'bangdiem' => $bangdiem
+    ]);
+}
 }
