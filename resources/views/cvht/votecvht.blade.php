@@ -42,6 +42,7 @@
         </div>
     </li>
 </ul>
+
 <!-- End of Sidebar -->
 
 @endsection
@@ -53,21 +54,65 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">VOTE</h1>
+        <h1 class="h3 mb-0 text-gray-800">Danh sách các cuộc bầu chọn</h1>
     </div>     
        
     <div class="col-xl-10 col-md-12 col-sm-12 mb-4">
         <div class="card border-secondary shadow h-100 py-2 col-12">
-            <div class="row">
-                <div class="col-7">
-                    <h1 class="h4 m-2 text-gray-800">Danh sách phản hồi</h1>
-                </div>
-            </div>
-            <div class="card-body">
-                <ul class="list-unstyled friend-list">
-                  
-                </ul>
-            </div>
+          
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" class="check" id="checkAll">
+                            </label>
+                        </div>
+                    </th>
+                    <th scope="col">STT</th>
+                    <th scope="col">Tên bầu chọn</th>
+                    <th scope="col">Bắt đầu</th>
+                    <th scope="col">Kết thúc</th>
+                    <th scope="col">Lựa chọn</th>
+                    <th scope="col">Tình trạng</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    @foreach ($list_cauhoi as $key=>$value)
+                    <tr>
+                        <td>
+                            <div class="checkbox">
+                                <label>
+                                    <input value="{{$value->id}}" name="check[]" type="checkbox" class="check">
+                                </label>
+                            </div>
+                        </td>
+                      <th scope="row">{{$key+1}}</th>
+                      
+                    <td><a href="{{URL::to('/ket-qua-bau-chon-cvht')}}/{{$value->id}}">{{$value->name_cauhoi}}</a></td>
+                      <td>{{$value->ngaybatdau}}</td>
+                      <td>{{$value->ngayketthuc}}</td>
+                      <td><?php
+                        if($value->suluachon_id == 1)
+                          echo "Một";
+                        else {
+                          echo "Nhiều";
+                        }
+                      ?></td>
+                      <td><?php 
+                      if($value->ngayketthuc < date('Y-m-d'))
+                      {
+                        echo "<div style='color: red'>Hết hạn</div>";
+                      }
+                      else {
+                        echo "<div style='color: blue'>Đang mở</div>";
+                      }
+                      ?></td>
+                    </tr>
+                    @endforeach
+                </tbody>
+              </table>
             <!-- page navigation -->
            
         </div>

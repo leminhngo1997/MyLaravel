@@ -86,7 +86,7 @@
               @foreach ($list_cauhoi as $key=>$value)
               <tr>
                 <th scope="row">{{$key+1}}</th>
-              <td><a href="">{{$value->name_cauhoi}}</a></td>
+              <td><a href="{{URL::to('/vote-chi-tiet')}}/{{$value->id}}">{{$value->name_cauhoi}}</a></td>
                 <td>{{$value->ngaybatdau}}</td>
                 <td>{{$value->ngayketthuc}}</td>
                 <td><?php

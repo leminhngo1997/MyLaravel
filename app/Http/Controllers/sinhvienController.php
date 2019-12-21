@@ -396,4 +396,99 @@ class sinhvienController extends Controller
             'quyen'=>$quyen
             ]);
     }
+
+    public function get_value_vote_chitiet($id){
+        
+        //get id user hiện tại  
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
+        //get phân quyền
+        $quyen_id = DB::table('user_role')->where('sv_id',$auth_id)->get('role_id');
+        $quyen_id = end($quyen_id);
+        $quyen_id = end($quyen_id);
+        $quyen_id = end($quyen_id);
+
+        $quyen = '';
+        switch($quyen_id)
+        {
+            case 1: $quyen = 'sinhvien'; break;
+            case 2: $quyen = 'loptruong'; break;
+            case 3: $quyen = 'ctsv'; break;
+        }
+        $cau_hoi = DB::table('cauhoi')->where('id',$id)->get();
+        foreach($cau_hoi as $key=>$value)
+        {
+            foreach(explode(',',$value->ungcuvien) as $item){
+                $users[] = DB::table('users')->where('id',$item)->get();
+            }
+        }
+        
+        
+        return view('sinhvien.votechitiet',[
+            'quyen'=>$quyen,
+            'cau_hoi'=>$cau_hoi,
+            'users'=>$users,
+            ]);
+    }
+
+     //--Thêm feedback
+     public function insert_traloi_vote(Request $request){
+        //insert table posts
+        if(Auth::user()!==NULL)
+        {
+            $current_user = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
+
+        if($request->check == null)
+        {
+            Session::put('message','Lỗi: Vui lòng check lựa chọn');
+            return back();
+        }
+   
+        if($request->input_suluachon_id ==1){
+            if(count($request->check) > 1){
+                Session::put('message','Lỗi: Bạn chỉ được chọn tối đa 1 lựa chọn');
+                return back();
+            }
+        }
+
+        $check_traloi_table = DB::table('traloi')->select('sv_id')->where('cauhoi_id',$request->input_cauhoi_id)->get();
+        foreach($check_traloi_table as $key=>$value)
+        {
+            if($current_user = Auth::user()->id === $value->sv_id)
+            {
+                
+                Session::put('message','Bạn đã bầu chọn topic này rồi !!');
+                return back();
+            }
+           
+
+        }
+        
+        $check = $request->check;
+        $current_user = Auth::user()->id;
+        $data_traloi = array();
+        $data_traloi['name_traloi'] = implode(',', $check);;
+        $data_traloi['sv_id'] = $current_user;
+        $data_traloi['cauhoi_id'] = $request->input_cauhoi_id;
+        $data_traloi['tinhtrang'] = 1;
+        DB::table('traloi')->insert($data_traloi);
+        Session::put('message','Bầu chọn thành công.');
+        return back();
+       
+        
+
+        //id sinh viên check
+        
+    }
 }

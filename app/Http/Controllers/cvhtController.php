@@ -66,7 +66,27 @@ class cvhtController extends Controller
             ]);
     }
     public function get_value_votecvht(){
-        return view('cvht.votecvht');
+        //get id user hiện tại  
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
+        $coso_id = DB::table('coso')->join('sv_coso','coso.id','=','sv_coso.coso_id')
+        ->where('sv_coso.sv_id',$auth_id)->get();
+        foreach($coso_id as $key=>$value)
+        {
+            //$x là mã cơ sở của user hiện tại
+            $x = $value->coso_id;
+        }
+        $list_cauhoi = DB::table('cauhoi')->where('coso_id',$x)->get();
+
+        return view('cvht.votecvht',[
+            'list_cauhoi'=>$list_cauhoi,
+            ]);
     }
     // Thêm bầu chọn
     public function insert_cauhoi_vote(Request $request){
@@ -97,4 +117,95 @@ class cvhtController extends Controller
         Session::put('message','Thêm bầu chọn điểm thành công.');
         return back();
     }
+
+
+    public function get_ketqua_bauchon_cvht($id){
+        
+        if(Auth::user()!==NULL)
+        {
+            $current_user = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
+        $list_cauhoi = DB::table('cauhoi')->where('id',$id)->get();
+        $list_traloi = DB::table('traloi')->where('cauhoi_id',$id)->get();
+        
+        $x = array();
+        
+        foreach($list_traloi as $key=>$value)
+        {
+            array_push($x,explode(',',$value->name_traloi));
+            
+        }
+        $temp = array();
+        //dd($x);
+        foreach($x as $key=>$value)
+        {
+            if($key===0){
+                foreach($value as $index => $id){
+                        $ungcuvien_id[] = array(
+                            'id' => $id,
+                            'count'=>1
+                        );
+                    }     
+            }
+            else{
+                foreach($value as $index => $id){
+                    $check = 0; 
+                    foreach($ungcuvien_id as $i => $v){
+                        
+                        if($v['id'] === $id)
+                        {
+                            $count = intval($v['count']);
+                            $count ++;
+                            $ungcuvien_id[$i] = array(
+                                'id' => $id,
+                                'count'=>$count
+                            );
+                            $check++; 
+                        }
+                    }
+                    
+                    if($check === 0){
+                        $ungcuvien_id[] = array(
+                            'id' => $id,
+                            'count'=>1
+                        );
+                    }
+                    
+                }
+            }
+            
+        }
+
+        
+        foreach($ungcuvien_id as $item => $value)
+        {
+            $user_name = DB::table('users')->where('id',$value['id'])->get();
+            foreach($user_name as $m=>$n)
+            {
+                $value['user_name'] = $n->name;
+                $value['email'] = $n->email;
+                $ungcuvien_id[$item] = $value; 
+            }   
+        }
+        //hàm sắp giảm -> tìm top
+        function build_sorter($key) {
+            return function ($a, $b) use ($key) {
+                return strnatcmp($b[$key], $a[$key]);
+            };
+        }    
+               
+        usort($ungcuvien_id, build_sorter('count'));
+
+        // dd($ungcuvien_id);
+        
+        return view('cvht.ketquabauchon',[
+            'list_cauhoi'=>$list_cauhoi,
+            'ungcuvien_id'=>$ungcuvien_id,
+            ]);
+    }
+    
 }

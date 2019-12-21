@@ -39,8 +39,12 @@ Route::get('feedback',['as'=>'feedback','uses'=>'sinhvienController@get_value_fe
 
 //--vote
 Route::get('vote',['as'=>'vote','uses'=>'sinhvienController@get_value_vote']);
+Route::get('vote-chi-tiet/{id}',['as'=>'vote-chi-tiet','uses'=>'sinhvienController@get_value_vote_chitiet']);
+Route::post('/them-tra-loi','sinhvienController@insert_traloi_vote');
 //-- -- --Thêm bầu chọn
 Route::post('/tao-bau-chon-cvht','cvhtController@insert_cauhoi_vote');
+Route::get('ket-qua-bau-chon-cvht/{id}',['as'=>'ket-qua-bau-chon-cvht','uses'=>'cvhtController@get_ketqua_bauchon_cvht']);
+
 
 //--lop truong thong ke
 Route::get('thongke',['as'=>'thongke','uses'=>'sinhvienController@thongke_loptruong']);
