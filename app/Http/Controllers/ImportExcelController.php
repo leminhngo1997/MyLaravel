@@ -26,11 +26,18 @@ class ImportExcelController extends Controller
             {
                 //dd($value);
 
-                if(($value['hoatdong']!==null)&&($value['maphongtrao'])!==null){
+                if(($value['hoatdong']!==null)
+                    &&($value['diem'])!==null
+                    &&($value['doituong'])!==null
+                    &&($value['ngaybatdau'])!==null
+                    &&($value['ngayketthuc'])!==null
+                    &&($value['nguoitao'])!==null 
+                    &&($value['nguoiduyet'])!==null
+                    ){
                     $insert_hoatdong[] = array(
                         'name' => $value['hoatdong'],
                         'diem' => $value['diem'],
-                        'doituong' => $value['coso'],
+                        'doituong' => $value['doituong'],
                         'ngaybatdau' => $value['ngaybatdau'],
                         'ngayketthuc' => $value['ngayketthuc'],
                         'nguoitao' => $value['nguoitao'],
@@ -42,11 +49,12 @@ class ImportExcelController extends Controller
                     $coso_name[] = $value['coso'];
                     $phongtrao_id[] = $value['maphongtrao'];
                 }
+                else $error_row[] = $key;
             }
 
             if(!empty($insert_hoatdong))
             {
-                DB::table('hoatdong')->insert($insert_hoatdong);
+                //DB::table('hoatdong')->insert($insert_hoatdong);
             }
             else return back()->with('success', 'Excel Data Imported Completely.');
             
@@ -69,7 +77,7 @@ class ImportExcelController extends Controller
                     'status' => 1
                 );
             }
-            DB::table('phongtrao_hoatdong')->insert($insert_phongtrao_hoatdong);
+            //DB::table('phongtrao_hoatdong')->insert($insert_phongtrao_hoatdong);
 
             // Xử lí insert coso
 
@@ -279,6 +287,9 @@ class ImportExcelController extends Controller
             
             if(!empty($insert_phongtrao))
             {    
+                // check max điểm tiêu chí
+                //foreach($tieuchi_id as $key=>$value){}
+
                 // insert phong trao
                 DB::table('phongtrao')->insert($insert_phongtrao);
 
