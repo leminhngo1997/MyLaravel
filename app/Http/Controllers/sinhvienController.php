@@ -383,7 +383,7 @@ class sinhvienController extends Controller
         }
 
         $coso_id = DB::table('coso')->join('sv_coso','coso.id','=','sv_coso.coso_id')
-        ->where('sv_coso.sv_id',$current_user_id)->get();
+        ->where('sv_coso.sv_id',$auth_id)->get();
         foreach($coso_id as $key=>$value)
         {
             //$x là mã cơ sở của user hiện tại

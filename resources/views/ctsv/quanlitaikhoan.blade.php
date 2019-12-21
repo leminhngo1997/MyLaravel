@@ -190,7 +190,7 @@
 <script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
 <script>
     function setRole() {
-        var table = document.getElementById("userTable");
+        var table = document.getElementById("myTable");
         var rows = table.getElementsByTagName("tr");
         for (i = 0; i < rows.length; i++) {
             var currentRow = table.rows[i];
