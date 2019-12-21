@@ -8,8 +8,19 @@ use Session;
 
 class cvhtController extends Controller
 {	
+    public function AuthSV(){
+        $auth_id = Auth::user()->id;
+        $user_role = DB::table('user_role')->where('sv_id', $auth_id)->first('role_id');
+        $role = DB::table('roles')->where('id', $user_role->role_id)->first('name');
+        if($role->name == "cvht"){
+            
+		}else{
+            Redirect::to('login')->send();
+        }
+    }
+
     public function get_value_phanhoicvht(){
-        
+        $this->AuthSV(); 
         if(Auth::user()!==NULL)
         {
             $current_user = Auth::user()->id;
@@ -47,6 +58,15 @@ class cvhtController extends Controller
     }
    
     public function get_value_create_vote_cvht(){
+        $this->AuthSV(); 
+        if(Auth::user()!==NULL)
+        {
+            $current_user = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
         $su_lua_chon = DB::table('suluachon')->get();
         $current_user = Auth::user()->id;
         $current_coso_id = DB::table('coso')->join('sv_coso','coso.id','=','sv_coso.coso_id')
@@ -66,6 +86,7 @@ class cvhtController extends Controller
             ]);
     }
     public function get_value_votecvht(){
+        $this->AuthSV(); 
         //get id user hiện tại  
         if(Auth::user()!==NULL)
         {
@@ -90,6 +111,16 @@ class cvhtController extends Controller
     }
     // Thêm bầu chọn
     public function insert_cauhoi_vote(Request $request){
+        $this->AuthSV(); 
+        //get id user hiện tại  
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
         $current_user = Auth::user()->id;
         $current_coso_id = DB::table('coso')->join('sv_coso','coso.id','=','sv_coso.coso_id')
         ->where('sv_coso.sv_id',$current_user)->get();
@@ -120,7 +151,7 @@ class cvhtController extends Controller
 
 
     public function get_ketqua_bauchon_cvht($id){
-        
+        $this->AuthSV(); 
         if(Auth::user()!==NULL)
         {
             $current_user = Auth::user()->id;

@@ -13,8 +13,28 @@ use DB;
 
 class ctsvController extends Controller
 {	
+    public function AuthSV(){
+        $auth_id = Auth::user()->id;
+        $user_role = DB::table('user_role')->where('sv_id', $auth_id)->first('role_id');
+        $role = DB::table('roles')->where('id', $user_role->role_id)->first('name');
+        if($role->name == "ctsv"){
+            
+		}else{
+            Redirect::to('login')->send();
+        }
+    }
+
 //GET
     public function get_value_quanlibangdiem(){
+        $this->AuthSV(); 
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
         $loaibangdiem = DB::table('loaibangdiem')->get();
         $doituong = DB::table('doituong')->get();
         return view('ctsv.quanlibangdiem',[
@@ -23,6 +43,15 @@ class ctsvController extends Controller
             ]);
     }
     public function get_value_quanlitieuchi(){
+        $this->AuthSV(); 
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
         $loaibangdiem = DB::table('loaibangdiem')->get();
         $bangdiem = DB::table('bangdiem')->get();
         return view('ctsv.quanlitieuchi',[
@@ -31,6 +60,15 @@ class ctsvController extends Controller
         ]);
     }
     public function get_value_quanliphongtrao(){
+        $this->AuthSV(); 
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
         $loaibangdiem = DB::table('loaibangdiem')->get();
         $bangdiem = DB::table('bangdiem')->get();
         $data = DB::table('phongtrao')->orderBy('id','DESC')->limit(5)->get();
@@ -41,6 +79,15 @@ class ctsvController extends Controller
         ]);
     }
     public function get_value_quanlihoatdong(){
+        $this->AuthSV(); 
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
         $loaibangdiem = DB::table('loaibangdiem')->get();
         $bangdiem = DB::table('bangdiem')->get();
         $data = DB::table('hoatdong')->orderBy('id','DESC')->limit(5)->get();
@@ -52,6 +99,15 @@ class ctsvController extends Controller
     }
 
     public function get_value_quanlicoso(){
+        $this->AuthSV(); 
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
         $doituong = DB::table('doituong')->get();
         return view('ctsv.quanlicoso',[
             'doituong'=>$doituong,
@@ -59,6 +115,15 @@ class ctsvController extends Controller
     }
 
     public function get_value_quanlisinhvien(){
+        $this->AuthSV(); 
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
         $user = DB::table('users')->get();
         $doituong = DB::table('doituong')->get();
         $coso = DB::table('coso')->get();
@@ -72,6 +137,15 @@ class ctsvController extends Controller
     }
 
     public function get_value_quanlitaikhoan(){
+        $this->AuthSV(); 
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
         $user = DB::table('users')->get();
         $role = DB::table('roles')->get();
         $user_role = DB::table('users')
@@ -87,6 +161,15 @@ class ctsvController extends Controller
         ]);
     }
     public function get_value_phanhoictsv(){
+        $this->AuthSV(); 
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
         $doituong = DB::table('doituong')->get();
         return view('ctsv.phanhoictsv',[
             'doituong'=>$doituong,
@@ -94,6 +177,15 @@ class ctsvController extends Controller
     }
     
     public function get_value_duyethoatdong(){
+        $this->AuthSV(); 
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
         $hoatdong = DB::table('hoatdong')->get();
         $bangdiem = DB::table('bangdiem')->get();
         $user = DB::table('users')->get();
@@ -104,6 +196,15 @@ class ctsvController extends Controller
         ]);
     }
     public function get_value_quanlixeploai(){
+        $this->AuthSV(); 
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
         $loai_bang_diem = DB::table('loaibangdiem')->get();
         // dd($loai_bang_diem);
         return view('ctsv.quanlixeploai',[
@@ -111,6 +212,15 @@ class ctsvController extends Controller
     }
 
     public function get_value_importsinhvienthamgiahoatdong(){
+        $this->AuthSV(); 
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
         $bangdiem = DB::table('bangdiem')->get();
         return view('ctsv.importsinhvienthamgiahoatdong',[
             'bangdiem'=>$bangdiem,
@@ -118,6 +228,15 @@ class ctsvController extends Controller
     }
     
     public function get_value_danhsachsinhvienthamgiahoatdong($id){
+        $this->AuthSV(); 
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
         $list_hoat_dong = DB::table('hoatdong')->where('id',$id)->get();
         $user_hoatdong = DB::table('user_hoatdong')->where('hoatdong_id',$id)->paginate(10);
         return view('ctsv.danhsachsinhvienthamgiahoatdong',[
@@ -131,6 +250,15 @@ class ctsvController extends Controller
     //POST
 //--Thêm loại bảng điểm
     public function insert_loai_bang_diem(Request $request){
+        $this->AuthSV(); 
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
         $data = array();
         $data['name'] = $request->input_loaibangdiem;
         DB::table('loaibangdiem')->insert($data);
@@ -139,12 +267,30 @@ class ctsvController extends Controller
     }
 //--Xóa loại bảng điểm
     public function delete_loai_bang_diem($id){
+        $this->AuthSV(); 
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
         DB::table('loaibangdiem')->where('id',$id)->delete();
         Session::put('message','Xóa loại bảng điểm thành công.');
         return Redirect::to('quanlibangdiem');
     }
 //--Thêm bảng điểm
     public function insert_bang_diem(Request $request){
+        $this->AuthSV(); 
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
         //insert table bangdiem
         $data_bangdiem = array();
         $data_bangdiem['name'] = $request->input_name_bangdiem;
@@ -168,6 +314,15 @@ class ctsvController extends Controller
     }    
 //--Thêm tiêu chí
     public function insert_tieu_chi_quanlitieuchi(Request $request){
+        $this->AuthSV(); 
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
         //insert table tieuchi
         $data = array();
         $data['name'] = $request->input_name_tieuchi;
@@ -179,6 +334,15 @@ class ctsvController extends Controller
     }
 //--Xóa tiêu chí
     public function delete_tieu_chi_quanlitieuchi($id){
+        $this->AuthSV(); 
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
         //lấy phongtrao_id từ tieuchi_id
         $tieuchi_phongtrao = DB::table('tieuchi_phongtrao')->where('tieuchi_id',$id)->get();
         $phongtrao_hoatdong = array();
@@ -225,7 +389,15 @@ class ctsvController extends Controller
     }
 //--Thêm phong trào
     public function insert_phong_trao_quanliphongtrao(Request $request){
-
+        $this->AuthSV(); 
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
         //insert table phongtrao  
         if(empty($request->input_tieuchi_id))
         {

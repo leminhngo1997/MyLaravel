@@ -11,10 +11,19 @@ use Egulias\EmailValidator\Exception\InvalidEmail;
 
 class sinhvienController extends Controller
 {	
-
+    public function AuthSV(){
+        $auth_id = Auth::user()->id;
+        $user_role = DB::table('user_role')->where('sv_id', $auth_id)->first('role_id');
+        $role = DB::table('roles')->where('id', $user_role->role_id)->first('name');
+        if($role->name == "sinh viên"){
+            
+		}else{
+            Redirect::to('login')->send();
+        }
+    }
 
     public function get_value_dashboard(){
-        //get id user hiện tại  
+        $this->AuthSV(); 
         if(Auth::user()!==NULL)
         {
             $auth_id = Auth::user()->id;
@@ -23,20 +32,20 @@ class sinhvienController extends Controller
         {
             return view('Auth.login');
         }
+        //get id user hiện tại
+        $auth_id = Auth::user()->id;
         //get phân quyền
         $quyen_id = DB::table('user_role')->where('sv_id',$auth_id)->get('role_id');
         $quyen_id = end($quyen_id);
         $quyen_id = end($quyen_id);
         $quyen_id = end($quyen_id);
 
-        $quyen = '';
         switch($quyen_id)
         {
             case 1: $quyen = 'sinhvien'; break;
             case 2: $quyen = 'loptruong'; break;
             case 3: $quyen = 'ctsv'; break;
         }
-
         
         //get si_so
         $coso_id = DB::table('sv_coso')->where('sv_id', $auth_id)->first('coso_id')->coso_id;
@@ -127,6 +136,7 @@ class sinhvienController extends Controller
     }
 
     public function get_value_hoatdong(){
+        $this->AuthSV();
         //get id user hiện tại  
         if(Auth::user()!==NULL)
         {
@@ -159,7 +169,7 @@ class sinhvienController extends Controller
     }
 
     public function get_value_feedback(){
-
+        $this->AuthSV();
         if(Auth::user()!==NULL)
         {
             $current_user_id = Auth::user()->id;
@@ -200,7 +210,7 @@ class sinhvienController extends Controller
 
     //--Thêm hoạt động
     public function insert_hoat_dong_thamgiahoatdong(Request $request){
-
+        $this->AuthSV();
         if(Auth::user()!==NULL)
         {
             $nguoi_tao = Auth::user()->id;
@@ -275,6 +285,7 @@ class sinhvienController extends Controller
     }
     //--Thêm feedback
     public function insert_feedback(Request $request){
+        $this->AuthSV();
         //insert table posts
         if(Auth::user()!==NULL)
         {
@@ -304,6 +315,7 @@ class sinhvienController extends Controller
 
     //chi tiết điểm tiêu chí
     public function chitietTieuchi($id){
+        $this->AuthSV();
         //get id user hiện tại  
         if(Auth::user()!==NULL)
         {
@@ -383,6 +395,7 @@ class sinhvienController extends Controller
     }
 
     public function thongke_loptruong(){
+        $this->AuthSV();
         //get id user hiện tại  
         if(Auth::user()!==NULL)
         {
@@ -425,7 +438,7 @@ class sinhvienController extends Controller
     }
 
     public function get_value_vote(){
-        
+        $this->AuthSV();
         //get id user hiện tại  
         if(Auth::user()!==NULL)
         {
@@ -465,7 +478,7 @@ class sinhvienController extends Controller
     }
 
     public function get_value_vote_chitiet($id){
-        
+        $this->AuthSV();
         //get id user hiện tại  
         if(Auth::user()!==NULL)
         {
@@ -506,6 +519,7 @@ class sinhvienController extends Controller
 
      //--Thêm feedback
      public function insert_traloi_vote(Request $request){
+        $this->AuthSV();
         //insert table posts
         if(Auth::user()!==NULL)
         {
@@ -541,7 +555,7 @@ class sinhvienController extends Controller
            
 
         }
-        
+
         $check = $request->check;
         $current_user = Auth::user()->id;
         $data_traloi = array();
