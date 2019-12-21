@@ -130,13 +130,13 @@
                 <table class="table table-borderless">
                     <thead>
                         <tr>
-                            <th scope="col">TỔNG ĐIỂM</th>
+                            <th scope="col">TRUNG BÌNH CHUNG</th>
                             <th scope="col" class="text-center">XẾP HẠNG</th>
                         </tr>
                         <tr class="border-bottom">
-                            <th class="text-danger" style="font-size: 20px;">0<span style="font-size: 10px;"
+                        <th class="text-danger" style="font-size: 20px;">{{$chitietxephang['trung_binh']}}<span style="font-size: 10px;"
                                     class="text-danger">Điểm</span></th>
-                            <th class="text-center text-danger">0</th>
+                            <th class="text-center text-danger">{{$chitietxephang['xep_hang']}}</th>
                         </tr>
                     </thead>
                     <tbody>

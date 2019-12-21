@@ -49,13 +49,80 @@ class sinhvienController extends Controller
         $bangdiem = DB::table('bangdiem')->get();
         //tieuchi
         $tieuchi = DB::table('tieuchi')->get();
+//diem trung binh
+        //danh sach sinh vien
+        $sinhvien = DB::table('users')
+        ->join('sv_coso','users.id','=','sv_coso.sv_id')
+        ->join('user_role','users.id','=','user_role.sv_id')
+        ->where([
+            ['sv_coso.coso_id','=',$coso_id],
+            ['user_role.role_id','<',3]
+        ])
+        ->select('users.id','users.name','users.email')
+        ->get('id');
+
+        //tính trung bình
+            foreach($sinhvien as $index => $item){  
+            
+                $sum = 0;
+                foreach($bangdiem_id as $key => $value){
+                        $diemcong = DB::table('tieuchi')
+                        ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
+                        ->Join('phongtrao', 'tieuchi_phongtrao.phongtrao_id', '=', 'phongtrao.id')
+                        ->Join('phongtrao_hoatdong','phongtrao.id', '=', 'phongtrao_hoatdong.phongtrao_id')
+                        ->Join('hoatdong', 'phongtrao_hoatdong.hoatdong_id', '=', 'hoatdong.id')
+                        ->Join('user_hoatdong', 'hoatdong.id', '=', 'user_hoatdong.hoatdong_id')
+                        ->where([
+                                    ['tieuchi.bangdiem_id', '=', $value->bangdiem_id],
+                                    ['user_hoatdong.sv_id', '=', $item->id],
+                                    ['hoatdong.status_clone','=',1],
+                                    ['user_hoatdong.heso', '=', 1],
+                                ])->sum('hoatdong.diem');
+                        $diemtru = DB::table('tieuchi')
+                        ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
+                        ->Join('phongtrao', 'tieuchi_phongtrao.phongtrao_id', '=', 'phongtrao.id')
+                        ->Join('phongtrao_hoatdong','phongtrao.id', '=', 'phongtrao_hoatdong.phongtrao_id')
+                        ->Join('hoatdong', 'phongtrao_hoatdong.hoatdong_id', '=', 'hoatdong.id')
+                        ->Join('user_hoatdong', 'hoatdong.id', '=', 'user_hoatdong.hoatdong_id')
+                        ->where([
+                                    ['tieuchi.bangdiem_id', '=', $value->bangdiem_id],
+                                    ['user_hoatdong.sv_id', '=', $item->id],
+                                    ['hoatdong.status_clone','=',1],
+                                    ['user_hoatdong.heso', '=', -1],
+                                ])->sum('hoatdong.diem');
+                        $sum += intval($diemcong)-intval($diemtru);
+                }
+
+                $avr = $sum / count($bangdiem_id);
+                $xephang[] = array('id'=>$item->id,'trung_binh'=>$avr);
+            }
+            function build_sorter($key) {
+                return function ($a, $b) use ($key) {
+                    return strnatcmp($b[$key], $a[$key]);
+                };
+            }    
+                   
+            usort($xephang, build_sorter('trung_binh'));
+           
+            //xếp hạng
+            foreach($xephang as $key => $value){
+                if($auth_id === $value['id']){
+                    $hang = $key+1;
+                    $chitietxephang = array('id'=>$auth_id, 
+                    'trung_binh' => $value['trung_binh'],
+                    'xep_hang'=>$hang
+                    );
+                }
+            }
+            //dd($xephang);
         return view('sinhvien.dashboard',[
-            'siso'=>$siso,
+            'siso'=>count($sinhvien),
             'coso_name'=>$coso_name,
             'bangdiem_id'=>$bangdiem_id,
             'bangdiem'=>$bangdiem,
             'tieuchi'=> $tieuchi,
-            'quyen' => $quyen
+            'quyen' => $quyen,
+            'chitietxephang'=>$chitietxephang,
             ]);
     }
 
