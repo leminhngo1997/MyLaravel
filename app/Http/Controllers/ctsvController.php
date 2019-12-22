@@ -14,7 +14,14 @@ use DB;
 class ctsvController extends Controller
 {	
     public function AuthSV(){
-        $auth_id = Auth::user()->id;
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
         $user_role = DB::table('user_role')->where('sv_id', $auth_id)->first('role_id');
         $role = DB::table('roles')->where('id', $user_role->role_id)->first('name');
         if($role->name == "ctsv"){
@@ -422,15 +429,16 @@ class ctsvController extends Controller
 
         $maxtieuchi = DB::table('tieuchi')->where('id',$tieuchi_id)->select('maxtieuchi')->get()->toArray();
         $maxtieuchi = end($maxtieuchi);
-
+        
         $sumMaxPhongtrao_beforeInsert = DB::table('phongtrao')
                                 ->join('tieuchi_phongtrao','phongtrao.id','=','tieuchi_phongtrao.phongtrao_id')
                                 ->where('tieuchi_phongtrao.tieuchi_id',$tieuchi_id)
                                 ->sum('phongtrao.maxphongtrao');
         $sumMaxtieuchi_afterInsert = 0;
         $sumMaxtieuchi_afterInsert = intval($sumMaxPhongtrao_beforeInsert)+intval($data['maxphongtrao']);
+        
         //dd($sumMaxtieuchi_afterInsert);
-        if($sumMaxtieuchi_afterInsert<intval($maxtieuchi->maxtieuchi))
+        if($sumMaxtieuchi_afterInsert<=intval($maxtieuchi->maxtieuchi))
         {
             DB::table('phongtrao')->insert($data);
             //insert table tieuchi_phongtrao
@@ -581,40 +589,37 @@ class ctsvController extends Controller
             $doi_tuong_id[] = $item->doituong_id;
         }
         foreach($doi_tuong_id as $item){
-            $current_coso_id[] = DB::table('coso')->where('doituong_id',$item)->get();
+            $current_coso_id[] = DB::table('coso')->where('doituong_id',$item)->get('id')->toArray();
         }
+        //insert coso_hoat dong
         foreach($data_hoatdong_coso as $key=>$value){
             if($value==='ALL'){
-                foreach($current_coso_id as $item){
-                    foreach($item as $key=>$value){
-                        $data_coso_hoatdong['coso_id'] = $value->id;
-                        $data_coso_hoatdong['hoatdong_id'] = $current_hoat_dong_id;
-                        DB::table('coso_hoatdong')->insert($data_coso_hoatdong);
-                    }
-                    
+                //doi tuong = all
+                $allCoso_id = DB::table('coso')->get('id')->toArray();
+                foreach($allCoso_id as $item => $row){
+                    DB::table('coso_hoatdong')->insert([
+                        'coso_id'=>$row->id,
+                        'hoatdong_id'=> $current_hoat_dong_id
+                    ]);
                 }
                 Session::put('message','Thêm hoạt động thành công.');
                 return Redirect::to('quanlihoatdong');
             }
-        }
-        // lay co so
-        $coso_id = array();
-        foreach($data_hoatdong_coso as $key=>$value){
-                $coso[] = DB::table('coso')->where('name',$value)->get('id');
-           }
-        //tim id co so
-        foreach($coso as $row){
-            foreach($row as $item){
-                $coso_id[] = $item->id;
+            else
+            {
+                foreach($data_hoatdong_coso as $key=>$value){
+                    $coso_id = DB::table('coso')->where('name',$value)->get('id')->toArray();
+                    if(count($coso_id)>0){
+                        DB::table('coso_hoatdong')->insert([
+                            'coso_id'=>$coso_id->id,
+                            'hoatdong_id'=> $current_hoat_dong_id
+                        ]);
+                    }
+                }
+
             }
         }
-        // insert coso_hoatdong
-        foreach($coso_id as $key){
-            $data_coso_hoatdong['coso_id'] = $key;
-            $data_coso_hoatdong['hoatdong_id'] = $current_hoat_dong_id;
-            DB::table('coso_hoatdong')->insert($data_coso_hoatdong);
-        }
-    
+        
         Session::put('message','Thêm hoạt động thành công.');
         return Redirect::to('quanlihoatdong');
         }

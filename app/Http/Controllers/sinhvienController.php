@@ -12,7 +12,14 @@ use Egulias\EmailValidator\Exception\InvalidEmail;
 class sinhvienController extends Controller
 {	
     public function AuthSV(){
-        $auth_id = Auth::user()->id;
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
         $user_role = DB::table('user_role')->where('sv_id', $auth_id)->first('role_id');
         $role = DB::table('roles')->where('id', $user_role->role_id)->first('name');
         if($role->name == "sinh viên"){
@@ -24,6 +31,7 @@ class sinhvienController extends Controller
 
     public function get_value_dashboard(){
         $this->AuthSV(); 
+        //get id user hiện tại
         if(Auth::user()!==NULL)
         {
             $auth_id = Auth::user()->id;
@@ -32,8 +40,6 @@ class sinhvienController extends Controller
         {
             return view('Auth.login');
         }
-        //get id user hiện tại
-        $auth_id = Auth::user()->id;
         //get phân quyền
         $quyen_id = DB::table('user_role')->where('sv_id',$auth_id)->get('role_id');
         $quyen_id = end($quyen_id);

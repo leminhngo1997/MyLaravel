@@ -10,7 +10,7 @@ use phpDocumentor\Reflection\Types\Integer;
 
 class ImportExcelController extends Controller
 {
-    function import(Request $request)
+    function importHoatdong(Request $request)
     {
         $this->validate($request, [
             'select_file' => 'required|mimes:xls,xlsx'
@@ -19,20 +19,19 @@ class ImportExcelController extends Controller
         $path = $request->file('select_file')->getRealPath();
         
         $data = Excel::load($path)->get();
-
+        $error_row = array();
         if($data->count() > 0)
         {
             foreach($data->toArray() as $key => $value)
             {
-                //dd($value);
+                
 
                 if(($value['hoatdong']!==null)
                     &&($value['diem'])!==null
                     &&($value['doituong'])!==null
-                    &&($value['ngaybatdau'])!==null
-                    &&($value['ngayketthuc'])!==null
                     &&($value['nguoitao'])!==null 
                     &&($value['nguoiduyet'])!==null
+                    &&($value['maphongtrao'])!==null
                     ){
                     $insert_hoatdong[] = array(
                         'name' => $value['hoatdong'],
@@ -43,85 +42,89 @@ class ImportExcelController extends Controller
                         'nguoitao' => $value['nguoitao'],
                         'nguoiduyet' => $value['nguoiduyet'],
                         'status_clone' => 1,
-                    );
-                    
+
+                    );    
                     //lấy tên cơ sở và mã phong trào
-                    $coso_name[] = $value['coso'];
                     $phongtrao_id[] = $value['maphongtrao'];
                 }
-                else $error_row[] = $key;
+                else $error_row[] = $key+2;
             }
+
 
             if(!empty($insert_hoatdong))
-            {
-                //DB::table('hoatdong')->insert($insert_hoatdong);
-            }
-            else return back()->with('success', 'Excel Data Imported Completely.');
-            
-            // xử lí insert phongtrao_hoatdong
-            // lấy hoạt động id vừa insert
-            $new_inserted_rows = DB::table('hoatdong')->orderBy('id', 'DESC')->take(count($insert_hoatdong))->get('id');
-            foreach($new_inserted_rows as $key => $value)
-            {
-                foreach($value as $row => $item){
-                    $hoatdong_id[] = $item;
-                }
-            }
-            sort($hoatdong_id); //hoat dong id
+            { 
+                $count = 0;
+                foreach($phongtrao_id as $key => $value){
+                    // max phong trào
+                    $maxPhongTrao = DB::table('phongtrao')->where('id',$value)->get('maxphongtrao')->toArray();
+                    $maxPhongTrao = end($maxPhongTrao);
+                    $maxPhongTrao = end($maxPhongTrao);
 
-
-            foreach($hoatdong_id as $key => $value){
-                $insert_phongtrao_hoatdong[] = array(
-                    'phongtrao_id' => $phongtrao_id[$key],
-                    'hoatdong_id' => $value,
-                    'status' => 1
-                );
-            }
-            //DB::table('phongtrao_hoatdong')->insert($insert_phongtrao_hoatdong);
-
-            // Xử lí insert coso
-
-                // lấy danh sách cơ sở
-                $temp = array();
-                $danhsachcoso = array();
-                $temp = DB::table('coso')->get(['id','name']);
-                $danhsachcoso = array();
-                foreach($temp as $key => $item)
-                {
-                    $danhsachcoso[] = $item;        //(id, name)
-                }
-
-                // Xử lí input cơ sở
-                foreach($coso_name as $index => $value){
-                    if ($value==='ALL'){
-                        foreach ($danhsachcoso as $row){
-                            DB::table('coso_hoatdong')->insert([
-                                'coso_id' => $row->id,
-                                'hoatdong_id' => $hoatdong_id[$index]
-                            ]);
-                        }
+                    // tổng hoạt động trước insert
+                    $maxHoatDong_beforeInsert = DB::table('hoatdong')
+                                                    ->join('phongtrao_hoatdong','hoatdong.id','=','phongtrao_hoatdong.hoatdong_id')
+                                                    ->where('phongtrao_hoatdong.phongtrao_id',$value)->sum('hoatdong.diem');
+                    
+                    $maxHoatDong_afterInsert = intval($maxHoatDong_beforeInsert) + intval($insert_hoatdong[$key]['diem']);
+                    if($maxPhongTrao < $maxHoatDong_afterInsert){
+                        $error_row[] = $key+2;
                     }
                     else {
-                        $cosoapdung = explode("-",$value);
-                        foreach ($cosoapdung as $index => $value){
-                            foreach($danhsachcoso as $row)
-                            {
-                                if($value===$row->name) // tìm cơ sở trong danh sách cơ sở
-                                {
+                        //insert hoạt động
+                        DB::table('hoatdong')->insert($insert_hoatdong[$key]);
+
+                        //insert phongtrao_hoatdong
+                        $hoatdong_id = DB::table('hoatdong')->orderBy('id','DESC')->limit(1)->get('id')->toArray();
+                        if(count($hoatdong_id)>0){
+                            $hoatdong_id = end($hoatdong_id);
+                            $hoatdong_id = end($hoatdong_id);
+                            DB::table('phongtrao_hoatdong')->insert([
+                                'phongtrao_id' =>$value,
+                                'hoatdong_id' =>$hoatdong_id,
+                                'status' => 1
+                            ]);
+                            $count ++;
+
+                            //insert coso_hoatdong
+                            if($insert_hoatdong[$key]['doituong']==='ALL'){
+                                //doi tuong = all
+                                $allCoso_id = DB::table('coso')->get('id')->toArray();
+                                foreach($allCoso_id as $item => $row){
                                     DB::table('coso_hoatdong')->insert([
-                                        'coso_id' => $row->id,
-                                        'hoatdong_id' => $hoatdong_id[$index]
+                                        'coso_id'=>$row->id,
+                                        'hoatdong_id'=> $hoatdong_id
                                     ]);
                                 }
                             }
+                            else
+                            {
+                                $data_hoatdong_coso = explode('-',$insert_hoatdong[$key]['doituong']);
+                                foreach($data_hoatdong_coso as $key=>$value){
+                                    $coso_id = DB::table('coso')->where('name',$value)->get('id')->toArray();
+                                    if(count($coso_id)>0){
+                                        DB::table('coso_hoatdong')->insert([
+                                            'coso_id'=>$coso_id->id,
+                                            'hoatdong_id'=> $hoatdong_id
+                                        ]);
+                                    }
+                                }
+                
+                            }
                         }
-                        
                     }
-                    
+
                 }
 
+                return back()->with('success', 'Hoàn thành import với '.$count.' dòng thành công');
+                
+            }
+            else {
+      
+                return back()->with('success', 'Hoàn thành import với 0 dòng');
+            }
+
         }
-        return back()->with('success', 'Excel Data Imported Completely.');
+        return back()->with('success', 'Hoàn thành import với 0 dòng');
     }
 
 
@@ -157,8 +160,17 @@ class ImportExcelController extends Controller
             // insert
             if(!empty($insert_sinhvien))
             {
-                DB::table('users')->insert($insert_sinhvien);
-
+                $count = 0;
+                foreach($insert_sinhvien as $key => $value){
+                    DB::table('users')->updateOrInsert(
+                        ['email'=>$value['email']],
+                        [
+                            'name' => $value['name'],
+                            'password' => bcrypt($value['password'])
+                        ]
+                    );
+                    $count++;
+                }
                 // lấy sinh viên id vừa insert
                 $new_inserted_rows = DB::table('users')->orderBy('id', 'DESC')->take(count($insert_sinhvien))->get('id');
                 $user_id = array();
@@ -187,25 +199,25 @@ class ImportExcelController extends Controller
                     {
                         if($value===$row->name) // tìm cơ sở trong danh sách cơ sở
                         {
-                            DB::table('sv_coso')->insert([
-                                'sv_id' => $user_id[$index],
-                                'coso_id' => $row->id                
-                            ]);
+                            DB::table('sv_coso')->updateOrInsert(
+                                ['sv_id' => $user_id[$index]],
+                                ['coso_id' => $row->id]                
+                            );
                         }
                     }
                 }
 
                 // insert user_role
                 foreach($user_id as $value){
-                    DB::table('user_role')->insert([
-                        'sv_id' => $value,
-                        'role_id' => 1,
-                    ]);
+                    DB::table('user_role')->updateOrInsert(
+                        ['sv_id' => $value],
+                        ['role_id' => 1]
+                    );
                 }
                 
             }
         }
-        return back()->with('success', 'Excel Data Imported successfully.');
+        return back()->with('success', 'Imported sinh viên thành công với: '.$count.' dòng');
     }
 
     function importThamgia(Request $request)
@@ -271,7 +283,9 @@ class ImportExcelController extends Controller
             foreach($data->toArray() as $key => $value)
             {
                 //dd($value);
-                    if(($value['tenphongtrao']!==null)&&($value['matieuchi']!==null)){
+                    if($value['tenphongtrao']!==null
+                    &&$value['matieuchi']!==null
+                    &&$value['diemtoida']!==null){
                    
                         $insert_phongtrao[] = array(
                             'name' => $value['tenphongtrao'],
@@ -281,36 +295,59 @@ class ImportExcelController extends Controller
                         $tieuchi_id[] = $value['matieuchi'];
 
                     }
+                    else
+                    {
+                        $error_row[] = $key+2;
+                    }
 
             }
             
             
             if(!empty($insert_phongtrao))
-            {    
+            {   
+                $count = 0;
                 // check max điểm tiêu chí
-                //foreach($tieuchi_id as $key=>$value){}
+                foreach($tieuchi_id as $key=>$value){
 
-                // insert phong trao
-                DB::table('phongtrao')->insert($insert_phongtrao);
+                    // lấy max tiêu chí
+                    $maxTieuChi = DB::table('tieuchi')->where('id',$value)->get('maxtieuchi')->toArray();
+                    $maxTieuChi =end($maxTieuChi);
+                    $maxTieuChi =end($maxTieuChi);
+                    // tổng hoạt động trước insert
+                    $maxPhongTrao_beforeInsert = DB::table('phongtrao')
+                                                    ->join('tieuchi_phongtrao','phongtrao.id','=','tieuchi_phongtrao.phongtrao_id')
+                                                    ->where('tieuchi_phongtrao.tieuchi_id',$value)->sum('phongtrao.maxphongtrao');
 
-                // lấy mã phong trào vừa thêm vào
-                $temp = DB::table('phongtrao')->orderBy('id', 'DESC')->take(count($insert_phongtrao))->get('id');
-                foreach($temp as $key => $value){
-                    $phongtrao_id[] = $value->id;
+                    $maxPhongTrao_afterInsert = intval($maxPhongTrao_beforeInsert) + intval($insert_phongtrao[$key]['maxphongtrao']);
+                    if($maxPhongTrao_afterInsert>$maxTieuChi){
+                        $error_row[] = $key+2;
+                    }
+                    else{
+                        // insert phong trao
+                        DB::table('phongtrao')->insert($insert_phongtrao[$key]);
+                        
+                        // lấy mã phong trào vừa thêm vào
+                        $phongtrao_id = DB::table('hoatdong')->orderBy('id','DESC')->limit(1)->get('id')->toArray();
+                        if(count($phongtrao_id)>0){
+                            $phongtrao_id = end($phongtrao_id);
+                            $phongtrao_id = end($phongtrao_id);
+                            DB::table('tieuchi_phongtrao')->insert([
+                                'phongtrao_id' =>$phongtrao_id,
+                                'tieuchi_id' =>$value,
+                            ]);
+                            $count ++;
+                    }
+                    }
                 }
-                
-                sort($phongtrao_id);
-
-                foreach($phongtrao_id as $key => $value){
-                    DB::table('tieuchi_phongtrao')->insert([
-                        'tieuchi_id' => $tieuchi_id[$key],
-                        'phongtrao_id'=> $value
-                    ]);
-                }
+                return back()->with('success', 'Hoàn thành import với '.$count.' dòng thành công');
+            }
+            else
+            {
+                return back()->with('success', 'Hoàn thành import với 0 dòng thành công');
             }
 
         
         }
-        return back()->with('success', 'Excel Data Imported successfully.');
+        return back()->with('success', 'Hoàn thành import với 0 dòng thành công');
     }
 }

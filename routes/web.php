@@ -173,7 +173,7 @@ Route::post('get-thong-ke-thongkeloptruong','APIController@GetThongKe_thongkelop
 Route::post('get-co-so-phanhoictsv','APIController@GetCoSo_phanhoictsv');
 //-- -- --import
     //import hoạt động
-Route::post('quanlihoatdong/import','ImportExcelController@import');
+Route::post('quanlihoatdong/import','ImportExcelController@importHoatdong');
     //import sinh viên
 Route::post('quanlisinhvien/import','ImportExcelController@importSinhvien');
     //import phong trao
