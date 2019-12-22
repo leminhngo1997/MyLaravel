@@ -426,6 +426,14 @@ class APIController extends Controller
         $xep_loai = DB::table('xeploai')->where('loaibangdiem_id', $loai_bang_diem_id)->get();
         return $xep_loai;
     }
+    
+
+    function GetCoSo_thongkectsv(Request $request){
+        $term_id = $request->term_id;
+        $co_so = DB::table('coso')->join('bangdiem_doituong','coso.doituong_id','=','bangdiem_doituong.doituong_id')
+        ->where('bangdiem_doituong.bangdiem_id',$term_id)->get();
+        return $co_so;
+    }
 
    
 }

@@ -13,7 +13,7 @@ $(document).ready(function(){
 </script> --}}
 </head>
 <body>
-    <form action="{{url('get-feedback-ctsv')}}" method="POST">
+    <form action="{{url('get-co-so-thongkectsv')}}" method="POST">
         {{csrf_field()}}
     <div>
         <select name="bangdiem_id">
