@@ -33,7 +33,7 @@
         </div>
     </li>
     <!-- Nav Item - Bảng điểm -->
-    <li class="nav-item active dropdown">
+    <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="{{route('quanlibangdiem')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Bảng điểm</span>
@@ -56,7 +56,7 @@
         </div>
     </li>
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
+    <li class="nav-item active">
         <a class="nav-link" href="{{route('thongkectsv')}}">
             <i class="fas fa-fw fa-vote-yea"></i>
             <span>Thống kê - báo cáo</span></a>
@@ -97,20 +97,7 @@
                         <input type="submit" class="btn btn-success mb-4 ml-5 col-4" value="Export Excel"/>
                         <select class="btn btn-secondary dropdown-toggle ml-3 mb-4 col-6" href="#" role="button"
                             id="drop-down-co_so" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="co_so_id">
-                            {{-- <option selected>-- Chọn cơ sở --</option>
-                            @foreach($coso_id as $key=>$value)
-                            {
-                                @foreach($coso as $key=>$value1)
-                                {
-                                    @if($value1->id == $value->coso_id)
-                                    {
-                                        <option value="{{$value1->id}}" selected>{{$value1->name}}</option>
-                                    }
-                                    @endif
-                                }
-                                @endforeach
-                            }
-                            @endforeach --}}
+                            {{--  --}}
                         </select>
                         
                     </form>
@@ -191,6 +178,58 @@
                                 <td>`+element.xeploai+`</td>
                             </tr>`;
                     $('#show-thong-ke').append(html);
+                });
+            }
+        });
+    });
+</script>
+<script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
+
+<script>
+     $(document).ready(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var getSelected = $("#drop-down-term").children("option:selected").val();
+        $.ajax({
+            type: 'POST',
+            url: "{{url('get-co-so-thongkectsv')}}",
+            data: {
+                term_id: getSelected
+            },
+            success: function (data) {
+                $('.delete-option-term').remove();
+                data.forEach(element => {
+                    option = `<option class = "delete-option-term" value="` + element
+                        .id + `">` + element.name + `</option>`;
+                    $('#drop-down-co_so').append(option);
+                });
+            }
+        });
+    });
+
+    $('#drop-down-term').change(function (e) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        e.preventDefault();
+        var getSelected = $(this).children("option:selected").val();
+        $.ajax({
+            type: 'POST',
+            url: "{{url('get-co-so-thongkectsv')}}",
+            data: {
+                term_id: getSelected
+            },
+            success: function (data) {
+                $('.delete-option-term').remove();
+                data.forEach(element => {
+                    option = `<option class = "delete-option-term" value="` + element
+                        .id + `">` + element.name + `</option>`;
+                    $('#drop-down-co_so').append(option);
                 });
             }
         });

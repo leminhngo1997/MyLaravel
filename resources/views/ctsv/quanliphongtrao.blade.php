@@ -59,7 +59,7 @@
     </li>
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{route('thongkectsv')}}">
             <i class="fas fa-fw fa-vote-yea"></i>
             <span>Thống kê - báo cáo</span></a>
     </li>
