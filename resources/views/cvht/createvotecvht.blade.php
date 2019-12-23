@@ -22,14 +22,14 @@
             <span>Phản hồi sinh viên</span></a>
     </li>
     <!-- Nav Item - Bảng điểm -->
-
+  
     <!-- Nav Item - Cơ sở-Sinh viên -->
-
+  
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
-        <a class="nav-link" href="#">
-            <i class="fas fa-fw fa-vote-yea"></i>
-            <span>Thống kê - báo cáo</span></a>
+    <li class="nav-item active">
+        <a class="nav-link" href="{{route('thongke-cvht')}}">
+            <i class="fas fa-fw fa-comments"></i>
+            <span>Thống kê báo cáo</span></a>
     </li>
     <li class="nav-item active dropdown">
         <a class="nav-link dropdown-toggle" href="{{route('votecvht')}}" id="navbardrop" data-toggle="dropdown">
@@ -42,6 +42,7 @@
         </div>
     </li>
 </ul>
+
 <!-- End of Sidebar -->
 
 @endsection

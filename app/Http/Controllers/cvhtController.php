@@ -9,7 +9,14 @@ use Session;
 class cvhtController extends Controller
 {	
     public function AuthSV(){
-        $auth_id = Auth::user()->id;
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
         $user_role = DB::table('user_role')->where('sv_id', $auth_id)->first('role_id');
         $role = DB::table('roles')->where('id', $user_role->role_id)->first('name');
         if($role->name == "cvht"){
@@ -32,9 +39,9 @@ class cvhtController extends Controller
 
         $co_so = DB::table('coso')->join('sv_coso','coso.id','=','sv_coso.coso_id')->where('sv_coso.sv_id',$current_user)->get();
         
+        $list_posts = array();
         if(count($co_so)>0){
 
-        $list_posts = array();
         foreach($co_so as $key=>$value)
         {
             $sv_coso = DB::table('sv_coso')->where('coso_id',$value->coso_id)->get();
@@ -237,6 +244,42 @@ class cvhtController extends Controller
             'list_cauhoi'=>$list_cauhoi,
             'ungcuvien_id'=>$ungcuvien_id,
             ]);
+    }
+
+    public function get_value_thongkecvht()
+    {
+        //$this->AuthSV();
+        //get id user hiện tại  
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
+        
+        
+        //get si_so
+        $coso_id = DB::table('sv_coso')->where('sv_id', $auth_id)->take(1)->get('coso_id')->toArray();
+        if(count($coso_id)>0){
+        $coso_id = end($coso_id);
+        $coso_id = end($coso_id);
+        $siso = DB::table('coso')->where('id', $coso_id)->first('siso')->siso;
+        $coso_name = DB::table('coso')->where('id', $coso_id)->first('name')->name;
+        //doituong_id của user hiện tại
+        $doituong_id = DB::table('coso')->where('id',$coso_id)->first('doituong_id')->doituong_id;
+        //các bảng điểm thuộc doituong_id
+        $bangdiem_id = DB::table('bangdiem_doituong')->where('doituong_id',$doituong_id)->get('bangdiem_id');
+        $bangdiem = DB::table('bangdiem')->get();
+        }else{
+            $bangdiem_id=array();
+            $bangdiem=array();
+        }
+        return view('cvht.thongke_cvht',[
+            'bangdiem_id'=>$bangdiem_id,
+            'bangdiem'=>$bangdiem,
+        ]);
     }
     
 }

@@ -166,7 +166,7 @@ class ImportExcelController extends Controller
                         ['email'=>$value['email']],
                         [
                             'name' => $value['name'],
-                            'password' => bcrypt($value['password'])
+                            'password' => $value['password']
                         ]
                     );
                     $count++;

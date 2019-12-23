@@ -16,19 +16,22 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
+    <li class="nav-item">
         <a class="nav-link" href="{{route('phan-hoi-cvht')}}">
             <i class="fas fa-fw fa-comments"></i>
             <span>Phản hồi sinh viên</span></a>
     </li>
     <!-- Nav Item - Bảng điểm -->
-    <li class="nav-item">
-        <a class="nav-link" href="" id="navbardrop" data-toggle="dropdown">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Thống kê báo cáo</span>
-        </a>
+  
+    <!-- Nav Item - Cơ sở-Sinh viên -->
+  
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+        <a class="nav-link" href="{{route('thongke-cvht')}}">
+            <i class="fas fa-fw fa-comments"></i>
+            <span>Thống kê báo cáo</span></a>
     </li>
-    <li class="nav-item dropdown">
+    <li class="nav-item active dropdown">
         <a class="nav-link dropdown-toggle" href="{{route('votecvht')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Bầu chọn</span>
@@ -39,6 +42,7 @@
         </div>
     </li>
 </ul>
+
 <!-- End of Sidebar -->
 
 @endsection

@@ -116,6 +116,8 @@ Route::get('phan-hoi-cvht',['as'=>'phan-hoi-cvht','uses'=>'cvhtController@get_va
 Route::get('votecvht',['as'=>'votecvht','uses'=>'cvhtController@get_value_votecvht']);
 //-- --Tạo vote
 Route::get('create-vote-cvht',['as'=>'create-vote-cvht','uses'=>'cvhtController@get_value_create_vote_cvht']);
+// -- -- thống kê báo cáo 
+Route::get('thongke-cvht',['as'=>'thongke-cvht','uses'=>'cvhtController@get_value_thongkecvht']);
 
 //TEST Route
 // Route::get('test', 'TestController@index');

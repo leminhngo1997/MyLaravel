@@ -27,7 +27,7 @@
   
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href="{{route('feedback')}}">
+        <a class="nav-link" href="{{route('thongke-cvht')}}">
             <i class="fas fa-fw fa-comments"></i>
             <span>Thống kê báo cáo</span></a>
     </li>

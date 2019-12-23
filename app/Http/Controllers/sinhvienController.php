@@ -22,7 +22,7 @@ class sinhvienController extends Controller
         }
         $user_role = DB::table('user_role')->where('sv_id', $auth_id)->first('role_id');
         $role = DB::table('roles')->where('id', $user_role->role_id)->first('name');
-        if($role->name == "sinh viên"){
+        if(($role->name == "sinh viên")||($role->name == "lớp trưởng")){
             
 		}else{
             Redirect::to('login')->send();
@@ -427,7 +427,10 @@ class sinhvienController extends Controller
         
 
         //get si_so
-        $coso_id = DB::table('sv_coso')->where('sv_id', $auth_id)->first('coso_id')->coso_id;
+        $coso_id = DB::table('sv_coso')->where('sv_id', $auth_id)->take(1)->get('coso_id')->toArray();
+        if(count($coso_id)>0){
+        $coso_id = end($coso_id);
+        $coso_id = end($coso_id);
         $siso = DB::table('coso')->where('id', $coso_id)->first('siso')->siso;
         $coso_name = DB::table('coso')->where('id', $coso_id)->first('name')->name;
         //doituong_id của user hiện tại
@@ -435,7 +438,11 @@ class sinhvienController extends Controller
         //các bảng điểm thuộc doituong_id
         $bangdiem_id = DB::table('bangdiem_doituong')->where('doituong_id',$doituong_id)->get('bangdiem_id');
         $bangdiem = DB::table('bangdiem')->get();
-
+        }
+        else{
+            $bangdiem_id=array();
+            $bangdiem=array();
+        }
         return view('sinhvien.thongke_loptruong',[
             'bangdiem_id'=>$bangdiem_id,
             'bangdiem'=>$bangdiem,
