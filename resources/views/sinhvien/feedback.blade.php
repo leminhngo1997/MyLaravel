@@ -3,14 +3,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Sidebar -->
     <script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
-    <ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion border-right" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
-            <div class="sidebar-brand-icon rotate-n-15">
-                <i class="fas fa-laugh-wink"></i>
+        <a style="color: indianred; background-color: white" class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('quanlibangdiem')}}">
+            <div class="sidebar-brand-icon">
+                <img style="width: 60px; height: 60px" class="img-profile" src="{{asset('public/admin/img/uit.png')}}">
             </div>
-            <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+            <div class="sidebar-brand-text mx-3">SINH VIÊN</div>
         </a>
 
         <!-- Divider -->
@@ -142,35 +142,13 @@
                                 </a>
                                 <p>{{$value->mota}}</p>
                             </div>
-                            {{-- <div class="chat-footer">
-                                <p class="text-smaller text-muted mb-0">Just now</p>
-                                <span class="badge badge-danger float-right">1</span>
-                            </div> --}}
 
                         </li>
                         @endforeach
                     </ul>
+                    {{$posts->links()}}
                 </div>
-                <!-- page navigation -->
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+              
             </div>
         </div>
 

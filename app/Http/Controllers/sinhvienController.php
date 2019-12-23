@@ -129,7 +129,8 @@ class sinhvienController extends Controller
                     );
                 }
             }
-            //dd($xephang);
+            $current_posts_user = DB::table('posts')->where('sv_id',$auth_id)->paginate(2);
+            // dd($current_posts_user);
         return view('sinhvien.dashboard',[
             'siso'=>count($sinhvien),
             'coso_name'=>$coso_name,
@@ -138,6 +139,7 @@ class sinhvienController extends Controller
             'tieuchi'=> $tieuchi,
             'quyen' => $quyen,
             'chitietxephang'=>$chitietxephang,
+            'current_posts_user'=>$current_posts_user,
             ]);
     }
 
@@ -203,7 +205,7 @@ class sinhvienController extends Controller
         }
 
         $current_user_id = Auth::user()->id;
-        $posts = DB::table('posts')->where('sv_id',$current_user_id)->get();
+        $posts = DB::table('posts')->where('sv_id',$current_user_id)->paginate(6);
         $current_term = DB::table('bangdiem')->orderBy('ngayketthuc', 'DESC')->first();
         //get tieu chi của học kì hiện tại
         $tieuchi = DB::table('tieuchi')->where('bangdiem_id', $current_term->id)->get();

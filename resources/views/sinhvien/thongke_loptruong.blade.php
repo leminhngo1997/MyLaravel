@@ -3,21 +3,21 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Sidebar -->
     <script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
-    <ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion border-right" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
-            <div class="sidebar-brand-icon rotate-n-15">
-                <i class="fas fa-laugh-wink"></i>
+        <a style="color: indianred; background-color: white" class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('quanlibangdiem')}}">
+            <div class="sidebar-brand-icon">
+                <img style="width: 60px; height: 60px" class="img-profile" src="{{asset('public/admin/img/uit.png')}}">
             </div>
-            <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+            <div class="sidebar-brand-text mx-3">SINH VIÊN</div>
         </a>
 
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="{{route('dashboard')}}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
@@ -41,7 +41,7 @@
                 <span>Bầu chọn</span></a>
         </li>
         {{-- thong ke - lop truong --}}
-        <li class="nav-item" id="loptruong_only">
+        <li class="nav-item active" id="loptruong_only">
             <a class="nav-link" href="{{route('thongke')}} " >
                 <i class="fas fa-fw fa-thongke"></i>
                 <span>Thống kê</span></a>
@@ -174,7 +174,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            var getSelected = $("#drop-down-term").children("option:selected").val();
+            var getSelected = $('#drop-down-term').children("option:selected").val();
             $.ajax({
             type: 'POST',
             url: "{{url('get-thong-ke-thongkeloptruong')}}",
@@ -195,7 +195,7 @@
                 });
             }
         });
-        });
+    });
   
   
    $('#drop-down-term').change(function (e) {

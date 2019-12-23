@@ -435,5 +435,18 @@ class APIController extends Controller
         return $co_so;
     }
 
-   
+    function GetThongKe_thongkectsv(Request $request){
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
+        $co_so_id = $request->co_so_id;
+        
+        $x;//giá trị cần load
+        return $x;
+    }
 }

@@ -2,14 +2,14 @@
 @section('sidebar')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion border-right" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('quanlibangdiem')}}">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
+    <a style="color: indianred; background-color: white" class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('quanlibangdiem')}}">
+        <div class="sidebar-brand-icon">
+            <img style="width: 60px; height: 60px" class="img-profile" src="{{asset('public/admin/img/uit.png')}}">
         </div>
-        <div class="sidebar-brand-text mx-3">UIT - CTSV</div>
+        <div class="sidebar-brand-text mx-3">CTSV</div>
     </a>
 
     <!-- Divider -->
@@ -121,69 +121,7 @@
     </div>
 </div>
 <script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
-<script>
-    
-    $(document).ready(function () {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            var getSelected = $("#drop-down-term").children("option:selected").val();
-            $.ajax({
-            type: 'POST',
-            url: "{{url('get-thong-ke-thongkeloptruong')}}",
-            data: {
-                term_id: getSelected
-            },
-            success: function (data) {
-                $('.delete-row-thong-ke').remove();
-                
-                data.forEach(element => {
-                    html = `<tr class="delete-row-thong-ke">
-                                <td>`+element.mssv+`</td>
-                                <td>`+element.name+`</td>
-                                <td>`+element.diem+`</td>
-                                <td>`+element.xeploai+`</td>
-                            </tr>`;
-                    $('#show-thong-ke').append(html);
-                });
-            }
-        });
-        });
-  
-  
-   $('#drop-down-term').change(function (e) {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        e.preventDefault();
-        var getSelected = $(this).children("option:selected").val();
-        $.ajax({
-            type: 'POST',
-            url: "{{url('get-thong-ke-thongkeloptruong')}}",
-            data: {
-                term_id: getSelected
-            },
-            success: function (data) {
-                $('.delete-row-thong-ke').remove();
-                
-                data.forEach(element => {
-                    html = `<tr class="delete-row-thong-ke">
-                                <td>`+element.mssv+`</td>
-                                <td>`+element.name+`</td>
-                                <td>`+element.diem+`</td>
-                                <td>`+element.xeploai+`</td>
-                            </tr>`;
-                    $('#show-thong-ke').append(html);
-                });
-            }
-        });
-    });
-</script>
-<script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
+
 
 <script>
      $(document).ready(function () {
@@ -230,6 +168,38 @@
                     option = `<option class = "delete-option-term" value="` + element
                         .id + `">` + element.name + `</option>`;
                     $('#drop-down-co_so').append(option);
+                });
+            }
+        });
+    });
+
+    
+  
+   $('#drop-down-co_so').change(function (e) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        e.preventDefault();
+        var getSelected = $(this).children("option:selected").val();
+        $.ajax({
+            type: 'POST',
+            url: "{{url('get-thong-ke-thongkectsv')}}",
+            data: {
+                co_so_id: getSelected
+            },
+            success: function (data) {
+                $('.delete-row-thong-ke').remove();
+                
+                data.forEach(element => {
+                    html = `<tr class="delete-row-thong-ke">
+                                <td>`+element.mssv+`</td>
+                                <td>`+element.name+`</td>
+                                <td>`+element.diem+`</td>
+                                <td>`+element.xeploai+`</td>
+                            </tr>`;
+                    $('#show-thong-ke').append(html);
                 });
             }
         });

@@ -3,14 +3,14 @@
 @section('sidebar')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion border-right" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('quanlibangdiem')}}">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
+    <a style="color: indianred; background-color: white" class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('quanlibangdiem')}}">
+        <div class="sidebar-brand-icon">
+            <img style="width: 60px; height: 60px" class="img-profile" src="{{asset('public/admin/img/uit.png')}}">
         </div>
-        <div class="sidebar-brand-text mx-3">UIT - CTSV</div>
+        <div class="sidebar-brand-text mx-3">CTSV</div>
     </a>
 
     <!-- Divider -->

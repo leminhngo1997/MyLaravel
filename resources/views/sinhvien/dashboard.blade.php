@@ -4,14 +4,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Sidebar -->
     <script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
-    <ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion" id="accordionSidebar">
-
+    <ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion border-right" id="accordionSidebar">
+        
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
-            <div class="sidebar-brand-icon rotate-n-15">
-                <i class="fas fa-laugh-wink"></i>
+        <a style="color: indianred; background-color: white" class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('quanlibangdiem')}}">
+            <div class="sidebar-brand-icon">
+                <img style="width: 60px; height: 60px" class="img-profile" src="{{asset('public/admin/img/uit.png')}}">
             </div>
-            <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+            <div class="sidebar-brand-text mx-3">SINH VIÊN</div>
         </a>
 
         <!-- Divider -->
@@ -134,8 +134,8 @@
                             <th scope="col" class="text-center">XẾP HẠNG</th>
                         </tr>
                         <tr class="border-bottom">
-                        <th class="text-danger" style="font-size: 20px;">{{$chitietxephang['trung_binh']}}<span style="font-size: 10px;"
-                                    class="text-danger">Điểm</span></th>
+                        <th class="text-danger" style="font-size: 20px;">{{round($chitietxephang['trung_binh'])}}<span style="font-size: 10px;"
+                                    class="text-danger"> Điểm</span></th>
                             <th class="text-center text-danger">{{$chitietxephang['xep_hang']}}</th>
                         </tr>
                     </thead>
@@ -156,54 +156,29 @@
                 <div class="card">
                     <div class="row">
                         <div class="col-7">
-                            <h1 class="h4 m-2 text-gray-800">Phản hồi gần đây</h1>
+                            <h1 class="h4 m-2">Phản hồi gần đây</h1>
                         </div>
                         <div class="col-5">
-                            <h6 class="h6 m-3 text-right">Xem tất cả</h6>
+                            <h2 class="h6 m-3 text-right"><a href="{{URL::to('feedback')}}">Xem tất cả</a></h2>
                         </div>
                     </div>
                     <div class="card-body">
+                        @foreach ($current_posts_user as $key=>$value)
                         <ul class="list-unstyled friend-list">
+
                             <li class="active grey lighten-3 p-2">
-                                <a href="#" class="d-flex justify-content-between">
-                                    <div class="text-small">
-                                        <strong>John Doe</strong>
-                                        <p class="last-message text-muted">Hello, Are you there?</p>
-                                    </div>
-                                    <div class="chat-footer">
-                                        <p class="text-smaller text-muted mb-0">Just now</p>
-                                        <span class="badge badge-danger float-right">1</span>
-                                    </div>
+                            <a href="{{URL::to('/feedback/chitiet')}}/{{$value->id}}" class="d-flex justify-content-between">
+                                    <div class="col-12 text-small">
+                                    <strong>{{$value->name_hoatdong}}</strong>
                                 </a>
-                            </li>
-                            <li class="p-2">
-                                <a href="#" class="d-flex justify-content-between">
-                                    <div class="text-small">
-                                        <strong>Danny Smith</strong>
-                                        <p class="last-message text-muted">Lorem ipsum dolor sit.</p>
-                                    </div>
-                                    <div class="chat-footer">
-                                        <p class="text-smaller text-muted mb-0">5 min ago</p>
-                                        <span class="text-muted float-right"><i class="fas fa-mail-reply"
-                                                aria-hidden="true"></i></span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="p-2">
-                                <a href="#" class="d-flex justify-content-between">
-                                    <div class="text-small">
-                                        <strong>Alex Steward</strong>
-                                        <p class="last-message text-muted">Lorem ipsum dolor sit.</p>
-                                    </div>
-                                    <div class="chat-footer">
-                                        <p class="text-smaller text-muted mb-0">Yesterday</p>
-                                        <span class="text-muted float-right"><i class="fas fa-mail-reply"
-                                                aria-hidden="true"></i></span>
-                                    </div>
-                                </a>
+                                <p class="grey">({{date('d-m-Y', strtotime($value->created_at))}})</p>
+                                <p class="last-message text-muted">Mô tả: {{$value->mota}}</p>
                             </li>
                         </ul>
+                        @endforeach
+                        
                     </div>
+                    {{$current_posts_user->links()}}
                 </div>
             </div>
         </div>
@@ -212,8 +187,9 @@
 </div>
 <script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
 
-<script>
 
+
+<script>
     $(document).ready(function () {
         $.ajaxSetup({
             headers: {
@@ -257,12 +233,43 @@
                 // debugger;
                 // console.log(data);
                 $('.delete-sum-bang-diem').remove();
-                html = `<h2 class="text-center delete-sum-bang-diem">` + data + `</h2>`;
+                html = `<h2 class="text-center delete-sum-bang-diem sum-bang-diem">` + data + `</h2>`;
                 $('#show-sum-bang-diem').append(html);
-            }
+                // Pie Chart 
+                var ctx = document.getElementById("myPieChart");
+                var myPieChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ["Tổng điểm học kỳ hiện tại",""],
+                    datasets: [{
+                    data: [data, 100-data],
+                    backgroundColor: ['#4e73df', '#FFFFFF'],
+                    hoverBackgroundColor: ['#2e59d9', '#FFFFFF'],
+                    hoverBorderColor: "rgba(234, 236, 244, 1)",
+                    }],
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    tooltips: {
+                    backgroundColor: "rgb(255,255,255)",
+                    bodyFontColor: "#858796",
+                    borderColor: '#dddfeb',
+                    borderWidth: 1,
+                    xPadding: 15,
+                    yPadding: 15,
+                    displayColors: false,
+                    caretPadding: 10,
+                    },
+                    legend: {
+                    display: false
+                    },
+                    cutoutPercentage: 80,
+                },
+                });
+                            }
 
-        });
-    });
+                        });
+                    });
 
     $('#drop-down-term').change(function (e) {
         $.ajaxSetup({
@@ -289,7 +296,7 @@
                         <td class="return-data" class="text-center">` + element.sum_tieuchi + `</td>
                     </tr>`;
                     $('#show-tieu-chi').append(html);
-                    console.log(data);
+                    
                 });
             }
 
@@ -308,11 +315,60 @@
                 // debugger;
                 // console.log(data);
                 $('.delete-sum-bang-diem').remove();
-                html = `<h2 class="text-center delete-sum-bang-diem">` + data + `</h2>`;
+                html = `<h2 class="text-center delete-sum-bang-diem sum-bang-diem">` + data + `</h2>`;
                 $('#show-sum-bang-diem').append(html);
-            }
-        });
-    });
+                // Pie Chart 
+                var ctx = document.getElementById("myPieChart");
+                var myPieChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ["Tổng điểm học kỳ hiện tại",""],
+                    datasets: [{
+                    data: [data, 100-data],
+                    backgroundColor: ['#4e73df', '#FFFFFF'],
+                    hoverBackgroundColor: ['#2e59d9', '#FFFFFF'],
+                    hoverBorderColor: "rgba(234, 236, 244, 1)",
+                    }],
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    tooltips: {
+                    backgroundColor: "rgb(255,255,255)",
+                    bodyFontColor: "#858796",
+                    borderColor: '#dddfeb',
+                    borderWidth: 1,
+                    xPadding: 15,
+                    yPadding: 15,
+                    displayColors: false,
+                    caretPadding: 10,
+                    },
+                    legend: {
+                    display: false
+                    },
+                    cutoutPercentage: 80,
+                },
+                });
+                            }
+
+                        });
+                    });
 </script>
+ <!-- Bootstrap core JavaScript-->
+ <script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
+
+
+ <!-- Core plugin JavaScript-->
+ <script src="{{asset('public/admin/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+
+ <!-- Custom scripts for all pages-->
+ <script src="{{asset('public/admin/js/sb-admin-2.min.js')}}"></script>
+
+ <!-- Page level plugins -->
+ <script src="{{asset('public/admin/vendor/chart.js/Chart.min.js')}}"></script>
+
+ <!-- Page level custom scripts -->
+ <script src="{{asset('public/admin/js/demo/chart-area-demo.js')}}"></script>
+ <script src="{{asset('public/admin/js/demo/chart-pie-demo.js')}}"></script>
+
 
 @endsection

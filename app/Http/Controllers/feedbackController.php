@@ -12,6 +12,27 @@ use DB;
 class feedbackController extends Controller
 {
     public function get_value_feedbackdetail($id){
+          //get id user hiện tại
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
+        //get phân quyền
+        $quyen_id = DB::table('user_role')->where('sv_id',$auth_id)->get('role_id');
+        $quyen_id = end($quyen_id);
+        $quyen_id = end($quyen_id);
+        $quyen_id = end($quyen_id);
+
+        switch($quyen_id)
+        {
+            case 1: $quyen = 'sinhvien'; break;
+            case 2: $quyen = 'loptruong'; break;
+            case 3: $quyen = 'ctsv'; break;
+        }
         $posts = DB::table('posts')->where('id',$id)->get();
         $comments = DB::table('comments')->where('post_id',$id)->get();
         $user_name_comment = DB::table('users')->join('comments','users.id','=','comments.sv_id')->where('comments.post_id',$id)->get();
@@ -66,7 +87,8 @@ class feedbackController extends Controller
             'posts'=>$posts,
             'comments'=>$comments,
             'replies'=>$replies,
-            'list_user'=>$list_user
+            'list_user'=>$list_user,
+            'quyen'=>$quyen,
             ]);
     }
        //--Thêm comments

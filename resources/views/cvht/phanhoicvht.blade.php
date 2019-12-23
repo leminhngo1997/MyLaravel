@@ -2,21 +2,21 @@
 @section('sidebar')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion border-right" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('phan-hoi-cvht')}}">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
+    <a style="color: indianred; background-color: white" class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('quanlibangdiem')}}">
+        <div class="sidebar-brand-icon">
+            <img style="width: 60px; height: 60px" class="img-profile" src="{{asset('public/admin/img/uit.png')}}">
         </div>
-        <div class="sidebar-brand-text mx-3">UIT - CVHT</div>
+        <div class="sidebar-brand-text mx-3">CVHT</div>
     </a>
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
+    <li class="nav-item active">
         <a class="nav-link" href="{{route('phan-hoi-cvht')}}">
             <i class="fas fa-fw fa-comments"></i>
             <span>Phản hồi sinh viên</span></a>
@@ -26,12 +26,12 @@
     <!-- Nav Item - Cơ sở-Sinh viên -->
   
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
+    <li class="nav-item">
         <a class="nav-link" href="{{route('thongke-cvht')}}">
             <i class="fas fa-fw fa-comments"></i>
             <span>Thống kê báo cáo</span></a>
     </li>
-    <li class="nav-item active dropdown">
+    <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="{{route('votecvht')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Bầu chọn</span>
