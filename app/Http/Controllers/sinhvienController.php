@@ -158,7 +158,7 @@ class sinhvienController extends Controller
                     );
                 }
             }
-            $current_posts_user = DB::table('posts')->where('sv_id',$auth_id)->paginate(2);
+            $current_posts_user = DB::table('posts')->where('sv_id',$auth_id)->paginate(4);
             // dd($current_posts_user);
         return view('sinhvien.dashboard',[
             'siso'=>count($sinhvien),
