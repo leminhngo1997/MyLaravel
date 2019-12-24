@@ -107,9 +107,21 @@ class sinhvienController extends Controller
                                 ])->sum('hoatdong.diem');
                         $sum += intval($diemcong)-intval($diemtru);
                 }
-
                 $avr = $sum / count($bangdiem_id);
-                $xephang[] = array('id'=>$item->id,'trung_binh'=>$avr);
+                // lấy xếp loại
+                foreach($bangdiem_id as $key => $value){
+                    $xeploai = DB::table('xeploai')
+                    ->join('loaibangdiem','xeploai.loaibangdiem_id','=','loaibangdiem.id')
+                    ->join('bangdiem','loaibangdiem.id','=','bangdiem.loaibangdiem_id')
+                    ->where('bangdiem.id',$value->bangdiem_id)->select('xeploai.name','cantren','canduoi')->get();
+                }
+                foreach($xeploai as $key => $value){
+                    if($avr < $value->cantren && $avr >= $value->canduoi){
+                        $loai = $value->name;
+                    }
+                }
+            
+                $xephang[] = array('id'=>$item->id,'xep_loai'=>$loai,'trung_binh'=>$avr);
             }
             function build_sorter($key) {
                 return function ($a, $b) use ($key) {
@@ -124,6 +136,7 @@ class sinhvienController extends Controller
                 if($auth_id === $value['id']){
                     $hang = $key+1;
                     $chitietxephang = array('id'=>$auth_id, 
+                    'xep_loai'=>$value['xep_loai'],
                     'trung_binh' => $value['trung_binh'],
                     'xep_hang'=>$hang
                     );
