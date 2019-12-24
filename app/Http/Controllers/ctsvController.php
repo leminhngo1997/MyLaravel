@@ -244,8 +244,15 @@ class ctsvController extends Controller
         {
             return view('Auth.login');
         }
-        $list_hoat_dong = DB::table('hoatdong')->where('id',$id)->get();
-        $user_hoatdong = DB::table('user_hoatdong')->where('hoatdong_id',$id)->paginate(10);
+
+        if($id===null){
+            $list_hoat_dong = array();
+            $user_hoatdong = array();
+        }
+        else{
+            $list_hoat_dong = DB::table('hoatdong')->where('id',$id)->get();
+            $user_hoatdong = DB::table('user_hoatdong')->where('hoatdong_id',$id)->paginate(10);
+        }
         return view('ctsv.danhsachsinhvienthamgiahoatdong',[
             'list_hoat_dong'=>$list_hoat_dong,
             'hoatdong_id' => $id,
@@ -266,6 +273,15 @@ class ctsvController extends Controller
         {
             return view('Auth.login');
         }
+
+        //check input
+        if(empty($request->input_loaibangdiem))
+        {
+            Session::put('message','Nhập tên bảng điểm');
+            return back();
+        };
+
+
         $data = array();
         $data['name'] = $request->input_loaibangdiem;
         DB::table('loaibangdiem')->insert($data);
@@ -283,6 +299,15 @@ class ctsvController extends Controller
         {
             return view('Auth.login');
         }
+
+        //kiểm tra tồn tại
+        $kiemtra = DB::table('bangdiem')->where('loaibangdiem_id',$id)->get();
+
+        if(count($kiemtra)>0){
+            Session::put('message','Loại bảng điểm đã sử dụng, không thể xóa!');
+            return back();
+        }
+
         DB::table('loaibangdiem')->where('id',$id)->delete();
         Session::put('message','Xóa loại bảng điểm thành công.');
         return Redirect::to('quanlibangdiem');
@@ -298,6 +323,42 @@ class ctsvController extends Controller
         {
             return view('Auth.login');
         }
+        
+
+        //check input
+        if(empty($request->input_name_bangdiem))
+        {
+            Session::put('message','Nhập tên bảng điểm');
+            return back();
+        };
+        if(empty($request->input_loaibangdiem_id_bangdiem))
+        {
+            Session::put('message','Chọn loại bảng điểm');
+            return back();
+        }
+        if(empty($request->input_maxbangdiem_bangdiem))
+        {
+            Session::put('message','Nhập max bảng điểm');
+            return back();
+        }
+        if(empty($request->input_ngaybatdau_bangdiem))
+        {
+            Session::put('message','Chọn ngày bắt đầu');
+            return back();
+        }
+        if(empty($request->input_ngayketthuc_bangdiem))
+        {
+            Session::put('message','Chọn ngày kết thúc');
+            return back();
+        }
+        if(empty($request->doituong))
+        {
+            Session::put('message','Chọn đối tượng');
+            return back();
+        }
+
+
+
         //insert table bangdiem
         $data_bangdiem = array();
         $data_bangdiem['name'] = $request->input_name_bangdiem;
@@ -405,7 +466,8 @@ class ctsvController extends Controller
         {
             return view('Auth.login');
         }
-        //insert table phongtrao  
+          
+        //check input
         if(empty($request->input_tieuchi_id))
         {
             Session::put('message','Chọn tiêu chí');
@@ -421,6 +483,8 @@ class ctsvController extends Controller
             Session::put('message','Nhập max phong trào');
             return Redirect::to('quanliphongtrao');
         }
+
+        //insert table phongtrao
         $data = array();
         $data['name'] = $request->input_name_phongtrao;
         $data['maxphongtrao'] = $request->input_maxphongtrao_phongtrao;
