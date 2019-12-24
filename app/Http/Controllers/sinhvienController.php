@@ -80,6 +80,7 @@ class sinhvienController extends Controller
             foreach($sinhvien as $index => $item){  
             
                 $sum = 0;
+                $loai = '';
                 foreach($bangdiem_id as $key => $value){
                         $diemcong = DB::table('tieuchi')
                         ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
@@ -108,6 +109,7 @@ class sinhvienController extends Controller
                         $sum += intval($diemcong)-intval($diemtru);
                 }
                 $avr = $sum / count($bangdiem_id);
+                $avr = round($avr,2);
                 // lấy xếp loại
                 foreach($bangdiem_id as $key => $value){
                     $xeploai = DB::table('xeploai')
@@ -120,7 +122,22 @@ class sinhvienController extends Controller
                         $loai = $value->name;
                     }
                 }
-            
+                if($loai === ''){
+                    $max = 0;
+                    $min = 0;
+                    foreach($xeploai as $key => $value){
+                        if($key === 0){
+                            $max = $value->cantren;
+                            $min = $value->canduoi;
+                        }
+                        else{
+                            if($max<$value->cantren) $max = $value->cantren;
+                            if($min>$value->canduoi) $min = $value->canduoi; 
+                        }
+                    }
+                    if($avr > $max) $loai = 'Xuất sắc';
+                    if($avr < $min) $loai = 'Kém';
+                }
                 $xephang[] = array('id'=>$item->id,'xep_loai'=>$loai,'trung_binh'=>$avr);
             }
             function build_sorter($key) {
@@ -130,7 +147,6 @@ class sinhvienController extends Controller
             }    
                    
             usort($xephang, build_sorter('trung_binh'));
-           
             //xếp hạng
             foreach($xephang as $key => $value){
                 if($auth_id === $value['id']){
