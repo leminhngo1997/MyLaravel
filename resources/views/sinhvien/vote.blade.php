@@ -45,7 +45,7 @@
         {{-- thong ke - lop truong --}}
         <li class="nav-item" id="loptruong_only">
             <a class="nav-link" href="{{route('thongke')}} " >
-                <i class="fas fa-fw fa-thongke"></i>
+                <i class="fas fa-list-alt"></i>
                 <span>Thống kê</span></a>
         </li>
 
