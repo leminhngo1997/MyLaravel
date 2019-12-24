@@ -228,4 +228,4 @@ Route::get('/feedbackcvht/chitiet/{id}',['as'=>'feedbackcvht/chitiet','uses'=>'f
 //--lop truong thong ke
 Route::get('thongkectsv',['as'=>'thongkectsv','uses'=>'ctsvController@thongke_ctsv']);
 // -- export
-Route::post('/thongkectsv/export_diem','ExportExcel@export_diem' );
+Route::post('/thongkectsv/export_diem','ExportExcel@export_diem_ctsv' );

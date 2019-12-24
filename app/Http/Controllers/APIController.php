@@ -271,14 +271,32 @@ class APIController extends Controller
             ->join('xeploai','loaibangdiem.id','=','xeploai.loaibangdiem_id')
             ->where('bangdiem.id',$term_id)
             ->select('xeploai.name','cantren','canduoi')->get();
-
+            
             if(count($diem)>0){
                 foreach($diem as $index => $value){
+                    $xeploai = '';
                     foreach($xeploaidiem as $key => $item){
-                        if($value<=$item->canduoi && $value>=$item->canduoi){
-                            $xeploaisinhvien[] = $item->name;
+                        if($value<=$item->cantren && $value>=$item->canduoi){
+                            $xeploai = $item->name;
                         }
                     }
+                    if($xeploai === ''){
+                        $max = 0;
+                        $min = 0;
+                        foreach($xeploaidiem as $key => $item){
+                            if($key === 0){
+                                $max = $item->cantren;
+                                $min = $item->canduoi;
+                            }
+                            else{
+                                if($max<$item->cantren) $max = $item->cantren;
+                                if($min>$item->canduoi) $min = $item->canduoi; 
+                            }
+                        }
+                        if($value > $max) $xeploai = 'Xuất sắc';
+                        if($value < $min) $xeploai = 'Kém';
+                    }
+                    $xeploaisinhvien[] = $xeploai;
                 }
             }
 
@@ -430,23 +448,111 @@ class APIController extends Controller
 
     function GetCoSo_thongkectsv(Request $request){
         $term_id = $request->term_id;
-        $co_so = DB::table('coso')->join('bangdiem_doituong','coso.doituong_id','=','bangdiem_doituong.doituong_id')
-        ->where('bangdiem_doituong.bangdiem_id',$term_id)->get();
+        $co_so = DB::table('coso')
+        ->join('doituong','coso.doituong_id','=','doituong.id')
+        ->join('bangdiem_doituong','doituong.id','=','bangdiem_doituong.doituong_id')
+        ->where('bangdiem_doituong.bangdiem_id',$term_id)->select('coso.name','coso.id')->get();
         return $co_so;
     }
 
     function GetThongKe_thongkectsv(Request $request){
-        if(Auth::user()!==NULL)
-        {
-            $auth_id = Auth::user()->id;
-        }
-        else
-        {
-            return view('Auth.login');
-        }
-        $co_so_id = $request->co_so_id;
         
-        $x;//giá trị cần load
-        return $x;
+
+        $coso_id = $request->co_so_id;
+        $term_id = $request->bangdiem_id;
+
+         //danh sach sinh vien
+        $sinhvien = DB::table('users')
+        ->join('sv_coso','users.id','=','sv_coso.sv_id')
+        ->join('user_role','users.id','=','user_role.sv_id')
+        ->where([
+            ['sv_coso.coso_id','=',$coso_id],
+            ['user_role.role_id','<',3]
+        ])
+        ->select('users.id','users.name','users.email')
+        ->get();
+
+        
+        //tong diem tung sinh vien
+        $diem = array();
+        if(count($sinhvien)>0){
+            foreach($sinhvien as $key => $value){
+                $sum = 0;
+                $diemcong = DB::table('tieuchi')
+                ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
+                ->Join('phongtrao', 'tieuchi_phongtrao.phongtrao_id', '=', 'phongtrao.id')
+                ->Join('phongtrao_hoatdong','phongtrao.id', '=', 'phongtrao_hoatdong.phongtrao_id')
+                ->Join('hoatdong', 'phongtrao_hoatdong.hoatdong_id', '=', 'hoatdong.id')
+                ->Join('user_hoatdong', 'hoatdong.id', '=', 'user_hoatdong.hoatdong_id')
+                ->where([
+                            ['tieuchi.bangdiem_id', '=', $term_id],
+                            ['user_hoatdong.sv_id', '=', $value->id],
+                            ['hoatdong.status_clone','=',1],
+                            ['user_hoatdong.heso', '=', 1],
+                        ])->sum('hoatdong.diem');
+                $diemtru = DB::table('tieuchi')
+                ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
+                ->Join('phongtrao', 'tieuchi_phongtrao.phongtrao_id', '=', 'phongtrao.id')
+                ->Join('phongtrao_hoatdong','phongtrao.id', '=', 'phongtrao_hoatdong.phongtrao_id')
+                ->Join('hoatdong', 'phongtrao_hoatdong.hoatdong_id', '=', 'hoatdong.id')
+                ->Join('user_hoatdong', 'hoatdong.id', '=', 'user_hoatdong.hoatdong_id')
+                ->where([
+                            ['tieuchi.bangdiem_id', '=', $term_id],
+                            ['user_hoatdong.sv_id', '=', $value->id],
+                            ['hoatdong.status_clone','=',1],
+                            ['user_hoatdong.heso', '=', -1],
+                        ])->sum('hoatdong.diem');
+                $sum = intval($diemcong)-intval($diemtru);
+                $diem[] = $sum;
+            }
+        
+
+            //xep loai
+            $xeploaidiem = DB::table('bangdiem')
+            ->join('loaibangdiem','bangdiem.loaibangdiem_id','=','loaibangdiem.id')
+            ->join('xeploai','loaibangdiem.id','=','xeploai.loaibangdiem_id')
+            ->where('bangdiem.id',$term_id)
+            ->select('xeploai.name','cantren','canduoi')->get();
+            
+            if(count($diem)>0){
+                foreach($diem as $index => $value){
+                    $xeploai = '';
+                    foreach($xeploaidiem as $key => $item){
+                        if($value<=$item->cantren && $value>=$item->canduoi){
+                            $xeploai = $item->name;
+                        }
+                    }
+                    if($xeploai === ''){
+                        $max = 0;
+                        $min = 0;
+                        foreach($xeploaidiem as $key => $item){
+                            if($key === 0){
+                                $max = $item->cantren;
+                                $min = $item->canduoi;
+                            }
+                            else{
+                                if($max<$item->cantren) $max = $item->cantren;
+                                if($min>$item->canduoi) $min = $item->canduoi; 
+                            }
+                        }
+                        if($value > $max) $xeploai = 'Xuất sắc';
+                        if($value < $min) $xeploai = 'Kém';
+                    }
+                    $xeploaisinhvien[] = $xeploai;
+                }
+            }
+
+            foreach($sinhvien as $key => $value){
+                $mssv = explode('@',$value->email);
+                $danhsachdiem[] = collect([
+                    'id' => $value->id,
+                    'name' => $value->name,
+                    'mssv' => $mssv[0],
+                    'diem' => $diem[$key],
+                    'xeploai'=> $xeploaisinhvien[$key]
+                ]);
+            }
+        }
+        return $danhsachdiem;
     }
 }

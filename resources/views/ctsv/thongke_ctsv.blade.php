@@ -81,15 +81,14 @@
                 <!-- collapse 1 content -->
                 <div class="row col-12">
                     <form method="post" enctype="multipart/form-data"
-                            action="#"> {{-- url('/thongkectsv/export_diem') --}}
+                            action="{{url('/thongkectsv/export_diem')}}"> {{-- url('/thongkectsv/export_diem') --}}
                             {{ csrf_field() }}
                         <select class="btn btn-secondary dropdown-toggle ml-3 mb-4 col-6" href="#" role="button"
                             id="drop-down-term" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="bang_diem_id">
-                            <option selected>-- Chọn bảng điểm --</option>
                             @foreach($bangdiem as $key=>$value)
                             {
                 
-                                <option value="{{$value->id}}">{{$value->name}}</option>
+                                <option value="{{$value->id}}" selected>{{$value->name}}</option>
                                    
                             }
                             @endforeach
@@ -160,7 +159,7 @@
             type: 'POST',
             url: "{{url('get-co-so-thongkectsv')}}",
             data: {
-                term_id: getSelected
+                term_id: getSelected,
             },
             success: function (data) {
                 $('.delete-option-term').remove();
@@ -182,12 +181,16 @@
             }
         });
         e.preventDefault();
-        var getSelected = $(this).children("option:selected").val();
+        var getSelected = $('#drop-down-co_so').children("option:selected").val();
+        var getSelected_bangdiem = $("#drop-down-term").children("option:selected").val();
+        console.log(getSelected_bangdiem);
+        console.log(getSelected);
         $.ajax({
             type: 'POST',
             url: "{{url('get-thong-ke-thongkectsv')}}",
             data: {
-                co_so_id: getSelected
+                co_so_id: getSelected,
+                bangdiem_id: getSelected_bangdiem
             },
             success: function (data) {
                 $('.delete-row-thong-ke').remove();

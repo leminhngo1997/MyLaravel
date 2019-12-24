@@ -136,14 +136,14 @@
 <script>
     
     $(document).ready(function () {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            var getSelected = $('#drop-down-term').children("option:selected").val();
-            console.log(getSelected);
-            $.ajax({
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var getSelected = $("#drop-down-term").children("option:selected").val();
+        $.ajax({
             type: 'POST',
             url: "{{url('get-thong-ke-thongkeloptruong')}}",
             data: {
@@ -163,6 +163,7 @@
                 });
             }
         });
+        
     });
   
   
