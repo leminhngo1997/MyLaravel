@@ -88,7 +88,7 @@
                             @foreach($bangdiem as $key=>$value)
                             {
                 
-                                <option value="{{$value->id}}" selected>{{$value->name}}</option>
+                                <option value="{{$value->id}}">{{$value->name}}</option>
                                    
                             }
                             @endforeach
@@ -130,6 +130,8 @@
             }
         });
         var getSelected = $("#drop-down-term").children("option:selected").val();
+        
+        
         $.ajax({
             type: 'POST',
             url: "{{url('get-co-so-thongkectsv')}}",
@@ -140,7 +142,7 @@
                 $('.delete-option-term').remove();
                 data.forEach(element => {
                     option = `<option class = "delete-option-term" value="` + element
-                        .id + `">` + element.name + `</option>`;
+                        .id + `" selected>` + element.name + `</option>`;
                     $('#drop-down-co_so').append(option);
                 });
             }
@@ -175,6 +177,7 @@
     
   
    $('#drop-down-co_so').change(function (e) {
+    $('.delete-row-thong-ke').remove();
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -183,8 +186,6 @@
         e.preventDefault();
         var getSelected = $('#drop-down-co_so').children("option:selected").val();
         var getSelected_bangdiem = $("#drop-down-term").children("option:selected").val();
-        console.log(getSelected_bangdiem);
-        console.log(getSelected);
         $.ajax({
             type: 'POST',
             url: "{{url('get-thong-ke-thongkectsv')}}",
@@ -193,7 +194,7 @@
                 bangdiem_id: getSelected_bangdiem
             },
             success: function (data) {
-                $('.delete-row-thong-ke').remove();
+                
                 
                 data.forEach(element => {
                     html = `<tr class="delete-row-thong-ke">
