@@ -42,22 +42,23 @@ class cvhtController extends Controller
         $list_posts = array();
         if(count($co_so)>0){
 
-        foreach($co_so as $key=>$value)
-        {
-            $sv_coso = DB::table('sv_coso')->where('coso_id',$value->coso_id)->get();
-        }
-        
-        foreach($sv_coso as $key=>$value)
-        {
-            $posts[] = DB::table('posts')->where('sv_id',$value->sv_id)->get();
-        }
-        foreach($posts as $item){
-            foreach($item as $key=>$value)
+            foreach($co_so as $key=>$value)
             {
-                array_push($list_posts,$value);
+                $sv_coso = DB::table('sv_coso')->where('coso_id',$value->coso_id)->get();
+            }
+            
+            foreach($sv_coso as $key=>$value)
+            {
+                $posts[] = DB::table('posts')->where('sv_id',$value->sv_id)->get();
+            }
+            foreach($posts as $item){
+                foreach($item as $key=>$value)
+                {
+                    array_push($list_posts,$value);
+                }
             }
         }
-        }
+       
         return view('cvht.phanhoicvht',[
             'co_so'=>$co_so,
             'list_posts'=>$list_posts,
@@ -83,7 +84,9 @@ class cvhtController extends Controller
             $list_user[] = DB::table('users')
             ->join('sv_coso','users.id','=','sv_coso.sv_id')
             ->join('user_role','users.id','=','user_role.sv_id')
-            ->where([['sv_coso.coso_id',$value->coso_id],['user_role.role_id',1]])->get();
+            ->where([['sv_coso.coso_id',$value->coso_id],['user_role.role_id',1]])
+            ->orWhere([['sv_coso.coso_id',$value->coso_id],['user_role.role_id',2]])
+            ->get();
             
         }
         // dd($list_user);
@@ -169,7 +172,14 @@ class cvhtController extends Controller
         }
         $list_cauhoi = DB::table('cauhoi')->where('id',$id)->get();
         $list_traloi = DB::table('traloi')->where('cauhoi_id',$id)->get();
-        
+        // dd(count($list_traloi));
+        //Nếu không có traloi thì return
+        if(count($list_traloi) === 0)
+        {
+            Session::put('message','Chưa có ai bầu chọn hết !!');
+            return back();
+        }
+
         $x = array();
         
         foreach($list_traloi as $key=>$value)
@@ -217,7 +227,8 @@ class cvhtController extends Controller
             }
             
         }
-
+        
+       
         
         foreach($ungcuvien_id as $item => $value)
         {

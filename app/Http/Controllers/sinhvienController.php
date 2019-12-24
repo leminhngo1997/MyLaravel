@@ -577,7 +577,6 @@ class sinhvienController extends Controller
         $data_traloi['name_traloi'] = implode(',', $check);;
         $data_traloi['sv_id'] = $current_user;
         $data_traloi['cauhoi_id'] = $request->input_cauhoi_id;
-        $data_traloi['tinhtrang'] = 1;
         DB::table('traloi')->insert($data_traloi);
         Session::put('message','Bầu chọn thành công.');
         return back();
