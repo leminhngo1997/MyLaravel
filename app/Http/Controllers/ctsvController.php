@@ -391,6 +391,39 @@ class ctsvController extends Controller
         {
             return view('Auth.login');
         }
+
+        if(empty($request->input_name_tieuchi))
+        {
+            Session::put('message','Nhập tên tiêu chí');
+            return back();
+        };
+        if(empty($request->input_bangdiem_id_tieuchi))
+        {
+            Session::put('message','Chọn bảng điểm');
+            return back();
+        };
+        if(empty($request->input_maxtieuchi_tieuchi))
+        {
+            Session::put('message','Nhập điểm tối đa');
+            return back();
+        };
+
+        $maxbangdiem = DB::table('bangdiem')->where('id',$request->input_bangdiem_id_tieuchi)->select('maxbangdiem')->get()->toArray();
+        $maxbangdiem = end($maxbangdiem);
+        $maxbangdiem = end($maxbangdiem);
+
+        $sumMaxTieuChi_beforeInsert = DB::table('tieuchi')
+                                ->where('tieuchi.bangdiem_id',$request->input_bangdiem_id_tieuchi)
+                                ->sum('maxtieuchi');
+        $sumMaxTieuchi_afterInsert = 0;
+        $sumMaxtieuchi_afterInsert = intval($sumMaxTieuChi_beforeInsert)+intval($request->input_maxtieuchi_tieuchi);
+
+        if($sumMaxtieuchi_afterInsert>intval($maxbangdiem)){
+            $chenhlech = intval($maxbangdiem) - intval($sumMaxTieuChi_beforeInsert);
+            Session::put('message','Tổng max tiêu chí vượt quá max bảng điểm. Chênh lệch còn: '.$chenhlech);
+            return back();
+        }
+
         //insert table tieuchi
         $data = array();
         $data['name'] = $request->input_name_tieuchi;
@@ -708,6 +741,20 @@ class ctsvController extends Controller
 //--Thêm cơ sở
     public function insert_co_so_quanlicoso(Request $request){
         //insert table coso
+
+        if(empty($request->input_name_coso)){
+            Session::put('message','Nhập tên cơ sở');
+            return Redirect::to('quanlicoso');
+        }
+        if(empty($request->input_doituong_id)){
+            Session::put('message','Chọn đối tượng');
+            return Redirect::to('quanlicoso');
+        }
+        if(empty($request->input_siso_coso)){
+            Session::put('message','Nhập sĩ số');
+            return Redirect::to('quanlicoso');
+        }
+
         $data = array();
         $data['name'] = $request->input_name_coso;
         $data['doituong_id'] = $request->input_doituong_id;
@@ -724,6 +771,24 @@ class ctsvController extends Controller
     }
     //--users
     public function insert_users_quanlisinhvien(Request $request){
+
+        if(empty($request->input_name_users)){
+            Session::put('message','Nhập tên người dùng');
+            return back();
+        }
+        if(empty($request->input_email_users)){
+            Session::put('message','Nhập email người dùng');
+            return back();
+        }
+        if(empty($request->input_password_users)){
+            Session::put('message','Nhập mật khẩu');
+            return back();
+        }
+        if(empty($request->input_name_co_so)){
+            Session::put('message','Chọn cơ sở');
+            return back();
+        }
+
         //insert table users
         $data_users = array();
         $data_users['name'] = $request->input_name_users;
@@ -744,8 +809,19 @@ class ctsvController extends Controller
 // -- Tài khoản
     // phân quyền
     public function update_quanlitaikhoan(Request $request){
+        if(empty($request->input_user_id)){
+            Session::put('message','Nhập mã tài khoản');
+            return back();
+        }
+
         $user_id = $request->input_user_id;
         $role_id = $request->select_role_name;
+        //check user db
+        $isExist = DB::table('users')->where('id','=',$user_id)->get();
+        if(count($isExist)===0){
+            Session::put('message','Tài khoản không tồn tại.');
+            return back();
+        }
 
         DB::table('user_role')->updateOrInsert(
             [
@@ -759,7 +835,24 @@ class ctsvController extends Controller
 
     //delete hoat dong
     public function xoa_duyet_hoat_dong(Request $request){
+
+        if(empty($request->array_hoat_dong))
+        {
+            Session::put('message','Chọn hoạt động cần xóa.');
+            return back();
+        }
+        if(empty($request->action)){
+            Session::put('message','action null');
+            return back(); 
+        }
+
         $list_hoat_dong = $request->array_hoat_dong;
+
+        if(count($list_hoat_dong)===0){
+            Session::put('message','Chọn hoạt động cần xóa.');
+            return back(); 
+        }
+
         $action = $request->action;
         if($action == 'delete'){
             foreach($list_hoat_dong as $item){
@@ -808,6 +901,25 @@ public function delete_users_quanlisinhvien(Request $request){
 //--Thêm xếp loại
     public function insert_xep_loai_quanlixeploai(Request $request){
         //insert table xeploai
+
+        if(empty($request->input_name_xeploai)){
+            Session::put('message','Nhập tên xếp loại');
+            return Redirect::to('quanlixeploai');
+        }
+        if(empty($request->input_id_loai_bang_diem_xeploai)){
+            Session::put('message','Chọn loại bảng điểm');
+            return Redirect::to('quanlixeploai');
+        }
+        if(empty($request->input_canduoi_xeploai)){
+            Session::put('message','Nhập cận dưới');
+            return Redirect::to('quanlixeploai');
+        }
+        if(empty($request->input_cantren_xeploai)){
+            Session::put('message','Nhập cận trên');
+            return Redirect::to('quanlixeploai');
+        }
+
+
         $data = array();
         $data['name'] = $request->input_name_xeploai;
         $data['loaibangdiem_id'] = $request->input_id_loai_bang_diem_xeploai;

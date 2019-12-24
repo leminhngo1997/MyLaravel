@@ -90,12 +90,17 @@
                     </div>
                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="card-body">
-                            <!-- Core sheet type -->
-                            <!-- collapse 1 content -->
-
-                            <!-- danh sach tai khoan -->
+    
                             <div class="card-body col-12 mb-4">
                                 <!-- bảng hiển thị danh sách tài khoản -->
+                                <?php
+                                    $message = Session::get('message');
+                                    if($message){
+                                        echo '<span style="color:red">' .$message. '</span>';
+                                        Session::put('message',null);
+                                        }
+                                ?>
+                                {{csrf_field()}}
                                 <div>Tìm kiếm theo email</div>
                                 <input type="text" class="form-control col-6 mb-4" id="myInput" onkeyup="myFunction()">
                                 <table class="border table table-striped" id="myTable">
@@ -147,12 +152,12 @@
                                                 <td>
                                                     <input name="input_user_id" type="text"
                                                         class="card border-secondary shadow h-100 py-2 col-8"
-                                                        id="user_id" />
+                                                        id="user_id" readonly/>
                                                 </td>
                                                 <td>
                                                     <input name="input_email_user" type="text"
                                                         class="card border-secondary shadow h-100 py-2 col-8"
-                                                        id="user_email" />
+                                                        id="user_email" readonly/>
                                                 </td>
                                                 <td>
                                                     <select id="dropdown-role" name="select_role_name"

@@ -128,6 +128,32 @@ class cvhtController extends Controller
         {
             return view('Auth.login');
         }
+
+        if(empty($request->check)){
+            Session::put('message','Check sinh viên');
+            return back();
+        }
+        if(empty($request->input_cauhoi)){
+            Session::put('message','Nhập nội dung bầu chọn');
+            return back();
+        }
+        if(empty($request->input_suluachon)){
+            Session::put('message','Chọn cách bầu cử');
+            return back();
+        }
+        if(empty($request->input_ngaybatdau_vote)){
+            Session::put('message','Chọn ngày bắt đầu');
+            return back();
+        }
+        if(empty($request->input_ngayketthuc_vote)){
+            Session::put('message','Chọn ngày kết thúc');
+            return back();
+        }
+        if($request->input_ngayketthuc_vote<$request->input_ngaybatdau_vote){
+            Session::put('message','Lỗi định dạng ngày tháng');
+            return back();
+        }
+        
         $current_user = Auth::user()->id;
         $current_coso_id = DB::table('coso')->join('sv_coso','coso.id','=','sv_coso.coso_id')
         ->where('sv_coso.sv_id',$current_user)->get();

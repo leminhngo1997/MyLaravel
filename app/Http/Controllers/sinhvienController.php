@@ -257,6 +257,31 @@ class sinhvienController extends Controller
             return view('Auth.login');
         }
 
+        if(empty($request->input_name_hoatdong)){
+            Session::put('message','Nhập tên hoạt động');
+        return back();
+        }
+        if(empty($request->input_diem_hoatdong)){
+            Session::put('message','Nhập điểm hoạt động');
+        return back();
+        }
+        if(empty($request->input_id_phongtrao)){
+            Session::put('message','Chọn phong trào');
+        return back();
+        }
+        if(empty($request->input_ngaybatdau_hoatdong)){
+            Session::put('message','Chọn ngày bắt đầu');
+            return back();
+        }
+        if(empty($request->input_ngayketthuc_hoatdong)){
+            Session::put('message','Chọn ngày kết thúc');
+            return back();
+        }
+        if($request->input_ngayketthuc_hoatdong<$request->input_ngaybatdau_hoatdong){
+            Session::put('message','Lỗi định dạng ngày tháng');
+            return back();
+        }
+
         $current_term = DB::table('bangdiem')->orderBy('id','DESC')->first();
         //get tiêu chí của học kì hiện tại
         $tieuchi = DB::table('tieuchi')->where('bangdiem_id',$current_term->id)->get();
@@ -331,6 +356,23 @@ class sinhvienController extends Controller
         else
         {
             return view('Auth.login');
+        }
+
+        if(empty($request->input_name_tieuchi)){
+            Session::put('message','Chọn tiêu chí');
+            return back();
+        }
+        if(empty($request->input_name_phongtrao)){
+            Session::put('message','Chọn phong trào');
+            return back();
+        }
+        if(empty($request->input_name_hoatdong)){
+            Session::put('message','Chọn hoạt động');
+            return back();
+        }
+        if(empty($request->input_mota)){
+            Session::put('message','Nhập nội dung phản hồi');
+            return back();
         }
         
         $bang_diem_id = DB::table('bangdiem')->orderBy('id', 'DESC')->first()->id;
@@ -572,6 +614,11 @@ class sinhvienController extends Controller
         else
         {
             return view('Auth.login');
+        }
+
+        if(empty($request->input_cauhoi_id)){
+            Session::put('message','Chọn câu hỏi');
+            return back();
         }
 
         if($request->check == null)
