@@ -43,7 +43,7 @@
         </li>
         {{-- thong ke - lop truong --}}
         <li class="nav-item" id="loptruong_only">
-            <a class="nav-link" href="{{route('thongke')}} " >
+            <a class="nav-link" href="{{route('thongke')}}">
                 <i class="fas fa-fw fa-thongke"></i>
                 <span>Thống kê</span></a>
         </li>
@@ -69,7 +69,7 @@
         <h1 class="h3 mb-0 text-gray-800">Tổng quan</h1>
     </div>
     <!-- Content Row -->
-    <div class="row">
+    <div class="row h-100">
         <!-- Earnings (Monthly) Card Example -->
         <div class="col-xl-8 col-md-12 col-sm-12 mb-4">
             <div class="col-12">
@@ -122,67 +122,71 @@
                     </div>
                 </div>
             </div>
-        </div>
+        
 
         <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-4 col-md-12 col-sm-12 mb-4 ">
+        <div class="col-md-12 col-sm-12 mt-3">
             <div class="col-12 border border-secondary">
                 <table class="table table-borderless">
                     <thead>
                         <tr>
-                            <th scope="col">TRUNG BÌNH CHUNG</th>
+                            <th scope="col" class="text-center">TRUNG BÌNH CHUNG</th>
+                            <th scope="col" class="text-center">XẾP LOẠI</th>
                             <th scope="col" class="text-center">XẾP HẠNG</th>
                         </tr>
                         <tr class="border-bottom">
-                        <th class="text-danger" style="font-size: 20px;">{{round($chitietxephang['trung_binh'])}}<span style="font-size: 10px;"
+                        <th class="text-danger text-center" style="font-size: 20px;">{{$chitietxephang['trung_binh']}}<span style="font-size: 10px;"
                                     class="text-danger"> Điểm</span></th>
+                                    <th class="text-danger text-center">{{$chitietxephang['xep_loai']}}</th>
                             <th class="text-center text-danger">{{$chitietxephang['xep_hang']}}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Lớp</td>
-                            <td class="text-center">Sĩ Số</td>
+                            <th class="text-center">Lớp</th>
+                            <th></th>
+                            <th class="text-center">Sĩ Số</th>
                         </tr>
                         <tr>
-                            <td>{{$coso_name}}</td>
+                            <td class="text-center">{{$coso_name}}</td>
                             </td>
+                            <td></td>
                             <td class="text-center">{{$siso}}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="col-12 mt-3">
-                <div class="card">
-                    <div class="row">
-                        <div class="col-7">
-                            <h1 class="h4 m-2">Phản hồi gần đây</h1>
-                        </div>
-                        <div class="col-5">
-                            <h2 class="h6 m-3 text-right"><a href="{{URL::to('feedback')}}">Xem tất cả</a></h2>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        @foreach ($current_posts_user as $key=>$value)
-                        <ul class="list-unstyled friend-list">
-
-                            <li class="active grey lighten-3 p-2">
-                            <a href="{{URL::to('/feedback/chitiet')}}/{{$value->id}}" class="d-flex justify-content-between">
-                                    <div class="col-12 text-small">
-                                    <strong>{{$value->name_hoatdong}}</strong>
-                                </a>
-                                <p class="grey">({{date('d-m-Y', strtotime($value->created_at))}})</p>
-                                <p class="last-message text-muted">Mô tả: {{$value->mota}}</p>
-                            </li>
-                        </ul>
-                        @endforeach
-                        
-                    </div>
-                    {{$current_posts_user->links()}}
+        </div>
+    </div>
+    <div class="col-xl-4 col-md-12 col-sm-12">
+        <div class="card">
+            <div class="row">
+                <div class="col-7">
+                    <h1 class="h4 m-2">Phản hồi gần đây</h1>
+                </div>
+                <div class="col-5">
+                    <h2 class="h6 m-3 text-right"><a href="{{URL::to('feedback')}}">Xem tất cả</a></h2>
                 </div>
             </div>
-        </div>
+            <div class="card-body">
+                @foreach ($current_posts_user as $key=>$value)
+                <ul class="list-unstyled friend-list">
 
+                    <li class="active grey lighten-3 p-2">
+                    <a href="{{URL::to('/feedback/chitiet')}}/{{$value->id}}" class="d-flex justify-content-between">
+                            <div class="col-12 text-small">
+                            <strong>{{$value->name_hoatdong}}</strong>
+                        </a>
+                        <p class="grey">({{date('d-m-Y', strtotime($value->created_at))}})</p>
+                        <p class="last-message text-muted">Mô tả: {{$value->mota}}</p>
+                    </li>
+                </ul>
+                @endforeach
+                
+            </div>
+            {{$current_posts_user->links()}}
+        </div>
+    </div>
     </div>
 </div>
 <script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>

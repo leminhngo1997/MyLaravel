@@ -80,6 +80,7 @@ class sinhvienController extends Controller
             foreach($sinhvien as $index => $item){  
             
                 $sum = 0;
+                $loai = '';
                 foreach($bangdiem_id as $key => $value){
                         $diemcong = DB::table('tieuchi')
                         ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
@@ -107,9 +108,37 @@ class sinhvienController extends Controller
                                 ])->sum('hoatdong.diem');
                         $sum += intval($diemcong)-intval($diemtru);
                 }
-
                 $avr = $sum / count($bangdiem_id);
-                $xephang[] = array('id'=>$item->id,'trung_binh'=>$avr);
+                $avr = round($avr,2);
+                // lấy xếp loại
+                foreach($bangdiem_id as $key => $value){
+                    $xeploai = DB::table('xeploai')
+                    ->join('loaibangdiem','xeploai.loaibangdiem_id','=','loaibangdiem.id')
+                    ->join('bangdiem','loaibangdiem.id','=','bangdiem.loaibangdiem_id')
+                    ->where('bangdiem.id',$value->bangdiem_id)->select('xeploai.name','cantren','canduoi')->get();
+                }
+                foreach($xeploai as $key => $value){
+                    if($avr < $value->cantren && $avr >= $value->canduoi){
+                        $loai = $value->name;
+                    }
+                }
+                if($loai === ''){
+                    $max = 0;
+                    $min = 0;
+                    foreach($xeploai as $key => $value){
+                        if($key === 0){
+                            $max = $value->cantren;
+                            $min = $value->canduoi;
+                        }
+                        else{
+                            if($max<$value->cantren) $max = $value->cantren;
+                            if($min>$value->canduoi) $min = $value->canduoi; 
+                        }
+                    }
+                    if($avr > $max) $loai = 'Xuất sắc';
+                    if($avr < $min) $loai = 'Kém';
+                }
+                $xephang[] = array('id'=>$item->id,'xep_loai'=>$loai,'trung_binh'=>$avr);
             }
             function build_sorter($key) {
                 return function ($a, $b) use ($key) {
@@ -118,12 +147,12 @@ class sinhvienController extends Controller
             }    
                    
             usort($xephang, build_sorter('trung_binh'));
-           
             //xếp hạng
             foreach($xephang as $key => $value){
                 if($auth_id === $value['id']){
                     $hang = $key+1;
                     $chitietxephang = array('id'=>$auth_id, 
+                    'xep_loai'=>$value['xep_loai'],
                     'trung_binh' => $value['trung_binh'],
                     'xep_hang'=>$hang
                     );
