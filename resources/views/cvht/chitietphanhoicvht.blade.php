@@ -28,7 +28,7 @@
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
         <a class="nav-link" href="{{route('thongke-cvht')}}">
-            <i class="fas fa-fw fa-comments"></i>
+            <i class="fas fa-list-alt"></i>
             <span>Thống kê báo cáo</span></a>
     </li>
     <li class="nav-item active dropdown">
