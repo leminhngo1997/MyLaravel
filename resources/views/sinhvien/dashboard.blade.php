@@ -135,7 +135,7 @@
                             <th scope="col" class="text-center">XẾP HẠNG</th>
                         </tr>
                         <tr class="border-bottom">
-                        <th class="text-danger text-center" style="font-size: 20px;">{{$chitietxephang['trung_binh']}}<span style="font-size: 10px;"
+                        <th class="text-danger text-center" style="font-size: 20px;">{{round($chitietxephang['trung_binh'])}}<span style="font-size: 10px;"
                                     class="text-danger"> Điểm</span></th>
                                     <th class="text-danger text-center">{{$chitietxephang['xep_loai']}}</th>
                             <th class="text-center text-danger">{{$chitietxephang['xep_hang']}}</th>

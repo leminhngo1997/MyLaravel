@@ -80,6 +80,7 @@
                     @endforeach
                 </ul>
             </div>
+       
             <!-- page navigation -->
            
         </div>

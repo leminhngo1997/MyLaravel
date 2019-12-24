@@ -18,7 +18,7 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
+    <li class="nav-item">
         <a class="nav-link" href="{{route('dashboard')}}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
@@ -36,7 +36,7 @@
             <span>Phản hồi</span></a>
     </li>
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
+    <li class="nav-item active">
         <a class="nav-link" href="{{route('vote')}}">
             <i class="fas fa-fw fa-vote-yea"></i>
             <span>Bầu chọn</span></a>

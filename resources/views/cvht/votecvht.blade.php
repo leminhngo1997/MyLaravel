@@ -56,7 +56,13 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Danh sách các cuộc bầu chọn</h1>
     </div>     
-       
+    <?php
+    $message = Session::get('message');
+    if($message){
+        echo '<span style="color:red">' .$message. '</span>';
+        Session::put('message',null);
+        }
+        ?>
     <div class="col-xl-10 col-md-12 col-sm-12 mb-4">
         <div class="card border-secondary shadow h-100 py-2 col-12">
           
