@@ -68,7 +68,7 @@ class ImportExcelController extends Controller
                                 'hoatdong_id' =>$hoatdong_id,
                                 'status' => 1
                             ]);
-                            $count ++;
+                            
 
                             //insert coso_hoatdong
                             if($insert_hoatdong[$key]['doituong']==='ALL'){
@@ -80,6 +80,7 @@ class ImportExcelController extends Controller
                                         'hoatdong_id'=> $hoatdong_id
                                     ]);
                                 }
+                                $count ++;
                             }
                             else
                             {
@@ -93,6 +94,7 @@ class ImportExcelController extends Controller
                                         ]);
                                     }
                                 }
+                                $count ++;
                 
                             }
                         }
@@ -294,19 +296,20 @@ class ImportExcelController extends Controller
             {   
                 $count = 0;
                 // check max điểm tiêu chí
-                foreach($tieuchi_id as $key=>$value){
+                foreach($insert_phongtrao as $key=>$value){
 
                         // insert phong trao
                         DB::table('phongtrao')->insert($insert_phongtrao[$key]);
                         
                         // lấy mã phong trào vừa thêm vào
-                        $phongtrao_id = DB::table('hoatdong')->orderBy('id','DESC')->limit(1)->get('id')->toArray();
+                        $phongtrao_id = DB::table('phongtrao')->orderBy('id','DESC')->limit(1)->get('id')->toArray();
+                        //dd($phongtrao_id);
                         if(count($phongtrao_id)>0){
                             $phongtrao_id = end($phongtrao_id);
                             $phongtrao_id = end($phongtrao_id);
                             DB::table('tieuchi_phongtrao')->insert([
                                 'phongtrao_id' =>$phongtrao_id,
-                                'tieuchi_id' =>$value,
+                                'tieuchi_id' =>$tieuchi_id[$key],
                             ]);
                             $count ++;
                         }
