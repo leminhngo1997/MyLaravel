@@ -150,6 +150,7 @@
                 term_id: getSelected
             },
             success: function (data) {
+                console.log(data);
                 $('.delete-row-thong-ke').remove();
                 
                 data.forEach(element => {
