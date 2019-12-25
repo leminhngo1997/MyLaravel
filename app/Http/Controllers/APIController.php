@@ -19,37 +19,95 @@ class APIController extends Controller
         }
         $term = $request->term;
         $tieu_chi = DB::table('tieuchi')->where('bangdiem_id', $term)->get();
-        $max_bangdiem_tieuchi_id = DB::table('tieuchi')->where('bangdiem_id',$term)->get('id');
+        $max_bangdiem_tieuchi_id = DB::table('tieuchi')->where('bangdiem_id',$term)->select('tieuchi.id','tieuchi.maxtieuchi')->get();
         $max_bangdiem_tieuchi_id = end($max_bangdiem_tieuchi_id);
+        $diem_tieuchi = array();
         foreach ($max_bangdiem_tieuchi_id as $key => $value){
-            $diemcong = DB::table('tieuchi')
-            ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
-            ->Join('phongtrao', 'tieuchi_phongtrao.phongtrao_id', '=', 'phongtrao.id')
-            ->Join('phongtrao_hoatdong','phongtrao.id', '=', 'phongtrao_hoatdong.phongtrao_id')
-            ->Join('hoatdong', 'phongtrao_hoatdong.hoatdong_id', '=', 'hoatdong.id')
-            ->Join('user_hoatdong', 'hoatdong.id', '=', 'user_hoatdong.hoatdong_id')
-            ->where([
-                        ['tieuchi.id', '=', $value->id],
+            
+            // lấy max phong trào trong từng phong trào có mã tiêu chí hiện tại.
+            $diemphongtrao = array();
+            $maxphongtrao = DB::table('phongtrao')
+            ->join('tieuchi_phongtrao','phongtrao.id','=','tieuchi_phongtrao.phongtrao_id')
+            ->where('tieuchi_phongtrao.tieuchi_id',$value->id)
+            ->select('phongtrao.id','phongtrao.maxphongtrao')->get()->toArray();
+            
+            foreach($maxphongtrao as $item => $row){
+
+                $diemcong = DB::table('phongtrao')
+                ->join('phongtrao_hoatdong','phongtrao.id','=','phongtrao_hoatdong.phongtrao_id')
+                ->join('hoatdong','phongtrao_hoatdong.hoatdong_id','=','hoatdong.id')
+                ->join('user_hoatdong','hoatdong.id','=','user_hoatdong.hoatdong_id')
+                ->where([
+                        ['phongtrao.id','=',$row->id],
                         ['user_hoatdong.sv_id', '=', $auth_id],
                         ['hoatdong.status_clone','=',1],
                         ['user_hoatdong.heso', '=', 1],
-                    ])->sum('hoatdong.diem');
-            $diemtru = DB::table('tieuchi')
-            ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
-            ->Join('phongtrao', 'tieuchi_phongtrao.phongtrao_id', '=', 'phongtrao.id')
-            ->Join('phongtrao_hoatdong','phongtrao.id', '=', 'phongtrao_hoatdong.phongtrao_id')
-            ->Join('hoatdong', 'phongtrao_hoatdong.hoatdong_id', '=', 'hoatdong.id')
-            ->Join('user_hoatdong', 'hoatdong.id', '=', 'user_hoatdong.hoatdong_id')
-            ->where([
-                        ['tieuchi.id', '=', $value->id],
+                        ])
+                ->sum('hoatdong.diem');
+                
+                $diemtru = DB::table('phongtrao')
+                ->join('phongtrao_hoatdong','phongtrao.id','=','phongtrao_hoatdong.phongtrao_id')
+                ->join('hoatdong','phongtrao_hoatdong.hoatdong_id','=','hoatdong.id')
+                ->join('user_hoatdong','hoatdong.id','=','user_hoatdong.hoatdong_id')
+                ->where([
+                        ['phongtrao.id','=',$row->id],
                         ['user_hoatdong.sv_id', '=', $auth_id],
                         ['hoatdong.status_clone','=',1],
                         ['user_hoatdong.heso', '=', -1],
-                    ])->sum('hoatdong.diem');
-            $sumtieuchi = intval($diemcong)-intval($diemtru);
-            $diem_tieuchi[] = $sumtieuchi;
+                        ])
+                ->sum('hoatdong.diem');
+                $sum_hoatdong = 0;
+                $sum_hoatdong = intval($diemcong)-intval($diemtru);
+                if($sum_hoatdong>$row->maxphongtrao)
+                {
+                    $sum_hoatdong = $row->maxphongtrao;
+                }
+
+                $diemphongtrao[] = array(
+                    'phongtrao_id' => $row->id,
+                    'diem' => $sum_hoatdong
+                );
+            }
+
+            // check max tiêu chí.
+            $sum_phongtrao = 0;
+            foreach($diemphongtrao as $item => $row){
+                $sum_phongtrao += intval($row['diem']);
+                
+            }
+
+            if($sum_phongtrao>$value->maxtieuchi){
+                $sum_phongtrao = $value->maxtieuchi;
+            }
+
+            // $diemcong = DB::table('tieuchi')
+            // ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
+            // ->Join('phongtrao', 'tieuchi_phongtrao.phongtrao_id', '=', 'phongtrao.id')
+            // ->Join('phongtrao_hoatdong','phongtrao.id', '=', 'phongtrao_hoatdong.phongtrao_id')
+            // ->Join('hoatdong', 'phongtrao_hoatdong.hoatdong_id', '=', 'hoatdong.id')
+            // ->Join('user_hoatdong', 'hoatdong.id', '=', 'user_hoatdong.hoatdong_id')
+            // ->where([
+            //             ['tieuchi.id', '=', $value->id],
+            //             ['user_hoatdong.sv_id', '=', $auth_id],
+            //             ['hoatdong.status_clone','=',1],
+            //             ['user_hoatdong.heso', '=', 1],
+            //         ])->sum('hoatdong.diem');
+            // $diemtru = DB::table('tieuchi')
+            // ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
+            // ->Join('phongtrao', 'tieuchi_phongtrao.phongtrao_id', '=', 'phongtrao.id')
+            // ->Join('phongtrao_hoatdong','phongtrao.id', '=', 'phongtrao_hoatdong.phongtrao_id')
+            // ->Join('hoatdong', 'phongtrao_hoatdong.hoatdong_id', '=', 'hoatdong.id')
+            // ->Join('user_hoatdong', 'hoatdong.id', '=', 'user_hoatdong.hoatdong_id')
+            // ->where([
+            //             ['tieuchi.id', '=', $value->id],
+            //             ['user_hoatdong.sv_id', '=', $auth_id],
+            //             ['hoatdong.status_clone','=',1],
+            //             ['user_hoatdong.heso', '=', -1],
+            //         ])->sum('hoatdong.diem');
+            
+            $diem_tieuchi[] = $sum_phongtrao;
         }
-       
+
         $temp = array();
         foreach($tieu_chi as $key=>$value)
         {

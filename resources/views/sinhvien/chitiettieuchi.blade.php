@@ -96,16 +96,7 @@
                                                                             <div class="row justify-content-between col-12">
                                                                                 <div>{{$item['phongtrao_name']}}</div>
                                                                                 <div>
-                                                                                    <?php
-                                                                                        $sum=0;
-                                                                                        foreach($hoatdong_list as $index=>$value){
-                                                                                            if ($value['phongtrao_id']===$item['phongtrao_id']) {
-                                    
-                                                                                                $sum += intval($value['diem']) * floatval($value['heso']);
-                                                                                            }
-                                                                                        }
-                                                                                        echo $sum;
-                                                                                    ?>
+                                                                                    Tối đa: {{$item['maxphongtrao']}}
                                                                                 </div>
                                                                             </div>
                                                                         </button>

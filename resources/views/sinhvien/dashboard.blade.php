@@ -201,7 +201,6 @@
             }
         });
         var getSelected = $("#drop-down-term").children("option:selected").val();
-
         $.ajax({
             type: 'POST',
 
