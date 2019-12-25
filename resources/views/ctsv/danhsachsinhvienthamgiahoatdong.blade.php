@@ -184,6 +184,7 @@
                                     {{$user_hoatdong->links()}}
                                 </form>
                                 <div>Upload file danh sách tham gia (xls, xlsx)</div>
+                                <div class="row">
                                 <form method="post" enctype="multipart/form-data"
                                     action="{{ url('/danhsachsinhvienthamgiahoatdong/import') }}">
                                     {{ csrf_field() }}
@@ -192,6 +193,15 @@
                                         class="btn btn-outline-secondary py-2 shadow" />
                                     <input type="submit" name="upload" value="Upload"
                                         class="btn btn-outline-secondary py-2 shadow" />
+                                </form>
+                                <form method="post" enctype="multipart/form-data"
+                                        action="{{url('/danhsachsinhvienthamgiahoatdong/export_temp')}}">
+                                        {{ csrf_field() }}
+                                            <input type="text" class="btn btn-outline-secondary py-2 shadow" name="loai_quan_ly" value="tham_gia" hidden/>
+                                            <input type="submit" class="btn btn-outline-secondary py-2 shadow ml-1" 
+                                            value="Tải tập tin mẫu"/>
+                                        </form>
+                            </div>
                                     @if(count($errors) > 0)
                                     <div class="alert alert-danger">
                                         Upload validation errors<br><br>
@@ -211,7 +221,7 @@
                                     @endif
 
                                     <br><br>
-                                </form>
+                                
                             </div>
 
 

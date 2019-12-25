@@ -258,7 +258,7 @@ class ExportExcel extends Controller
             case "hoat_dong":
                 // tập mẫu phong trào
                 $file_temp = array();
-                $file_temp[] = collect(['mssv' => 'MSSV','name' => 'Tên','diem'=>'Điểm','xeploai'=>'Xếp loại'])->toArray();
+                $file_temp[] = collect(['hoatdong' => 'hoatdong','diem' => 'diem','doituong'=>'doituong','ngaybatdau'=>'ngaybatdau','ngayketthuc'=>'ngayketthuc','nguoitao'=>'nguoitao','nguoiduyet'=>'nguoiduyet','maphongtrao'=>'maphongtrao'])->toArray();
 
                 Excel::create('mau_import_hoat_dong', function($excel) use ($file_temp)
                 {
@@ -270,7 +270,7 @@ class ExportExcel extends Controller
             case "sinh_vien":
                 // tập mẫu phong trào
                 $file_temp = array();
-                $file_temp[] = collect(['mssv' => 'MSSV','name' => 'Tên','diem'=>'Điểm','xeploai'=>'Xếp loại'])->toArray();
+                $file_temp[] = collect(['name' => 'name','mssv' => 'mssv','password'=>'password','coso'=>'coso'])->toArray();
 
                 Excel::create('mau_import_sinh_vien', function($excel) use ($file_temp)
                 {
@@ -282,7 +282,7 @@ class ExportExcel extends Controller
             case "tham_gia":
                 // tập mẫu phong trào
                 $file_temp = array();
-                $file_temp[] = collect(['mssv' => 'MSSV','name' => 'Tên','diem'=>'Điểm','xeploai'=>'Xếp loại'])->toArray();
+                $file_temp[] = collect(['masosinhvien' => 'masosinhvien','tensinhvien' => 'tensinhvien','hesothamgia'=>'hesothamgia','chuthich'=>'chuthich'])->toArray();
 
                 Excel::create('mau_import_tham_gia', function($excel) use ($file_temp)
                 {
