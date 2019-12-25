@@ -234,4 +234,64 @@ class ExportExcel extends Controller
             })->export('xlsx');
         }
     }
+    public function export_temp(Request $request){
+
+        if(empty($request->loai_quan_ly)){
+            return back();
+        }
+
+        $loai_quan_ly = $request->loai_quan_ly;
+        
+        switch($loai_quan_ly){
+            case "phong_trao":
+                // tập mẫu phong trào
+                $file_temp = array();
+                $file_temp[] = collect(['TENPHONGTRAO' => 'TENPHONGTRAO','DIEMTOIDA' => 'DIEMTOIDA','MATIEUCHI'=>'MATIEUCHI'])->toArray();
+        
+                Excel::create('mau_import_phong_trao', function($excel) use ($file_temp)
+                {
+                    $excel->sheet('mau_import_phong_trao', function($sheet) use ($file_temp){
+                        $sheet->fromArray($file_temp,null,'A1',false,false);
+                    });
+                })->export('xlsx');
+            break;
+            case "hoat_dong":
+                // tập mẫu phong trào
+                $file_temp = array();
+                $file_temp[] = collect(['mssv' => 'MSSV','name' => 'Tên','diem'=>'Điểm','xeploai'=>'Xếp loại'])->toArray();
+
+                Excel::create('mau_import_hoat_dong', function($excel) use ($file_temp)
+                {
+                    $excel->sheet('mau_import_hoat_dong', function($sheet) use ($file_temp){
+                        $sheet->fromArray($file_temp,null,'A1',false,false);
+                    });
+                })->export('xlsx');
+            break;
+            case "sinh_vien":
+                // tập mẫu phong trào
+                $file_temp = array();
+                $file_temp[] = collect(['mssv' => 'MSSV','name' => 'Tên','diem'=>'Điểm','xeploai'=>'Xếp loại'])->toArray();
+
+                Excel::create('mau_import_sinh_vien', function($excel) use ($file_temp)
+                {
+                    $excel->sheet('mau_import_sinh_vien', function($sheet) use ($file_temp){
+                        $sheet->fromArray($file_temp,null,'A1',false,false);
+                    });
+                })->export('xlsx');
+            break;
+            case "tham_gia":
+                // tập mẫu phong trào
+                $file_temp = array();
+                $file_temp[] = collect(['mssv' => 'MSSV','name' => 'Tên','diem'=>'Điểm','xeploai'=>'Xếp loại'])->toArray();
+
+                Excel::create('mau_import_tham_gia', function($excel) use ($file_temp)
+                {
+                    $excel->sheet('mau_import_tham_gia', function($sheet) use ($file_temp){
+                        $sheet->fromArray($file_temp,null,'A1',false,false);
+                    });
+                })->export('xlsx');
+            break;
+        }
+
+    }
 }

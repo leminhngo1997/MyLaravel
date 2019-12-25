@@ -408,21 +408,6 @@ class ctsvController extends Controller
             return back();
         };
 
-        $maxbangdiem = DB::table('bangdiem')->where('id',$request->input_bangdiem_id_tieuchi)->select('maxbangdiem')->get()->toArray();
-        $maxbangdiem = end($maxbangdiem);
-        $maxbangdiem = end($maxbangdiem);
-
-        $sumMaxTieuChi_beforeInsert = DB::table('tieuchi')
-                                ->where('tieuchi.bangdiem_id',$request->input_bangdiem_id_tieuchi)
-                                ->sum('maxtieuchi');
-        $sumMaxTieuchi_afterInsert = 0;
-        $sumMaxtieuchi_afterInsert = intval($sumMaxTieuChi_beforeInsert)+intval($request->input_maxtieuchi_tieuchi);
-
-        if($sumMaxtieuchi_afterInsert>intval($maxbangdiem)){
-            $chenhlech = intval($maxbangdiem) - intval($sumMaxTieuChi_beforeInsert);
-            Session::put('message','Tổng max tiêu chí vượt quá max bảng điểm. Chênh lệch còn: '.$chenhlech);
-            return back();
-        }
 
         //insert table tieuchi
         $data = array();
@@ -521,37 +506,17 @@ class ctsvController extends Controller
         $data = array();
         $data['name'] = $request->input_name_phongtrao;
         $data['maxphongtrao'] = $request->input_maxphongtrao_phongtrao;
-        //check max tiêu chí
-        $tieuchi_id = $request->input_tieuchi_id;
 
-        $maxtieuchi = DB::table('tieuchi')->where('id',$tieuchi_id)->select('maxtieuchi')->get()->toArray();
-        $maxtieuchi = end($maxtieuchi);
+        DB::table('phongtrao')->insert($data);
+        //insert table tieuchi_phongtrao
+        $data_tieuchi_phongtrao = array();
+        $current_phongtrao_id = DB::table('phongtrao')->orderBy('id','DESC')->first()->id;
+        $data_tieuchi_phongtrao['phongtrao_id'] = $current_phongtrao_id;
+        $data_tieuchi_phongtrao['tieuchi_id'] = $request->input_tieuchi_id;
+        DB::table('tieuchi_phongtrao')->insert($data_tieuchi_phongtrao);
+        Session::put('message','Thêm phong trào thành công.');
+        return Redirect::to('quanliphongtrao');
         
-        $sumMaxPhongtrao_beforeInsert = DB::table('phongtrao')
-                                ->join('tieuchi_phongtrao','phongtrao.id','=','tieuchi_phongtrao.phongtrao_id')
-                                ->where('tieuchi_phongtrao.tieuchi_id',$tieuchi_id)
-                                ->sum('phongtrao.maxphongtrao');
-        $sumMaxtieuchi_afterInsert = 0;
-        $sumMaxtieuchi_afterInsert = intval($sumMaxPhongtrao_beforeInsert)+intval($data['maxphongtrao']);
-        
-        //dd($sumMaxtieuchi_afterInsert);
-        if($sumMaxtieuchi_afterInsert<=intval($maxtieuchi->maxtieuchi))
-        {
-            DB::table('phongtrao')->insert($data);
-            //insert table tieuchi_phongtrao
-            $data_tieuchi_phongtrao = array();
-            $current_phongtrao_id = DB::table('phongtrao')->orderBy('id','DESC')->first()->id;
-            $data_tieuchi_phongtrao['phongtrao_id'] = $current_phongtrao_id;
-            $data_tieuchi_phongtrao['tieuchi_id'] = $request->input_tieuchi_id;
-            DB::table('tieuchi_phongtrao')->insert($data_tieuchi_phongtrao);
-            Session::put('message','Thêm phong trào thành công.');
-            return Redirect::to('quanliphongtrao');
-        }
-        else{
-            $chenhlech = intval($maxtieuchi->maxtieuchi) - intval($sumMaxPhongtrao_beforeInsert);
-            Session::put('message','Tổng max phong trào vượt quá max tiêu chí. Chênh lệch còn: '.$chenhlech);
-            return Redirect::to('quanliphongtrao');
-        }
     }
 //--Xóa phong trào
     public function delete_phong_trao_quanliphongtrao($id){
@@ -633,25 +598,6 @@ class ctsvController extends Controller
             return Redirect::to('quanlihoatdong');
         }
 
-        // check max phong trao
-
-        $maxPhongtrao = DB::table('phongtrao')
-        ->where('id',$request->input_phongtrao_id_hoatdong)
-        ->select('maxphongtrao')->get()->toArray();
-
-        $maxPhongtrao = end($maxPhongtrao);
-
-        $sumHoatdong_beforeInsert = DB::table('hoatdong')
-                                        ->join('phongtrao_hoatdong','hoatdong.id','=','phongtrao_hoatdong.phongtrao_id')
-                                        ->sum('hoatdong.diem');
-        $sumHoatdong_afterInsert = intval($sumHoatdong_beforeInsert)+intval($request->input_diem_hoatdong);
-        if($sumHoatdong_afterInsert>$maxPhongtrao->maxphongtrao)
-        {       
-                $chenhlech = intval($maxPhongtrao->maxphongtrao) - intval($sumHoatdong_beforeInsert);
-                Session::put('message','Tổng điểm hoạt động vượt quá max phong trào. Chênh lệch còn: '.$chenhlech);
-                return Redirect::to('quanlihoatdong');
-        }
-        else{
         //insert table hoatdong
 
         $data_hoatdong = array();
@@ -719,7 +665,7 @@ class ctsvController extends Controller
         
         Session::put('message','Thêm hoạt động thành công.');
         return Redirect::to('quanlihoatdong');
-        }
+        
     }
 //--Xóa hoạt động
     public function delete_hoat_dong_quanlihoatdong(Request $request){
