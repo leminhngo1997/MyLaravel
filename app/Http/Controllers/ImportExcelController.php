@@ -236,7 +236,7 @@ class ImportExcelController extends Controller
                         foreach($temp as $item){
                             $sv_id = $item->id;
                         }
-                        
+
                         $insert_thamgia[] = array(
                             'sv_id' => $sv_id,
                             'hoatdong_id' => intval($id_hoatdong),
@@ -249,8 +249,18 @@ class ImportExcelController extends Controller
             
             // lấy danh sách mã tài khoản
             if(!empty($insert_thamgia))
-            {    
-                DB::table('user_hoatdong')->insert($insert_thamgia);
+            {   
+                foreach($insert_thamgia as $key => $value)
+                DB::table('user_hoatdong')->updateOrInsert(
+                    [
+                    'sv_id' => $value['sv_id']
+                    ],
+                    [
+                        'hoatdong_id' => $value['hoatdong_id'],
+                        'heso' => $value['heso'],
+                        'chuthich' => $value['chuthich']
+                    ]
+                );
             }
 
         }
