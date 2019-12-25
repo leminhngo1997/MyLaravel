@@ -136,9 +136,6 @@
                                         }
                                 ?>
                                     </div>
-
-                                    <input type="submit" value="Xóa"
-                                        class="btn btn-outline-secondary py-2 shadow mb-4" />
                                     <div>Tìm kiếm theo MSSV</div>
                                     <input type="text" class="form-control col-6 mb-4" id="myInput"
                                         onkeyup="myFunction()">
@@ -161,7 +158,7 @@
                                         </thead>
                                         <tbody id="show-hoat-dong">
                                             @foreach ($user_hoatdong as $key=>$value)
-                                            <tr class="delete-row-hoat-dong">
+                                            <tr class="delete-row-hoat-dong clickable-row" onclick="setRole()">
                                                 <td>
                                                     <div class="checkbox">
                                                         <label>
@@ -173,7 +170,7 @@
 
                                                 <td>STT</td>
                                                 <td class="return-data">{{$value->user_mssv}}</td>
-                                                <td class="return-data">{{$value->user_name}}</td>
+                                                <td class="return-data"><a role="button" tabindex="0">{{$value->user_name}}</a></td>
                                                 <td class="return-data">{{$value->heso}}</td>
                                                 <td class="return-data">{{$value->chuthich}}</td>
                                             </tr>
@@ -181,8 +178,51 @@
 
                                         </tbody>
                                     </table>
+                                    <input type="submit" value="Xóa"
+                                        class="btn btn-outline-secondary py-2 shadow mb-4" />
                                     {{-- {{$user_hoatdong->links()}} --}}
                                 </form>
+                                <div class="card-body col-12 mb-4">
+                                    <form method="POST" role="form" action="{{URL::to('/danhsachsinhvienthamgiahoatdong/chinhsuaheso')}}">
+                                        <div class="mb-4" style="color: red">*Nhấn vào hàng trên bảng dữ liệu để lấy
+                                            thông tin</div>
+                                        <table class="col-8 mb-4">
+                                            <tr>
+                                                <td>
+                                                    <div>Mã số sinh viên</div>
+                                                </td>
+                                                <td>
+                                                    <div>Hệ số tham gia</div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input name="input_user_mssv" type="text"
+                                                        class="card border-secondary shadow h-100 py-2 col-8"
+                                                        id="user_email" readonly/>
+                                                </td>
+                                                <td>
+                                                    <select name="input_he_so" class="card border-secondary shadow h-100 py-2 col-3">
+                                                        <option selected>1</option>
+                                                        <option>0</option>
+                                                        <option>-1</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <?php
+                                                $message = Session::get('message');
+                                                if($message){
+                                                    echo '<span style="color:red">' .$message. '</span>';
+                                                    Session::put('message',null);
+                                                    }
+                                            ?>
+                                        {{csrf_field()}}
+
+                                        <input type="submit" value="Thay đổi"
+                                            class="btn btn-outline-secondary py-2 shadow">
+                                    </form>
+                                </div>
                                 <div>Upload file danh sách tham gia (xls, xlsx)</div>
                                 <div class="row">
                                 <form method="post" enctype="multipart/form-data"
@@ -238,6 +278,26 @@
 
 {{-- add datatable --}}
 <script src="{{asset('public/admin/vendor/datatables/jquery.dataTables.js')}}"></script>
+<script>
+    function setRole() {
+        var table = document.getElementById("myTable");
+        var rows = table.getElementsByTagName("tr");
+        for (i = 0; i < rows.length; i++) {
+            var currentRow = table.rows[i];
+            var createClickHandler = function (row) {
+                return function () {
+                    var cell_id = row.getElementsByTagName("td")[0];
+                    var id = cell_id.innerHTML;
+                    var cell_email = row.getElementsByTagName("td")[2];
+                    var email = cell_email.innerHTML;
+                    $("#user_id").val(id);
+                    $("#user_email").val(email);
+                };
+            };
+            currentRow.onclick = createClickHandler(currentRow);
+        }
+    }
+</script>
 <script>
     function myFunction() {
   var input, filter, table, tr, td, i, txtValue;

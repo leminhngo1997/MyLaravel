@@ -214,6 +214,7 @@ Route::get('importsinhvienthamgiahoatdong',['as'=>'importsinhvienthamgiahoatdong
 Route::post('get-hoat-dong-importsinhvienthamgiahoatdong','APIController@GetHoatDong_importsinhvienthamgiahoatdong');
 Route::get('danhsachsinhvienthamgiahoatdong/{id}',['as'=>'danhsachsinhvienthamgiahoatdong','uses'=>'ctsvController@get_value_danhsachsinhvienthamgiahoatdong']);
 Route::post('danhsachsinhvienthamgiahoatdong/import','ImportExcelController@importThamgia');
+Route::post('danhsachsinhvienthamgiahoatdong/chinhsuaheso','ctsvController@chinhsuaheso');
 //-- -- --Xóa user-hoatdong
 Route::post('/xoa-user-hoatdong-danhsachsinhvienthamgiahoatdong','ctsvController@delete_user_hoat_dong_danhsachsinhvienthamgiahoatdong');
 

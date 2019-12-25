@@ -830,6 +830,7 @@ class ctsvController extends Controller
             [
                 'role_id' => $role_id
             ]);
+            Session::put('message','Phân quyền thành công');
         return back();
     }
 
@@ -968,4 +969,38 @@ public function thongke_ctsv(){
         'bangdiem' => $bangdiem
     ]);
 }
+public function chinhsuaheso(request $request){
+    //get id user hiện tại  
+    if(Auth::user()!==NULL)
+    {
+        $auth_id = Auth::user()->id;
+    }
+    else
+    {
+        return view('Auth.login');
+    }
+
+    if(empty($request->input_user_mssv)||empty($request->input_he_so)){
+        Session::put('message','Chọn sinh viên');
+        return back();
+    }
+
+    $heso = $request->input_he_so;
+    $email = $request->input_user_mssv.'@gm.uit.edu.vn';
+
+    // lấy user id
+    $user_id = DB::table('users')->where('email',$email)->get('id')->toArray();
+    dd($user_id);
+    DB::table('user_hoatdong')->updateOrInsert(
+        [
+            'sv_id' => $user_id
+        ],
+        [
+            'heso' => $heso
+        ]);
+    Session::put('message','Thay đổi thành công');
+    return back();
+
+}
+
 }
