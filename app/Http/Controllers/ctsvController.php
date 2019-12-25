@@ -44,11 +44,14 @@ class ctsvController extends Controller
         }
         $loaibangdiem = DB::table('loaibangdiem')->get();
         $doituong = DB::table('doituong')->get();
+        $bang_diem = DB::table('bangdiem')->get();
         return view('ctsv.quanlibangdiem',[
             'loaibangdiem'=>$loaibangdiem,
             'doituong'=>$doituong,
+            'bang_diem'=>$bang_diem
             ]);
     }
+
     public function get_value_quanlitieuchi(){
         $this->AuthSV(); 
         if(Auth::user()!==NULL)
@@ -119,6 +122,24 @@ class ctsvController extends Controller
         return view('ctsv.quanlicoso',[
             'doituong'=>$doituong,
         ]);
+    }
+
+    public function get_update_bangdiem_ctsv($id){
+        $this->AuthSV(); 
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
+
+        $bang_diem = DB::table('bangdiem')->where('id',$id)->get();
+
+        return view('ctsv.updatebangdiem',[
+            'bang_diem'=>$bang_diem,
+            ]);
     }
 
     public function get_value_quanlisinhvien(){
@@ -311,6 +332,28 @@ class ctsvController extends Controller
         DB::table('loaibangdiem')->where('id',$id)->delete();
         Session::put('message','Xóa loại bảng điểm thành công.');
         return Redirect::to('quanlibangdiem');
+    }
+    //Sửa bảng điểm
+    public function sua_bangdiem_ctsv(Request $request){
+        $this->AuthSV(); 
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }      
+
+        DB::table('bangdiem')->where('id',$request->input_id_bangdiem)->update([
+            'name'=>$request->input_name_bangdiem,
+            'maxbangdiem'=>$request->input_maxbangdiem_bangdiem,
+            'loaibangdiem_id'=>$request->input_loaibangdiem_id_bangdiem,
+            'ngaybatdau'=>$request->input_ngaybatdau_bangdiem,
+            'ngayketthuc'=>$request->input_ngayketthuc_bangdiem
+            ]);
+        Session::put('message','Sửa bảng điểm thành công.');
+        return back();
     }
 //--Thêm bảng điểm
     public function insert_bang_diem(Request $request){
