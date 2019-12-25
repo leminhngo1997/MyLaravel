@@ -172,16 +172,16 @@
                                                 </td>
 
                                                 <td>STT</td>
-                                                <td class="return-data"><a href="#">MSSV</a></td>
-                                                <td class="return-data">Họ tên</td>
-                                                <td class="return-data"><a href="#">{{$value->heso}}</a></td>
-                                                <td class="return-data"><a href="#">{{$value->chuthich}}</a></td>
+                                                <td class="return-data">{{$value->user_mssv}}</td>
+                                                <td class="return-data">{{$value->user_name}}</td>
+                                                <td class="return-data">{{$value->heso}}</td>
+                                                <td class="return-data">{{$value->chuthich}}</td>
                                             </tr>
                                             @endforeach
 
                                         </tbody>
                                     </table>
-                                    {{$user_hoatdong->links()}}
+                                    {{-- {{$user_hoatdong->links()}} --}}
                                 </form>
                                 <div>Upload file danh sách tham gia (xls, xlsx)</div>
                                 <div class="row">

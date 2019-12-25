@@ -272,8 +272,19 @@ class ctsvController extends Controller
         }
         else{
             $list_hoat_dong = DB::table('hoatdong')->where('id',$id)->get();
-            $user_hoatdong = DB::table('user_hoatdong')->where('hoatdong_id',$id)->paginate(10);
+            $user_hoatdong = DB::table('user_hoatdong')->where('hoatdong_id',$id)->get();
         }
+        
+        foreach ($user_hoatdong as $key=>$value)
+        {
+            $user = DB::table('users')->where('id',$value->sv_id)->get();
+            foreach ($user as $row=>$item)
+            {
+                $value->user_name = $item->name;
+                $value->user_mssv = explode('@gm.uit.edu.vn',$item->email)[0];
+            }
+        }
+        // dd($user_hoatdong);
         return view('ctsv.danhsachsinhvienthamgiahoatdong',[
             'list_hoat_dong'=>$list_hoat_dong,
             'hoatdong_id' => $id,
