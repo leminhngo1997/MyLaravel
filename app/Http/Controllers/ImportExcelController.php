@@ -253,10 +253,10 @@ class ImportExcelController extends Controller
                 foreach($insert_thamgia as $key => $value)
                 DB::table('user_hoatdong')->updateOrInsert(
                     [
-                    'hoatdong_id' => $value['hoatdong_id']
+                    'hoatdong_id' => $value['hoatdong_id'],
+                    'sv_id' => $value['sv_id'],
                     ],
                     [
-                        'sv_id' => $value['sv_id'],
                         'heso' => $value['heso'],
                         'chuthich' => $value['chuthich']
                     ]
