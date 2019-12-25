@@ -990,14 +990,17 @@ public function chinhsuaheso(request $request){
 
     // lấy user id
     $user_id = DB::table('users')->where('email',$email)->get('id')->toArray();
-    dd($user_id);
-    DB::table('user_hoatdong')->updateOrInsert(
-        [
-            'sv_id' => $user_id
-        ],
-        [
-            'heso' => $heso
-        ]);
+
+    foreach($user_id as $key=>$value)
+    {
+        DB::table('user_hoatdong')->updateOrInsert(
+            [
+                'sv_id' => $value->id
+            ],
+            [
+                'heso' => $heso
+                ]);
+            }
     Session::put('message','Thay đổi thành công');
     return back();
 
