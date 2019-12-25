@@ -110,7 +110,6 @@ class APIController extends Controller
         }
 
         $term = $request->term;
-        $tieu_chi = DB::table('tieuchi')->where('bangdiem_id', $term)->get();
         $max_bangdiem_tieuchi_id = DB::table('tieuchi')->where('bangdiem_id',$term)->select('tieuchi.id','tieuchi.maxtieuchi')->get();
         $max_bangdiem_tieuchi_id = end($max_bangdiem_tieuchi_id);
         $diem_tieuchi = array();
