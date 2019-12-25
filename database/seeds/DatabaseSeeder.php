@@ -227,7 +227,7 @@ class BangdiemSeeder extends Seeder
             ['name' => 'HK2 2017-2018','loaibangdiem_id' => 1,'maxbangdiem'=> 100,'ngaybatdau'=>'2018-01-22','ngayketthuc'=>'2018-09-30'],
             ['name' => 'HK1 2018-2019','loaibangdiem_id' => 1,'maxbangdiem'=> 100,'ngaybatdau'=>'2018-08-31','ngayketthuc'=>'2019-03-12'],
             ['name' => 'HK2 2018-2019','loaibangdiem_id' => 1,'maxbangdiem'=> 100,'ngaybatdau'=>'2019-02-18','ngayketthuc'=>'2019-09-30'],
-            ['name' => 'HK1 2019-2020','loaibangdiem_id' => 1,'maxbangdiem'=> 100,'ngaybatdau'=>'2019-09-03','ngayketthuc'=>'2020-02-29']  
+            
         ]);
         
     }
@@ -262,7 +262,7 @@ class Bangdiem_DoituongSeeder extends Seeder
             ['bangdiem_id' => 8,'doituong_id' => 6],
             ['bangdiem_id' => 9,'doituong_id' => 6],
             ['bangdiem_id' => 10,'doituong_id' => 6],
-            ['bangdiem_id' => 11,'doituong_id' => 6],
+            // ['bangdiem_id' => 11,'doituong_id' => 6],
             //Khóa 2016
             ['bangdiem_id' => 5,'doituong_id' => 7],
             ['bangdiem_id' => 6,'doituong_id' => 7],
@@ -270,7 +270,7 @@ class Bangdiem_DoituongSeeder extends Seeder
             ['bangdiem_id' => 8,'doituong_id' => 7],
             ['bangdiem_id' => 9,'doituong_id' => 7],
             ['bangdiem_id' => 10,'doituong_id' => 7],
-            ['bangdiem_id' => 11,'doituong_id' => 7],
+            // ['bangdiem_id' => 11,'doituong_id' => 7],
         ]);
         
     }

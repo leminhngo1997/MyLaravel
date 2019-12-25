@@ -225,6 +225,7 @@ class ImportExcelController extends Controller
             
             foreach($data->toArray() as $key => $value)
             {
+                // dd($value);
                     if($value['masosinhvien']!==null){
                         // mã số sinh viên
                         $temp = array();
