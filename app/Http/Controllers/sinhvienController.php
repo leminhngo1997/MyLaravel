@@ -428,7 +428,7 @@ class sinhvienController extends Controller
         ->where([
             ['tieuchi.id','=',$id],
             ['user_hoatdong.sv_id','=',$auth_id],
-            //['user_hoatdong.heso','!=',0]
+            ['user_hoatdong.heso','!=',0]
             ])
         ->orderBy('phongtrao.id','DESC')
         ->select(
@@ -437,7 +437,8 @@ class sinhvienController extends Controller
             'hoatdong.id as hoatdong_id',
             'hoatdong.name as hoatdong_name',
             'hoatdong.diem',
-            'user_hoatdong.heso')->get();
+            'user_hoatdong.heso',
+            'phongtrao.maxphongtrao as maxphongtrao')->get();
 
             //dd($phongtrao);
         $sum_phongtrao=0;
@@ -448,7 +449,8 @@ class sinhvienController extends Controller
                 if($value->phongtrao_id!==$phongtrao_id_old){
                     $phongtrao_list[] = array(
                         'phongtrao_id' => $value->phongtrao_id,
-                        'phongtrao_name' => $value->phongtrao_name
+                        'phongtrao_name' => $value->phongtrao_name,
+                        'maxphongtrao'=>$value->maxphongtrao
                     );
 
                     $phongtrao_id_old = $value->phongtrao_id;
@@ -460,7 +462,7 @@ class sinhvienController extends Controller
                     'hoatdong_id' => $value->hoatdong_id,
                     'hoatdong_name' => $value->hoatdong_name,
                     'diem' => $value->diem,
-                    'heso' => $value->heso
+                    'heso' => $value->heso,
                 );         
 
                 $sum_phongtrao += intval($value->diem) * floatval($value->heso);
