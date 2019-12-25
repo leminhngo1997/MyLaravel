@@ -65,7 +65,9 @@ Route::post('/them-loai-bang-diem','ctsvController@insert_loai_bang_diem');
 Route::get('/delete-loai-bang-diem/{id}','ctsvController@delete_loai_bang_diem' );
 //-- -- --Thêm bảng điểm
 Route::post('/them-bang-diem','ctsvController@insert_bang_diem');
-
+//-- -- --Sửa bảng điểm
+Route::get('update-bang-diem-ctsv/{id}',['as'=>'update-bang-diem-ctsv','uses'=>'ctsvController@get_update_bangdiem_ctsv']);
+Route::post('sua-bang-diem-ctsv',['as'=>'sua-bang-diem-ctsv','uses'=>'ctsvController@sua_bangdiem_ctsv']);
 //-- --Quản lý tiêu chí
 //-- -- --Thêm tiêu chí
 Route::post('/them-tieu-chi-quanlitieuchi','ctsvController@insert_tieu_chi_quanlitieuchi');

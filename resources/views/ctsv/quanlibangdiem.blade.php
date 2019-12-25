@@ -171,38 +171,23 @@
                                             <table class="border table table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th scope="col">
-                                                            <div class="checkbox">
-                                                                <label>
-                                                                    <input type="checkbox" class="check"
-                                                                        id="checkAllBangdiem">
-                                                                </label>
-                                                            </div>
-                                                        </th>
                                                         <th scope="col">Mã bảng điểm</th>
                                                         <th scope="col">Tên bảng điểm</th>
                                                         <th scope="col">Điểm bảng điểm</th>
-                                                        <th scope="col">Loại bảng điểm</th>
                                                         <th scope="col">Ngày bắt đầu</th>
                                                         <th scope="col">Ngày kết thúc</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="checkbox">
-                                                                <label>
-                                                                    <input type="checkbox" class="checkBangdiem">
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                        <td>DV-2014-2015</td>
-                                                        <td>ĐV-2014-2015</td>
-                                                        <td>100</td>
-                                                        <td>DV</td>
-                                                        <td>2014-06-01</td>
-                                                        <td>2015-05-31</td>
-                                                    </tr>
+                                                    @foreach ($bang_diem as $key=>$value)  
+                                                        <tr>
+                                                            <td>{{$value->id}}</td>
+                                                            <td><a href="{{URL::to('/update-bang-diem-ctsv')}}/{{$value->id}}">{{$value->name}}</a></td>
+                                                            <td>{{$value->maxbangdiem}}</td>
+                                                            <td>{{date('d-m-Y', strtotime($value->ngaybatdau))}}</td>
+                                                            <td>{{date('d-m-Y', strtotime($value->ngayketthuc))}}</td>
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
