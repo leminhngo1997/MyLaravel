@@ -178,7 +178,7 @@ class APIController extends Controller
     function GetHoatDong_feedback(Request $request){
         $phong_trao_id = $request->phong_trao_id;
         $hoat_dong = DB::table('hoatdong')->join('phongtrao_hoatdong', 'hoatdong.id', '=', 'phongtrao_hoatdong.hoatdong_id')
-        ->where('phongtrao_hoatdong.phongtrao_id', $phong_trao_id)->get();
+        ->where([['phongtrao_hoatdong.phongtrao_id', $phong_trao_id],['hoatdong.status_clone',1]])->get();
         return $hoat_dong;
     }
     //Replies
@@ -188,10 +188,6 @@ class APIController extends Controller
         {
             $replies = DB::table('replies')->where('comment_id',$item)->get();
         }
-        
-        // $user_name_reply = DB::table('users')->join('replies','users.id','=','replies.sv_id')->where('replies.comment_id',$comment_id)->get();
-     
-        
         return $replies;
     }
     //CTSV

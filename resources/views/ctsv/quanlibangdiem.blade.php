@@ -191,69 +191,6 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <div class="card-body col-12 mb-4">
-                                            <div class="mb-4">Loại bảng điểm mới</div>
-                                            <select class="card border-secondary shadow h-100 py-2 col-6 mb-4">
-                                                @foreach($loaibangdiem as $key=>$value)
-                                                {
-                                                <option value="{{$value->id}}">{{$value->name}}</option>
-                                                }
-                                                @endforeach
-
-
-                                            </select>
-
-                                            <div class="mb-4">Tên bảng điểm mới</div>
-                                            <input type="text"
-                                                class="card border-secondary shadow h-100 py-2 col-6 mb-4">
-
-                                            <div class="mb-4">Điểm tối đa của bảng điểm mới</div>
-                                            <input type="text"
-                                                class="card border-secondary shadow h-100 py-2 col-6 mb-4">
-
-                                            <div class="mb-4">Ngày bắt đầu</div>
-                                            <input type="date" placeholder="yyyy-mm-dd"
-                                                class="form-custom border-secondary h-100 py-2 col-6 mb-4">
-
-                                            <div class="mb-4">Ngày kết thúc</div>
-                                            <input type="date" placeholder="yyyy-mm-dd"
-                                                class="form-custom border-secondary h-100 py-2 col-6 mb-4">
-
-                                            <div class="mb-4">Khóa học áp dụng</div>
-                                            <table class="border table table-striped col-6">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">
-                                                            <div class="checkbox">
-                                                                <label>
-                                                                    <input type="checkbox" class="check"
-                                                                        id="checkAllKhoahoc">
-                                                                </label>
-                                                            </div>
-                                                        </th>
-                                                        <th scope="col">Khóa học</th>
-
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($doituong as $key=>$value)
-                                                    <tr>
-                                                        <td>
-                                                            <div class="checkbox">
-                                                                <label>
-                                                                    <input type="checkbox" class="checkKhoahoc">
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                        <td>{{$value->name}}</td>
-                                                    </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-
-                                            <button type="button" class="btn btn-outline-secondary py-2 shadow">Chỉnh
-                                                sửa</button>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
