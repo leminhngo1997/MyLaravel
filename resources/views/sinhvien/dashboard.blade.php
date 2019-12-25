@@ -212,6 +212,7 @@
             },
 
             success: function (data) {
+                console.log(data);
                 $('.delete-row').remove();
                 data.forEach(element => {
                     html = `<tr class = "delete-row" >

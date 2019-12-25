@@ -55,21 +55,6 @@ class ImportExcelController extends Controller
             { 
                 $count = 0;
                 foreach($phongtrao_id as $key => $value){
-                    // max phong trào
-                    $maxPhongTrao = DB::table('phongtrao')->where('id',$value)->get('maxphongtrao')->toArray();
-                    $maxPhongTrao = end($maxPhongTrao);
-                    $maxPhongTrao = end($maxPhongTrao);
-
-                    // tổng hoạt động trước insert
-                    $maxHoatDong_beforeInsert = DB::table('hoatdong')
-                                                    ->join('phongtrao_hoatdong','hoatdong.id','=','phongtrao_hoatdong.hoatdong_id')
-                                                    ->where('phongtrao_hoatdong.phongtrao_id',$value)->sum('hoatdong.diem');
-                    
-                    $maxHoatDong_afterInsert = intval($maxHoatDong_beforeInsert) + intval($insert_hoatdong[$key]['diem']);
-                    if($maxPhongTrao < $maxHoatDong_afterInsert){
-                        $error_row[] = $key+2;
-                    }
-                    else {
                         //insert hoạt động
                         DB::table('hoatdong')->insert($insert_hoatdong[$key]);
 
@@ -111,7 +96,7 @@ class ImportExcelController extends Controller
                 
                             }
                         }
-                    }
+                
 
                 }
 
@@ -124,7 +109,9 @@ class ImportExcelController extends Controller
             }
 
         }
-        return back()->with('success', 'Hoàn thành import với 0 dòng');
+        else{
+            return back()->with('success', 'Hoàn thành import với 0 dòng');
+        }
     }
 
 
@@ -309,20 +296,6 @@ class ImportExcelController extends Controller
                 // check max điểm tiêu chí
                 foreach($tieuchi_id as $key=>$value){
 
-                    // lấy max tiêu chí
-                    $maxTieuChi = DB::table('tieuchi')->where('id',$value)->get('maxtieuchi')->toArray();
-                    $maxTieuChi =end($maxTieuChi);
-                    $maxTieuChi =end($maxTieuChi);
-                    // tổng hoạt động trước insert
-                    $maxPhongTrao_beforeInsert = DB::table('phongtrao')
-                                                    ->join('tieuchi_phongtrao','phongtrao.id','=','tieuchi_phongtrao.phongtrao_id')
-                                                    ->where('tieuchi_phongtrao.tieuchi_id',$value)->sum('phongtrao.maxphongtrao');
-
-                    $maxPhongTrao_afterInsert = intval($maxPhongTrao_beforeInsert) + intval($insert_phongtrao[$key]['maxphongtrao']);
-                    if($maxPhongTrao_afterInsert>$maxTieuChi){
-                        $error_row[] = $key+2;
-                    }
-                    else{
                         // insert phong trao
                         DB::table('phongtrao')->insert($insert_phongtrao[$key]);
                         
@@ -336,8 +309,8 @@ class ImportExcelController extends Controller
                                 'tieuchi_id' =>$value,
                             ]);
                             $count ++;
-                    }
-                    }
+                        }
+                    
                 }
                 return back()->with('success', 'Hoàn thành import với '.$count.' dòng thành công');
             }
@@ -348,6 +321,8 @@ class ImportExcelController extends Controller
 
         
         }
+        else{
         return back()->with('success', 'Hoàn thành import với 0 dòng thành công');
+        }
     }
 }
