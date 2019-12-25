@@ -211,7 +211,7 @@
             },
 
             success: function (data) {
-                console.log(data);
+                //console.log(data);
                 $('.delete-row').remove();
                 data.forEach(element => {
                     html = `<tr class = "delete-row" >
@@ -234,8 +234,9 @@
             },
 
             success: function (data) {
+    
                 // debugger;
-                // console.log(data);
+                console.log(data);
                 $('.delete-sum-bang-diem').remove();
                 html = `<h2 class="text-center delete-sum-bang-diem sum-bang-diem">` + data + `</h2>`;
                 $('#show-sum-bang-diem').append(html);
