@@ -16,17 +16,17 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item dropdown">
+     <!-- Nav Item - Dashboard -->
+     <li class="nav-item dropdown">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <a class="nav-link dropdown-toggle" href="{{route('quanlitieuchi')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Đoàn hội</span>
+            <span>Quản lý chung</span>
         </a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{route('quanlitieuchi')}}">Quản lí tiêu chí</a>
-            <a class="dropdown-item" href="{{route('quanliphongtrao')}}">Quản lí phong trào</a>
-            <a class="dropdown-item" href="{{route('quanlihoatdong')}}">Quản lí hoạt động</a>
+            <a class="dropdown-item" href="{{route('quanlitieuchi')}}">Quản lý tiêu chí</a>
+            <a class="dropdown-item" href="{{route('quanliphongtrao')}}">Quản lý phong trào</a>
+            <a class="dropdown-item" href="{{route('quanlihoatdong')}}">Quản lý hoạt động</a>
             <a class="dropdown-item" href="{{route('duyethoatdong')}}">Xét duyệt hoạt động</a>
             <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Import sinh viên tham gia hoạt
                 động</a>
@@ -40,19 +40,19 @@
             <span>Bảng điểm</span>
         </a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{route('quanlibangdiem')}}">Quản lí bảng điểm</a>
-            <a class="dropdown-item" href="{{route('quanlixeploai')}}">Quản lí xếp loại</a>
+            <a class="dropdown-item" href="{{route('quanlibangdiem')}}">Quản lý bảng điểm</a>
+            <a class="dropdown-item" href="{{route('quanlixeploai')}}">Quản lý xếp loại</a>
         </div>
     </li>
     <!-- Nav Item - Cơ sở-Sinh viên -->
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="{{route('quanlicoso')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Cơ sở-Sinh viên</span>
+            <span>Quản lý Lớp-Sinh viên</span>
         </a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{route('quanlicoso')}}">Quản lí cơ sở</a>
-            <a class="dropdown-item" href="{{route('quanlisinhvien')}}">Quản lí sinh viên</a>
+            <a class="dropdown-item" href="{{route('quanlicoso')}}">Quản lý lớp</a>
+            <a class="dropdown-item" href="{{route('quanlisinhvien')}}">Quản lý sinh viên</a>
             <a class="dropdown-item" href="{{route('quanlitaikhoan')}}">Phân quyền tải khoản</a>
         </div>
     </li>

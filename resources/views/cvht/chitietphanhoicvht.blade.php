@@ -184,46 +184,5 @@
     }
 </script>
 <script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
-{{-- <script>
-     $(document).ready(function () {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-      
-        // var allListElements = $( "div" );   
-        var x = $("div.dropdown_comment_id").children("div");
-        var getSelected = [];
-        for (var i = 0; i< x.length;i++)
-        {
-            getSelected.push(x[i].attributes[0].value);
-        }    
-        $.ajax({
-            
-            type: 'POST',
-            url: "{{url('get-comment-id-feedback')}}",
-            data: {
-                comment_id: getSelected
-            },
-            success: function (data) {
-                data.forEach(element => {
-                    html = ` <div class="row delete-row-reply">
-                                    <div class="comment-content col-md-11 col-sm-10 col-12">
-                                    <h6 class="small comment-meta"><a href="#">`+element.user_name_reply+`</a> Today, 12:31</h6>
-                                        <div class="comment-body">
-                                            <p>`+element.reply_text+`<br>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div> `;
-                var show_replies_id = '#show-replies-'+element.comment_id;
-                debugger;
-                console.log(show_replies_id);
-                $(show_replies_id).append(html);
-                });
-            }
-        });
-    });
-</script> --}}
+
 @endsection

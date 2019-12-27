@@ -16,17 +16,17 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item dropdown">
+     <!-- Nav Item - Dashboard -->
+     <li class="nav-item dropdown">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <a class="nav-link dropdown-toggle" href="{{route('quanlitieuchi')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Đoàn hội</span>
+            <span>Quản lý chung</span>
         </a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{route('quanlitieuchi')}}">Quản lí tiêu chí</a>
-            <a class="dropdown-item" href="{{route('quanliphongtrao')}}">Quản lí phong trào</a>
-            <a class="dropdown-item" href="{{route('quanlihoatdong')}}">Quản lí hoạt động</a>
+            <a class="dropdown-item" href="{{route('quanlitieuchi')}}">Quản lý tiêu chí</a>
+            <a class="dropdown-item" href="{{route('quanliphongtrao')}}">Quản lý phong trào</a>
+            <a class="dropdown-item" href="{{route('quanlihoatdong')}}">Quản lý hoạt động</a>
             <a class="dropdown-item" href="{{route('duyethoatdong')}}">Xét duyệt hoạt động</a>
             <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Import sinh viên tham gia hoạt
                 động</a>
@@ -40,19 +40,19 @@
             <span>Bảng điểm</span>
         </a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{route('quanlibangdiem')}}">Quản lí bảng điểm</a>
-            <a class="dropdown-item" href="{{route('quanlixeploai')}}">Quản lí xếp loại</a>
+            <a class="dropdown-item" href="{{route('quanlibangdiem')}}">Quản lý bảng điểm</a>
+            <a class="dropdown-item" href="{{route('quanlixeploai')}}">Quản lý xếp loại</a>
         </div>
     </li>
     <!-- Nav Item - Cơ sở-Sinh viên -->
     <li class="nav-item active dropdown">
         <a class="nav-link dropdown-toggle" href="{{route('quanlicoso')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Cơ sở-Sinh viên</span>
+            <span>Quản lý Lớp-Sinh viên</span>
         </a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{route('quanlicoso')}}">Quản lí cơ sở</a>
-            <a class="dropdown-item" href="{{route('quanlisinhvien')}}">Quản lí sinh viên</a>
+            <a class="dropdown-item" href="{{route('quanlicoso')}}">Quản lý lớp</a>
+            <a class="dropdown-item" href="{{route('quanlisinhvien')}}">Quản lý sinh viên</a>
             <a class="dropdown-item" href="{{route('quanlitaikhoan')}}">Phân quyền tải khoản</a>
         </div>
     </li>
@@ -105,7 +105,7 @@
                                 ?>
                                 {{csrf_field()}}
                                 <div class="card-body col-12 mb-4">
-                                    <div class="mb-4">Chọn đối tượng</div>
+                                    <div class="mb-4">Chọn khóa học</div>
                                     <select id="dropdown-doi-tuong-quanlicoso" name="input_doituong_id"
                                         class="card border-secondary shadow h-100 py-2 col-6 mb-4">
                                         @foreach($doituong as $key=>$value)
@@ -113,7 +113,7 @@
                                         @endforeach
                                     </select>
 
-                                    <div class="mb-4">Nhập tên cơ sở</div>
+                                    <div class="mb-4">Nhập tên lớp</div>
                                     <input name="input_name_coso" type="text"
                                         class="card border-secondary shadow h-100 py-2 col-6 mb-4" />
                                     <div class="mb-4">Nhập sĩ số</div>
@@ -125,8 +125,8 @@
                             <table class="border table table-striped">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Mã cơ sở</th>
-                                        <th scope="col">Tên cơ sở</th>
+                                        <th scope="col">Mã lớp</th>
+                                        <th scope="col">Tên lớp</th>
                                         <th scope="col">Sĩ số</th>
                                         <th scope="col"></th>
                                     </tr>
@@ -170,7 +170,7 @@
                 data.forEach(element => {
                     html = `<tr class="delete-co-so">
         <td>` + element.id + `</td>
-        <td class="return-data"><a href="#">` + element.name + `</a></td>
+        <td class="return-data">` + element.name + `</td>
         <td class="return-data">` + element.siso + `</td>
         <td>
             <a onclick="return confirm('Bạn chắn chắc muốn xóa không ?')"
@@ -209,7 +209,7 @@
                 data.forEach(element => {
                     html = `<tr class="delete-co-so">
         <td>` + element.id + `</td>
-        <td class="return-data"><a href="#">` + element.name + `</a></td>
+        <td class="return-data">` + element.name + `</td>
         <td class="return-data">` + element.siso + `</td>
         <td>
             <a onclick="return confirm('Bạn chắn chắc muốn xóa không ?')"

@@ -21,12 +21,12 @@
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <a class="nav-link dropdown-toggle" href="{{route('quanlitieuchi')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Đoàn hội</span>
+            <span>Quản lý chung</span>
         </a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{route('quanlitieuchi')}}">Quản lí tiêu chí</a>
-            <a class="dropdown-item" href="{{route('quanliphongtrao')}}">Quản lí phong trào</a>
-            <a class="dropdown-item" href="{{route('quanlihoatdong')}}">Quản lí hoạt động</a>
+            <a class="dropdown-item" href="{{route('quanlitieuchi')}}">Quản lý tiêu chí</a>
+            <a class="dropdown-item" href="{{route('quanliphongtrao')}}">Quản lý phong trào</a>
+            <a class="dropdown-item" href="{{route('quanlihoatdong')}}">Quản lý hoạt động</a>
             <a class="dropdown-item" href="{{route('duyethoatdong')}}">Xét duyệt hoạt động</a>
             <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Import sinh viên tham gia hoạt
                 động</a>
@@ -40,19 +40,19 @@
             <span>Bảng điểm</span>
         </a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{route('quanlibangdiem')}}">Quản lí bảng điểm</a>
-            <a class="dropdown-item" href="{{route('quanlixeploai')}}">Quản lí xếp loại</a>
+            <a class="dropdown-item" href="{{route('quanlibangdiem')}}">Quản lý bảng điểm</a>
+            <a class="dropdown-item" href="{{route('quanlixeploai')}}">Quản lý xếp loại</a>
         </div>
     </li>
     <!-- Nav Item - Cơ sở-Sinh viên -->
     <li class="nav-item active dropdown">
         <a class="nav-link dropdown-toggle" href="{{route('quanlicoso')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Cơ sở-Sinh viên</span>
+            <span>Quản lý Lớp-Sinh viên</span>
         </a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{route('quanlicoso')}}">Quản lí cơ sở</a>
-            <a class="dropdown-item" href="{{route('quanlisinhvien')}}">Quản lí sinh viên</a>
+            <a class="dropdown-item" href="{{route('quanlicoso')}}">Quản lý lớp</a>
+            <a class="dropdown-item" href="{{route('quanlisinhvien')}}">Quản lý sinh viên</a>
             <a class="dropdown-item" href="{{route('quanlitaikhoan')}}">Phân quyền tải khoản</a>
         </div>
     </li>
@@ -85,7 +85,7 @@
                         <h5 class="mb-0">
                             <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
                                 aria-expanded="true" aria-controls="collapseOne">
-                                Quản lí sinh viên
+                                Quản lý sinh viên
                             </button>
                         </h5>
                     </div>
@@ -107,7 +107,7 @@
                                         ?>
                                         {{csrf_field()}}
                                         <div class="card-body col-12 mb-4">
-                                            <div class="mb-4">Chọn đối tượng</div>
+                                            <div class="mb-4">Chọn khóa học</div>
                                             <select id="dropdown-doi-tuong-quanlisinhvien"
                                                 class="card border-secondary shadow h-100 py-2 col-12 mb-4">
                                                 @foreach($doituong as $key=>$value)
@@ -115,7 +115,7 @@
                                                 @endforeach
                                             </select>
 
-                                            <div class="mb-4">Chọn cơ sở</div>
+                                            <div class="mb-4">Chọn lớp</div>
                                             <select id="dropdown-co-so-quanlisinhvien" name="input_name_co_so"
                                                 class="card border-secondary shadow h-100 py-2 col-12 mb-4">
                                                 {{--  --}}

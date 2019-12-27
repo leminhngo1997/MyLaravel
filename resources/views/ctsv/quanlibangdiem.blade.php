@@ -21,12 +21,12 @@
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <a class="nav-link dropdown-toggle" href="{{route('quanlitieuchi')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Đoàn hội</span>
+            <span>Quản lý chung</span>
         </a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{route('quanlitieuchi')}}">Quản lí tiêu chí</a>
-            <a class="dropdown-item" href="{{route('quanliphongtrao')}}">Quản lí phong trào</a>
-            <a class="dropdown-item" href="{{route('quanlihoatdong')}}">Quản lí hoạt động</a>
+            <a class="dropdown-item" href="{{route('quanlitieuchi')}}">Quản lý tiêu chí</a>
+            <a class="dropdown-item" href="{{route('quanliphongtrao')}}">Quản lý phong trào</a>
+            <a class="dropdown-item" href="{{route('quanlihoatdong')}}">Quản lý hoạt động</a>
             <a class="dropdown-item" href="{{route('duyethoatdong')}}">Xét duyệt hoạt động</a>
             <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Import sinh viên tham gia hoạt
                 động</a>
@@ -40,19 +40,19 @@
             <span>Bảng điểm</span>
         </a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{route('quanlibangdiem')}}">Quản lí bảng điểm</a>
-            <a class="dropdown-item" href="{{route('quanlixeploai')}}">Quản lí xếp loại</a>
+            <a class="dropdown-item" href="{{route('quanlibangdiem')}}">Quản lý bảng điểm</a>
+            <a class="dropdown-item" href="{{route('quanlixeploai')}}">Quản lý xếp loại</a>
         </div>
     </li>
     <!-- Nav Item - Cơ sở-Sinh viên -->
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="{{route('quanlicoso')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Cơ sở-Sinh viên</span>
+            <span>Quản lý Lớp-Sinh viên</span>
         </a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{route('quanlicoso')}}">Quản lí cơ sở</a>
-            <a class="dropdown-item" href="{{route('quanlisinhvien')}}">Quản lí sinh viên</a>
+            <a class="dropdown-item" href="{{route('quanlicoso')}}">Quản lý lớp</a>
+            <a class="dropdown-item" href="{{route('quanlisinhvien')}}">Quản lý sinh viên</a>
             <a class="dropdown-item" href="{{route('quanlitaikhoan')}}">Phân quyền tải khoản</a>
         </div>
     </li>
@@ -80,123 +80,6 @@
         <!-- Earnings (Monthly) Card Example -->
         <div class="col-xl-12 col-md-12 col-sm-12 mb-4">
             <div id="accordion">
-                <div class="card">
-                    <div class="card-header" id="headingOne">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
-                                aria-expanded="true" aria-controls="collapseOne">
-                                Loại bảng điểm
-                            </button>
-                        </h5>
-                    </div>
-
-                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                        <div class="card-body">
-                            <!-- Core sheet type -->
-                            <!-- collapse 1 content -->
-                            <form>
-                                <table class="border table table-striped col-10">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Mã loại bảng điểm</th>
-                                            <th scope="col">Tên loại bảng điểm</th>
-                                            <th>Xoá</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($loaibangdiem as $key=>$value)
-                                        <tr>
-                                            <td>{{$value->id}}</td>
-                                            <td>{{$value->name}}</td>
-                                            <td>
-                                                <a onclick="return confirm('Bạn chắn chắc muốn xóa không ?')"
-                                                    href="{{URL::to('/delete-loai-bang-diem/'.$value->id)}}}"
-                                                    class="active" ui-toggle-class="">
-                                                    <i class="fa fa-times text-danger text"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </form>
-                            <!-- create new type -->
-                            <form method="POST" role="form" action="{{URL::to('/them-loai-bang-diem')}}">
-                                <?php
-                                    $message = Session::get('message');
-                                    if($message){
-                                        echo '<span style="color:red">' .$message. '</span>';
-                                        Session::put('message',null);
-                                        }
-                                ?>
-                                {{csrf_field()}}
-                                <div class="col-xl-6 border col-md-12 col-sm-12">
-                                    <div class="col-12">
-                                        <div class="col-12">
-                                            <h1 class="h4 ml-3 text-gray-800">Thêm mới</h1>
-                                        </div>
-                                        <div class="card-body col-12 mb-4">
-                                            <div class="mb-4">Tên loại bảng điểm</div>
-                                            <input name="input_loaibangdiem" type="text"
-                                                class="card border-secondary shadow h-100 py-2 col-12 mb-4" />
-                                            <input type="submit" value="Thêm"
-                                                class="btn btn-outline-secondary py-2 shadow" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingTwo">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
-                                aria-expanded="false" aria-controls="collapseTwo">
-                                Chỉnh sửa bảng điểm
-                            </button>
-                        </h5>
-                    </div>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                        <div class="card-body">
-                            <!-- collapse 2 content -->
-                            <div class="col-xl-12 col-md-12 col-sm-12 mb-4">
-                                <div class="col-12">
-                                    <div class="shadow h-100 py-2 col-12">
-                                        <div class="row">
-                                            <div class="col-12 text-center">
-                                                <h1 class="h3 ml-3 text-gray-800">Chỉnh sửa bảng điểm</h1>
-                                            </div>
-                                            <table class="border table table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">Mã bảng điểm</th>
-                                                        <th scope="col">Tên bảng điểm</th>
-                                                        <th scope="col">Điểm bảng điểm</th>
-                                                        <th scope="col">Ngày bắt đầu</th>
-                                                        <th scope="col">Ngày kết thúc</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($bang_diem as $key=>$value)  
-                                                        <tr>
-                                                            <td>{{$value->id}}</td>
-                                                            <td><a href="{{URL::to('/update-bang-diem-ctsv')}}/{{$value->id}}">{{$value->name}}</a></td>
-                                                            <td>{{$value->maxbangdiem}}</td>
-                                                            <td>{{date('d-m-Y', strtotime($value->ngaybatdau))}}</td>
-                                                            <td>{{date('d-m-Y', strtotime($value->ngayketthuc))}}</td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="card">
                     <div class="card-header" id="headingThree">
                         <h5 class="mb-0">
@@ -281,6 +164,55 @@
                         </form>
                     </div>
                 </div>
+                <div class="card">
+                    <div class="card-header" id="headingTwo">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                                aria-expanded="false" aria-controls="collapseTwo">
+                                Chỉnh sửa bảng điểm
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                        <div class="card-body">
+                            <!-- collapse 2 content -->
+                            <div class="col-xl-12 col-md-12 col-sm-12 mb-4">
+                                <div class="col-12">
+                                    <div class="shadow h-100 py-2 col-12">
+                                        <div class="row">
+                                            <div class="col-12 text-center">
+                                                <h1 class="h3 ml-3 text-gray-800">Chỉnh sửa bảng điểm</h1>
+                                            </div>
+                                            <table class="border table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Mã bảng điểm</th>
+                                                        <th scope="col">Tên bảng điểm</th>
+                                                        <th scope="col">Điểm bảng điểm</th>
+                                                        <th scope="col">Ngày bắt đầu</th>
+                                                        <th scope="col">Ngày kết thúc</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($bang_diem as $key=>$value)  
+                                                        <tr>
+                                                            <td>{{$value->id}}</td>
+                                                            <td><a href="{{URL::to('/update-bang-diem-ctsv')}}/{{$value->id}}">{{$value->name}}</a></td>
+                                                            <td>{{$value->maxbangdiem}}</td>
+                                                            <td>{{date('d-m-Y', strtotime($value->ngaybatdau))}}</td>
+                                                            <td>{{date('d-m-Y', strtotime($value->ngayketthuc))}}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </div>
