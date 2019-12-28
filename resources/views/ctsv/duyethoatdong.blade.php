@@ -16,44 +16,43 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-     <!-- Nav Item - Dashboard -->
-     <li class="nav-item active dropdown">
+    <li class="nav-item dropdown">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <a class="nav-link dropdown-toggle" href="{{route('quanlitieuchi')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Đoàn hội</span>
+            <span>Quản lý hoạt động</span>
         </a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{route('quanlitieuchi')}}">Quản lí tiêu chí</a>
-            <a class="dropdown-item" href="{{route('quanliphongtrao')}}">Quản lí phong trào</a>
-            <a class="dropdown-item" href="{{route('quanlihoatdong')}}">Quản lí hoạt động</a>
+            <a class="dropdown-item" href="{{route('quanlitieuchi')}}">Tiêu chí</a>
+            <a class="dropdown-item" href="{{route('quanliphongtrao')}}">Phong trào</a>
+            <a class="dropdown-item" href="{{route('quanlihoatdong')}}">Hoạt động</a>
             <a class="dropdown-item" href="{{route('duyethoatdong')}}">Xét duyệt hoạt động</a>
-            <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Import sinh viên tham gia hoạt
+            <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Danh sách tham gia hoạt
                 động</a>
             <a class="dropdown-item" href="{{route('phan-hoi-ctsv')}}">Phản hồi sinh viên</a>
         </div>
     </li>
     <!-- Nav Item - Bảng điểm -->
-    <li class="nav-item dropdown">
+    <li class="nav-item active dropdown">
         <a class="nav-link dropdown-toggle" href="{{route('quanlibangdiem')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Bảng điểm</span>
+            <span>Quản lý bảng điểm</span>
         </a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{route('quanlibangdiem')}}">Quản lí bảng điểm</a>
-            <a class="dropdown-item" href="{{route('quanlixeploai')}}">Quản lí xếp loại</a>
+            <a class="dropdown-item" href="{{route('quanlibangdiem')}}">Bảng điểm</a>
+            <a class="dropdown-item" href="{{route('quanlixeploai')}}">Xếp loại</a>
         </div>
     </li>
     <!-- Nav Item - Cơ sở-Sinh viên -->
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="{{route('quanlicoso')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Cơ sở-Sinh viên</span>
+            <span>Quản lý sinh viên</span>
         </a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{route('quanlicoso')}}">Quản lí cơ sở</a>
-            <a class="dropdown-item" href="{{route('quanlisinhvien')}}">Quản lí sinh viên</a>
-            <a class="dropdown-item" href="{{route('quanlitaikhoan')}}">Phân quyền tải khoản</a>
+            <a class="dropdown-item" href="{{route('quanlicoso')}}">Lớp học</a>
+            <a class="dropdown-item" href="{{route('quanlisinhvien')}}">Sinh viên</a>
+            <a class="dropdown-item" href="{{route('quanlitaikhoan')}}">Tài khoản</a>
         </div>
     </li>
     <!-- Nav Item - Dashboard -->
@@ -109,18 +108,14 @@
                                 <table class="border table table-striped">
 
                                     <thead>
-                                        <tr>
-                                            <th scope="col">
-
-                                            </th>
-                                            <th scope="col">Tên hoạt động</th>
-                                            <th scope="col">Điểm cộng</th>
+                                        <tr align="center">
+                                            <th scope="col"></th>
+                                            <th scope="col" style="width: 20%">Tên hoạt động</th>
+                                            <th scope="col" style="width: 15%">Điểm cộng</th>
                                             <th scope="col">Đối tượng</th>
                                             <th scope="col">Số lượng tham gia</th>
-                                            <th scope="col">Người tạo</th>
-                                            <th scope="col">Người duyệt</th>
-                                            <th scope="col">Trạng thái</th>
-                                            <th scope="col">Mô tả</th>
+                                            <th scope="col">Người tạo (mã tài khoản)</th>
+                                            <th scope="col" style="width: 20%">Mô tả</th>
                                         </tr>
                                     </thead>
                                     <tbody id="show-hoat-dong-xetduyethoatdong">
@@ -177,12 +172,10 @@
                                     </div>
                                 </td>
                                 <td class="return-data"><a href="#">` + element.name + `</a></td>
-                                <td class="return-data"><a href="#">` + element.diem + `</a></td>
+                                <td class="return-data" align="center"><a href="#">` + element.diem + `</a></td>
                                 <td class="return-data">` + element.doituong + `</td>
-                                <td class="return-data">` + 10 + `</td>
-                                <td class="return-data">` + element.nguoitao + `</td>
-                                <td class="return-data">` + element.nguoiduyet + `</td>
-                                <td class="return-data">` + element.status_clone + `</td>
+                                <td class="return-data" align="center">` + 36 + `</td>
+                                <td class="return-data" align="center">` + element.nguoitao + `</td>
                                 <td class="return-data">` + element.mota + `</td>
                             </tr>`;
                     $('#show-hoat-dong-xetduyethoatdong').append(html);
@@ -223,12 +216,10 @@
                                     </div>
                                 </td>
                                 <td class="return-data"><a href="#">` + element.name + `</a></td>
-                                <td class="return-data"><a href="#">` + element.diem + `</a></td>
+                                <td class="return-data" align="center"><a href="#">` + element.diem + `</a></td>
                                 <td class="return-data">` + element.doituong + `</td>
-                                <td class="return-data">` + 10 + `</td>
-                                <td class="return-data">` + element.nguoitao + `</td>
-                                <td class="return-data">` + element.nguoiduyet + `</td>
-                                <td class="return-data">` + element.status_clone + `</td>
+                                <td class="return-data" align="center">` + 36 + `</td>
+                                <td class="return-data" align="center">` + element.nguoitao + `</td>
                                 <td class="return-data">` + element.mota + `</td>
                             </tr>`;
                     $('#show-hoat-dong-xetduyethoatdong').append(html);

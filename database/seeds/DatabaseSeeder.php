@@ -70,6 +70,7 @@ class RolesSeeder extends Seeder
             ['name' => 'lớp trưởng'],
             ['name' => 'cvht'],
             ['name' => 'ctsv'],
+            ['name' => 'admin'],
         ]);
         
     }
