@@ -5,7 +5,8 @@
 <ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion border-right" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a style="color: indianred; background-color: white" class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('quanlibangdiem')}}">
+    <a style="color: indianred; background-color: white"
+        class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('quanlibangdiem')}}">
         <div class="sidebar-brand-icon">
             <img style="width: 60px; height: 60px" class="img-profile" src="{{asset('public/admin/img/uit.png')}}">
         </div>
@@ -20,12 +21,12 @@
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <a class="nav-link dropdown-toggle" href="{{route('quanlitieuchi')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Quản lý hoạt động</span>
+            <span>Quản lý chung</span>
         </a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{route('quanlitieuchi')}}">Tiêu chí</a>
-            <a class="dropdown-item" href="{{route('quanliphongtrao')}}">Phong trào</a>
-            <a class="dropdown-item" href="{{route('quanlihoatdong')}}">Hoạt động</a>
+            <a class="dropdown-item" href="{{route('quanlitieuchi')}}">Quản lý tiêu chí</a>
+            <a class="dropdown-item" href="{{route('quanliphongtrao')}}">Quản lý phong trào</a>
+            <a class="dropdown-item" href="{{route('quanlihoatdong')}}">Quản lý hoạt động</a>
             <a class="dropdown-item" href="{{route('duyethoatdong')}}">Xét duyệt hoạt động</a>
             <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Danh sách tham gia hoạt
                 động</a>
@@ -39,20 +40,20 @@
             <span>Quản lý bảng điểm</span>
         </a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{route('quanlibangdiem')}}">Bảng điểm</a>
-            <a class="dropdown-item" href="{{route('quanlixeploai')}}">Xếp loại</a>
+            <a class="dropdown-item" href="{{route('quanlibangdiem')}}">Quản lý bảng điểm</a>
+            <a class="dropdown-item" href="{{route('quanlixeploai')}}">Quản lý xếp loại</a>
         </div>
     </li>
     <!-- Nav Item - Cơ sở-Sinh viên -->
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="{{route('quanlicoso')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Quản lý sinh viên</span>
+            <span>Quản lý Lớp-Sinh viên</span>
         </a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{route('quanlicoso')}}">Lớp học</a>
-            <a class="dropdown-item" href="{{route('quanlisinhvien')}}">Sinh viên</a>
-            <a class="dropdown-item" href="{{route('quanlitaikhoan')}}">Tài khoản</a>
+            <a class="dropdown-item" href="{{route('quanlicoso')}}">Quản lý lớp</a>
+            <a class="dropdown-item" href="{{route('quanlisinhvien')}}">Quản lý sinh viên</a>
+            <a class="dropdown-item" href="{{route('quanlitaikhoan')}}">Phân quyền tải khoản</a>
         </div>
     </li>
     <!-- Nav Item - Dashboard -->
@@ -90,7 +91,7 @@
                     </div>
                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="card-body">
-    
+
                             <div class="card-body col-12 mb-4">
                                 <!-- bảng hiển thị danh sách tài khoản -->
                                 <?php
@@ -120,7 +121,7 @@
                                             <td>{{ $row->email }}</td>
                                             <td>{{ $row->role }}</td>
                                         </tr>
-                                    
+
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -152,12 +153,12 @@
                                                 <td>
                                                     <input name="input_user_id" type="text"
                                                         class="card border-secondary shadow h-100 py-2 col-8"
-                                                        id="user_id" readonly/>
+                                                        id="user_id" readonly />
                                                 </td>
                                                 <td>
                                                     <input name="input_email_user" type="text"
                                                         class="card border-secondary shadow h-100 py-2 col-8"
-                                                        id="user_email" readonly/>
+                                                        id="user_email" readonly />
                                                 </td>
                                                 <td>
                                                     <select id="dropdown-role" name="select_role_name"
@@ -218,22 +219,22 @@
 <script src="{{asset('public/admin/vendor/datatables/jquery.dataTables.js')}}"></script>
 <script>
     function myFunction() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[2];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }       
-  }
-}
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[2];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
 </script>
 @endsection
