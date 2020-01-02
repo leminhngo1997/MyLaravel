@@ -6,8 +6,7 @@
 <ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion border-right" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a style="color: indianred; background-color: white"
-        class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('quanlibangdiem')}}">
+    <a style="color: indianred; background-color: white" class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('quanlibangdiem')}}">
         <div class="sidebar-brand-icon">
             <img style="width: 60px; height: 60px" class="img-profile" src="{{asset('public/admin/img/uit.png')}}">
         </div>
@@ -29,7 +28,7 @@
             <a class="dropdown-item" href="{{route('quanliphongtrao')}}">Quản lý phong trào</a>
             <a class="dropdown-item" href="{{route('quanlihoatdong')}}">Quản lý hoạt động</a>
             <a class="dropdown-item" href="{{route('duyethoatdong')}}">Xét duyệt hoạt động</a>
-            <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Import sinh viên tham gia hoạt
+            <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Danh sách tham gia hoạt
                 động</a>
             <a class="dropdown-item" href="{{route('phan-hoi-ctsv')}}">Phản hồi sinh viên</a>
         </div>
@@ -38,7 +37,7 @@
     <li class="nav-item active dropdown">
         <a class="nav-link dropdown-toggle" href="{{route('quanlibangdiem')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Bảng điểm</span>
+            <span>Quản lý bảng điểm</span>
         </a>
         <div class="dropdown-menu">
             <a class="dropdown-item" href="{{route('quanlibangdiem')}}">Quản lý bảng điểm</a>

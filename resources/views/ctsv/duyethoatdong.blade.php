@@ -27,16 +27,16 @@
             <a class="dropdown-item" href="{{route('quanliphongtrao')}}">Quản lý phong trào</a>
             <a class="dropdown-item" href="{{route('quanlihoatdong')}}">Quản lý hoạt động</a>
             <a class="dropdown-item" href="{{route('duyethoatdong')}}">Xét duyệt hoạt động</a>
-            <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Import sinh viên tham gia hoạt
+            <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Danh sách tham gia hoạt
                 động</a>
             <a class="dropdown-item" href="{{route('phan-hoi-ctsv')}}">Phản hồi sinh viên</a>
         </div>
     </li>
     <!-- Nav Item - Bảng điểm -->
-    <li class="nav-item dropdown">
+    <li class="nav-item active dropdown">
         <a class="nav-link dropdown-toggle" href="{{route('quanlibangdiem')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Bảng điểm</span>
+            <span>Quản lý bảng điểm</span>
         </a>
         <div class="dropdown-menu">
             <a class="dropdown-item" href="{{route('quanlibangdiem')}}">Quản lý bảng điểm</a>
@@ -108,18 +108,14 @@
                                 <table class="border table table-striped">
 
                                     <thead>
-                                        <tr>
-                                            <th scope="col">
-
-                                            </th>
-                                            <th scope="col">Tên hoạt động</th>
-                                            <th scope="col">Điểm cộng</th>
+                                        <tr align="center">
+                                            <th scope="col"></th>
+                                            <th scope="col" style="width: 20%">Tên hoạt động</th>
+                                            <th scope="col" style="width: 15%">Điểm cộng</th>
                                             <th scope="col">Đối tượng</th>
                                             <th scope="col">Số lượng tham gia</th>
-                                            <th scope="col">Người tạo</th>
-                                            <th scope="col">Người duyệt</th>
-                                            <th scope="col">Trạng thái</th>
-                                            <th scope="col">Mô tả</th>
+                                            <th scope="col">Người tạo (mã tài khoản)</th>
+                                            <th scope="col" style="width: 20%">Mô tả</th>
                                         </tr>
                                     </thead>
                                     <tbody id="show-hoat-dong-xetduyethoatdong">
@@ -176,12 +172,10 @@
                                     </div>
                                 </td>
                                 <td class="return-data"><a href="#">` + element.name + `</a></td>
-                                <td class="return-data"><a href="#">` + element.diem + `</a></td>
+                                <td class="return-data" align="center"><a href="#">` + element.diem + `</a></td>
                                 <td class="return-data">` + element.doituong + `</td>
-                                <td class="return-data">` + 10 + `</td>
-                                <td class="return-data">` + element.nguoitao + `</td>
-                                <td class="return-data">` + element.nguoiduyet + `</td>
-                                <td class="return-data">` + element.status_clone + `</td>
+                                <td class="return-data" align="center">` + 36 + `</td>
+                                <td class="return-data" align="center">` + element.nguoitao + `</td>
                                 <td class="return-data">` + element.mota + `</td>
                             </tr>`;
                     $('#show-hoat-dong-xetduyethoatdong').append(html);
@@ -222,12 +216,10 @@
                                     </div>
                                 </td>
                                 <td class="return-data"><a href="#">` + element.name + `</a></td>
-                                <td class="return-data"><a href="#">` + element.diem + `</a></td>
+                                <td class="return-data" align="center"><a href="#">` + element.diem + `</a></td>
                                 <td class="return-data">` + element.doituong + `</td>
-                                <td class="return-data">` + 10 + `</td>
-                                <td class="return-data">` + element.nguoitao + `</td>
-                                <td class="return-data">` + element.nguoiduyet + `</td>
-                                <td class="return-data">` + element.status_clone + `</td>
+                                <td class="return-data" align="center">` + 36 + `</td>
+                                <td class="return-data" align="center">` + element.nguoitao + `</td>
                                 <td class="return-data">` + element.mota + `</td>
                             </tr>`;
                     $('#show-hoat-dong-xetduyethoatdong').append(html);

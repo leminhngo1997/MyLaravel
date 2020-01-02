@@ -28,16 +28,16 @@
             <a class="dropdown-item" href="{{route('quanliphongtrao')}}">Quản lý phong trào</a>
             <a class="dropdown-item" href="{{route('quanlihoatdong')}}">Quản lý hoạt động</a>
             <a class="dropdown-item" href="{{route('duyethoatdong')}}">Xét duyệt hoạt động</a>
-            <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Import sinh viên tham gia hoạt
+            <a class="dropdown-item" href="{{route('importsinhvienthamgiahoatdong')}}">Danh sách tham gia hoạt
                 động</a>
             <a class="dropdown-item" href="{{route('phan-hoi-ctsv')}}">Phản hồi sinh viên</a>
         </div>
     </li>
     <!-- Nav Item - Bảng điểm -->
-    <li class="nav-item dropdown">
+    <li class="nav-item active dropdown">
         <a class="nav-link dropdown-toggle" href="{{route('quanlibangdiem')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Bảng điểm</span>
+            <span>Quản lý bảng điểm</span>
         </a>
         <div class="dropdown-menu">
             <a class="dropdown-item" href="{{route('quanlibangdiem')}}">Quản lý bảng điểm</a>
@@ -45,7 +45,7 @@
         </div>
     </li>
     <!-- Nav Item - Cơ sở-Sinh viên -->
-    <li class="nav-item active dropdown">
+    <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="{{route('quanlicoso')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Quản lý Lớp-Sinh viên</span>
