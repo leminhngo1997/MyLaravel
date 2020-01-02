@@ -44,13 +44,11 @@ class UsersSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            // ['name' => 'Lê Hữu Phúc','email' => '15520639@gm.uit.edu.vn','password' => bcrypt('123456')],
-            // ['name' => 'Nguyễn Trường Thịnh','email' => '15520844@gm.uit.edu.vn','password' => bcrypt('123456')],
-            // ['name' => 'Ngô Lê Minh','email' => '15520214@gm.uit.edu.vn','password' => bcrypt('123456')],
             ['name' => 'Lương Nguyễn Gia Lượng','email' => '15520123@gm.uit.edu.vn','password' => bcrypt('123456')],
             ['name' => 'Nguyễn Viết Thinh','email' => '15520456@gm.uit.edu.vn','password' => bcrypt('123456')],
             ['name' => 'cvht','email' => 'cvht@uit.edu.vn','password' => bcrypt('123456')],
-            ['name' => 'ctsv','email' => 'ctsv@uit.edu.vn','password' => bcrypt('123456')]
+            ['name' => 'ctsv','email' => 'ctsv@uit.edu.vn','password' => bcrypt('123456')],
+            ['name' => 'admin','email' => 'admin@uit.edu.vn','password' => bcrypt('123456')]
         ]);
         
     }
@@ -70,6 +68,7 @@ class RolesSeeder extends Seeder
             ['name' => 'lớp trưởng'],
             ['name' => 'cvht'],
             ['name' => 'ctsv'],
+            ['name' => 'admin'],
         ]);
         
     }
@@ -85,13 +84,11 @@ class User_RoleSeeder extends Seeder
     public function run()
     {
         DB::table('user_role')->insert([
-            // ['sv_id' => 1,'role_id' => 1],
-            // ['sv_id' => 2,'role_id' => 2],
-            // ['sv_id' => 3,'role_id' => 1],
             ['sv_id' => 1,'role_id' => 1],
             ['sv_id' => 2,'role_id' => 1],
             ['sv_id' => 3,'role_id' => 3],
-            ['sv_id' => 4,'role_id' => 4]
+            ['sv_id' => 4,'role_id' => 4],
+            ['sv_id' => 5,'role_id' => 5],
         ]);
         
     }

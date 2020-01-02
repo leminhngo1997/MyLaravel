@@ -17,6 +17,7 @@ class CreateCauhoiTable extends Migration
             $table->bigIncrements('id');
             $table->string('name_cauhoi');
             $table->string('ungcuvien');
+            $table->integer('gioihantoida')->nullable();
             $table->unsignedBigInteger('suluachon_id');
             $table->foreign('suluachon_id')->references('id')->on('suluachon');
             $table->unsignedBigInteger('coso_id');

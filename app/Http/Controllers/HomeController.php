@@ -41,6 +41,9 @@ class HomeController extends Controller
         }
         elseif ($role->name == "cvht"){
 			return redirect()->route('phan-hoi-cvht');
+        }
+        elseif ($role->name == "admin"){
+			return redirect()->route('quanlitaikhoan-admin');
 		}
 		else{
             return view('home');

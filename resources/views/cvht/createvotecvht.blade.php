@@ -64,12 +64,17 @@
             Session::put('message',null);
             }
 ?>
+
         <div class="mb-4">Chọn kiểu bầu chọn</div>
-        <select  class="card border-secondary shadow py-2 col-4 mb-4"  name="input_suluachon">
+        <select id="get_value_suluachon"  class="card border-secondary shadow py-2 col-4 mb-4" onclick="get_value()"  name="input_suluachon">
             @foreach($su_lua_chon as $key=>$value)
             <option value="{{$value->id}}">{{$value->name}}</option>
             @endforeach
         </select>
+
+        <div style="display: none" id="input_label" class="mb-4">Giới hạn tối đa</div>
+        <input style="display: none" id="input_gioihan" name="input_gioihantoida_vote" class="card border-secondary shadow py-2 col-4 mb-4">
+        
         <div class="mb-4">Nhập câu hỏi</div>
         <input name="input_cauhoi" type="text" class="card border-secondary shadow py-2 col-6 mb-4" />
 
@@ -148,6 +153,21 @@
                     tr[i].style.display = "none";
                 }
             }
+        }
+    }
+</script>
+
+<script>
+    function get_value(){
+        input = document.getElementById("get_value_suluachon");
+        x = document.getElementById("input_gioihan");
+        y = document.getElementById("input_label");
+        if (input.value === "1") {
+            x.style.display = "none";
+            y.style.display = "none";
+        } else {
+            x.style.display = "block";
+            y.style.display = "block";
         }
     }
 </script>

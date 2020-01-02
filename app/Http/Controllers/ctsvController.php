@@ -182,6 +182,10 @@ class ctsvController extends Controller
             ->select('users.id','users.name','users.email','user_role.role_id','roles.name as role')
             ->orderBy('users.id','DESC')
             ->get();
+        unset($user_role['0']);//ctsv
+        unset($user_role['1']);//admin
+        unset($role['3']);//role ctsv
+        unset($role['4']);//role Admin
         return view('ctsv.quanlitaikhoan',[
             'role'=>$role,
             'user'=>$user,

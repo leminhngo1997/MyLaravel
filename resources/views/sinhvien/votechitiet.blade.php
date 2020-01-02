@@ -85,6 +85,7 @@
         <h2 style="text-align: center">{{$value->name_cauhoi}}</h2>
 
         <br />
+        <input value="{{$value->gioihantoida}}" name="input_gioihantoida" hidden>
         <input value="{{$value->id}}" name="input_cauhoi_id" hidden>
         <input value="{{$value->suluachon_id}}" name="input_suluachon_id" hidden>
         {{-- <input value="{{$value->sv_id}}" name="input_sv_id" hidden> --}}
@@ -92,7 +93,7 @@
             if($value->suluachon_id ==1)
                 echo "Bạn chỉ có 1 sự lựa chọn!";
             else {
-                echo "Bạn có nhiều sự lựa chọn!";
+                echo "Bạn có nhiều sự lựa chọn! Bạn chỉ có tối đa $value->gioihantoida sự lựa chọn";
             }
             ?></div>
         <br />

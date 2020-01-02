@@ -635,7 +635,11 @@ class sinhvienController extends Controller
                 return back();
             }
         }
-
+        if(count($request->check)> $request->input_gioihantoida)
+        {
+            Session::put('message','Lỗi: Bạn không được phép chọn quá giới hạn');
+            return back();
+        }
         $check_traloi_table = DB::table('traloi')->select('sv_id')->where('cauhoi_id',$request->input_cauhoi_id)->get();
         foreach($check_traloi_table as $key=>$value)
         {

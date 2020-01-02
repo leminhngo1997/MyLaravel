@@ -221,7 +221,9 @@ Route::post('/xoa-user-hoatdong-danhsachsinhvienthamgiahoatdong','ctsvController
 // -- -- -- Quản lí tài khoản
 Route::get('quanlitaikhoan',['as'=>'quanlitaikhoan','uses'=>'ctsvController@get_value_quanlitaikhoan']);
 Route::post('/quanlitaikhoan/phanquyen','ctsvController@update_quanlitaikhoan');
-
+// -- -- -- Quản lí tài khoản -- admin
+Route::get('quanlitaikhoan-admin',['as'=>'quanlitaikhoan-admin','uses'=>'adminController@get_value_quanlitaikhoan_admin']);
+Route::post('/quanlitaikhoan-admin/phanquyen','adminController@update_quanlitaikhoan_admin');
 
 // -- -- -- Quản lí phản hồi
 Route::get('/feedback/chitiet/{id}',['as'=>'feedback/chitiet','uses'=>'feedbackController@get_value_feedbackdetail']);

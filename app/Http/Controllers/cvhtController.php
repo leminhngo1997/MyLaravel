@@ -176,6 +176,7 @@ class cvhtController extends Controller
         $data_cauhoi = array();
         $data_cauhoi['name_cauhoi'] = $request->input_cauhoi;
         $data_cauhoi['suluachon_id'] = $request->input_suluachon;
+        $data_cauhoi['gioihantoida'] = $request->input_gioihantoida_vote;
         $data_cauhoi['coso_id'] = $x;
         $data_cauhoi['ngaybatdau'] = $request->input_ngaybatdau_vote;
         $data_cauhoi['ngayketthuc'] = $request->input_ngayketthuc_vote;
