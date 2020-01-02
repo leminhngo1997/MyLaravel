@@ -34,7 +34,7 @@
         </div>
     </li>
     <!-- Nav Item - Bảng điểm -->
-    <li class="nav-item active dropdown">
+    <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="{{route('quanlibangdiem')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Quản lý bảng điểm</span>
@@ -45,7 +45,7 @@
         </div>
     </li>
     <!-- Nav Item - Cơ sở-Sinh viên -->
-    <li class="nav-item dropdown">
+    <li class="nav-item active dropdown">
         <a class="nav-link dropdown-toggle" href="{{route('quanlicoso')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Quản lý Lớp-Sinh viên</span>
@@ -102,14 +102,14 @@
                                         }
                                 ?>
                                 {{csrf_field()}}
-                                <div>Tìm kiếm theo email</div>
+                                <div>Tìm kiếm theo mssv</div>
                                 <input type="text" class="form-control col-6 mb-4" id="myInput" onkeyup="myFunction()">
                                 <table class="border table table-striped" id="myTable">
                                     <thead>
                                         <tr class="clickable-row">
                                             <th scope="col">Mã tài khoản</th>
                                             <th scope="col">Tên người dùng</th>
-                                            <th scope="col">Email</th>
+                                            <th scope="col">MSSV</th>
                                             <th scope="col">Loại tài khoản</th>
                                         </tr>
                                     </thead>
@@ -118,7 +118,10 @@
                                         <tr class="clickable-row" onclick="setRole()">
                                             <td>{{ $row->id }}</td>
                                             <td><a role="button" tabindex="0">{{ $row->name }}</a></td>
-                                            <td>{{ $row->email }}</td>
+                                            <td><?php  
+                                                foreach (explode('@gm.uit.edu.vn',$row->email) as $x => $y) {
+                                                    echo $y;
+                                                 }  ?></td>
                                             <td>{{ $row->role }}</td>
                                         </tr>
 

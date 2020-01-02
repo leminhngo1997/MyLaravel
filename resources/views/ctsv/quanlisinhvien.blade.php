@@ -180,15 +180,18 @@
                                     <div class="mb-4">Danh sách thêm vào gần đây</div>
                                     <table class="border table table-striped col-12">
                                         <tr>
-                                            <th>id</th>
-                                            <th>name</th>
-                                            <th>email</th>
+                                            <th>ID</th>
+                                            <th>Tên sinh viên</th>
+                                            <th>MSSV</th>
                                         </tr>
                                         @foreach ($data as $row)
                                         <tr>
                                             <td>{{ $row->id }}</td>
                                             <td>{{ $row->name }}</td>
-                                            <td>{{ $row->email }}</td>
+                                            <td><?php  
+                                                foreach (explode('@gm.uit.edu.vn',$row->email) as $x => $y) {
+                                                    echo $y;
+                                                 }  ?></td>
                                         </tr>
                                         @endforeach
                                     </table>

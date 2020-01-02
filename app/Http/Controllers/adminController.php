@@ -10,8 +10,26 @@ use DB;
 
 class adminController extends Controller
 {	
+    public function AuthSV(){
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
+        $user_role = DB::table('user_role')->where('sv_id', $auth_id)->first('role_id');
+        $role = DB::table('roles')->where('id', $user_role->role_id)->first('name');
+        if($role->name == "admin"){
+            
+		}else{
+            Redirect::to('login')->send();
+        }
+    }
+
     public function get_value_quanlitaikhoan_admin(){
-        // $this->AuthSV(); 
+        $this->AuthSV(); 
         if(Auth::user()!==NULL)
         {
             $auth_id = Auth::user()->id;
@@ -29,6 +47,7 @@ class adminController extends Controller
             ->orderBy('users.id','DESC')
             ->get();
         unset($user_role['0']);
+        // dd($user_role);
         unset($role['4']);//role admin
         return view('admin.quanlitaikhoan-admin',[
             'role'=>$role,
