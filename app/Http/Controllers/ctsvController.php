@@ -119,8 +119,10 @@ class ctsvController extends Controller
             return view('Auth.login');
         }
         $doituong = DB::table('doituong')->get();
+        $khoa = DB::table('khoa')->get();
         return view('ctsv.quanlicoso',[
             'doituong'=>$doituong,
+            'khoa'=>$khoa
         ]);
     }
 
@@ -758,11 +760,16 @@ class ctsvController extends Controller
             Session::put('message','Nhập sĩ số');
             return Redirect::to('quanlicoso');
         }
+        if(empty($request->input_khoa_id)){
+            Session::put('message','Chọn khoa');
+            return Redirect::to('quanlicoso');
+        }
 
         $data = array();
         $data['name'] = $request->input_name_coso;
         $data['doituong_id'] = $request->input_doituong_id;
         $data['siso'] = $request->input_siso_coso;
+        $data['khoa_id'] = $request->input_khoa_id;
         DB::table('coso')->insert($data);
         Session::put('message','Thêm cơ sở thành công.');
         return Redirect::to('quanlicoso');
@@ -967,10 +974,14 @@ public function thongke_ctsv(){
     
 
     //get si_so
+    $bangdiem = array();
+    $khoa=array();
     $bangdiem = DB::table('bangdiem')->select('id','name')->get();
+    $khoa = DB::table('khoa')->select('id','name')->get();
 
     return view('ctsv.thongke_ctsv',[
-        'bangdiem' => $bangdiem
+        'bangdiem' => $bangdiem,
+        'khoa'=>$khoa
     ]);
 }
 public function chinhsuaheso(request $request){

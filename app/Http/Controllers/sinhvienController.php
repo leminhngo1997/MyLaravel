@@ -77,7 +77,7 @@ class sinhvienController extends Controller
         ->get('id');
 
         //tính trung bình
-            foreach($sinhvien as $index => $item){  
+            foreach($sinhvien as $index => $item){
             
                 $sum = 0;
                 $loai = '';

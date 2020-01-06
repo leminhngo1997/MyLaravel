@@ -80,26 +80,70 @@
                 <!-- Core sheet type -->
                 <!-- collapse 1 content -->
                 <div class="row col-12">
-                    <form method="post" enctype="multipart/form-data"
-                            action="{{url('/thongkectsv/export_diem')}}"> {{-- url('/thongkectsv/export_diem') --}}
+                    <div class="col-4">
+                        <form method="post" enctype="multipart/form-data"
+                                action="{{url('/thongkectsv/export_diem')}}"> {{-- url('/thongkectsv/export_diem') --}}
+                                {{ csrf_field() }}
+                            <select class="btn btn-secondary dropdown-toggle ml-3 mb-4 col-6" role="button"
+                                id="drop-down-term" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="bang_diem_id">
+                                @foreach($bangdiem as $key=>$value)
+                                {
+                    
+                                    <option value="{{$value->id}}">{{$value->name}}</option>
+                                    
+                                }
+                                @endforeach
+                            </select>
+                            <br>
+                            <select class="btn btn-secondary dropdown-toggle ml-3 mb-4 col-6" role="button"
+                                id="drop-down-co_so" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="co_so_id">
+                                {{--  --}}
+                            </select>
+                            <br>
+                            <input type="submit" class="btn btn-success mb-4 ml-3 col-6" value="Xuất theo lớp"/>
+                        </form>
+                    </div>
+                    <div class="col-4">
+                        <form method="post" enctype="multipart/form-data"
+                            action="{{url('/thongkectsv/export_diem_khoa')}}"> {{-- url('/thongkectsv/export_diem') --}}
                             {{ csrf_field() }}
-                        <select class="btn btn-secondary dropdown-toggle ml-3 mb-4 col-6" href="#" role="button"
-                            id="drop-down-term" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="bang_diem_id">
-                            @foreach($bangdiem as $key=>$value)
-                            {
-                
-                                <option value="{{$value->id}}">{{$value->name}}</option>
-                                   
-                            }
-                            @endforeach
-                        </select>
-                        <input type="submit" class="btn btn-success mb-4 ml-5 col-4" value="Export Excel"/>
-                        <select class="btn btn-secondary dropdown-toggle ml-3 mb-4 col-6" href="#" role="button"
-                            id="drop-down-co_so" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="co_so_id">
-                            {{--  --}}
-                        </select>
-                        
-                    </form>
+                        <select class="btn btn-secondary dropdown-toggle mb-4 col-6" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="bang_diem_id">
+                                @foreach($bangdiem as $key=>$value)
+                                {
+                    
+                                    <option value="{{$value->id}}">{{$value->name}}</option>
+                                    
+                                }
+                                @endforeach
+                            </select>
+                        <select name="input_khoa_id"
+                                        class="btn btn-secondary dropdown-toggle mb-4 col-6">
+                                        @foreach($khoa as $key=>$value)
+                                        <option value="{{$value->id}}">{{$value->name}}</option>
+                                        @endforeach
+                         </select>
+                         <input type="submit" class="btn btn-success mb-4 col-6" value="Xuất theo khoa"/>
+                        </form>
+                    </div>
+                    <div class="col-4">
+                        <div class="mb-4">Xuất danh sách toàn trường</div>
+                        <form method="post" enctype="multipart/form-data"
+                            action="{{url('/thongkectsv/export_diem_truong')}}"> {{-- url('/thongkectsv/export_diem_truong') --}}
+                            {{ csrf_field() }}
+                            <select class="btn btn-secondary dropdown-toggle mb-4 col-6" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="bang_diem_id">
+                                @foreach($bangdiem as $key=>$value)
+                                {
+                    
+                                    <option value="{{$value->id}}">{{$value->name}}</option>
+                                    
+                                }
+                                @endforeach
+                            </select>
+                            <input type="submit" class="btn btn-success mb-4 col-6" value="Xuất toàn trường"/>
+                        </form>
+                    </div>
                 </div>
                 <table class="border table table-striped">
                     <thead>

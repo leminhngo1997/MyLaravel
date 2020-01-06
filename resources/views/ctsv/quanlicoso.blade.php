@@ -113,6 +113,14 @@
                                         @endforeach
                                     </select>
 
+                                    <div class="mb-4">Chọn khoa</div>
+                                    <select id="dropdown-doi-tuong-quanlicoso" name="input_khoa_id"
+                                        class="card border-secondary shadow h-100 py-2 col-6 mb-4">
+                                        @foreach($khoa as $key=>$value)
+                                        <option value="{{$value->id}}">{{$value->name}}</option>
+                                        @endforeach
+                                    </select>
+
                                     <div class="mb-4">Nhập tên lớp</div>
                                     <input name="input_name_coso" type="text"
                                         class="card border-secondary shadow h-100 py-2 col-6 mb-4" />

@@ -234,6 +234,8 @@ Route::get('/feedbackcvht/chitiet/{id}',['as'=>'feedbackcvht/chitiet','uses'=>'f
 Route::get('thongkectsv',['as'=>'thongkectsv','uses'=>'ctsvController@thongke_ctsv']);
 // -- export
 Route::post('/thongkectsv/export_diem','ExportExcel@export_diem_ctsv' );
+Route::post('/thongkectsv/export_diem_khoa','ExportExcel@export_diem_khoa_ctsv' );
+Route::post('/thongkectsv/export_diem_truong','ExportExcel@export_diem_truong_ctsv' );
 Route::post('/quanliphongtrao/export_temp','ExportExcel@export_temp' );
 Route::post('/quanlisinhvien/export_diem','ExportExcel@export_diem_ctsv' );
 Route::post('/quanlihoatdong/export_temp','ExportExcel@export_temp' );
