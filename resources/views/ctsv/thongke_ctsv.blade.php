@@ -243,7 +243,7 @@
                 data.forEach(element => {
                     html = `<tr class="delete-row-thong-ke">
                                 <td>`+element.mssv+`</td>
-                                <td>`+element.name+`</td>
+                                <td><a href = "{{URL::to('/thongkectsv/export_sinh_vien')}}/`+ element.id +`">` + element.name + `</a></td>
                                 <td>`+element.diem+`</td>
                                 <td>`+element.xeploai+`</td>
                             </tr>`;

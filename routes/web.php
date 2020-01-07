@@ -242,7 +242,8 @@ Route::get('thongkectsv',['as'=>'thongkectsv','uses'=>'ctsvController@thongke_ct
 // -- export
 Route::post('/thongkectsv/export_diem','ExportExcel@export_diem_ctsv' );
 Route::post('/thongkectsv/export_diem_khoa','ExportExcel@export_diem_khoa_ctsv' );
-Route::post('/thongkectsv/export_diem_truong','ExportExcel@export_diem_truong_ctsv' );
+Route::post('/thongkectsv/export_diem_truong','ExportExcel@export_diem_truong_ctsv');
+Route::get('/thongkectsv/export_sinh_vien/{id}','ExportExcel@export_diem_sinh_vien');
 Route::post('/quanliphongtrao/export_temp','ExportExcel@export_temp' );
 Route::post('/quanlisinhvien/export_diem','ExportExcel@export_diem_ctsv' );
 Route::post('/quanlihoatdong/export_temp','ExportExcel@export_temp' );
