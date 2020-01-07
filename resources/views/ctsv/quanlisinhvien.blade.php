@@ -213,7 +213,7 @@
                                             </th>
                                             <th scope="col">Mã tài khoản</th>
                                             <th scope="col">Tên sinh viên</th>
-                                            <th scope="col">Email</th>
+                                            <th scope="col">MSSV</th>
                                         </tr>
                                     </thead>
                                     <tbody id="show-users">
@@ -311,6 +311,9 @@
             success: function (data) {
                 $('.delete-users').remove();
                 data.forEach(element => {
+                    var email = element.email;
+                    var MSSV = email.split("@");
+                    console.log(MSSV);
                     html = `<tr class="delete-users">
                                 <td>
                                     <div class="checkbox">
@@ -320,8 +323,8 @@
                                     </div>
                                 </td>
                                 <td>` + element.id + `</td>
-                                <td class="return-data"><a href="#">` + element.name + `</a></td>
-                                <td class="return-data">` + element.email + `</td>
+                                <td class="return-data"><a href="{{URL::to('/quanlisinhvien/` + element.id + `')}}">` + element.name + `</a></td>
+                                <td class="return-data">`+ MSSV[0] +`</td>
                                 
                             </tr>`;
                     $('#show-users').append(html);

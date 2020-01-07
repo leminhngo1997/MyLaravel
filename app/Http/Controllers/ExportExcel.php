@@ -444,7 +444,7 @@ class ExportExcel extends Controller
                     'xeploai'=> $xeploaisinhvien[$key]
                 ])->toArray();
             }
-     
+
             Excel::create('data', function($excel) use ($danhsachdiem)
             {
                 $excel->sheet('data', function($sheet) use ($danhsachdiem){
@@ -452,6 +452,7 @@ class ExportExcel extends Controller
                 });
             })->export('xlsx');
         }
+
     }
     public function export_temp(Request $request){
 

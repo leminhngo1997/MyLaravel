@@ -91,11 +91,17 @@ Route::post('/them-co-so-quanlicoso','ctsvController@insert_co_so_quanlicoso');
 //-- -- --Xóa cơ sở
 Route::get('/delete-co-so-quanlicoso/{id}','ctsvController@delete_co_so_quanlicoso' );
 //-- --Quản lý sinh viên
-//-- -- --Thêm tiêu chí
+//-- -- --Thêm sinh viên
 Route::post('/them-users-quanlisinhvien','ctsvController@insert_users_quanlisinhvien');
 
 //-- -- --Xóa sinh viên
 Route::post('/xoa-user-quanlisinhvien','ctsvController@delete_users_quanlisinhvien');
+
+//-- -- -- Chi tiết sinh viên
+Route::get('/quanlisinhvien/{id}','ctsvController@chitiet_sinh_vien_quanlisinhvien' );
+
+//-- -- -- Chỉnh sửa chi tiết sinh viên
+Route::get('/update-sinh-vien-quanlisinhvien','ctsvController@update_sinh_vien_quanlisinhvien' );
 
 //-- --FEEDBACK
 //-- -- --Thêm feedback

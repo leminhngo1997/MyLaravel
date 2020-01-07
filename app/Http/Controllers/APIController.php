@@ -454,8 +454,11 @@ class APIController extends Controller
     }
     function GetUsers_quanlisinhvien(Request $request){
         $coso_id = $request->coso_id;
-        $users = DB::table('users')->join('sv_coso', 'users.id', '=', 'sv_coso.sv_id')
-        ->where('sv_coso.coso_id', $coso_id)->get();
+        $users = DB::table('users')
+        ->join('sv_coso', 'users.id', '=', 'sv_coso.sv_id')
+        ->join('user_role','users.id','user_role.sv_id')
+        ->where([['sv_coso.coso_id', $coso_id],
+                ['user_role.role_id','<',3]])->get();
         return $users;
     }
     function Load_Account_quanlisinhvien(Request $request){
