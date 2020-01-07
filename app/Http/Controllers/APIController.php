@@ -180,6 +180,120 @@ class APIController extends Controller
         }
         return $sum;
     }
+
+    function GetCoSo_dashboard(Request $request){
+        if(Auth::user()!==NULL)
+        {
+            $auth_id = Auth::user()->id;
+        }
+        else
+        {
+            return view('Auth.login');
+        }
+        //get si_so
+        $coso_id = DB::table('sv_coso')->where('sv_id', $auth_id)->first('coso_id')->coso_id;
+        $siso = DB::table('coso')->where('id', $coso_id)->first('siso')->siso;
+        $coso_name = DB::table('coso')->where('id', $coso_id)->first('name')->name;
+        //doituong_id của user hiện tại
+        $doituong_id = DB::table('coso')->where('id',$coso_id)->first('doituong_id')->doituong_id;
+        //các bảng điểm thuộc doituong_id
+        $bangdiem_id = $request->term;;
+//diem trung binh
+        //danh sach sinh vien
+        $sinhvien = DB::table('users')
+        ->join('sv_coso','users.id','=','sv_coso.sv_id')
+        ->join('user_role','users.id','=','user_role.sv_id')
+        ->where([
+            ['sv_coso.coso_id','=',$coso_id],
+            ['user_role.role_id','<',3]
+        ])
+        ->select('users.id','users.name','users.email')
+        ->get('id');
+
+        //tính trung bình
+            foreach($sinhvien as $index => $item){
+            
+                $sum = 0;
+                $loai = '';
+                foreach($bangdiem_id as $key => $value){
+                        $diemcong = DB::table('tieuchi')
+                        ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
+                        ->Join('phongtrao', 'tieuchi_phongtrao.phongtrao_id', '=', 'phongtrao.id')
+                        ->Join('phongtrao_hoatdong','phongtrao.id', '=', 'phongtrao_hoatdong.phongtrao_id')
+                        ->Join('hoatdong', 'phongtrao_hoatdong.hoatdong_id', '=', 'hoatdong.id')
+                        ->Join('user_hoatdong', 'hoatdong.id', '=', 'user_hoatdong.hoatdong_id')
+                        ->where([
+                                    ['tieuchi.bangdiem_id', '=', $value->bangdiem_id],
+                                    ['user_hoatdong.sv_id', '=', $item->id],
+                                    ['hoatdong.status_clone','=',1],
+                                    ['user_hoatdong.heso', '=', 1],
+                                ])->sum('hoatdong.diem');
+                        $diemtru = DB::table('tieuchi')
+                        ->Join('tieuchi_phongtrao', 'tieuchi.id', '=', 'tieuchi_phongtrao.tieuchi_id')
+                        ->Join('phongtrao', 'tieuchi_phongtrao.phongtrao_id', '=', 'phongtrao.id')
+                        ->Join('phongtrao_hoatdong','phongtrao.id', '=', 'phongtrao_hoatdong.phongtrao_id')
+                        ->Join('hoatdong', 'phongtrao_hoatdong.hoatdong_id', '=', 'hoatdong.id')
+                        ->Join('user_hoatdong', 'hoatdong.id', '=', 'user_hoatdong.hoatdong_id')
+                        ->where([
+                                    ['tieuchi.bangdiem_id', '=', $value->bangdiem_id],
+                                    ['user_hoatdong.sv_id', '=', $item->id],
+                                    ['hoatdong.status_clone','=',1],
+                                    ['user_hoatdong.heso', '=', -1],
+                                ])->sum('hoatdong.diem');
+                        $sum += intval($diemcong)-intval($diemtru);
+                }
+                $avr = $sum / count($bangdiem_id);
+                $avr = round($avr,2);
+                // lấy xếp loại
+                foreach($bangdiem_id as $key => $value){
+                    $xeploai = DB::table('xeploai')
+                    ->join('loaibangdiem','xeploai.loaibangdiem_id','=','loaibangdiem.id')
+                    ->join('bangdiem','loaibangdiem.id','=','bangdiem.loaibangdiem_id')
+                    ->where('bangdiem.id',$value->bangdiem_id)->select('xeploai.name','cantren','canduoi')->get();
+                }
+                foreach($xeploai as $key => $value){
+                    if($avr < $value->cantren && $avr >= $value->canduoi){
+                        $loai = $value->name;
+                    }
+                }
+                if($loai === ''){
+                    $max = 0;
+                    $min = 0;
+                    foreach($xeploai as $key => $value){
+                        if($key === 0){
+                            $max = $value->cantren;
+                            $min = $value->canduoi;
+                        }
+                        else{
+                            if($max<$value->cantren) $max = $value->cantren;
+                            if($min>$value->canduoi) $min = $value->canduoi; 
+                        }
+                    }
+                    if($avr > $max) $loai = 'Xuất sắc';
+                    if($avr < $min) $loai = 'Kém';
+                }
+                $xephang[] = array('id'=>$item->id,'xep_loai'=>$loai,'trung_binh'=>$avr);
+            }
+            function build_sorter($key) {
+                return function ($a, $b) use ($key) {
+                    return strnatcmp($b[$key], $a[$key]);
+                };
+            }    
+                   
+            usort($xephang, build_sorter('trung_binh'));
+            //xếp hạng
+            foreach($xephang as $key => $value){
+                if($auth_id === $value['id']){
+                    $hang = $key+1;
+                    $chitietxephang = array('id'=>$auth_id, 
+                    'xep_loai'=>$value['xep_loai'],
+                    'trung_binh' => $value['trung_binh'],
+                    'xep_hang'=>$hang
+                    );
+                }
+            }
+    }
+
     //--THAM GIA HOAT DONG
     function GetPhongTrao_thamgiahoatdong(Request $request){
         $tieu_chi_id = $request->tieu_chi_id;
@@ -294,6 +408,14 @@ class APIController extends Controller
         $term = $request->term_id;
 
          //danh sach sinh vien
+        $sinhvien_chuyen_lop = DB::table('users')
+        ->join('sinhvien_bangdiem_coso','users.id','=','sinhvien_bangdiem_coso.sv_id')
+        ->where([
+            ['sinhvien_bangdiem_coso.bangdiem_id','=',$term],
+            ['sinhvien_bangdiem_coso.coso_id','=',$coso_id]
+        ])
+        ->select('users.id','users.name','users.email');
+
         $sinhvien = DB::table('users')
         ->join('sv_coso','users.id','=','sv_coso.sv_id')
         ->join('user_role','users.id','=','user_role.sv_id')
@@ -302,7 +424,9 @@ class APIController extends Controller
             ['user_role.role_id','<',3]
         ])
         ->select('users.id','users.name','users.email')
+        ->union($sinhvien_chuyen_lop)
         ->get();
+
         
         
         //tong diem tung sinh vien

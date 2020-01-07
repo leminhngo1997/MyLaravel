@@ -79,7 +79,7 @@
     <div class="align-content-center col-12 row">
         <div class="col-2"></div>
         <div class="card border-secondary shadow py-2 col-8">
-            <form>
+            <form method="GET" role="form" action="{{URL::to('/update-sinh-vien-quanlisinhvien')}}">
             <div class="card-body">
                 @foreach ($sinh_vien as $item)
                 <table class="mb-4" style="width: 100%; height: 100%;">

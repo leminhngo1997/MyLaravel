@@ -923,7 +923,7 @@ public function chitiet_sinh_vien_quanlisinhvien($id){
     ->get();
 
     $lop = DB::table('coso')->get();
-    $chuc_vu = DB::table('roles')->get();
+    $chuc_vu = DB::table('roles')->where('id','<',3)->get();
     $hoc_ky = DB::table('users')
     ->join('sv_coso','users.id','=','sv_coso.sv_id')
     ->join('coso','sv_coso.coso_id','=','coso.id')
@@ -963,21 +963,53 @@ public function update_sinh_vien_quanlisinhvien(request $request){
         Session::put('message','Chọn sinh viên');
         return back();
     }
-
+    if(empty($request->input_hocky)){
+        Session::put('message','Chọn học kỳ áp dụng');
+        return back();
+    }
+    
     //update sinh viên
     DB::table('users')
     ->where('users.id',$request->id)
-    ->update([
+    ->update(
         ['name'=>$request->input_hoten],
         ['email'=>$request->input_mssv.'@gm.uit.edu.vn']
-    ]);
+    );
 
-    DB::table('users')
-    ->join('user_role','users.id','=','user_role.sv_id')
-    ->where('users.id',$request->id)
+    //update chức vụ
+    DB::table('user_role')
+    ->where('user_role.sv_id',$request->id)
     ->update(
         ['user_role.role_id'=>$request->input_chuc_vu]
     );
+
+    $lop_hien_tai=DB::table('users')
+    ->join('sv_coso','users.id','=','sv_coso.sv_id')
+    ->where('users.id',$request->id)
+    ->select('sv_coso.coso_id as id')->get()->first();
+
+    if(intval($lop_hien_tai->id)!==intval($request->input_lop)){
+        //chuyển lớp
+        $bangdiem_sinhvien_old=DB::table('users')
+        ->join('sv_coso','users.id','=','sv_coso.sv_id')
+        ->join('coso','sv_coso.coso_id','=','coso.id')
+        ->join('doituong','coso.doituong_id','=','doituong.id')
+        ->join('bangdiem_doituong','doituong.id','=','bangdiem_doituong.doituong_id')
+        ->where('users.id',$request->id)
+        ->select('bangdiem_doituong.bangdiem_id as bangdiem_id','coso.id as coso_id')->get();
+        
+        foreach($bangdiem_sinhvien_old as $key => $value){
+            if(intval($value->bangdiem_id)<intval($request->input_hocky)){
+                DB::table('sinhvien_bangdiem_coso')->updateOrInsert(
+                    ['sv_id'=>$request->id,
+                    'bangdiem_id'=>$value->bangdiem_id],
+                    ['coso_id'=>$value->coso_id]
+                );
+            }
+        }
+        DB::table('sv_coso')->where('sv_id',$request->id)->update(['coso_id'=>$request->input_lop]);
+    }
+    
 
 
 
