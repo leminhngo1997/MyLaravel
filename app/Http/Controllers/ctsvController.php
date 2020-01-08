@@ -154,7 +154,10 @@ class ctsvController extends Controller
         {
             return view('Auth.login');
         }
-        $user = DB::table('users')->get();
+        $user = DB::table('users')
+        ->join('user_role','users.id','=','user_role.sv_id')
+        ->where('user_role.role_id','<',3)
+        ->get();
         $doituong = DB::table('doituong')->get();
         $coso = DB::table('coso')->get();
         $data = DB::table('users')->orderBy('id','DESC')->limit(5)->get();
@@ -885,7 +888,7 @@ class ctsvController extends Controller
         }
     }
 //--quản lí sinh viên
-//--Xóa hoạt động
+//--Xóa sinh viên
 public function delete_users_quanlisinhvien(Request $request){
     if($request->check == null)
     {
@@ -902,6 +905,118 @@ public function delete_users_quanlisinhvien(Request $request){
     Session::put('message','Xóa user thành công.');
     return Redirect::to('quanlisinhvien');
 }
+
+//--Chi tiết sinh viên
+public function chitiet_sinh_vien_quanlisinhvien($id){
+    if($id===null) return Redirect::to('quanlisinhvien');
+    $sinh_vien = DB::table('users')
+    ->join('user_role','users.id','=','user_role.sv_id')
+    ->join('roles','user_role.role_id','=','roles.id')
+    ->join('sv_coso','users.id','=','sv_coso.sv_id')
+    ->join('coso','sv_coso.coso_id','=','coso.id')
+    ->join('khoa','coso.khoa_id','=','khoa.id')
+    ->join('doituong','coso.doituong_id','=','doituong.id')
+    ->where('users.id',$id)
+    ->select('users.name as hoten', 'email', 
+                'coso.name as lop', 'khoa.name as khoa', 
+                'roles.name as chucvu','doituong.name as khoa_k')
+    ->get();
+
+    $lop = DB::table('coso')->get();
+    $chuc_vu = DB::table('roles')->where('id','<',3)->get();
+    $hoc_ky = DB::table('users')
+    ->join('sv_coso','users.id','=','sv_coso.sv_id')
+    ->join('coso','sv_coso.coso_id','=','coso.id')
+    ->join('doituong','coso.doituong_id','=','doituong.id')
+    ->join('bangdiem_doituong','doituong.id','=','bangdiem_doituong.doituong_id')
+    ->join('bangdiem','bangdiem_doituong.bangdiem_id','=','bangdiem.id')
+    ->where('users.id',$id)
+    ->select('bangdiem.id as id', 'bangdiem.name as name')
+    ->get();
+    return view('ctsv.chitietsinhvien',[
+        'sinh_vien'=>$sinh_vien,
+        'lop'=>$lop,
+        'chuc_vu'=>$chuc_vu,
+        'hoc_ky'=>$hoc_ky,
+        'ma_tai_khoan'=>$id
+        ]);
+}
+
+public function update_sinh_vien_quanlisinhvien(request $request){
+    if(empty($request->input_hoten)){
+        Session::put('message','Nhập tên sinh viên');
+        return back();
+    }
+    if(empty($request->input_mssv)){
+        Session::put('message','Nhập mã số sinh viên');
+        return back();
+    }
+    if(empty($request->input_lop)){
+        Session::put('message','Chọn lớp chuyển đến');
+        return back();
+    }
+    if(empty($request->input_chuc_vu)){
+        Session::put('message','Chọn chức vụ');
+        return back();
+    }
+    if(empty($request->id)){
+        Session::put('message','Chọn sinh viên');
+        return back();
+    }
+    if(empty($request->input_hocky)){
+        Session::put('message','Chọn học kỳ áp dụng');
+        return back();
+    }
+    
+    //update sinh viên
+    DB::table('users')
+    ->where('users.id',$request->id)
+    ->update(
+        ['name'=>$request->input_hoten],
+        ['email'=>$request->input_mssv.'@gm.uit.edu.vn']
+    );
+
+    //update chức vụ
+    DB::table('user_role')
+    ->where('user_role.sv_id',$request->id)
+    ->update(
+        ['user_role.role_id'=>$request->input_chuc_vu]
+    );
+
+    $lop_hien_tai=DB::table('users')
+    ->join('sv_coso','users.id','=','sv_coso.sv_id')
+    ->where('users.id',$request->id)
+    ->select('sv_coso.coso_id as id')->get()->first();
+
+    if(intval($lop_hien_tai->id)!==intval($request->input_lop)){
+        //chuyển lớp
+        $bangdiem_sinhvien_old=DB::table('users')
+        ->join('sv_coso','users.id','=','sv_coso.sv_id')
+        ->join('coso','sv_coso.coso_id','=','coso.id')
+        ->join('doituong','coso.doituong_id','=','doituong.id')
+        ->join('bangdiem_doituong','doituong.id','=','bangdiem_doituong.doituong_id')
+        ->where('users.id',$request->id)
+        ->select('bangdiem_doituong.bangdiem_id as bangdiem_id','coso.id as coso_id')->get();
+        
+        foreach($bangdiem_sinhvien_old as $key => $value){
+            if(intval($value->bangdiem_id)<intval($request->input_hocky)){
+                DB::table('sinhvien_bangdiem_coso')->updateOrInsert(
+                    ['sv_id'=>$request->id,
+                    'bangdiem_id'=>$value->bangdiem_id],
+                    ['coso_id'=>$value->coso_id]
+                );
+            }
+        }
+        DB::table('sv_coso')->where('sv_id',$request->id)->update(['coso_id'=>$request->input_lop]);
+    }
+    
+
+
+
+    Session::put('message','Cập nhật thành công');
+    return back();
+}
+
 //--quản lí xếp loại
   //--Xóa xếp loại
   public function delete_xep_loai_quanlixeploai($id){

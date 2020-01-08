@@ -91,11 +91,17 @@ Route::post('/them-co-so-quanlicoso','ctsvController@insert_co_so_quanlicoso');
 //-- -- --Xóa cơ sở
 Route::get('/delete-co-so-quanlicoso/{id}','ctsvController@delete_co_so_quanlicoso' );
 //-- --Quản lý sinh viên
-//-- -- --Thêm tiêu chí
+//-- -- --Thêm sinh viên
 Route::post('/them-users-quanlisinhvien','ctsvController@insert_users_quanlisinhvien');
 
 //-- -- --Xóa sinh viên
 Route::post('/xoa-user-quanlisinhvien','ctsvController@delete_users_quanlisinhvien');
+
+//-- -- -- Chi tiết sinh viên
+Route::get('/quanlisinhvien/{id}','ctsvController@chitiet_sinh_vien_quanlisinhvien' );
+
+//-- -- -- Chỉnh sửa chi tiết sinh viên
+Route::get('/update-sinh-vien-quanlisinhvien','ctsvController@update_sinh_vien_quanlisinhvien' );
 
 //-- --FEEDBACK
 //-- -- --Thêm feedback
@@ -132,6 +138,7 @@ Route::get('get-user', 'TestController@GetUser');
 //-- --Get tiêu chí 
 Route::post('get-tieu-chi-dashboard', 'APIController@GetTieuChi_dashboard');
 Route::post('get-sum-bang-diem-dashboard', 'APIController@GetSumBangDiem_dashboard');
+Route::post('get-co-so-dashboard', 'APIController@GetCoSo_dashboard');
 Route::get('dashboard/chitiettieuchi/{id}', 'sinhvienController@chitietTieuchi');
 
 
@@ -235,7 +242,8 @@ Route::get('thongkectsv',['as'=>'thongkectsv','uses'=>'ctsvController@thongke_ct
 // -- export
 Route::post('/thongkectsv/export_diem','ExportExcel@export_diem_ctsv' );
 Route::post('/thongkectsv/export_diem_khoa','ExportExcel@export_diem_khoa_ctsv' );
-Route::post('/thongkectsv/export_diem_truong','ExportExcel@export_diem_truong_ctsv' );
+Route::post('/thongkectsv/export_diem_truong','ExportExcel@export_diem_truong_ctsv');
+Route::get('/thongkectsv/export_sinh_vien/{id}','ExportExcel@export_diem_sinh_vien');
 Route::post('/quanliphongtrao/export_temp','ExportExcel@export_temp' );
 Route::post('/quanlisinhvien/export_diem','ExportExcel@export_diem_ctsv' );
 Route::post('/quanlihoatdong/export_temp','ExportExcel@export_temp' );

@@ -190,9 +190,6 @@
     </div>
 </div>
 <script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
-
-
-
 <script>
     $(document).ready(function () {
         $.ajaxSetup({
@@ -274,6 +271,7 @@
                             }
 
                         });
+            
                     });
 
     $('#drop-down-term').change(function (e) {
