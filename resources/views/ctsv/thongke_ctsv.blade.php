@@ -145,7 +145,9 @@
                         </form>
                     </div>
                 </div>
-                <table class="border table table-striped">
+                <div>Tìm kiếm theo mã sinh viên</div>
+                <input type="text" class="form-control col-6 mb-4" id="myInput" onkeyup="myFunction()">
+                <table class="border table table-striped" id="myTable">
                     <thead>
                         <tr>
                             <th scope="col">Mã sinh viên</th>
@@ -252,5 +254,29 @@
             }
         });
     });
+</script>
+
+
+{{-- add datatable --}}
+<script src="{{asset('public/admin/vendor/datatables/jquery.dataTables.js')}}"></script>
+<script>
+    function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
 </script>
 @endsection
