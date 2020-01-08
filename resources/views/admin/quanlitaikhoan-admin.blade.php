@@ -106,7 +106,7 @@
                                                     <div>Mã tài khoản</div>
                                                 </td>
                                                 <td>
-                                                    <div>Email khoản</div>
+                                                    <div>MSSV</div>
                                                 </td>
                                                 <td>
                                                     <div>Chọn đối tượng</div>
