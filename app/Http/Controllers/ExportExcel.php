@@ -268,7 +268,7 @@ class ExportExcel extends Controller
         ->join('khoa','coso.khoa_id','=','khoa.id')
         ->where([
             ['khoa.id','=',$khoa_id],
-            ['sinhvien_bangdiem_coso.bang_diem_id',$term_id]
+            ['sinhvien_bangdiem_coso.bangdiem_id',$term_id]
         ])->select('users.id','users.name','users.email');
         $sinhvien = DB::table('users')
         ->join('sv_coso','users.id','=','sv_coso.sv_id')
