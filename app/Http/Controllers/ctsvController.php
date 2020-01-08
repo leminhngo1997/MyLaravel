@@ -752,7 +752,7 @@ class ctsvController extends Controller
         //insert table coso
 
         if(empty($request->input_name_coso)){
-            Session::put('message','Nhập tên cơ sở');
+            Session::put('message','Nhập tên lớp');
             return Redirect::to('quanlicoso');
         }
         if(empty($request->input_doituong_id)){
@@ -774,13 +774,13 @@ class ctsvController extends Controller
         $data['siso'] = $request->input_siso_coso;
         $data['khoa_id'] = $request->input_khoa_id;
         DB::table('coso')->insert($data);
-        Session::put('message','Thêm cơ sở thành công.');
+        Session::put('message','Thêm lớp thành công.');
         return Redirect::to('quanlicoso');
     }
 //--Xóa cơ sở
     public function delete_co_so_quanlicoso($id){
         DB::table('coso')->where('id',$id)->delete();
-        Session::put('message','Xóa cơ sở thành công.');
+        Session::put('message','Xóa lớp thành công.');
         return Redirect::to('quanlicoso');
     }
     //--users
@@ -799,7 +799,7 @@ class ctsvController extends Controller
             return back();
         }
         if(empty($request->input_name_co_so)){
-            Session::put('message','Chọn cơ sở');
+            Session::put('message','Chọn lớp');
             return back();
         }
 
