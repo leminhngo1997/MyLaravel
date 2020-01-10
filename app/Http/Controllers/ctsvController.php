@@ -932,6 +932,7 @@ public function chitiet_sinh_vien_quanlisinhvien($id){
     ->join('bangdiem_doituong','doituong.id','=','bangdiem_doituong.doituong_id')
     ->join('bangdiem','bangdiem_doituong.bangdiem_id','=','bangdiem.id')
     ->where('users.id',$id)
+    ->orderby('bangdiem.id','DESC')
     ->select('bangdiem.id as id', 'bangdiem.name as name')
     ->get();
     return view('ctsv.chitietsinhvien',[
@@ -989,8 +990,19 @@ public function update_sinh_vien_quanlisinhvien(request $request){
     ->where('users.id',$request->id)
     ->select('sv_coso.coso_id as id')->get()->first();
 
-    if(intval($lop_hien_tai->id)!==intval($request->input_lop)){
+     if(intval($lop_hien_tai->id)!==intval($request->input_lop)){
         //chuyển lớp
+        // check hop le
+        $old_class = DB::table('sinhvien_bangdiem_coso')
+        ->where([['sinhvien_bangdiem_coso.sv_id',$request->id],
+                    ['sinhvien_bangdiem_coso.bangdiem_id',$request->input_hocky]])
+        ->get();
+
+        if(count($old_class)>0){
+            Session::put('message','Học kỳ chuyển không hợp lệ.');
+            return back();
+        }
+        //
         $bangdiem_sinhvien_old=DB::table('users')
         ->join('sv_coso','users.id','=','sv_coso.sv_id')
         ->join('coso','sv_coso.coso_id','=','coso.id')
@@ -999,16 +1011,37 @@ public function update_sinh_vien_quanlisinhvien(request $request){
         ->where('users.id',$request->id)
         ->select('bangdiem_doituong.bangdiem_id as bangdiem_id','coso.id as coso_id')->get();
         
-        foreach($bangdiem_sinhvien_old as $key => $value){
-            if(intval($value->bangdiem_id)<intval($request->input_hocky)){
-                DB::table('sinhvien_bangdiem_coso')->updateOrInsert(
-                    ['sv_id'=>$request->id,
-                    'bangdiem_id'=>$value->bangdiem_id],
-                    ['coso_id'=>$value->coso_id]
-                );
-            }
+        $lastest_hocky_chuyen = DB::table('sinhvien_bangdiem_coso')
+        ->where('sinhvien_bangdiem_coso.sv_id',$request->id)
+        ->orderby('sinhvien_bangdiem_coso.bangdiem_id','DESC')
+        ->first('bangdiem_id');
+        if(count($lastest_hocky_chuyen)>0){
+            $lastest_hocky_chuyen=end($lastest_hocky_chuyen);
+        
+            foreach($bangdiem_sinhvien_old as $key => $value){
+                if(intval($value->bangdiem_id)<intval($request->input_hocky)){
+                    if($value->bangdiem_id>$lastest_hocky_chuyen)
+                    DB::table('sinhvien_bangdiem_coso')->insert(
+                        ['sv_id'=>$request->id,
+                        'bangdiem_id'=>$value->bangdiem_id,
+                        'coso_id'=>$value->coso_id]
+                    );
+                }
+             }
+             DB::table('sv_coso')->where('sv_id',$request->id)->update(['coso_id'=>$request->input_lop]);
         }
-        DB::table('sv_coso')->where('sv_id',$request->id)->update(['coso_id'=>$request->input_lop]);
+        else{
+            foreach($bangdiem_sinhvien_old as $key => $value){
+                if(intval($value->bangdiem_id)<intval($request->input_hocky)){
+                    DB::table('sinhvien_bangdiem_coso')->insert(
+                        ['sv_id'=>$request->id,
+                        'bangdiem_id'=>$value->bangdiem_id,
+                        'coso_id'=>$value->coso_id]
+                    );
+                }
+             }
+             DB::table('sv_coso')->where('sv_id',$request->id)->update(['coso_id'=>$request->input_lop]);
+        }
     }
     
 
