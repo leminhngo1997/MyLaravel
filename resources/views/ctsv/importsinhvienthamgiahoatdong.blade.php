@@ -134,7 +134,6 @@
 <script src="{{asset('public/admin/vendor/jquery/jquery.min.js')}}"></script>
 <script>
     //Get API hoạt động - Import danh sách sinh viên tham gia hoạt động
-    $(document).ready(function () {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -165,7 +164,8 @@
 
     });
 
-    $('#dropdown-bang-diem-importsinhvienthamgiahoatdong').change(function (e) {
+
+$('#dropdown-bang-diem-importsinhvienthamgiahoatdong').change(function (e) {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -198,7 +198,6 @@
         
     });
     });
-});
 </script>
 {{-- add datatable --}}
 <script src="{{asset('public/admin/vendor/datatables/jquery.dataTables.js')}}"></script>

@@ -1109,8 +1109,8 @@ public function chinhsuaheso(request $request){
     {
         return view('Auth.login');
     }
-
-    if(empty($request->input_user_mssv)||empty($request->input_he_so)){
+    
+    if(empty($request->input_user_mssv)){
         Session::put('message','Chọn sinh viên');
         return back();
     }
