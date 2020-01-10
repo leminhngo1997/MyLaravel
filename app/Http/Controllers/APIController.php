@@ -149,6 +149,10 @@ class APIController extends Controller
                 ->sum('hoatdong.diem');
                 $sum_hoatdong = 0;
                 $sum_hoatdong = intval($diemcong)-intval($diemtru);
+                if($sum_hoatdong<0) 
+                {
+                    $sum_hoatdong=0;
+                }
                 if($sum_hoatdong>$row->maxphongtrao)
                 {
                     $sum_hoatdong = $row->maxphongtrao;
@@ -241,6 +245,7 @@ class APIController extends Controller
                                     ['user_hoatdong.heso', '=', -1],
                                 ])->sum('hoatdong.diem');
                         $sum += intval($diemcong)-intval($diemtru);
+                        if($sum<0){$sum=0;}
                 }
                 $avr = $sum / count($bangdiem_id);
                 $avr = round($avr,2);
@@ -472,7 +477,7 @@ class APIController extends Controller
                         ->sum('hoatdong.diem');
                         $sum_hoatdong = 0;
                         $sum_hoatdong = intval($diemcong)-intval($diemtru);
-                        
+                        if($sum_hoatdong<0){$sum_hoatdong=0;}
                         if($sum_hoatdong>$row->maxphongtrao)
                         {
                             $sum_hoatdong = $row->maxphongtrao;
@@ -751,6 +756,7 @@ class APIController extends Controller
                             ['user_hoatdong.heso', '=', -1],
                         ])->sum('hoatdong.diem');
                 $sum = intval($diemcong)-intval($diemtru);
+                if($sum<0){$sum=0;}
                 $diem[] = $sum;
             }
         
