@@ -494,7 +494,7 @@ class ExportExcel extends Controller
             case "phong_trao":
                 // tập mẫu phong trào
                 $file_temp = array();
-                $file_temp[] = collect(['TENPHONGTRAO' => 'TENPHONGTRAO','DIEMTOIDA' => 'DIEMTOIDA','MATIEUCHI'=>'MATIEUCHI'])->toArray();
+                $file_temp[] = collect(['PHONGTRAO' => 'PHONGTRAO','DIEMTOIDA' => 'DIEMTOIDA','MATIEUCHI'=>'MATIEUCHI'])->toArray();
         
                 Excel::create('mau_import_phong_trao', function($excel) use ($file_temp)
                 {
@@ -506,7 +506,7 @@ class ExportExcel extends Controller
             case "hoat_dong":
                 // tập mẫu phong trào
                 $file_temp = array();
-                $file_temp[] = collect(['hoatdong' => 'hoatdong','diem' => 'diem','doituong'=>'doituong','ngaybatdau'=>'ngaybatdau','ngayketthuc'=>'ngayketthuc','nguoitao'=>'nguoitao','nguoiduyet'=>'nguoiduyet','maphongtrao'=>'maphongtrao'])->toArray();
+                $file_temp[] = collect(['HOATDONG' => 'HOATDONG','DIEMTOIDA' => 'DIEMTOIDA','DOITUONG'=>'DOITUONG','NGAYBATDAU'=>'NGAYBATDAU','NGAYKETTHUC'=>'NGAYKETTHUC','NGUOITAO'=>'NGUOITAO','NGUOIDUYET'=>'NGUOIDUYET','MAPHONGTRAO'=>'MAPHONGTRAO'])->toArray();
 
                 Excel::create('mau_import_hoat_dong', function($excel) use ($file_temp)
                 {
@@ -518,7 +518,7 @@ class ExportExcel extends Controller
             case "sinh_vien":
                 // tập mẫu phong trào
                 $file_temp = array();
-                $file_temp[] = collect(['name' => 'name','mssv' => 'mssv','password'=>'password','coso'=>'coso'])->toArray();
+                $file_temp[] = collect(['HOTEN' => 'HOTEN','MSSV' => 'MSSV','PASSWORD'=>'PASSWORD','COSO'=>'COSO'])->toArray();
 
                 Excel::create('mau_import_sinh_vien', function($excel) use ($file_temp)
                 {
@@ -530,7 +530,7 @@ class ExportExcel extends Controller
             case "tham_gia":
                 // tập mẫu phong trào
                 $file_temp = array();
-                $file_temp[] = collect(['masosinhvien' => 'masosinhvien','tensinhvien' => 'tensinhvien','hesothamgia'=>'hesothamgia','chuthich'=>'chuthich'])->toArray();
+                $file_temp[] = collect(['STT' => 'STT', 'MSSV' => 'MSSV', 'HOTEN' => 'HOTEN','HESOTHAMGIA'=>'HESOTHAMGIA','CHUTHICH'=>'CHUTHICH'])->toArray();
 
                 Excel::create('mau_import_tham_gia', function($excel) use ($file_temp)
                 {

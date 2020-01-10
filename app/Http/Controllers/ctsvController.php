@@ -184,6 +184,7 @@ class ctsvController extends Controller
         $user_role = DB::table('users')
             ->leftJoin('user_role','users.id','=','user_role.sv_id')
             ->leftJoin('roles','user_role.role_id','=','roles.id')
+            ->where('user_role.role_id','<',4)
             ->select('users.id','users.name','users.email','user_role.role_id','roles.name as role')
             ->orderBy('users.id','DESC')
             ->get();

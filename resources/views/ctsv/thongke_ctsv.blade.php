@@ -33,7 +33,7 @@
         </div>
     </li>
     <!-- Nav Item - Bảng điểm -->
-    <li class="nav-item active dropdown">
+    <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="{{route('quanlibangdiem')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Quản lý bảng điểm</span>
@@ -56,7 +56,7 @@
         </div>
     </li>
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
+    <li class="nav-item active">
         <a class="nav-link" href="{{route('thongkectsv')}}">
             <i class="fas fa-fw fa-vote-yea"></i>
             <span>Thống kê - báo cáo</span></a>
