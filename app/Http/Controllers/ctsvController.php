@@ -999,7 +999,17 @@ public function update_sinh_vien_quanlisinhvien(request $request){
         ->get();
 
         if(count($old_class)>0){
-            Session::put('message','Học kỳ chuyển không hợp lệ.');
+            $lastest_hocky_chuyen = DB::table('sinhvien_bangdiem_coso')
+            ->join('bangdiem','sinhvien_bangdiem_coso.bangdiem_id','=','bangdiem.id')
+            ->join('coso','sinhvien_bangdiem_coso.coso_id','=','coso.id')
+            ->where('sinhvien_bangdiem_coso.sv_id',$request->id)
+            ->orderby('sinhvien_bangdiem_coso.bangdiem_id','DESC')
+            ->limit(1)
+            ->select('bangdiem.name as hocky', 'coso.name as lop')->get()->toArray();
+            if(count($lastest_hocky_chuyen)>0){$lastest_hocky_chuyen = end($lastest_hocky_chuyen);}
+            $lastest_hocky=$lastest_hocky_chuyen->hocky;
+            $lastest_lop=$lastest_hocky_chuyen->lop;
+            Session::put('message','Học kỳ chuyển không hợp lệ. Chi tiết chuyển gần nhất '.$lastest_hocky.' '.$lastest_lop);
             return back();
         }
         //
