@@ -178,10 +178,10 @@
                                                         echo 'Đã tham gia';
                                                     break;
                                                     case '-1':
-                                                        echo 'Không tham gia';
+                                                        echo 'Vi phạm';
                                                     break;
                                                     case '0':
-                                                        echo 'Không đăng ký';
+                                                        echo 'Không tham gia';
                                                     break;
                                                     
                                                 }
