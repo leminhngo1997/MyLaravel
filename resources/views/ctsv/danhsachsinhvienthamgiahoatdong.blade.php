@@ -122,7 +122,7 @@
                                 <div class="mb-4" style="color:brown">Hệ số
                                     1 là đã tham gia</div>
                                 <div class="mb-4" style="color:brown">Hệ số
-                                    -1 là không đăng ký</div>
+                                    -1 là vi phạm</div>
 
                                 <form method="POST" role="form"
                                     action="{{URL::to('/xoa-user-hoatdong-danhsachsinhvienthamgiahoatdong')}}">

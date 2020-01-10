@@ -236,7 +236,7 @@
                 data.forEach(element => {
                 html = `<tr class="delete-row">
                             <td>` + element.id + `</td>
-                            <td class="return-data"><a href="#">` + element.name + `</a></td>
+                            <td class="return-data">` + element.name + `</td>
                             <td class="return-data">` + element.maxtieuchi + `</td>
                             <td>
                                 <a onclick="return confirm('Bạn chắn chắc muốn xóa không ?')"

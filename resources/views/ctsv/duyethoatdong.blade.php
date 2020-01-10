@@ -122,8 +122,6 @@
                                         {{--  --}}
                                     </tbody>
                                 </table>
-                                <div class="mb-4">Lý do hủy hoạt động</div>
-                                <textarea class="col-4 mb-4" rows="3"></textarea><br>
                                 <input type="button" value="Hủy" class="btn btn-outline-secondary btn-delete">
                                 <input type="button" value="Duyệt"
                                     class="btn btn-outline-secondary py-2 shadow btn-update" />
