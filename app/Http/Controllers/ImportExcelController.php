@@ -27,7 +27,7 @@ class ImportExcelController extends Controller
                 
 
                 if(($value['hoatdong']!==null)
-                    &&($value['diem'])!==null
+                    &&($value['diemtoida'])!==null
                     &&($value['doituong'])!==null
                     &&($value['nguoitao'])!==null 
                     &&($value['nguoiduyet'])!==null
@@ -35,7 +35,7 @@ class ImportExcelController extends Controller
                     ){
                     $insert_hoatdong[] = array(
                         'name' => $value['hoatdong'],
-                        'diem' => $value['diem'],
+                        'diem' => $value['diemtoida'],
                         'doituong' => $value['doituong'],
                         'ngaybatdau' => $value['ngaybatdau'],
                         'ngayketthuc' => $value['ngayketthuc'],
@@ -136,7 +136,7 @@ class ImportExcelController extends Controller
                 //dd($value);
                     if($value['mssv']!==null){
                         $insert_sinhvien[] = array(
-                            'name' => $value['name'],
+                            'name' => $value['hoten'],
                             'email' => $value['mssv'].'@gm.uit.edu.vn',
                             'password' => bcrypt($value['password']),
                         );
@@ -226,12 +226,12 @@ class ImportExcelController extends Controller
             foreach($data->toArray() as $key => $value)
             {
                 // dd($value);
-                    if($value['masosinhvien']!==null){
+                    if($value['mssv']!==null){
                         // mã số sinh viên
                         $temp = array();
                         $email_sinhvien = null;
                         $sv_id = null;
-                        $email_sinhvien = $value['masosinhvien'].'@gm.uit.edu.vn';
+                        $email_sinhvien = $value['mssv'].'@gm.uit.edu.vn';
                         $temp = DB::table('users')->where('email',$email_sinhvien)->get('id');
                         foreach($temp as $item){
                             $sv_id = $item->id;
@@ -283,12 +283,12 @@ class ImportExcelController extends Controller
             foreach($data->toArray() as $key => $value)
             {
                 //dd($value);
-                    if($value['tenphongtrao']!==null
+                    if($value['phongtrao']!==null
                     &&$value['matieuchi']!==null
                     &&$value['diemtoida']!==null){
                    
                         $insert_phongtrao[] = array(
-                            'name' => $value['tenphongtrao'],
+                            'name' => $value['phongtrao'],
                             'maxphongtrao' => $value['diemtoida'],
                         );
 

@@ -34,7 +34,7 @@
         </div>
     </li>
     <!-- Nav Item - Bảng điểm -->
-    <li class="nav-item active dropdown">
+    <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="{{route('quanlibangdiem')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Quản lý bảng điểm</span>
@@ -45,7 +45,7 @@
         </div>
     </li>
     <!-- Nav Item - Cơ sở-Sinh viên -->
-    <li class="nav-item dropdown">
+    <li class="nav-item active dropdown">
         <a class="nav-link dropdown-toggle" href="{{route('quanlicoso')}}" id="navbardrop" data-toggle="dropdown">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Quản lý Lớp-Sinh viên</span>
