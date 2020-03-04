@@ -632,13 +632,17 @@ class APIController extends Controller
         }
         foreach(explode(',', $hoat_dong_id) as $item)
         {
-            $temp[] = DB::table('hoatdong')->where('id',$item)->where('status_clone',0)->get();
-           
+            $temp[] = DB::table('hoatdong')
+            ->join('users','hoatdong.nguoitao','=','users.id')
+            ->where('hoatdong.id',$item)->where('status_clone',0)
+            ->select('hoatdong.*','users.email')
+            ->get();
         }
         $current_hoatdong = array();
         
         foreach($temp as $key=>$value)
         {
+            
             foreach($value as $row=>$i)
             {
                 $current_hoatdong[] = $i;
