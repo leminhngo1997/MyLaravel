@@ -93,7 +93,7 @@
             if($value->suluachon_id ==1)
                 echo "Bạn chỉ có 1 sự lựa chọn!";
             else {
-                echo "Bạn có nhiều sự lựa chọn! Bạn chỉ có tối đa $value->gioihantoida sự lựa chọn";
+                echo "Bạn có nhiều sự lựa chọn nhưng bạn chỉ có tối đa $value->gioihantoida sự lựa chọn";
             }
             ?></div>
         <br />

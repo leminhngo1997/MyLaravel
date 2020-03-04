@@ -49,7 +49,9 @@ class cvhtController extends Controller
             
             foreach($sv_coso as $key=>$value)
             {
-                $posts[] = DB::table('posts')->where('sv_id',$value->sv_id)->get();
+                $posts[] = DB::table('posts')
+                ->join('users','posts.sv_id','=','users.id')->where('posts.sv_id',$value->sv_id)
+                ->select('posts.*','users.email')->get();
             }
             foreach($posts as $item){
                 foreach($item as $key=>$value)
@@ -182,7 +184,7 @@ class cvhtController extends Controller
         $data_cauhoi['ngayketthuc'] = $request->input_ngayketthuc_vote;
         $data_cauhoi['ungcuvien'] = implode(',', $check);
         DB::table('cauhoi')->insert($data_cauhoi);
-        Session::put('message','Thêm bầu chọn điểm thành công.');
+        Session::put('message','Thêm bầu chọn thành công.');
         return back();
     }
 

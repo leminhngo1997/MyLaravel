@@ -55,6 +55,8 @@
             <div class="card-body">
                 @foreach ($posts as $key=>$value)
                     <div class="mb-4">
+                        <h2>{{$value->name}}</h2>
+                        <h4>{{$value->email}}</h4>
                         <!-- thông tin người viết -->
                         <strong style="color: coral">*{{$value->name_hoatdong}}</strong>
                         <div>

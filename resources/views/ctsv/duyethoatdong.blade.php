@@ -113,7 +113,7 @@
                                             <th scope="col" style="width: 20%">Tên hoạt động</th>
                                             <th scope="col" style="width: 15%">Điểm cộng</th>
                                             <th scope="col">Đối tượng</th>
-                                            <th scope="col">Số lượng tham gia</th>
+                                            {{-- <th scope="col">Số lượng tham gia</th> --}}
                                             <th scope="col">Người tạo (mã tài khoản)</th>
                                             <th scope="col" style="width: 20%">Mô tả</th>
                                         </tr>
@@ -172,7 +172,7 @@
                                 <td class="return-data"><a href="#">` + element.name + `</a></td>
                                 <td class="return-data" align="center"><a href="#">` + element.diem + `</a></td>
                                 <td class="return-data">` + element.doituong + `</td>
-                                <td class="return-data" align="center">` + 36 + `</td>
+                               
                                 <td class="return-data" align="center">` + element.nguoitao + `</td>
                                 <td class="return-data">` + element.mota + `</td>
                             </tr>`;
@@ -202,6 +202,7 @@
             },
 
             success: function (data) {
+            
                 $('.delete-all-hoat-dong').remove();
                 data.forEach(element => {
                     get_all_id.push(element.id);
@@ -216,7 +217,7 @@
                                 <td class="return-data"><a href="#">` + element.name + `</a></td>
                                 <td class="return-data" align="center"><a href="#">` + element.diem + `</a></td>
                                 <td class="return-data">` + element.doituong + `</td>
-                                <td class="return-data" align="center">` + 36 + `</td>
+                             
                                 <td class="return-data" align="center">` + element.nguoitao + `</td>
                                 <td class="return-data">` + element.mota + `</td>
                             </tr>`;

@@ -187,11 +187,14 @@
             },
             success: function (data) {
                 $('.delete-row-feedbackctsv').remove();
+                console.log(data);
                 data.forEach(element => {
+
                     html = `<li class="active grey lighten-3 p-2 delete-row-feedbackctsv">
                             <div class="text-small">
                             <a href="{{URL::to('/feedbackctsv/chitiet')}}/`+element.id+`" class="d-flex justify-content-between">
                                     <strong>`+element.name_hoatdong+`</strong>
+                                    <strong>`+element.email+`</strong>
                                 </a>
                                 <p>`+element.mota+`</p>
                             </div>

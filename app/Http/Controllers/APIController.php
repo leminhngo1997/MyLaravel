@@ -349,14 +349,18 @@ class APIController extends Controller
         $sv_coso = DB::table('sv_coso')->where('coso_id',$coso_id)->get();
         foreach($sv_coso as $key=>$value)
         {
-            $posts[] = DB::table('posts')->where('sv_id',$value->sv_id)->get();
+            $posts[] = DB::table('posts')
+            ->join('users','posts.sv_id','=','users.id')->where('posts.sv_id',$value->sv_id)
+            ->select('posts.*','users.email')->get();
         }
         foreach($posts as $item){
             foreach($item as $key=>$value)
             {
+
                 array_push($x,$value);
             }
         }
+        
         return $x;
     }
 

@@ -130,6 +130,7 @@ Route::get('thongke-cvht',['as'=>'thongke-cvht','uses'=>'cvhtController@get_valu
 //TEST Route
 // Route::get('test', 'TestController@index');
 Route::get('get-user', 'TestController@GetUser');
+Route::post('get-user-test','TestController@Test');
 
 //API Controller
 

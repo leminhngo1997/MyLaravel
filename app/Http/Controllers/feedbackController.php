@@ -115,7 +115,9 @@ class feedbackController extends Controller
         }
         public function get_value_feedbackdetailctsv($id){
             
-            $posts = DB::table('posts')->where('id',$id)->get();
+            $posts = DB::table('posts')
+            ->join('users','posts.sv_id','=','users.id')->where('posts.id',$id)
+            ->select('posts.*','users.email','users.name')->get();
             $comments = DB::table('comments')->where('post_id',$id)->get();
             $user_name_comment = DB::table('users')->join('comments','users.id','=','comments.sv_id')->where('comments.post_id',$id)->get();
             $comment_id = array();
@@ -175,7 +177,9 @@ class feedbackController extends Controller
         }
         public function get_value_feedbackdetailcvht($id){
             
-            $posts = DB::table('posts')->where('id',$id)->get();
+            $posts = DB::table('posts')
+            ->join('users','posts.sv_id','=','users.id')->where('posts.id',$id)
+            ->select('posts.*','users.email','users.name')->get();
             $comments = DB::table('comments')->where('post_id',$id)->get();
             $user_name_comment = DB::table('users')->join('comments','users.id','=','comments.sv_id')->where('comments.post_id',$id)->get();
             $comment_id = array();

@@ -74,6 +74,8 @@
             <h1 class="h4 m-2 text-gray-800">Chi tiết phản hồi</h1>
             <div class="card-body">
                 @foreach ($posts as $key=>$value)
+                <h2>{{$value->name}}</h2>
+                <h4>{{$value->email}}</h4>
                 <div class="mb-4">
                     <!-- thông tin người viết -->
                     <strong style="color: coral">*{{$value->name_hoatdong}}</strong>

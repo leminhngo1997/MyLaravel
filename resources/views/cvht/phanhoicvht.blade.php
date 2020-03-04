@@ -73,6 +73,7 @@
                             <div class="text-small">
                             <a href="{{URL::to('/feedbackcvht/chitiet')}}/{{$value->id}}" class="d-flex justify-content-between">
                             <strong>{{$value->name_hoatdong}}</strong>
+                            <strong>{{$value->email}}</strong>
                                 </a>
                                 <p>{{$value->mota}}</p>
                             </div>
